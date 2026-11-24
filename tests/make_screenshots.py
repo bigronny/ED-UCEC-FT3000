@@ -255,6 +255,17 @@ def main():
             save(page, "settings")
             page.close()
 
+        # the UFC diagram (docs/ufc-controls.html), in the terminal's typeface
+        import base64
+        html = (OUT / "ufc-controls.html").read_text(encoding="utf-8")
+        font = base64.b64encode((HERE.parent / "web" / "vga.woff").read_bytes()).decode("ascii")
+        page = browser.new_page(viewport={"width": 1600, "height": 900})
+        page.set_content(html.replace('url("../web/vga.woff")', f'url("data:font/woff;base64,{font}")'))
+        page.evaluate("() => document.fonts.ready")
+        settle(page, 0.5)
+        save(page, "ufc-controls")
+        page.close()
+
         # the terminal starting up (its BIOS screen)
         with ShotBoard("shot_boot", **journals.syst()) as b:
             page = open_page(b, intro=True)

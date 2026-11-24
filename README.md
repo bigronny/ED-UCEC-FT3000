@@ -190,6 +190,12 @@ Keys are looked up in your Elite bindings by action, so the UFC follows if you r
 only sent while Elite is the active window. Each button presses a **keyboard** key: an action you've only bound to a
 joystick can't be pressed from the UFC.
 
+The basics - getting round the page's tabs and lists - are on the ILS menu:
+
+![The UFC's default controls for getting around: the menu buttons, the option buttons, the keypad, the COMM1 and COMM2 knobs and the three dials](docs/ufc-controls.png)
+
+Every menu, in full:
+
 | UFC | What it does |
 |---|---|
 | **ILS** | The page menu. Option buttons 1-3 pick the tabs (HOME, NAV, CTRS) - pressed again, the next sub-tab. **4 DSG** designates what's highlighted; **5 MK** marks where you are. The keypad picks a sub-tab (Nav: 1 Syst, 2 Traj, 3 Wpt, 4 HSI, 5 Atk, 6 Hist). |
