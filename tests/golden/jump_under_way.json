@@ -1,0 +1,48 @@
+{
+ "arrived": null,
+ "dep_star": {
+  "cls": "K2",
+  "lum": "V",
+  "mass": 0.7773,
+  "rot": 3.6305,
+  "rsol": 0.8767,
+  "source": "journal",
+  "sub": "K (Yellow-Orange) Star",
+  "temp": 4864.0,
+  "tilt": 0.16
+ },
+ "from": "HIP 20277",
+ "fuel_before": 31.1653,
+ "fuel_cap": 32.0,
+ "fuel_est": 0.67,
+ "fuel_how": "measured",
+ "fuel_level": null,
+ "fuel_now": 31.1653,
+ "fuel_used": null,
+ "id": "<time>|Carthage",
+ "ly": 11.63,
+ "now": "<varies>",
+ "route_left": 0,
+ "started": "<time>",
+ "survey": {
+  "bodies": 5,
+  "carriers": 11,
+  "src": "Spansh",
+  "stations": 15,
+  "status": "ok"
+ },
+ "taxi": false,
+ "to": "Carthage",
+ "to_class": "B",
+ "to_star": {
+  "cls": "B8",
+  "lum": "V",
+  "mass": 4.2539,
+  "rot": 1.0297,
+  "rsol": 2.5159,
+  "source": "spansh",
+  "sub": "B (Blue-White) Star",
+  "temp": 14455,
+  "tilt": 7.94
+ }
+}

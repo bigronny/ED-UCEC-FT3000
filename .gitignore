@@ -1,0 +1,26 @@
+# Python's own leftovers
+__pycache__/
+*.pyc
+
+# release.py's build, downloads and output
+/build/
+/dist/
+/.release-cache/
+/.release-private
+
+# old copies kept by hand
+/__backup/
+
+# your data, if FT3000_DATA (or a version before 3.01.42) put it beside the program
+/ft3000.pid
+/*.sqlite
+/edsm_cache.json
+/target_backstories.json
+/ocor_briefing.json
+/uplink_settings.json
+/remote_system.json
+/controls.json
+/settings.json
+/ufc_axes.json
+/timing_log.jsonl
+/codex_last_message.txt

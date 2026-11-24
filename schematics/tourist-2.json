@@ -1,0 +1,5977 @@
+{
+ "schema": "ucec-settlement/1",
+ "id": "tourist-2",
+ "category": "tourist",
+ "layout": 2,
+ "name": "Aergia",
+ "source": {
+  "image": "Tourism 2.png",
+  "width": 1644,
+  "height": 925,
+  "map_area": [
+   0,
+   40,
+   1644,
+   875
+  ],
+  "angled_image": "Tourism 2 - Verticality.png",
+  "map_area_convention": "[left, top, right, bottom]; right and bottom exclusive; pixels of original image; x right, y down",
+  "angled_width": 1920,
+  "angled_height": 1080,
+  "geometry_convention": "Clockwise outlines in y-down image coordinates, not repeated closed vertex. Roof/main structure envelopes are simplified; obscured ground footprints are approximate. height_m is roof height above local ground/platform, not absolute terrain altitude.",
+  "rotation_convention": "rotation_deg is clockwise from image +x to the first polygon edge, modulo 180; positive y points down. It is a drafting reference edge, not necessarily the pad long axis or in-game heading.",
+  "image_sha256": "a1ec8c134aa2b4f1bdcf5d79481372878ffbfb2adcd13c6a8795de23470666ce",
+  "angled_image_sha256": "9249ecb585d0111672ab369fa89ec16bbeb151c5ff2621a1c09234fb0db74e08"
+ },
+ "scale": {
+  "model": "axis_aligned_affine",
+  "m_per_px": 0.2756212489925888,
+  "m_per_px_is_nominal": true,
+  "m_per_px_x": 0.2973568281938326,
+  "m_per_px_y": 0.25547445255474455,
+  "pixel_to_metre_matrix_2x3": [
+   [
+    0.2973568281938326,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.25547445255474455,
+    0.0
+   ]
+  ],
+  "metre_to_pixel_matrix_2x3": [
+   [
+    3.362962962962963,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    3.914285714285714,
+    0.0
+   ]
+  ],
+  "coordinate_transform_required": true,
+  "confidence": "medium",
+  "how": "One shared X/Y scale for the whole source image, fitted by least squares in metres to the listed independent visible pad-side controls; uniform fallback when directional scales are not identifiable or would require excessive stretch.",
+  "basis": "User-confirmed classes, user working dimensions Large170x90m, Medium135x70m, Small70x50m.",
+  "origin_pixel": [
+   0,
+   0
+  ],
+  "origin_metres": [
+   0,
+   0
+  ],
+  "axes": {
+   "x": "right",
+   "y": "down"
+  },
+  "rms_dimension_residual_m": 0.0,
+  "limitations": [
+   "A confirmed class does not identify a precise mechanical deck boundary: traced paint/apron envelopes are approximate.",
+   "One shared transform retains residuals at individual pads. Reference dimensions are not forced independently on each pad.",
+   "Reconstructed hidden edges are inferred, not additional calibration observations. Negative/out-of-image pixels are permitted only for documented reconstructions.",
+   "Camera perspective, roof parallax and terrain can cause local differences; estimates are unsuitable for survey accuracy.",
+   "No statistical confidence interval is claimed. Roof heights and floor estimates are preserved."
+  ],
+  "fallback_reason": null
+ },
+ "fingerprint": {
+  "pads": {
+   "small": 0,
+   "medium": 1,
+   "large": 0
+  },
+  "habs": 6,
+  "description": "One central rectangular landing pad (provisionally medium, low confidence; a large pad has the same aspect ratio). PWR building and two unlabelled utility structures to the north. Six HAB-labelled buildings to the south: central rectangular HAB plus five rounded accommodation pods, joined by an east-west open promenade. Three southern footprints meet the bottom legend and are incomplete.",
+  "confidence": "low",
+  "notes": "Original tracing note; pad-class statements are superseded by the verified size field, while visible-geometry observations remain applicable: HAB count follows visible HAB labels; pad-size counts follow provisional low-confidence visual size classifications.",
+  "pad_count_confidence": "high"
+ },
+ "buildings": [
+  {
+   "id": "power-1",
+   "kind": "power",
+   "label": "PWR",
+   "outline": [
+    [
+     922,
+     40
+    ],
+    [
+     1029,
+     40
+    ],
+    [
+     1029,
+     127
+    ],
+    [
+     962,
+     127
+    ],
+    [
+     962,
+     114
+    ],
+    [
+     922,
+     114
+    ]
+   ],
+   "height_m": 11,
+   "floors": 2,
+   "confidence": "low",
+   "notes": "North footprint clipped by top menu; upper boundary is image evidence limit. Height and two-level massing are approximate from oblique view; floor count uncertain.",
+   "clipped_edges": [
+    {
+     "from": [
+      922,
+      40
+     ],
+     "to": [
+      1029,
+      40
+     ],
+     "reason": "Artificial closure at top menu/map boundary; physical wall extent unseen."
+    }
+   ]
+  },
+  {
+   "id": "utility-west",
+   "kind": "other",
+   "label": null,
+   "outline": [
+    [
+     837,
+     84
+    ],
+    [
+     880,
+     84
+    ],
+    [
+     880,
+     132
+    ],
+    [
+     837,
+     132
+    ]
+   ],
+   "height_m": 4,
+   "floors": 1,
+   "confidence": "low",
+   "notes": "Unlabelled rectangular utility structure west of PWR. Function unknown. The terminal icon overlaps its upper edge. Height/floors approximate."
+  },
+  {
+   "id": "utility-east",
+   "kind": "other",
+   "label": null,
+   "outline": [
+    [
+     1047,
+     105
+    ],
+    [
+     1116,
+     105
+    ],
+    [
+     1116,
+     164
+    ],
+    [
+     1100,
+     164
+    ],
+    [
+     1100,
+     185
+    ],
+    [
+     1063,
+     185
+    ],
+    [
+     1063,
+     164
+    ],
+    [
+     1047,
+     164
+    ]
+   ],
+   "height_m": 5,
+   "floors": 1,
+   "confidence": "low",
+   "notes": "Unlabelled utility structure east of PWR; no command/storage function inferred. Height/floors approximate."
+  },
+  {
+   "id": "hab-west",
+   "kind": "hab",
+   "label": "HAB",
+   "outline": [
+    [
+     621,
+     691
+    ],
+    [
+     644,
+     697
+    ],
+    [
+     666,
+     713
+    ],
+    [
+     680,
+     729
+    ],
+    [
+     691,
+     747
+    ],
+    [
+     690,
+     763
+    ],
+    [
+     677,
+     781
+    ],
+    [
+     653,
+     800
+    ],
+    [
+     630,
+     815
+    ],
+    [
+     608,
+     819
+    ],
+    [
+     586,
+     814
+    ],
+    [
+     567,
+     803
+    ],
+    [
+     555,
+     788
+    ],
+    [
+     553,
+     772
+    ],
+    [
+     562,
+     751
+    ],
+    [
+     590,
+     721
+    ]
+   ],
+   "height_m": 8,
+   "floors": 2,
+   "confidence": "low",
+   "notes": "Western diagonal accommodation pod traced as a 16-point straight-segment approximation of its rounded/capsule footprint. Height 8 m and two floors are LOW estimates from roof/main-wall tiers in the oblique image; interiors and storey count are not confirmed. Terminal access class does not indicate physical floor."
+  },
+  {
+   "id": "hab-southwest",
+   "kind": "hab",
+   "label": "HAB",
+   "outline": [
+    [
+     704,
+     750
+    ],
+    [
+     774,
+     750
+    ],
+    [
+     774,
+     769
+    ],
+    [
+     798,
+     769
+    ],
+    [
+     798,
+     851
+    ],
+    [
+     790,
+     851
+    ],
+    [
+     790,
+     875
+    ],
+    [
+     682,
+     875
+    ],
+    [
+     682,
+     774
+    ],
+    [
+     704,
+     774
+    ]
+   ],
+   "height_m": 8,
+   "floors": 2,
+   "confidence": "low",
+   "notes": "Southwestern accommodation pod; footprint is clipped at y875 by legend. Straight steps approximate rounded ends. Height 8 m and two floors are LOW estimates from roof/main-wall tiers in the oblique view; interiors and storey count unconfirmed. Terminal access class does not indicate physical floor.",
+   "clipped_edges": [
+    {
+     "from": [
+      790,
+      875
+     ],
+     "to": [
+      682,
+      875
+     ],
+     "reason": "Artificial closure at bottom legend; southern extent unseen."
+    }
+   ]
+  },
+  {
+   "id": "hab-centre",
+   "kind": "hab",
+   "label": "HAB",
+   "outline": [
+    [
+     886,
+     731
+    ],
+    [
+     981,
+     731
+    ],
+    [
+     981,
+     751
+    ],
+    [
+     1011,
+     751
+    ],
+    [
+     1011,
+     780
+    ],
+    [
+     1032,
+     780
+    ],
+    [
+     1032,
+     847
+    ],
+    [
+     1015,
+     847
+    ],
+    [
+     1015,
+     875
+    ],
+    [
+     866,
+     875
+    ],
+    [
+     866,
+     785
+    ],
+    [
+     859,
+     785
+    ],
+    [
+     859,
+     760
+    ],
+    [
+     886,
+     760
+    ]
+   ],
+   "height_m": 6,
+   "floors": 1,
+   "confidence": "low",
+   "notes": "Central rectangular HAB/community building. Two separately drawn L0 terminals and two access-0 airlocks. Southern footprint clipped at y875. One floor and height are schematic estimates only.",
+   "clipped_edges": [
+    {
+     "from": [
+      1015,
+      875
+     ],
+     "to": [
+      866,
+      875
+     ],
+     "reason": "Artificial closure at bottom legend; southern extent unseen."
+    }
+   ]
+  },
+  {
+   "id": "hab-mideast",
+   "kind": "hab",
+   "label": "HAB",
+   "outline": [
+    [
+     1080,
+     727
+    ],
+    [
+     1167,
+     727
+    ],
+    [
+     1167,
+     747
+    ],
+    [
+     1185,
+     747
+    ],
+    [
+     1185,
+     847
+    ],
+    [
+     1166,
+     847
+    ],
+    [
+     1166,
+     870
+    ],
+    [
+     1080,
+     870
+    ],
+    [
+     1080,
+     848
+    ],
+    [
+     1060,
+     848
+    ],
+    [
+     1060,
+     749
+    ],
+    [
+     1080,
+     749
+    ]
+   ],
+   "height_m": 8,
+   "floors": 2,
+   "confidence": "low",
+   "notes": "Middle-eastern accommodation pod. Rectilinear simplification of rounded ends. Height 8 m and two floors are LOW estimates from roof/main-wall tiers in the oblique view; interiors and storey count unconfirmed. Terminal access class does not indicate physical floor."
+  },
+  {
+   "id": "hab-southeast",
+   "kind": "hab",
+   "label": "HAB",
+   "outline": [
+    [
+     1254,
+     751
+    ],
+    [
+     1277,
+     753
+    ],
+    [
+     1295,
+     766
+    ],
+    [
+     1322,
+     794
+    ],
+    [
+     1344,
+     820
+    ],
+    [
+     1352,
+     841
+    ],
+    [
+     1354,
+     857
+    ],
+    [
+     1347,
+     875
+    ],
+    [
+     1256,
+     875
+    ],
+    [
+     1233,
+     860
+    ],
+    [
+     1218,
+     842
+    ],
+    [
+     1209,
+     823
+    ],
+    [
+     1208,
+     804
+    ],
+    [
+     1218,
+     784
+    ],
+    [
+     1233,
+     767
+    ],
+    [
+     1243,
+     758
+    ]
+   ],
+   "height_m": 8,
+   "floors": 2,
+   "confidence": "low",
+   "notes": "Southeastern diagonal accommodation pod traced as a 16-point straight-segment approximation of its rounded/capsule footprint. Southern end is clipped by the legend at y875; the horizontal closure is not a physical wall. Height 8 m and two floors are LOW estimates from roof/main-wall tiers in the oblique view; interiors and storeys are unconfirmed. Terminal access class does not indicate floor.",
+   "clipped_edges": [
+    {
+     "from": [
+      1347,
+      875
+     ],
+     "to": [
+      1256,
+      875
+     ],
+     "reason": "Artificial closure at bottom legend; actual southern rounded end unseen."
+    }
+   ]
+  },
+  {
+   "id": "hab-northeast",
+   "kind": "hab",
+   "label": "HAB",
+   "outline": [
+    [
+     1264,
+     609
+    ],
+    [
+     1343,
+     609
+    ],
+    [
+     1343,
+     630
+    ],
+    [
+     1398,
+     630
+    ],
+    [
+     1398,
+     701
+    ],
+    [
+     1342,
+     701
+    ],
+    [
+     1342,
+     731
+    ],
+    [
+     1264,
+     731
+    ],
+    [
+     1264,
+     712
+    ],
+    [
+     1237,
+     712
+    ],
+    [
+     1237,
+     635
+    ],
+    [
+     1264,
+     635
+    ]
+   ],
+   "height_m": 8,
+   "floors": 2,
+   "confidence": "low",
+   "notes": "Northeastern accommodation pod at right end of promenade. Rectilinear simplification of rounded footprint. Height 8 m and two floors are LOW estimates from roof/main-wall tiers in the oblique view; interiors and storey count unconfirmed. Terminal access class does not indicate physical floor."
+  }
+ ],
+ "pads": [
+  {
+   "id": "pad-1",
+   "size": "medium",
+   "centre": [
+    936,
+    429
+   ],
+   "outline": [
+    [
+     709,
+     292
+    ],
+    [
+     1163,
+     292
+    ],
+    [
+     1163,
+     566
+    ],
+    [
+     709,
+     566
+    ]
+   ],
+   "rotation_deg": 0.0,
+   "confidence": "low",
+   "notes": "Original tracing note; pad-class statements are superseded by the verified size field, while visible-geometry observations remain applicable: Size is provisional; medium and large nominal rectangles share this aspect ratio. Outline follows outer paved perimeter, not ship/paint markings. Rotational convention: 0 degrees means the long edge is parallel to image +x.",
+   "outline_confidence": "low",
+   "size_confidence": "high",
+   "size_source": "Explicit user confirmation during settlement-by-settlement review",
+   "review_status": "user_confirmed",
+   "reference_dimensions_m": {
+    "length_m": 135,
+    "width_m": 70
+   }
+  }
+ ],
+ "walkways": [
+  {
+   "id": "promenade",
+   "kind": "open",
+   "line": [
+    [
+     674,
+     691
+    ],
+    [
+     736,
+     727
+    ],
+    [
+     811,
+     727
+    ],
+    [
+     832,
+     720
+    ],
+    [
+     917,
+     711
+    ],
+    [
+     950,
+     697
+    ],
+    [
+     1014,
+     697
+    ],
+    [
+     1057,
+     690
+    ],
+    [
+     1129,
+     694
+    ],
+    [
+     1189,
+     701
+    ],
+    [
+     1211,
+     697
+    ],
+    [
+     1220,
+     682
+    ]
+   ],
+   "width_px": 24,
+   "confidence": "medium",
+   "notes": "Open paved pedestrian spine; oblique view shows gates and advertising panels rather than a continuous roof. Centreline follows visible paving, excluding signs and shadows."
+  },
+  {
+   "id": "hab-southwest-access",
+   "kind": "open",
+   "line": [
+    [
+     744,
+     727
+    ],
+    [
+     741,
+     764
+    ]
+   ],
+   "width_px": 20,
+   "confidence": "medium",
+   "notes": "Short open branch to southwestern HAB airlock."
+  },
+  {
+   "id": "hab-centre-west-access",
+   "kind": "open",
+   "line": [
+    [
+     915,
+     712
+    ],
+    [
+     915,
+     734
+    ]
+   ],
+   "width_px": 20,
+   "confidence": "medium",
+   "notes": "Short branch to central HAB west access-0 airlock."
+  },
+  {
+   "id": "hab-centre-east-access",
+   "kind": "open",
+   "line": [
+    [
+     975,
+     699
+    ],
+    [
+     975,
+     734
+    ]
+   ],
+   "width_px": 20,
+   "confidence": "medium",
+   "notes": "Short branch to central HAB east access-0 airlock."
+  },
+  {
+   "id": "hab-mideast-access",
+   "kind": "open",
+   "line": [
+    [
+     1136,
+     695
+    ],
+    [
+     1136,
+     734
+    ]
+   ],
+   "width_px": 20,
+   "confidence": "medium",
+   "notes": "Short branch to middle-eastern HAB airlock."
+  },
+  {
+   "id": "hab-southeast-access",
+   "kind": "open",
+   "line": [
+    [
+     1197,
+     713
+    ],
+    [
+     1233,
+     771
+    ]
+   ],
+   "width_px": 23,
+   "confidence": "medium",
+   "notes": "Diagonal open paved branch to southeastern HAB."
+  },
+  {
+   "id": "hab-northeast-access",
+   "kind": "open",
+   "line": [
+    [
+     1211,
+     697
+    ],
+    [
+     1237,
+     674
+    ],
+    [
+     1255,
+     672
+    ]
+   ],
+   "width_px": 20,
+   "confidence": "medium",
+   "notes": "Promenade turns toward northeastern HAB airlock."
+  },
+  {
+   "id": "power-west-approach",
+   "kind": "open",
+   "line": [
+    [
+     915,
+     68
+    ],
+    [
+     900,
+     68
+    ],
+    [
+     900,
+     205
+    ]
+   ],
+   "width_px": 24,
+   "confidence": "low",
+   "notes": "Visible narrow paved route west of PWR; exact endpoint and level changes uncertain."
+  },
+  {
+   "id": "power-east-approach",
+   "kind": "open",
+   "line": [
+    [
+     991,
+     125
+    ],
+    [
+     991,
+     146
+    ],
+    [
+     1047,
+     146
+    ]
+   ],
+   "width_px": 18,
+   "confidence": "low",
+   "notes": "Provisional link between PWR south airlock and eastern utility structure; roof/walkway boundary uncertain."
+  },
+  {
+   "id": "pad-north-approach",
+   "kind": "open",
+   "line": [
+    [
+     900,
+     232
+    ],
+    [
+     900,
+     296
+    ]
+   ],
+   "width_px": 26,
+   "confidence": "low",
+   "notes": "Short paved/ramped approach immediately north of pad; gap to rear paved route left unconnected because surface evidence is unclear."
+  }
+ ],
+ "details": [],
+ "points": [
+  {
+   "id": "map-info",
+   "type": "tip",
+   "at": [
+    19,
+    58
+   ],
+   "building": null,
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "orange",
+    "symbol": "i",
+    "text": "i",
+    "background_hex": "#d68500",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "low",
+   "notes": "Unexplained orange website information/control icon inside the map area; not a physical in-game location.",
+   "scope": "map_ui"
+  },
+  {
+   "id": "tip-power",
+   "type": "tip",
+   "at": [
+    827,
+    60
+   ],
+   "building": null,
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "blue",
+    "symbol": "i",
+    "text": "i",
+    "background_hex": "#3399ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Website tips marker near rear utility area; no physical object or floor inferred.",
+   "scope": "editorial"
+  },
+  {
+   "id": "terminal-utility-west",
+   "type": "terminal_lo",
+   "at": [
+    858,
+    79
+   ],
+   "building": "utility-west",
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "yellow-green",
+    "symbol": "monitor",
+    "text": null,
+    "background_hex": "#ccff00",
+    "foreground_hex": "#000000"
+   },
+   "confidence": "medium",
+   "notes": "Terminal icon overlaps upper edge of unlabelled utility structure; building association approximate. Yellow-green/black terminal means access level 0; physical floor is unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "airlock-power-west",
+   "type": "airlock",
+   "at": [
+    915,
+    68
+   ],
+   "building": "power-1",
+   "floor": null,
+   "access": 3,
+   "icon": {
+    "colour": "red",
+    "symbol": "numbered circle",
+    "text": "3",
+    "background_hex": "#ff0000",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "regulator-power",
+   "type": "power_regulator",
+   "at": [
+    980,
+    74
+   ],
+   "building": "power-1",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "yellow",
+    "symbol": "P",
+    "text": "P",
+    "background_hex": "#ffff00",
+    "foreground_hex": "#000000"
+   },
+   "confidence": "high",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "alarm-power",
+   "type": "alarm_console",
+   "at": [
+    1011,
+    55
+   ],
+   "building": "power-1",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "yellow",
+    "symbol": "A",
+    "text": "A",
+    "background_hex": "#ffff00",
+    "foreground_hex": "#000000"
+   },
+   "confidence": "high",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "airlock-power-south",
+   "type": "airlock",
+   "at": [
+    991,
+    125
+   ],
+   "building": "power-1",
+   "floor": null,
+   "access": 3,
+   "icon": {
+    "colour": "red",
+    "symbol": "numbered circle",
+    "text": "3",
+    "background_hex": "#ff0000",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "tip-promenade",
+   "type": "tip",
+   "at": [
+    949,
+    638
+   ],
+   "building": null,
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "blue",
+    "symbol": "i",
+    "text": "i",
+    "background_hex": "#3399ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Website tips marker in open area between pad and promenade; not an in-game object.",
+   "scope": "editorial"
+  },
+  {
+   "id": "tip-east",
+   "type": "tip",
+   "at": [
+    1345,
+    567
+   ],
+   "building": null,
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "blue",
+    "symbol": "i",
+    "text": "i",
+    "background_hex": "#3399ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Website tips marker north of northeastern HAB; not an in-game object.",
+   "scope": "editorial"
+  },
+  {
+   "id": "terminal-promenade-west",
+   "type": "terminal_lo",
+   "at": [
+    832,
+    703
+   ],
+   "building": null,
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "yellow-green",
+    "symbol": "monitor",
+    "text": null,
+    "background_hex": "#ccff00",
+    "foreground_hex": "#000000"
+   },
+   "confidence": "high",
+   "notes": "Terminal shown beside open promenade; no clear enclosing building. Yellow-green/black terminal means access level 0; physical floor is unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "terminal-promenade-centre",
+   "type": "terminal_lo",
+   "at": [
+    949,
+    693
+   ],
+   "building": null,
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "yellow-green",
+    "symbol": "monitor",
+    "text": null,
+    "background_hex": "#ccff00",
+    "foreground_hex": "#000000"
+   },
+   "confidence": "high",
+   "notes": "Terminal shown beside open promenade; no clear enclosing building. Yellow-green/black terminal means access level 0; physical floor is unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "terminal-promenade-east",
+   "type": "terminal_lo",
+   "at": [
+    1052,
+    673
+   ],
+   "building": null,
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "yellow-green",
+    "symbol": "monitor",
+    "text": null,
+    "background_hex": "#ccff00",
+    "foreground_hex": "#000000"
+   },
+   "confidence": "high",
+   "notes": "Terminal shown beside open promenade; no clear enclosing building. Yellow-green/black terminal means access level 0; physical floor is unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "airlock-hab-west",
+   "type": "airlock",
+   "at": [
+    663,
+    712
+   ],
+   "building": "hab-west",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "red",
+    "symbol": "numbered circle",
+    "text": "1",
+    "background_hex": "#ff0000",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "inner-door-hab-west",
+   "type": "inner_door",
+   "at": [
+    626,
+    746
+   ],
+   "building": "hab-west",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "blue",
+    "symbol": "numbered circle",
+    "text": "1",
+    "background_hex": "#0000ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Printed 1 is access level; floor is not specified.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "terminal-hab-west",
+   "type": "terminal_above_lo",
+   "at": [
+    631,
+    715
+   ],
+   "building": "hab-west",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "cyan",
+    "symbol": "monitor",
+    "text": null,
+    "background_hex": "#0099ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Cyan/white monitor means terminal ACCESS LEVEL above 0; exact numeric access level is not printed. It does not identify the physical floor; floor remains null.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "airlock-hab-southwest",
+   "type": "airlock",
+   "at": [
+    741,
+    764
+   ],
+   "building": "hab-southwest",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "red",
+    "symbol": "numbered circle",
+    "text": "1",
+    "background_hex": "#ff0000",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "inner-door-hab-southwest",
+   "type": "inner_door",
+   "at": [
+    743,
+    794
+   ],
+   "building": "hab-southwest",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "blue",
+    "symbol": "numbered circle",
+    "text": "1",
+    "background_hex": "#0000ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Printed 1 is access level; floor is not specified.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "terminal-hab-southwest",
+   "type": "terminal_above_lo",
+   "at": [
+    716,
+    790
+   ],
+   "building": "hab-southwest",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "cyan",
+    "symbol": "monitor",
+    "text": null,
+    "background_hex": "#0099ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Cyan/white monitor means terminal ACCESS LEVEL above 0; exact numeric access level is not printed. It does not identify the physical floor; floor remains null.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "airlock-hab-mideast",
+   "type": "airlock",
+   "at": [
+    1136,
+    734
+   ],
+   "building": "hab-mideast",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "red",
+    "symbol": "numbered circle",
+    "text": "1",
+    "background_hex": "#ff0000",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "inner-door-hab-mideast",
+   "type": "inner_door",
+   "at": [
+    1136,
+    773
+   ],
+   "building": "hab-mideast",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "blue",
+    "symbol": "numbered circle",
+    "text": "1",
+    "background_hex": "#0000ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Printed 1 is access level; floor is not specified.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "terminal-hab-mideast",
+   "type": "terminal_above_lo",
+   "at": [
+    1106,
+    758
+   ],
+   "building": "hab-mideast",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "cyan",
+    "symbol": "monitor",
+    "text": null,
+    "background_hex": "#0099ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Cyan/white monitor means terminal ACCESS LEVEL above 0; exact numeric access level is not printed. It does not identify the physical floor; floor remains null.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "airlock-hab-southeast",
+   "type": "airlock",
+   "at": [
+    1233,
+    771
+   ],
+   "building": "hab-southeast",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "red",
+    "symbol": "numbered circle",
+    "text": "1",
+    "background_hex": "#ff0000",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "inner-door-hab-southeast",
+   "type": "inner_door",
+   "at": [
+    1265,
+    801
+   ],
+   "building": "hab-southeast",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "blue",
+    "symbol": "numbered circle",
+    "text": "1",
+    "background_hex": "#0000ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Printed 1 is access level; floor is not specified.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "terminal-hab-southeast",
+   "type": "terminal_above_lo",
+   "at": [
+    1237,
+    812
+   ],
+   "building": "hab-southeast",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "cyan",
+    "symbol": "monitor",
+    "text": null,
+    "background_hex": "#0099ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Cyan/white monitor means terminal ACCESS LEVEL above 0; exact numeric access level is not printed. It does not identify the physical floor; floor remains null.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "airlock-hab-northeast",
+   "type": "airlock",
+   "at": [
+    1255,
+    672
+   ],
+   "building": "hab-northeast",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "red",
+    "symbol": "numbered circle",
+    "text": "1",
+    "background_hex": "#ff0000",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "inner-door-hab-northeast",
+   "type": "inner_door",
+   "at": [
+    1301,
+    664
+   ],
+   "building": "hab-northeast",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "blue",
+    "symbol": "numbered circle",
+    "text": "1",
+    "background_hex": "#0000ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Printed 1 is access level; floor is not specified.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "terminal-hab-northeast",
+   "type": "terminal_above_lo",
+   "at": [
+    1286,
+    692
+   ],
+   "building": "hab-northeast",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "cyan",
+    "symbol": "monitor",
+    "text": null,
+    "background_hex": "#0099ff",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "notes": "Cyan/white monitor means terminal ACCESS LEVEL above 0; exact numeric access level is not printed. It does not identify the physical floor; floor remains null.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "airlock-hab-centre-west",
+   "type": "airlock",
+   "at": [
+    915,
+    734
+   ],
+   "building": "hab-centre",
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "red",
+    "symbol": "numbered circle",
+    "text": "0",
+    "background_hex": "#ff0000",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "airlock-hab-centre-east",
+   "type": "airlock",
+   "at": [
+    975,
+    734
+   ],
+   "building": "hab-centre",
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "red",
+    "symbol": "numbered circle",
+    "text": "0",
+    "background_hex": "#ff0000",
+    "foreground_hex": "#ffffff"
+   },
+   "confidence": "high",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "terminal-hab-centre-west",
+   "type": "terminal_lo",
+   "at": [
+    927,
+    771
+   ],
+   "building": "hab-centre",
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "yellow-green",
+    "symbol": "monitor",
+    "text": null,
+    "background_hex": "#ccff00",
+    "foreground_hex": "#000000"
+   },
+   "confidence": "high",
+   "notes": "Left of two overlapping but distinct drawn L0 terminal icons. Yellow-green/black terminal means access level 0; physical floor is unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "terminal-hab-centre-east",
+   "type": "terminal_lo",
+   "at": [
+    947,
+    771
+   ],
+   "building": "hab-centre",
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "yellow-green",
+    "symbol": "monitor",
+    "text": null,
+    "background_hex": "#ccff00",
+    "foreground_hex": "#000000"
+   },
+   "confidence": "high",
+   "notes": "Right of two overlapping but distinct drawn L0 terminal icons. Yellow-green/black terminal means access level 0; physical floor is unknown.",
+   "scope": "physical_marker"
+  }
+ ],
+ "legend": [
+  {
+   "type": "terminal_lo",
+   "label": "Terminal L0",
+   "colour": "yellow-green",
+   "symbol": "monitor",
+   "text": null,
+   "floor": null,
+   "access": 0,
+   "notes": "Terminal L0 means ACCESS LEVEL 0. It is not a ground-floor marker. L0 / > L0 refer to security/access level, not floor height."
+  },
+  {
+   "type": "terminal_above_lo",
+   "label": "Terminal > L0",
+   "colour": "cyan",
+   "symbol": "monitor",
+   "text": null,
+   "floor": null,
+   "notes": "Terminal > L0 means ACCESS LEVEL above 0; exact numeric level is not given. It does not indicate upper-floor placement. L0 / > L0 refer to security/access level, not floor height.",
+   "access": null
+  },
+  {
+   "type": "airlock",
+   "label": "Airlock / Inner Door",
+   "colour": "red",
+   "symbol": "numbered circle",
+   "text": null,
+   "notes": "Red half of paired legend. Numbers on individual icons are access levels, not floor numbers."
+  },
+  {
+   "type": "inner_door",
+   "label": "Airlock / Inner Door",
+   "colour": "blue",
+   "symbol": "numbered circle",
+   "text": null,
+   "notes": "Blue half of paired legend. Numbers on individual icons are access levels, not floor numbers."
+  },
+  {
+   "type": "tip",
+   "label": "Tips & tricks",
+   "colour": "blue",
+   "symbol": "i",
+   "text": "i",
+   "notes": "Website information/tip marker, not an in-game object."
+  },
+  {
+   "type": "power_regulator",
+   "label": "Power regulator",
+   "colour": "yellow",
+   "symbol": "P",
+   "text": "P"
+  },
+  {
+   "type": "alarm_console",
+   "label": "Alarm console",
+   "colour": "yellow",
+   "symbol": "A",
+   "text": "A"
+  },
+  {
+   "type": "tip",
+   "label": null,
+   "colour": "orange",
+   "symbol": "i",
+   "text": "i",
+   "notes": "Orange information icon at map top-left is not explained by the printed bottom legend; likely website control. Retained because it is inside the map area."
+  }
+ ],
+ "uncertain": [
+  "All coordinates are original top-down image pixels, origin at upper-left, x right and y down. Coordinates locate the centres of drawn map icons, not necessarily exact physical placement of the associated object.",
+  "Source image includes top menu y0-39 and bottom legend y875-924; map_area is [0,40,1644,875]. Those UI strips are excluded from geometry and point capture. Isolated orange i below the top menu is retained as a low-confidence map UI tip.",
+  "Rounded accommodation footprints use straight-segment approximations; two diagonal pods use 16-point capsule contours. Heights and building floor counts are LOW schematic estimates from roof/main-wall tiers in the oblique screenshot, not measured elevations or confirmed interiors. Terminal L0 and >L0 describe ACCESS LEVEL, not physical floors. All point.floor fields remain null because exact physical placement is not established.",
+  "Some north and south footprints are clipped by menu/legend. Clipped edges mark the limit of visible evidence, not an observed physical wall.",
+  "No ships, vehicles, people, rocks or shadows are encoded.",
+  "No point has an independently verified physical storey from these two views; floor is null even when its icon shows an access number, L0, > L0 or carets.",
+  "All at coordinates are the printed annotation centres; editorial placement can be offset from the physical object. Some touching circles are individually recorded.",
+  "The orange top-left information button is retained as scope map_ui for complete icon transcription, and should not be drawn as a physical settlement object."
+ ],
+ "landing_pads_available": {
+  "small": 0,
+  "medium": 1,
+  "large": 0,
+  "total": 1
+ },
+ "metric_estimates": {
+  "units": "metres",
+  "estimated": true,
+  "scope": "One shared pad-based horizontal transform applied to source traces and documented pad reconstructions.",
+  "buildings": {
+   "power-1": {
+    "length_m": 31.8,
+    "width_m": 22.2,
+    "area_m2": 667.7,
+    "confidence": "medium",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "utility-west": {
+    "length_m": 12.8,
+    "width_m": 12.3,
+    "area_m2": 156.8,
+    "confidence": "medium",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "utility-east": {
+    "length_m": 20.5,
+    "width_m": 20.4,
+    "area_m2": 368.3,
+    "confidence": "medium",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "hab-west": {
+    "length_m": 37.6,
+    "width_m": 28.8,
+    "area_m2": 889.5,
+    "confidence": "medium",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "hab-southwest": {
+    "length_m": 34.5,
+    "width_m": 31.9,
+    "area_m2": 1012.2,
+    "confidence": "medium",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "hab-centre": {
+    "length_m": 51.4,
+    "width_m": 36.8,
+    "area_m2": 1625.2,
+    "confidence": "medium",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "hab-mideast": {
+    "length_m": 37.2,
+    "width_m": 36.5,
+    "area_m2": 1230.5,
+    "confidence": "medium",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "hab-southeast": {
+    "length_m": 44.1,
+    "width_m": 30.2,
+    "area_m2": 994.4,
+    "confidence": "medium",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "hab-northeast": {
+    "length_m": 47.9,
+    "width_m": 31.2,
+    "area_m2": 1184.5,
+    "confidence": "medium",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   }
+  },
+  "pads": {
+   "pad-1": {
+    "length_m": 135.0,
+    "width_m": 70.0,
+    "area_m2": 9450.0,
+    "confidence": "medium",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   }
+  },
+  "details": {},
+  "walkways": {
+   "promenade": {
+    "length_m": 167.8,
+    "width_m": 6.2,
+    "confidence": "medium"
+   },
+   "hab-southwest-access": {
+    "length_m": 9.5,
+    "width_m": 5.9,
+    "confidence": "medium"
+   },
+   "hab-centre-west-access": {
+    "length_m": 5.6,
+    "width_m": 5.9,
+    "confidence": "medium"
+   },
+   "hab-centre-east-access": {
+    "length_m": 8.9,
+    "width_m": 5.9,
+    "confidence": "medium"
+   },
+   "hab-mideast-access": {
+    "length_m": 10.0,
+    "width_m": 5.9,
+    "confidence": "medium"
+   },
+   "hab-southeast-access": {
+    "length_m": 18.3,
+    "width_m": 6.5,
+    "confidence": "medium"
+   },
+   "hab-northeast-access": {
+    "length_m": 15.1,
+    "width_m": 5.3,
+    "confidence": "medium"
+   },
+   "power-west-approach": {
+    "length_m": 39.5,
+    "width_m": 7.0,
+    "confidence": "medium"
+   },
+   "power-east-approach": {
+    "length_m": 22.0,
+    "width_m": 4.8,
+    "confidence": "medium"
+   },
+   "pad-north-approach": {
+    "length_m": 16.4,
+    "width_m": 7.7,
+    "confidence": "medium"
+   }
+  },
+  "height_note": "Original height_m and floor estimates are retained; horizontal calibration does not establish heights.",
+  "visible_axis_aligned_extent_m": {
+   "x": 251.3,
+   "y": 213.3,
+   "confidence": "medium"
+  },
+  "footprint_axis_aligned_extent_m": {
+   "x": 251.3,
+   "y": 213.3,
+   "confidence": "medium"
+  }
+ },
+ "Colonisation": {
+  "id": "aergia",
+  "url": "https://ravencolonial.com/#vis=aergia",
+  "name": "Aergia",
+  "facility_type": "Tourist Settlement: Small",
+  "tier": 2,
+  "image_caption": "Aergia | Tier:  2 Cmdr Kekosummer Mahama's Club - Col 285 Sector GL-X c1-11",
+  "landing_pads": {
+   "small": 0,
+   "medium": 1,
+   "large": 0
+  },
+  "properties": {
+   "System score": "+1",
+   "Economic inf": "Tourism",
+   "Population": "+1",
+   "Max population": "+1",
+   "Security": "-1",
+   "Wealth": "+1",
+   "Average haul": "~2,846 units"
+  },
+  "images": [
+   {
+    "url": "https://njthomson.github.io/SrvSurvey/colony/aergia.jpg",
+    "caption": "Aergia | Tier:  2 Cmdr Kekosummer Mahama's Club - Col 285 Sector GL-X c1-11",
+    "credit": "Kekosummer",
+    "file": "raven-aergia.jpg",
+    "sha256": "d33f9fe279f020b33f6fc90fcbcb65a07fc55f17f156257e539cdc587924ec00"
+   }
+  ],
+  "needs": [
+   {
+    "tier": 2,
+    "points": 1
+   }
+  ],
+  "provides": [
+   {
+    "tier": 3,
+    "points": 1
+   }
+  ],
+  "retrieved_date": "2026-10-29",
+  "construction": {
+   "approximate": true,
+   "average_haul_units": 2846,
+   "build_type": "aergia",
+   "commodities": {
+    "liquidoxygen": 227,
+    "ceramiccomposites": 43,
+    "polymers": 114,
+    "aluminium": 509,
+    "copper": 22,
+    "steel": 707,
+    "computercomponents": 15,
+    "fruitandvegetables": 71,
+    "surfacestabilisers": 57,
+    "buildingfabricators": 29,
+    "structuralregulators": 57,
+    "evacuationshelter": 22,
+    "emergencypowercells": 15,
+    "survivalequipment": 15,
+    "beer": 311,
+    "wine": 156,
+    "liquor": 128,
+    "animalmeat": 71,
+    "fish": 36,
+    "tea": 170,
+    "coffee": 71
+   },
+   "source": "https://ravencolonial.com/#vis=aergia",
+   "verification": "Every live Approximate Shopping List was opened and its commodity IDs/quantities captured. Sorted commodity-pair FNV-1a digest and quantity sum were independently checked against this saved record. Values are approximate, not a guaranteed project bill.",
+   "live_capture_fnv1a": "2a38b6cb",
+   "repository_cost_source": "https://github.com/njthomson/SrvSurvey/blob/main/SrvSurvey/colonization-costs2.json",
+   "repository_costs_agree": true,
+   "repository_commodity_total": 2846
+  },
+  "live_page_capture_fnv1a": "2775cc30",
+  "match": {
+   "local_plan_id": "tourist-2",
+   "original_name": "Tourist 2",
+   "original_category": "tourist",
+   "confidence": "high",
+   "distinctive_geometry_features": [
+    "One central rectangular pad separates an isolated PWR/service cluster from six accommodation roofs.",
+    "The HAB side has a central rectangular roof and five rounded pods along a promenade.",
+    "There is exactly one Medium pad; its class follows the matched template rather than apron aspect ratio."
+   ],
+   "pad_correspondence": [
+    {
+     "local_pad_id": "pad-1",
+     "size": "medium",
+     "template_pad_index": 0,
+     "confidence": "high",
+     "template_offset": {
+      "X": -28.39047,
+      "Y": -6.575995
+     },
+     "template_rotation_deg": 0,
+     "recorded_centre_px": [
+      936,
+      429
+     ],
+     "outline_clipped": false,
+     "clipping_evidence": null,
+     "recorded_centre_is_fragment_midpoint": false,
+     "ideal_corrected_landing_target_centre_px": null,
+     "landing_target_confidence": null,
+     "landing_target_notes": "No image-space correction asserted. The coordinate is schematic; target visibility must be independently checked before metric fitting."
+    }
+   ],
+   "evidence_file": "../../_reference/matches-tourist-high-tech.json"
+  },
+  "calibration": {
+   "method": "One shared X/Y scale for the whole source image, fitted by least squares in metres to the listed independent visible pad-side controls; uniform fallback when directional scales are not identifiable or would require excessive stretch.",
+   "basis": "Human-confirmed pad classes and agreed working dimensions",
+   "confidence": "medium",
+   "evidence_file": "../../_reference/manual-review/final-calibrations/tourist-2.json",
+   "limitations": [
+    "A confirmed class does not identify a precise mechanical deck boundary: traced paint/apron envelopes are approximate.",
+    "One shared transform retains residuals at individual pads. Reference dimensions are not forced independently on each pad.",
+    "Reconstructed hidden edges are inferred, not additional calibration observations. Negative/out-of-image pixels are permitted only for documented reconstructions.",
+    "Camera perspective, roof parallax and terrain can cause local differences; estimates are unsuitable for survey accuracy.",
+    "No statistical confidence interval is claimed. Roof heights and floor estimates are preserved."
+   ],
+   "evidence_sha256": "15ba7afbeb13800cbd3613916ad674e7438fd61f94823659d74c1d088a1f33f9"
+  },
+  "original_plan": {
+   "filename": "tourist-2.json",
+   "sha256": "336b36e2ed68d96d0a49e766d116511c2836017af085386e4d4b2776e0c7d840",
+   "schema": "ucec-settlement/1",
+   "previous_scale": {
+    "m_per_px": 0.3294,
+    "how": "LOW-confidence provisional medium-pad calibration. Outer paved pad rectangle is [709,292]-[1163,566]: horizontal long edge 454 px and vertical short edge 274 px. Assuming community nominal medium-pad dimensions 150 x 90 m gives 150/454 = 0.33040 and 90/274 = 0.32847 m/px; arithmetic mean = 0.32944 m/px. Community reference: https://elite-dangerous.fandom.com/wiki/Landing_Pad . Odyssey boundary dimensions are not established by this picture. The same aspect ratio also fits a large 213 x 128 m pad, giving mean(213/454,128/274) = 0.46813 m/px; size cannot be disambiguated from outline alone. No absolute dimensions or heights are measured in the screenshots.",
+    "confidence": "low"
+   },
+   "previous_pad_sizes": {
+    "pad-1": "medium"
+   },
+   "source_geometry_digest": "7fc0b9f50c467898e35ef2f09e433dab14b90d31d56c0ab160b734912fbb6ce1"
+  },
+  "category_display": "Tourism",
+  "metric_height_policy": "Prior roof/storey/equipment height estimates are retained, with their original confidence/basis. The revised pad-based registration updates horizontal metres and visible footprint dimensions.",
+  "manual_review": {
+   "status": "user_confirmed",
+   "confirmation_date": "2026-10-29",
+   "confirmed_by": "user",
+   "confirmed_pad_classes": {
+    "pad-1": "medium"
+   },
+   "working_pad_dimensions_m": {
+    "large": {
+     "length_m": 170,
+     "width_m": 90
+    },
+    "medium": {
+     "length_m": 135,
+     "width_m": 70
+    },
+    "small": {
+     "length_m": 70,
+     "width_m": 50
+    }
+   },
+   "pixel_geometry_preserved_except_queued_pads": true,
+   "height_estimates_preserved": true,
+   "corrected_pad_ids": [],
+   "pre_final_batch_file": "../../_reference/manual-review/pre-final-batch/tourist-2.json",
+   "previous_scale": {
+    "m_per_px": 0.332,
+    "confidence": "medium",
+    "estimate_range_m_per_px": [
+     0.3,
+     0.36
+    ],
+    "how": "Pad target and matched template feature registration in independently established metre coordinates.",
+    "basis": "Visually matched SrvSurvey telemetry-based metric layout: verified pad classes/positions with roof or physical-feature checks. Physical S/M/L pad deck dimensions are not treated as officially specified.",
+    "limitations": "Approximate uniform horizontal scale; camera perspective, terrain, roof parallax and cropped/obscured landing targets limit accuracy. Range is a practical judgement, not a statistical confidence interval.",
+    "source": "https://github.com/njthomson/SrvSurvey/blob/1a734c1412cb78cef6ff7e2e20ea8af7b5ccd7cc/SrvSurvey/settlements/humanSiteTemplates.json"
+   },
+   "previous_calibration": {
+    "template_economy": "Tourist",
+    "template_subType": 2,
+    "template_name": "Aergia",
+    "range_note": "Judgement range including icon placement, community template, target occlusion and camera projection uncertainty; not a confidence interval.",
+    "confidence": "medium",
+    "evidence_file": "../../_reference/calibration-single-tourist-high-tech.json",
+    "evidence_sha256": "7fdbaf96f6e6fd290f7637ece1e11e9c2c71a6f735185ab04a48db0992e6effa"
+   },
+   "outline_evidence_sha256": null
+  }
+ },
+ "geometry_m": {
+  "schema": "ucec-metric-geometry/1",
+  "units": "m",
+  "origin": {
+   "description": "Original source image top-left",
+   "pixel": [
+    0,
+    0
+   ],
+   "metres": [
+    0,
+    0
+   ]
+  },
+  "axes": {
+   "x": "right",
+   "y": "down"
+  },
+  "pixel_to_metre_matrix_2x3": [
+   [
+    0.2973568281938326,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.25547445255474455,
+    0.0
+   ]
+  ],
+  "metre_to_pixel_matrix_2x3": [
+   [
+    3.362962962962963,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    3.914285714285714,
+    0.0
+   ]
+  ],
+  "coordinate_precision_note": "Four decimals support reproducible drawing and do not imply millimetre physical accuracy.",
+  "height_policy": "Original height_m and floor estimates are retained; horizontal calibration does not establish heights.",
+  "buildings": [
+   {
+    "id": "power-1",
+    "outline_m": [
+     [
+      274.163,
+      10.219
+     ],
+     [
+      305.9802,
+      10.219
+     ],
+     [
+      305.9802,
+      32.4453
+     ],
+     [
+      286.0573,
+      32.4453
+     ],
+     [
+      286.0573,
+      29.1241
+     ],
+     [
+      274.163,
+      29.1241
+     ]
+    ],
+    "kind": "power",
+    "label": "PWR",
+    "height_m": 11,
+    "floors": 2,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "utility-west",
+    "outline_m": [
+     [
+      248.8877,
+      21.4599
+     ],
+     [
+      261.674,
+      21.4599
+     ],
+     [
+      261.674,
+      33.7226
+     ],
+     [
+      248.8877,
+      33.7226
+     ]
+    ],
+    "kind": "other",
+    "label": null,
+    "height_m": 4,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "utility-east",
+    "outline_m": [
+     [
+      311.3326,
+      26.8248
+     ],
+     [
+      331.8502,
+      26.8248
+     ],
+     [
+      331.8502,
+      41.8978
+     ],
+     [
+      327.0925,
+      41.8978
+     ],
+     [
+      327.0925,
+      47.2628
+     ],
+     [
+      316.0903,
+      47.2628
+     ],
+     [
+      316.0903,
+      41.8978
+     ],
+     [
+      311.3326,
+      41.8978
+     ]
+    ],
+    "kind": "other",
+    "label": null,
+    "height_m": 5,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "hab-west",
+    "outline_m": [
+     [
+      184.6586,
+      176.5328
+     ],
+     [
+      191.4978,
+      178.0657
+     ],
+     [
+      198.0396,
+      182.1533
+     ],
+     [
+      202.2026,
+      186.2409
+     ],
+     [
+      205.4736,
+      190.8394
+     ],
+     [
+      205.1762,
+      194.927
+     ],
+     [
+      201.3106,
+      199.5255
+     ],
+     [
+      194.174,
+      204.3796
+     ],
+     [
+      187.3348,
+      208.2117
+     ],
+     [
+      180.793,
+      209.2336
+     ],
+     [
+      174.2511,
+      207.9562
+     ],
+     [
+      168.6013,
+      205.146
+     ],
+     [
+      165.033,
+      201.3139
+     ],
+     [
+      164.4383,
+      197.2263
+     ],
+     [
+      167.1145,
+      191.8613
+     ],
+     [
+      175.4405,
+      184.1971
+     ]
+    ],
+    "kind": "hab",
+    "label": "HAB",
+    "height_m": 8,
+    "floors": 2,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "hab-southwest",
+    "outline_m": [
+     [
+      209.3392,
+      191.6058
+     ],
+     [
+      230.1542,
+      191.6058
+     ],
+     [
+      230.1542,
+      196.4599
+     ],
+     [
+      237.2907,
+      196.4599
+     ],
+     [
+      237.2907,
+      217.4088
+     ],
+     [
+      234.9119,
+      217.4088
+     ],
+     [
+      234.9119,
+      223.5401
+     ],
+     [
+      202.7974,
+      223.5401
+     ],
+     [
+      202.7974,
+      197.7372
+     ],
+     [
+      209.3392,
+      197.7372
+     ]
+    ],
+    "kind": "hab",
+    "label": "HAB",
+    "height_m": 8,
+    "floors": 2,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "hab-centre",
+    "outline_m": [
+     [
+      263.4581,
+      186.7518
+     ],
+     [
+      291.707,
+      186.7518
+     ],
+     [
+      291.707,
+      191.8613
+     ],
+     [
+      300.6278,
+      191.8613
+     ],
+     [
+      300.6278,
+      199.2701
+     ],
+     [
+      306.8722,
+      199.2701
+     ],
+     [
+      306.8722,
+      216.3869
+     ],
+     [
+      301.8172,
+      216.3869
+     ],
+     [
+      301.8172,
+      223.5401
+     ],
+     [
+      257.511,
+      223.5401
+     ],
+     [
+      257.511,
+      200.5474
+     ],
+     [
+      255.4295,
+      200.5474
+     ],
+     [
+      255.4295,
+      194.1606
+     ],
+     [
+      263.4581,
+      194.1606
+     ]
+    ],
+    "kind": "hab",
+    "label": "HAB",
+    "height_m": 6,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "hab-mideast",
+    "outline_m": [
+     [
+      321.1454,
+      185.7299
+     ],
+     [
+      347.0154,
+      185.7299
+     ],
+     [
+      347.0154,
+      190.8394
+     ],
+     [
+      352.3678,
+      190.8394
+     ],
+     [
+      352.3678,
+      216.3869
+     ],
+     [
+      346.7181,
+      216.3869
+     ],
+     [
+      346.7181,
+      222.2628
+     ],
+     [
+      321.1454,
+      222.2628
+     ],
+     [
+      321.1454,
+      216.6423
+     ],
+     [
+      315.1982,
+      216.6423
+     ],
+     [
+      315.1982,
+      191.3504
+     ],
+     [
+      321.1454,
+      191.3504
+     ]
+    ],
+    "kind": "hab",
+    "label": "HAB",
+    "height_m": 8,
+    "floors": 2,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "hab-southeast",
+    "outline_m": [
+     [
+      372.8855,
+      191.8613
+     ],
+     [
+      379.7247,
+      192.3723
+     ],
+     [
+      385.0771,
+      195.6934
+     ],
+     [
+      393.1057,
+      202.8467
+     ],
+     [
+      399.6476,
+      209.4891
+     ],
+     [
+      402.0264,
+      214.854
+     ],
+     [
+      402.6211,
+      218.9416
+     ],
+     [
+      400.5396,
+      223.5401
+     ],
+     [
+      373.4802,
+      223.5401
+     ],
+     [
+      366.641,
+      219.708
+     ],
+     [
+      362.1806,
+      215.1095
+     ],
+     [
+      359.5044,
+      210.2555
+     ],
+     [
+      359.207,
+      205.4015
+     ],
+     [
+      362.1806,
+      200.292
+     ],
+     [
+      366.641,
+      195.9489
+     ],
+     [
+      369.6145,
+      193.6496
+     ]
+    ],
+    "kind": "hab",
+    "label": "HAB",
+    "height_m": 8,
+    "floors": 2,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "hab-northeast",
+    "outline_m": [
+     [
+      375.859,
+      155.5839
+     ],
+     [
+      399.3502,
+      155.5839
+     ],
+     [
+      399.3502,
+      160.9489
+     ],
+     [
+      415.7048,
+      160.9489
+     ],
+     [
+      415.7048,
+      179.0876
+     ],
+     [
+      399.0529,
+      179.0876
+     ],
+     [
+      399.0529,
+      186.7518
+     ],
+     [
+      375.859,
+      186.7518
+     ],
+     [
+      375.859,
+      181.8978
+     ],
+     [
+      367.8304,
+      181.8978
+     ],
+     [
+      367.8304,
+      162.2263
+     ],
+     [
+      375.859,
+      162.2263
+     ]
+    ],
+    "kind": "hab",
+    "label": "HAB",
+    "height_m": 8,
+    "floors": 2,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   }
+  ],
+  "pads": [
+   {
+    "id": "pad-1",
+    "outline_m": [
+     [
+      210.826,
+      74.5985
+     ],
+     [
+      345.826,
+      74.5985
+     ],
+     [
+      345.826,
+      144.5985
+     ],
+     [
+      210.826,
+      144.5985
+     ]
+    ],
+    "size": "medium",
+    "centre_m": [
+     278.326,
+     109.5985
+    ],
+    "reference_dimensions_m": {
+     "length_m": 135,
+     "width_m": 70
+    },
+    "centre_basis": "Original drawn pad centre",
+    "extent_is_partial": false
+   }
+  ],
+  "walkways": [
+   {
+    "id": "promenade",
+    "kind": "open",
+    "line_m": [
+     [
+      200.4185,
+      176.5328
+     ],
+     [
+      218.8546,
+      185.7299
+     ],
+     [
+      241.1564,
+      185.7299
+     ],
+     [
+      247.4009,
+      183.9416
+     ],
+     [
+      272.6762,
+      181.6423
+     ],
+     [
+      282.489,
+      178.0657
+     ],
+     [
+      301.5198,
+      178.0657
+     ],
+     [
+      314.3062,
+      176.2774
+     ],
+     [
+      335.7159,
+      177.2993
+     ],
+     [
+      353.5573,
+      179.0876
+     ],
+     [
+      360.0991,
+      178.0657
+     ],
+     [
+      362.7753,
+      174.2336
+     ]
+    ],
+    "width_m": 6.1933,
+    "segment_widths_m": [
+     6.3444,
+     6.1314,
+     6.2133,
+     6.1403,
+     6.2576,
+     6.1314,
+     6.1522,
+     6.1339,
+     6.1422,
+     6.1572,
+     6.8234
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "hab-southwest-access",
+    "kind": "open",
+    "line_m": [
+     [
+      221.2335,
+      185.7299
+     ],
+     [
+      220.3414,
+      195.1825
+     ]
+    ],
+    "width_m": 5.9403,
+    "segment_widths_m": [
+     5.9403
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "hab-centre-west-access",
+    "kind": "open",
+    "line_m": [
+     [
+      272.0815,
+      181.8978
+     ],
+     [
+      272.0815,
+      187.5182
+     ]
+    ],
+    "width_m": 5.9471,
+    "segment_widths_m": [
+     5.9471
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "hab-centre-east-access",
+    "kind": "open",
+    "line_m": [
+     [
+      289.9229,
+      178.5766
+     ],
+     [
+      289.9229,
+      187.5182
+     ]
+    ],
+    "width_m": 5.9471,
+    "segment_widths_m": [
+     5.9471
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "hab-mideast-access",
+    "kind": "open",
+    "line_m": [
+     [
+      337.7974,
+      177.5547
+     ],
+     [
+      337.7974,
+      187.5182
+     ]
+    ],
+    "width_m": 5.9471,
+    "segment_widths_m": [
+     5.9471
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "hab-southeast-access",
+    "kind": "open",
+    "line_m": [
+     [
+      355.9361,
+      182.1533
+     ],
+     [
+      366.641,
+      196.9708
+     ]
+    ],
+    "width_m": 6.5249,
+    "segment_widths_m": [
+     6.5249
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "hab-northeast-access",
+    "kind": "open",
+    "line_m": [
+     [
+      360.0991,
+      178.0657
+     ],
+     [
+      367.8304,
+      172.1898
+     ],
+     [
+      373.1828,
+      171.6788
+     ]
+    ],
+    "width_m": 5.3195,
+    "segment_widths_m": [
+     5.4312,
+     5.1177
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "power-west-approach",
+    "kind": "open",
+    "line_m": [
+     [
+      272.0815,
+      17.3723
+     ],
+     [
+      267.6211,
+      17.3723
+     ],
+     [
+      267.6211,
+      52.3723
+     ]
+    ],
+    "width_m": 7.0229,
+    "segment_widths_m": [
+     6.1314,
+     7.1366
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "power-east-approach",
+    "kind": "open",
+    "line_m": [
+     [
+      294.6806,
+      31.9343
+     ],
+     [
+      294.6806,
+      37.2993
+     ],
+     [
+      311.3326,
+      37.2993
+     ]
+    ],
+    "width_m": 4.7822,
+    "segment_widths_m": [
+     5.3524,
+     4.5985
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "pad-north-approach",
+    "kind": "open",
+    "line_m": [
+     [
+      267.6211,
+      59.2701
+     ],
+     [
+      267.6211,
+      75.6204
+     ]
+    ],
+    "width_m": 7.7313,
+    "segment_widths_m": [
+     7.7313
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   }
+  ],
+  "details": [],
+  "points": [
+   {
+    "id": "tip-power",
+    "type": "tip",
+    "at_m": [
+     245.9141,
+     15.3285
+    ],
+    "building": null,
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "blue",
+     "symbol": "i",
+     "text": "i",
+     "background_hex": "#3399ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "terminal-utility-west",
+    "type": "terminal_lo",
+    "at_m": [
+     255.1322,
+     20.1825
+    ],
+    "building": "utility-west",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    }
+   },
+   {
+    "id": "airlock-power-west",
+    "type": "airlock",
+    "at_m": [
+     272.0815,
+     17.3723
+    ],
+    "building": "power-1",
+    "floor": null,
+    "access": 3,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "3",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "regulator-power",
+    "type": "power_regulator",
+    "at_m": [
+     291.4097,
+     18.9051
+    ],
+    "building": "power-1",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "yellow",
+     "symbol": "P",
+     "text": "P",
+     "background_hex": "#ffff00",
+     "foreground_hex": "#000000"
+    }
+   },
+   {
+    "id": "alarm-power",
+    "type": "alarm_console",
+    "at_m": [
+     300.6278,
+     14.0511
+    ],
+    "building": "power-1",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "yellow",
+     "symbol": "A",
+     "text": "A",
+     "background_hex": "#ffff00",
+     "foreground_hex": "#000000"
+    }
+   },
+   {
+    "id": "airlock-power-south",
+    "type": "airlock",
+    "at_m": [
+     294.6806,
+     31.9343
+    ],
+    "building": "power-1",
+    "floor": null,
+    "access": 3,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "3",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "tip-promenade",
+    "type": "tip",
+    "at_m": [
+     282.1916,
+     162.9927
+    ],
+    "building": null,
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "blue",
+     "symbol": "i",
+     "text": "i",
+     "background_hex": "#3399ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "tip-east",
+    "type": "tip",
+    "at_m": [
+     399.9449,
+     144.854
+    ],
+    "building": null,
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "blue",
+     "symbol": "i",
+     "text": "i",
+     "background_hex": "#3399ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "terminal-promenade-west",
+    "type": "terminal_lo",
+    "at_m": [
+     247.4009,
+     179.5985
+    ],
+    "building": null,
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    }
+   },
+   {
+    "id": "terminal-promenade-centre",
+    "type": "terminal_lo",
+    "at_m": [
+     282.1916,
+     177.0438
+    ],
+    "building": null,
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    }
+   },
+   {
+    "id": "terminal-promenade-east",
+    "type": "terminal_lo",
+    "at_m": [
+     312.8194,
+     171.9343
+    ],
+    "building": null,
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    }
+   },
+   {
+    "id": "airlock-hab-west",
+    "type": "airlock",
+    "at_m": [
+     197.1476,
+     181.8978
+    ],
+    "building": "hab-west",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "inner-door-hab-west",
+    "type": "inner_door",
+    "at_m": [
+     186.1454,
+     190.5839
+    ],
+    "building": "hab-west",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#0000ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "terminal-hab-west",
+    "type": "terminal_above_lo",
+    "at_m": [
+     187.6322,
+     182.6642
+    ],
+    "building": "hab-west",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#0099ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "airlock-hab-southwest",
+    "type": "airlock",
+    "at_m": [
+     220.3414,
+     195.1825
+    ],
+    "building": "hab-southwest",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "inner-door-hab-southwest",
+    "type": "inner_door",
+    "at_m": [
+     220.9361,
+     202.8467
+    ],
+    "building": "hab-southwest",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#0000ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "terminal-hab-southwest",
+    "type": "terminal_above_lo",
+    "at_m": [
+     212.9075,
+     201.8248
+    ],
+    "building": "hab-southwest",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#0099ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "airlock-hab-mideast",
+    "type": "airlock",
+    "at_m": [
+     337.7974,
+     187.5182
+    ],
+    "building": "hab-mideast",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "inner-door-hab-mideast",
+    "type": "inner_door",
+    "at_m": [
+     337.7974,
+     197.4818
+    ],
+    "building": "hab-mideast",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#0000ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "terminal-hab-mideast",
+    "type": "terminal_above_lo",
+    "at_m": [
+     328.8767,
+     193.6496
+    ],
+    "building": "hab-mideast",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#0099ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "airlock-hab-southeast",
+    "type": "airlock",
+    "at_m": [
+     366.641,
+     196.9708
+    ],
+    "building": "hab-southeast",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "inner-door-hab-southeast",
+    "type": "inner_door",
+    "at_m": [
+     376.1564,
+     204.635
+    ],
+    "building": "hab-southeast",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#0000ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "terminal-hab-southeast",
+    "type": "terminal_above_lo",
+    "at_m": [
+     367.8304,
+     207.4453
+    ],
+    "building": "hab-southeast",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#0099ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "airlock-hab-northeast",
+    "type": "airlock",
+    "at_m": [
+     373.1828,
+     171.6788
+    ],
+    "building": "hab-northeast",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "inner-door-hab-northeast",
+    "type": "inner_door",
+    "at_m": [
+     386.8612,
+     169.635
+    ],
+    "building": "hab-northeast",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#0000ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "terminal-hab-northeast",
+    "type": "terminal_above_lo",
+    "at_m": [
+     382.4009,
+     176.7883
+    ],
+    "building": "hab-northeast",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#0099ff",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "airlock-hab-centre-west",
+    "type": "airlock",
+    "at_m": [
+     272.0815,
+     187.5182
+    ],
+    "building": "hab-centre",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "0",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "airlock-hab-centre-east",
+    "type": "airlock",
+    "at_m": [
+     289.9229,
+     187.5182
+    ],
+    "building": "hab-centre",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "0",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    }
+   },
+   {
+    "id": "terminal-hab-centre-west",
+    "type": "terminal_lo",
+    "at_m": [
+     275.6498,
+     196.9708
+    ],
+    "building": "hab-centre",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    }
+   },
+   {
+    "id": "terminal-hab-centre-east",
+    "type": "terminal_lo",
+    "at_m": [
+     281.5969,
+     196.9708
+    ],
+    "building": "hab-centre",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    }
+   }
+  ],
+  "excluded_points": [
+   {
+    "id": "map-info",
+    "reason": "Historical website control, not a physical settlement feature."
+   }
+  ],
+  "visible_bounds_m": {
+   "min": [
+    164.4383,
+    10.219
+   ],
+   "max": [
+    415.7048,
+    223.5401
+   ],
+   "extent_x_m": 251.3,
+   "extent_y_m": 213.3
+  },
+  "footprint_bounds_m": {
+   "min": [
+    164.4383,
+    10.219
+   ],
+   "max": [
+    415.7048,
+    223.5401
+   ],
+   "extent_x_m": 251.3,
+   "extent_y_m": 213.3,
+   "includes_inferred_pad_extensions": false,
+   "scope": "Traced structures plus documented full-pad reconstructions; other off-image/clipped structures remain incomplete.",
+   "confidence": "medium"
+  },
+  "superseded_by": "site_m",
+  "superseded_note": "Kept for traceability. site_m holds the plan fitted to SrvSurvey's measured positions, in SrvSurvey's site frame."
+ },
+ "site_m": {
+  "schema": "ucec-site-geometry/1",
+  "units": "m",
+  "frame": {
+   "origin": "Settlement position from the journal (ApproachSettlement Latitude/Longitude), as SrvSurvey uses it",
+   "axes": {
+    "x": "right of the site heading",
+    "y": "along the site heading"
+   },
+   "heading": "Site heading = ship heading while docked on pad 1, or ship heading minus that pad's rotation_deg on any other pad (SrvSurvey HumanSiteData).",
+   "to_world": "bearing = heading + atan2(x, y); east = x*cos(h) + y*sin(h); north = -x*sin(h) + y*cos(h)",
+   "rotation_convention": "rotation_deg and rot_deg are clockwise from +y",
+   "floor_convention": "SrvSurvey floors: 1 = ground floor, 2 = one floor up, 3 = two floors up. SrvSurvey also uses 0: on every combat-zone point and on a few others, where its meaning isn't documented; those are copied as given. floor_basis says where each floor came from: srvsurvey, or icon carets (the plan's ^ marks, no caret = ground floor). plan_floor keeps the plan's reading where SrvSurvey's differs.",
+   "access_convention": "Security level 0-3: SrvSurvey's level where matched, otherwise the plan's printed number",
+   "source_convention": "plan = only on the plan; srvsurvey = only in SrvSurvey; plan+srvsurvey = both, at SrvSurvey's position"
+  },
+  "pixel_to_site_matrix_3x3": [
+   [
+    -0.00221744,
+    0.32853676,
+    -167.18139814
+   ],
+   [
+    0.32853676,
+    0.00221744,
+    -317.21582897
+   ],
+   [
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "pixel_to_site_note": "[X, Y, W] = M . [px, py, 1]; site = (X/W, Y/W). Third row is [0, 0, 1] for a uniform fit.",
+  "fit": {
+   "status": "good",
+   "model": "similarity",
+   "flags": [],
+   "scale_m_per_px": 0.32854,
+   "scale_m_per_px_note": "uniform",
+   "local_scale_range_m_per_px": null,
+   "previous_nominal_m_per_px": 0.2756212489925888,
+   "scale_change_pct": 19.2,
+   "previous_axis_m_per_px": [
+    0.2973568281938326,
+    0.25547445255474455
+   ],
+   "image_up_bearing_deg": 269.61,
+   "point_rms_m": 4.46,
+   "matched_points": 13,
+   "residual_median_m": {
+    "doors": 4.68,
+    "pads": 2.18,
+    "power_alarm": 2.78,
+    "buildings": 3.9
+   },
+   "matched_buildings": 7,
+   "building_iou_mean": 0.53,
+   "srvsurvey_buildings_without_plan_outline": [],
+   "door_level_agreement": "14/14",
+   "icon_to_measured_median_m": 5.98,
+   "pad_error_uniform_m": {
+    "0": 2.18
+   },
+   "perspective_test": {
+    "accepted": false,
+    "point_rms_m": 4.66,
+    "point_matches": 16,
+    "score": 5.81,
+    "uniform_score": 6.35,
+    "building_iou": 0.53,
+    "uniform_building_iou": 0.53,
+    "pad_error_m": [
+     1.63
+    ],
+    "local_scale_m_per_px": [
+     0.31,
+     0.34
+    ]
+   },
+   "plan_vs_srvsurvey_counts": {
+    "pads": {
+     "plan": 1,
+     "srvsurvey": 1,
+     "merged": 1
+    },
+    "doors": {
+     "plan": 14,
+     "srvsurvey": 14,
+     "merged": 14
+    },
+    "terminals": {
+     "plan": 11,
+     "srvsurvey": 8,
+     "merged": 6
+    },
+    "power_alarm": {
+     "plan": 2,
+     "srvsurvey": 2,
+     "merged": 2
+    }
+   },
+   "added_from_srvsurvey": {
+    "secure_door": 0,
+    "data_terminal": 0,
+    "terminal": 2,
+    "power_regulator": 0,
+    "alarm_console": 0,
+    "loot": 10,
+    "cz_point": 0
+   },
+   "plan_only": {
+    "terminal_lo": 5
+   },
+   "plan_only_terminals_outside_srvsurvey_buildings": 4,
+   "icon_floor_agreement": "15/16"
+  },
+  "buildings": [
+   {
+    "id": "power-1",
+    "kind": "power",
+    "label": "PWR",
+    "outline_m": [
+     [
+      -156.08,
+      -14.22
+     ],
+     [
+      -156.32,
+      20.94
+     ],
+     [
+      -127.74,
+      21.13
+     ],
+     [
+      -127.59,
+      -0.88
+     ],
+     [
+      -131.86,
+      -0.91
+     ],
+     [
+      -131.77,
+      -14.05
+     ]
+    ],
+    "centre_m": [
+     -142.63,
+     4.1
+    ],
+    "height_m": 11,
+    "floors": 2,
+    "srvsurvey_building": {
+     "name": "POW",
+     "iou": 0.59
+    }
+   },
+   {
+    "id": "utility-west",
+    "kind": "other",
+    "label": null,
+    "outline_m": [
+     [
+      -141.44,
+      -42.04
+     ],
+     [
+      -141.54,
+      -27.92
+     ],
+     [
+      -125.77,
+      -27.81
+     ],
+     [
+      -125.67,
+      -41.94
+     ]
+    ],
+    "centre_m": [
+     -133.6,
+     -34.93
+    ],
+    "height_m": 4,
+    "floors": 1
+   },
+   {
+    "id": "utility-east",
+    "kind": "other",
+    "label": null,
+    "outline_m": [
+     [
+      -135.01,
+      26.99
+     ],
+     [
+      -135.16,
+      49.66
+     ],
+     [
+      -115.78,
+      49.79
+     ],
+     [
+      -115.74,
+      44.54
+     ],
+     [
+      -108.84,
+      44.58
+     ],
+     [
+      -108.76,
+      32.43
+     ],
+     [
+      -115.66,
+      32.38
+     ],
+     [
+      -115.62,
+      27.13
+     ]
+    ],
+    "centre_m": [
+     -123.29,
+     38.41
+    ],
+    "height_m": 5,
+    "floors": 1
+   },
+   {
+    "id": "hab-west",
+    "kind": "hab",
+    "label": "HAB",
+    "outline_m": [
+     [
+      58.46,
+      -111.66
+     ],
+     [
+      60.38,
+      -104.09
+     ],
+     [
+      65.59,
+      -96.83
+     ],
+     [
+      70.81,
+      -92.19
+     ],
+     [
+      76.7,
+      -88.54
+     ],
+     [
+      81.96,
+      -88.83
+     ],
+     [
+      87.9,
+      -93.06
+     ],
+     [
+      94.2,
+      -100.91
+     ],
+     [
+      99.18,
+      -108.43
+     ],
+     [
+      100.54,
+      -115.65
+     ],
+     [
+      98.95,
+      -122.89
+     ],
+     [
+      95.38,
+      -129.15
+     ],
+     [
+      90.47,
+      -133.13
+     ],
+     [
+      85.22,
+      -133.82
+     ],
+     [
+      78.3,
+      -130.91
+     ],
+     [
+      68.39,
+      -121.78
+     ]
+    ],
+    "centre_m": [
+     80.77,
+     -111.19
+    ],
+    "height_m": 8,
+    "floors": 2,
+    "srvsurvey_building": {
+     "name": "HAB #1",
+     "iou": 0.57
+    }
+   },
+   {
+    "id": "hab-southwest",
+    "kind": "hab",
+    "label": "HAB",
+    "outline_m": [
+     [
+      77.66,
+      -84.26
+     ],
+     [
+      77.5,
+      -61.27
+     ],
+     [
+      83.75,
+      -61.22
+     ],
+     [
+      83.69,
+      -53.34
+     ],
+     [
+      110.63,
+      -53.16
+     ],
+     [
+      110.65,
+      -55.78
+     ],
+     [
+      118.54,
+      -55.73
+     ],
+     [
+      118.78,
+      -91.21
+     ],
+     [
+      85.59,
+      -91.44
+     ],
+     [
+      85.54,
+      -84.21
+     ]
+    ],
+    "centre_m": [
+     99.13,
+     -72.45
+    ],
+    "height_m": 8,
+    "floors": 2,
+    "srvsurvey_building": {
+     "name": "HAB #2",
+     "iou": 0.52
+    }
+   },
+   {
+    "id": "hab-centre",
+    "kind": "hab",
+    "label": "HAB",
+    "outline_m": [
+     [
+      71.01,
+      -24.51
+     ],
+     [
+      70.8,
+      6.7
+     ],
+     [
+      77.37,
+      6.74
+     ],
+     [
+      77.31,
+      16.6
+     ],
+     [
+      86.84,
+      16.66
+     ],
+     [
+      86.79,
+      23.56
+     ],
+     [
+      108.8,
+      23.71
+     ],
+     [
+      108.84,
+      18.13
+     ],
+     [
+      118.04,
+      18.19
+     ],
+     [
+      118.37,
+      -30.76
+     ],
+     [
+      88.8,
+      -30.96
+     ],
+     [
+      88.82,
+      -33.26
+     ],
+     [
+      80.6,
+      -33.32
+     ],
+     [
+      80.54,
+      -24.45
+     ]
+    ],
+    "centre_m": [
+     95.87,
+     -5.35
+    ],
+    "height_m": 6,
+    "floors": 1,
+    "srvsurvey_building": {
+     "name": "HAB #3",
+     "iou": 0.59
+    }
+   },
+   {
+    "id": "hab-mideast",
+    "kind": "hab",
+    "label": "HAB",
+    "outline_m": [
+     [
+      69.27,
+      39.22
+     ],
+     [
+      69.08,
+      67.8
+     ],
+     [
+      75.65,
+      67.84
+     ],
+     [
+      75.61,
+      73.76
+     ],
+     [
+      108.46,
+      73.98
+     ],
+     [
+      108.5,
+      67.74
+     ],
+     [
+      116.06,
+      67.79
+     ],
+     [
+      116.25,
+      39.53
+     ],
+     [
+      109.02,
+      39.48
+     ],
+     [
+      109.07,
+      32.91
+     ],
+     [
+      76.54,
+      32.69
+     ],
+     [
+      76.5,
+      39.26
+     ]
+    ],
+    "centre_m": [
+     92.58,
+     53.41
+    ],
+    "height_m": 8,
+    "floors": 2,
+    "srvsurvey_building": {
+     "name": "HAB #4",
+     "iou": 0.44
+    }
+   },
+   {
+    "id": "hab-southeast",
+    "kind": "hab",
+    "label": "HAB",
+    "outline_m": [
+     [
+      76.77,
+      96.43
+     ],
+     [
+      77.38,
+      104.0
+     ],
+     [
+      81.61,
+      109.94
+     ],
+     [
+      90.75,
+      118.87
+     ],
+     [
+      99.24,
+      126.16
+     ],
+     [
+      106.12,
+      128.83
+     ],
+     [
+      111.37,
+      129.52
+     ],
+     [
+      117.3,
+      127.26
+     ],
+     [
+      117.5,
+      97.37
+     ],
+     [
+      112.63,
+      89.78
+     ],
+     [
+      106.75,
+      84.81
+     ],
+     [
+      100.52,
+      81.81
+     ],
+     [
+      94.28,
+      81.44
+     ],
+     [
+      87.69,
+      84.68
+     ],
+     [
+      82.07,
+      89.57
+     ],
+     [
+      79.09,
+      92.84
+     ]
+    ],
+    "centre_m": [
+     99.59,
+     104.55
+    ],
+    "height_m": 8,
+    "floors": 2,
+    "srvsurvey_building": {
+     "name": "HAB #5",
+     "iou": 0.54
+    }
+   },
+   {
+    "id": "hab-northeast",
+    "kind": "hab",
+    "label": "HAB",
+    "outline_m": [
+     [
+      30.09,
+      99.41
+     ],
+     [
+      29.92,
+      125.36
+     ],
+     [
+      36.82,
+      125.41
+     ],
+     [
+      36.7,
+      143.48
+     ],
+     [
+      60.02,
+      143.63
+     ],
+     [
+      60.15,
+      125.23
+     ],
+     [
+      70.0,
+      125.3
+     ],
+     [
+      70.18,
+      99.68
+     ],
+     [
+      63.93,
+      99.63
+     ],
+     [
+      63.99,
+      90.76
+     ],
+     [
+      38.7,
+      90.59
+     ],
+     [
+      38.64,
+      99.46
+     ]
+    ],
+    "centre_m": [
+     49.78,
+     115.68
+    ],
+    "height_m": 8,
+    "floors": 2,
+    "srvsurvey_building": {
+     "name": "HAB #6",
+     "iou": 0.44
+    }
+   }
+  ],
+  "pads": [
+   {
+    "id": "pad-1",
+    "size": "medium",
+    "plan_centre_m": [
+     -28.31,
+     -8.75
+    ],
+    "plan_outline_m": [
+     [
+      -72.82,
+      -83.64
+     ],
+     [
+      -73.83,
+      65.52
+     ],
+     [
+      16.19,
+      66.13
+     ],
+     [
+      17.2,
+      -83.03
+     ]
+    ],
+    "plan_dimensions_m": {
+     "length": 149.16,
+     "width": 90.02
+    },
+    "working_dimensions_m": {
+     "length_m": 135,
+     "width_m": 70
+    },
+    "partial_in_source": false,
+    "pad_number": 1,
+    "centre_m": [
+     -28.39,
+     -6.58
+    ],
+    "rotation_deg": 0,
+    "outline_m": [
+     [
+      -63.39,
+      60.92
+     ],
+     [
+      6.61,
+      60.92
+     ],
+     [
+      6.61,
+      -74.08
+     ],
+     [
+      -63.39,
+      -74.08
+     ]
+    ],
+    "moved_m": 2.18,
+    "source": "plan+srvsurvey",
+    "axis_error_deg": 0.39
+   }
+  ],
+  "walkways": [
+   {
+    "id": "promenade",
+    "kind": "open",
+    "line_m": [
+     [
+      58.34,
+      -94.25
+     ],
+     [
+      70.03,
+      -73.8
+     ],
+     [
+      69.87,
+      -49.16
+     ],
+     [
+      67.52,
+      -42.28
+     ],
+     [
+      64.37,
+      -14.37
+     ],
+     [
+      59.7,
+      -3.56
+     ],
+     [
+      59.56,
+      17.47
+     ],
+     [
+      57.17,
+      31.58
+     ],
+     [
+      58.32,
+      55.24
+     ],
+     [
+      60.49,
+      74.97
+     ],
+     [
+      59.12,
+      82.19
+     ],
+     [
+      54.18,
+      85.11
+     ]
+    ],
+    "width_m": 7.89
+   },
+   {
+    "id": "hab-southwest-access",
+    "kind": "open",
+    "line_m": [
+     [
+      70.02,
+      -71.17
+     ],
+     [
+      82.18,
+      -72.08
+     ]
+    ],
+    "width_m": 6.57
+   },
+   {
+    "id": "hab-centre-west-access",
+    "kind": "open",
+    "line_m": [
+     [
+      64.71,
+      -15.03
+     ],
+     [
+      71.94,
+      -14.98
+     ]
+    ],
+    "width_m": 6.57
+   },
+   {
+    "id": "hab-centre-east-access",
+    "kind": "open",
+    "line_m": [
+     [
+      60.3,
+      4.66
+     ],
+     [
+      71.8,
+      4.74
+     ]
+    ],
+    "width_m": 6.57
+   },
+   {
+    "id": "hab-mideast-access",
+    "kind": "open",
+    "line_m": [
+     [
+      58.63,
+      57.54
+     ],
+     [
+      71.45,
+      57.63
+     ]
+    ],
+    "width_m": 6.57
+   },
+   {
+    "id": "hab-southeast-access",
+    "kind": "open",
+    "line_m": [
+     [
+      64.41,
+      77.62
+     ],
+     [
+      83.39,
+      89.58
+     ]
+    ],
+    "width_m": 7.56
+   },
+   {
+    "id": "hab-northeast-access",
+    "kind": "open",
+    "line_m": [
+     [
+      59.12,
+      82.19
+     ],
+     [
+      51.51,
+      90.68
+     ],
+     [
+      50.81,
+      96.59
+     ]
+    ],
+    "width_m": 6.57
+   },
+   {
+    "id": "power-west-approach",
+    "kind": "open",
+    "line_m": [
+     [
+      -146.87,
+      -16.45
+     ],
+     [
+      -146.84,
+      -21.38
+     ],
+     [
+      -101.83,
+      -21.08
+     ]
+    ],
+    "width_m": 7.89
+   },
+   {
+    "id": "power-east-approach",
+    "kind": "open",
+    "line_m": [
+     [
+      -128.31,
+      8.64
+     ],
+     [
+      -121.41,
+      8.69
+     ],
+     [
+      -121.54,
+      27.09
+     ]
+    ],
+    "width_m": 5.91
+   },
+   {
+    "id": "pad-north-approach",
+    "kind": "open",
+    "line_m": [
+     [
+      -92.96,
+      -21.02
+     ],
+     [
+      -71.93,
+      -20.88
+     ]
+    ],
+    "width_m": 8.54
+   }
+  ],
+  "details": [],
+  "points": [
+   {
+    "id": "tip-power",
+    "type": "tip",
+    "at_m": [
+     -149.3,
+     -45.38
+    ],
+    "building": null,
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "blue",
+     "symbol": "i",
+     "text": "i",
+     "background_hex": "#3399ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan"
+   },
+   {
+    "id": "terminal-utility-west",
+    "type": "terminal_lo",
+    "at_m": [
+     -143.13,
+     -35.16
+    ],
+    "building": "utility-west",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    },
+    "source": "plan"
+   },
+   {
+    "id": "airlock-power-west",
+    "type": "airlock",
+    "at_m": [
+     -148.24,
+     -5.33
+    ],
+    "building": "power-1",
+    "floor": 1,
+    "access": 3,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "3",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     -146.87,
+     -16.45
+    ],
+    "moved_m": 11.21,
+    "srvsurvey_ref": "secureDoors[1]",
+    "rot_deg": 0
+   },
+   {
+    "id": "regulator-power",
+    "type": "power_regulator",
+    "at_m": [
+     -143.84,
+     7.3
+    ],
+    "building": "power-1",
+    "floor": 1,
+    "access": 3,
+    "icon": {
+     "colour": "yellow",
+     "symbol": "P",
+     "text": "P",
+     "background_hex": "#ffff00",
+     "foreground_hex": "#000000"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     -145.04,
+     4.91
+    ],
+    "moved_m": 2.67,
+    "srvsurvey_ref": "namedPoi[13]"
+   },
+   {
+    "id": "alarm-power",
+    "type": "alarm_console",
+    "at_m": [
+     -152.63,
+     12.46
+    ],
+    "building": "power-1",
+    "floor": 2,
+    "access": 1,
+    "icon": {
+     "colour": "yellow",
+     "symbol": "A",
+     "text": "A",
+     "background_hex": "#ffff00",
+     "foreground_hex": "#000000"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_floor": 1,
+    "plan_at_m": [
+     -151.35,
+     15.06
+    ],
+    "moved_m": 2.89,
+    "srvsurvey_ref": "namedPoi[11]"
+   },
+   {
+    "id": "airlock-power-south",
+    "type": "airlock",
+    "at_m": [
+     -133.26,
+     10.55
+    ],
+    "building": "power-1",
+    "floor": 1,
+    "access": 3,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "3",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     -128.31,
+     8.64
+    ],
+    "moved_m": 5.31,
+    "srvsurvey_ref": "secureDoors[0]",
+    "rot_deg": 270
+   },
+   {
+    "id": "tip-promenade",
+    "type": "tip",
+    "at_m": [
+     40.32,
+     -4.02
+    ],
+    "building": null,
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "blue",
+     "symbol": "i",
+     "text": "i",
+     "background_hex": "#3399ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan"
+   },
+   {
+    "id": "tip-east",
+    "type": "tip",
+    "at_m": [
+     16.12,
+     125.92
+    ],
+    "building": null,
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "blue",
+     "symbol": "i",
+     "text": "i",
+     "background_hex": "#3399ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan"
+   },
+   {
+    "id": "terminal-promenade-west",
+    "type": "terminal_lo",
+    "at_m": [
+     61.94,
+     -42.31
+    ],
+    "building": null,
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    },
+    "source": "plan"
+   },
+   {
+    "id": "terminal-promenade-centre",
+    "type": "terminal_lo",
+    "at_m": [
+     58.39,
+     -3.9
+    ],
+    "building": null,
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    },
+    "source": "plan"
+   },
+   {
+    "id": "terminal-promenade-east",
+    "type": "terminal_lo",
+    "at_m": [
+     51.59,
+     29.9
+    ],
+    "building": null,
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    },
+    "source": "plan"
+   },
+   {
+    "id": "airlock-hab-west",
+    "type": "airlock",
+    "at_m": [
+     67.01,
+     -100.26
+    ],
+    "building": "hab-west",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     65.27,
+     -97.82
+    ],
+    "moved_m": 3.0,
+    "srvsurvey_ref": "secureDoors[2]",
+    "rot_deg": 135
+   },
+   {
+    "id": "inner-door-hab-west",
+    "type": "inner_door",
+    "at_m": [
+     75.85,
+     -108.95
+    ],
+    "building": "hab-west",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#0000ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     76.52,
+     -109.9
+    ],
+    "moved_m": 1.15,
+    "srvsurvey_ref": "secureDoors[13]",
+    "rot_deg": 135
+   },
+   {
+    "id": "terminal-hab-west",
+    "type": "terminal_above_lo",
+    "at_m": [
+     85.57,
+     -116.08
+    ],
+    "building": "hab-west",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#0099ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "plan_at_m": [
+     66.32,
+     -108.32
+    ],
+    "moved_m": 20.75,
+    "srvsurvey_ref": "dataTerminals[5]",
+    "floor_basis": "srvsurvey",
+    "function": "data"
+   },
+   {
+    "id": "airlock-hab-southwest",
+    "type": "airlock",
+    "at_m": [
+     85.57,
+     -68.85
+    ],
+    "building": "hab-southwest",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     82.18,
+     -72.08
+    ],
+    "moved_m": 4.68,
+    "srvsurvey_ref": "secureDoors[3]",
+    "rot_deg": 90
+   },
+   {
+    "id": "inner-door-hab-southwest",
+    "type": "inner_door",
+    "at_m": [
+     97.88,
+     -68.85
+    ],
+    "building": "hab-southwest",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#0000ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     92.03,
+     -71.35
+    ],
+    "moved_m": 6.36,
+    "srvsurvey_ref": "secureDoors[12]",
+    "rot_deg": 90
+   },
+   {
+    "id": "terminal-hab-southwest",
+    "type": "terminal_above_lo",
+    "at_m": [
+     109.39,
+     -67.17
+    ],
+    "building": "hab-southwest",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#0099ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "plan_at_m": [
+     90.77,
+     -80.23
+    ],
+    "moved_m": 22.74,
+    "srvsurvey_ref": "dataTerminals[4]",
+    "floor_basis": "srvsurvey",
+    "function": "data"
+   },
+   {
+    "id": "airlock-hab-mideast",
+    "type": "airlock",
+    "at_m": [
+     72.33,
+     51.7
+    ],
+    "building": "hab-mideast",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     71.45,
+     57.63
+    ],
+    "moved_m": 6.0,
+    "srvsurvey_ref": "secureDoors[6]",
+    "rot_deg": 90
+   },
+   {
+    "id": "inner-door-hab-mideast",
+    "type": "inner_door",
+    "at_m": [
+     84.64,
+     51.75
+    ],
+    "building": "hab-mideast",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#0000ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     84.26,
+     57.72
+    ],
+    "moved_m": 5.97,
+    "srvsurvey_ref": "secureDoors[9]",
+    "rot_deg": 90
+   },
+   {
+    "id": "terminal-hab-mideast",
+    "type": "terminal_above_lo",
+    "at_m": [
+     97.01,
+     53.55
+    ],
+    "building": "hab-mideast",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#0099ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "plan_at_m": [
+     79.4,
+     47.83
+    ],
+    "moved_m": 18.52,
+    "srvsurvey_ref": "dataTerminals[1]",
+    "floor_basis": "srvsurvey",
+    "function": "data"
+   },
+   {
+    "id": "airlock-hab-southeast",
+    "type": "airlock",
+    "at_m": [
+     86.43,
+     91.05
+    ],
+    "building": "hab-southeast",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     83.39,
+     89.58
+    ],
+    "moved_m": 3.38,
+    "srvsurvey_ref": "secureDoors[7]",
+    "rot_deg": 45
+   },
+   {
+    "id": "inner-door-hab-southeast",
+    "type": "inner_door",
+    "at_m": [
+     95.22,
+     99.74
+    ],
+    "building": "hab-southeast",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#0000ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     93.17,
+     100.16
+    ],
+    "moved_m": 2.09,
+    "srvsurvey_ref": "secureDoors[10]",
+    "rot_deg": 45
+   },
+   {
+    "id": "terminal-hab-southeast",
+    "type": "terminal_above_lo",
+    "at_m": [
+     102.33,
+     109.36
+    ],
+    "building": "hab-southeast",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#0099ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "plan_at_m": [
+     96.85,
+     90.98
+    ],
+    "moved_m": 19.18,
+    "srvsurvey_ref": "dataTerminals[2]",
+    "floor_basis": "srvsurvey",
+    "function": "data"
+   },
+   {
+    "id": "airlock-hab-northeast",
+    "type": "airlock",
+    "at_m": [
+     44.98,
+     96.03
+    ],
+    "building": "hab-northeast",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     50.81,
+     96.59
+    ],
+    "moved_m": 5.86,
+    "srvsurvey_ref": "secureDoors[8]",
+    "rot_deg": 0
+   },
+   {
+    "id": "inner-door-hab-northeast",
+    "type": "inner_door",
+    "at_m": [
+     44.98,
+     108.32
+    ],
+    "building": "hab-northeast",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "numbered circle",
+     "text": "1",
+     "background_hex": "#0000ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     48.08,
+     111.68
+    ],
+    "moved_m": 4.58,
+    "srvsurvey_ref": "secureDoors[11]",
+    "rot_deg": 0
+   },
+   {
+    "id": "terminal-hab-northeast",
+    "type": "terminal_above_lo",
+    "at_m": [
+     43.19,
+     120.02
+    ],
+    "building": "hab-northeast",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#0099ff",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "plan_at_m": [
+     57.31,
+     106.82
+    ],
+    "moved_m": 19.34,
+    "srvsurvey_ref": "dataTerminals[3]",
+    "floor_basis": "srvsurvey",
+    "function": "data"
+   },
+   {
+    "id": "airlock-hab-centre-west",
+    "type": "airlock",
+    "at_m": [
+     80.25,
+     -10.49
+    ],
+    "building": "hab-centre",
+    "floor": 1,
+    "access": 0,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "0",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     71.94,
+     -14.98
+    ],
+    "moved_m": 9.45,
+    "srvsurvey_ref": "secureDoors[4]",
+    "rot_deg": 90
+   },
+   {
+    "id": "airlock-hab-centre-east",
+    "type": "airlock",
+    "at_m": [
+     80.25,
+     7.24
+    ],
+    "building": "hab-centre",
+    "floor": 1,
+    "access": 0,
+    "icon": {
+     "colour": "red",
+     "symbol": "numbered circle",
+     "text": "0",
+     "background_hex": "#ff0000",
+     "foreground_hex": "#ffffff"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     71.8,
+     4.74
+    ],
+    "moved_m": 8.81,
+    "srvsurvey_ref": "secureDoors[5]",
+    "rot_deg": 90
+   },
+   {
+    "id": "terminal-hab-centre-west",
+    "type": "terminal_lo",
+    "at_m": [
+     84.06,
+     -10.95
+    ],
+    "building": "hab-centre",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    },
+    "source": "plan"
+   },
+   {
+    "id": "terminal-hab-centre-east",
+    "type": "terminal_lo",
+    "at_m": [
+     94.35,
+     10.61
+    ],
+    "building": "hab-centre",
+    "floor": 1,
+    "access": 0,
+    "icon": {
+     "colour": "yellow-green",
+     "symbol": "monitor",
+     "text": null,
+     "background_hex": "#ccff00",
+     "foreground_hex": "#000000"
+    },
+    "source": "plan+srvsurvey",
+    "plan_at_m": [
+     84.02,
+     -4.38
+    ],
+    "moved_m": 18.2,
+    "srvsurvey_ref": "dataTerminals[0]",
+    "floor_basis": "srvsurvey",
+    "function": "data"
+   },
+   {
+    "at_m": [
+     -144.69,
+     21.63
+    ],
+    "floor": 0,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-atmos-00",
+    "srvsurvey_ref": "namedPoi[0]",
+    "type": "loot",
+    "item": "Atmos",
+    "building": "power-1",
+    "building_basis": "srvsurvey_outline"
+   },
+   {
+    "at_m": [
+     100.54,
+     15.3
+    ],
+    "floor": 1,
+    "access": 0,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-medkit-01",
+    "srvsurvey_ref": "namedPoi[1]",
+    "type": "loot",
+    "item": "Medkit",
+    "building": "hab-centre"
+   },
+   {
+    "at_m": [
+     104.93,
+     -18.49
+    ],
+    "floor": 1,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-atmos-02",
+    "srvsurvey_ref": "namedPoi[2]",
+    "type": "loot",
+    "item": "Atmos",
+    "building": "hab-centre"
+   },
+   {
+    "at_m": [
+     88.17,
+     54.01
+    ],
+    "floor": 1,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-atmos-03",
+    "srvsurvey_ref": "namedPoi[3]",
+    "type": "loot",
+    "item": "Atmos",
+    "building": "hab-mideast"
+   },
+   {
+    "at_m": [
+     96.15,
+     103.8
+    ],
+    "floor": 1,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-atmos-04",
+    "srvsurvey_ref": "namedPoi[4]",
+    "type": "loot",
+    "item": "Atmos",
+    "building": "hab-southeast"
+   },
+   {
+    "at_m": [
+     39.66,
+     113.88
+    ],
+    "floor": 1,
+    "access": 1,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-medkit-05",
+    "srvsurvey_ref": "namedPoi[5]",
+    "type": "loot",
+    "item": "Medkit",
+    "building": "hab-northeast"
+   },
+   {
+    "at_m": [
+     43.19,
+     111.62
+    ],
+    "floor": 1,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-atmos-06",
+    "srvsurvey_ref": "namedPoi[6]",
+    "type": "loot",
+    "item": "Atmos",
+    "building": "hab-northeast"
+   },
+   {
+    "at_m": [
+     100.54,
+     -66.53
+    ],
+    "floor": 1,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-atmos-07",
+    "srvsurvey_ref": "namedPoi[7]",
+    "type": "loot",
+    "item": "Atmos",
+    "building": "hab-southwest"
+   },
+   {
+    "at_m": [
+     80.25,
+     -109.71
+    ],
+    "floor": 1,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-atmos-08",
+    "srvsurvey_ref": "namedPoi[8]",
+    "type": "loot",
+    "item": "Atmos",
+    "building": "hab-west"
+   },
+   {
+    "at_m": [
+     82.91,
+     -109.13
+    ],
+    "floor": 1,
+    "access": 1,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-medkit-09",
+    "srvsurvey_ref": "namedPoi[9]",
+    "type": "loot",
+    "item": "Medkit",
+    "building": "hab-west"
+   },
+   {
+    "at_m": [
+     -141.18,
+     14.08
+    ],
+    "floor": 1,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-personel-10",
+    "srvsurvey_ref": "namedPoi[10]",
+    "type": "terminal",
+    "function": "personnel",
+    "building": "power-1"
+   },
+   {
+    "at_m": [
+     -150.9,
+     15.07
+    ],
+    "floor": 2,
+    "access": 1,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-auth-12",
+    "srvsurvey_ref": "namedPoi[12]",
+    "type": "terminal",
+    "function": "auth",
+    "building": "power-1"
+   }
+  ],
+  "labels": [],
+  "srvsurvey_buildings": [
+   {
+    "name": "POW",
+    "outlines_m": [
+     [
+      [
+       -139.4,
+       -5.7
+      ],
+      [
+       -157.1,
+       -5.4
+      ],
+      [
+       -157.1,
+       20.1
+      ],
+      [
+       -150.0,
+       20.0
+      ],
+      [
+       -150.0,
+       23.1
+      ],
+      [
+       -129.7,
+       23.1
+      ],
+      [
+       -129.7,
+       15.6
+      ],
+      [
+       -131.5,
+       15.7
+      ],
+      [
+       -131.5,
+       6.5
+      ],
+      [
+       -138.5,
+       6.6
+      ],
+      [
+       -138.5,
+       0.6
+      ],
+      [
+       -139.4,
+       0.8
+      ]
+     ]
+    ]
+   },
+   {
+    "name": "HAB #1",
+    "outlines_m": [
+     [
+      [
+       60.0,
+       -107.0
+      ],
+      [
+       74.1,
+       -93.0
+      ],
+      [
+       81.1,
+       -100.0
+      ],
+      [
+       83.8,
+       -96.9
+      ],
+      [
+       89.1,
+       -102.6
+      ],
+      [
+       86.4,
+       -105.5
+      ],
+      [
+       92.6,
+       -111.6
+      ],
+      [
+       78.5,
+       -124.9
+      ],
+      [
+       72.3,
+       -118.1
+      ],
+      [
+       64.3,
+       -125.0
+      ],
+      [
+       60.0,
+       -120.3
+      ],
+      [
+       64.3,
+       -116.0
+      ],
+      [
+       60.0,
+       -111.7
+      ],
+      [
+       62.6,
+       -109.7
+      ]
+     ],
+     [
+      [
+       94.1,
+       -117.7
+      ],
+      [
+       94.1,
+       -123.0
+      ],
+      [
+       89.9,
+       -127.2
+      ],
+      [
+       84.6,
+       -127.2
+      ],
+      [
+       79.4,
+       -127.2
+      ],
+      [
+       75.1,
+       -123.0
+      ],
+      [
+       75.1,
+       -117.7
+      ],
+      [
+       75.1,
+       -112.5
+      ],
+      [
+       79.4,
+       -108.2
+      ],
+      [
+       84.6,
+       -108.2
+      ],
+      [
+       89.9,
+       -108.2
+      ],
+      [
+       94.1,
+       -112.5
+      ],
+      [
+       94.1,
+       -117.7
+      ]
+     ]
+    ]
+   },
+   {
+    "name": "HAB #2",
+    "outlines_m": [
+     [
+      [
+       84.6,
+       -78.6
+      ],
+      [
+       84.6,
+       -59.0
+      ],
+      [
+       94.4,
+       -59.2
+      ],
+      [
+       94.4,
+       -55.1
+      ],
+      [
+       102.3,
+       -55.3
+      ],
+      [
+       102.3,
+       -55.3
+      ],
+      [
+       102.3,
+       -59.4
+      ],
+      [
+       110.3,
+       -59.5
+      ],
+      [
+       110.3,
+       -78.2
+      ],
+      [
+       100.5,
+       -78.4
+      ],
+      [
+       100.5,
+       -88.5
+      ],
+      [
+       94.4,
+       -88.1
+      ],
+      [
+       94.4,
+       -81.9
+      ],
+      [
+       89.1,
+       -81.7
+      ],
+      [
+       89.1,
+       -78.8
+      ]
+     ],
+     [
+      [
+       119.8,
+       -68.9
+      ],
+      [
+       119.8,
+       -74.1
+      ],
+      [
+       115.5,
+       -78.4
+      ],
+      [
+       110.3,
+       -78.4
+      ],
+      [
+       105.0,
+       -78.4
+      ],
+      [
+       100.8,
+       -74.1
+      ],
+      [
+       100.8,
+       -68.9
+      ],
+      [
+       100.8,
+       -63.6
+      ],
+      [
+       105.0,
+       -59.4
+      ],
+      [
+       110.3,
+       -59.4
+      ],
+      [
+       115.5,
+       -59.4
+      ],
+      [
+       119.8,
+       -63.6
+      ],
+      [
+       119.8,
+       -68.9
+      ]
+     ]
+    ]
+   },
+   {
+    "name": "HAB #3",
+    "outlines_m": [
+     [
+      [
+       79.4,
+       -15.2
+      ],
+      [
+       78.5,
+       11.0
+      ],
+      [
+       86.4,
+       11.6
+      ],
+      [
+       86.4,
+       17.6
+      ],
+      [
+       112.0,
+       17.3
+      ],
+      [
+       112.0,
+       16.6
+      ],
+      [
+       114.6,
+       16.7
+      ],
+      [
+       114.6,
+       -19.9
+      ],
+      [
+       110.3,
+       -19.9
+      ],
+      [
+       110.3,
+       -28.7
+      ],
+      [
+       102.3,
+       -28.5
+      ],
+      [
+       102.3,
+       -23.6
+      ],
+      [
+       85.6,
+       -23.2
+      ],
+      [
+       85.6,
+       -15.5
+      ]
+     ]
+    ]
+   },
+   {
+    "name": "HAB #4",
+    "outlines_m": [
+     [
+      [
+       72.3,
+       42.0
+      ],
+      [
+       72.3,
+       61.7
+      ],
+      [
+       82.0,
+       61.7
+      ],
+      [
+       82.0,
+       65.7
+      ],
+      [
+       90.0,
+       65.3
+      ],
+      [
+       90.0,
+       61.3
+      ],
+      [
+       97.9,
+       61.4
+      ],
+      [
+       97.0,
+       42.1
+      ],
+      [
+       88.2,
+       42.3
+      ],
+      [
+       88.2,
+       32.5
+      ],
+      [
+       82.0,
+       32.5
+      ],
+      [
+       82.0,
+       38.7
+      ],
+      [
+       75.9,
+       39.1
+      ],
+      [
+       75.0,
+       41.8
+      ]
+     ],
+     [
+      [
+       107.4,
+       51.8
+      ],
+      [
+       107.4,
+       46.6
+      ],
+      [
+       103.1,
+       42.3
+      ],
+      [
+       97.9,
+       42.3
+      ],
+      [
+       92.6,
+       42.3
+      ],
+      [
+       88.4,
+       46.6
+      ],
+      [
+       88.4,
+       51.8
+      ],
+      [
+       88.4,
+       57.1
+      ],
+      [
+       92.6,
+       61.3
+      ],
+      [
+       97.9,
+       61.3
+      ],
+      [
+       103.1,
+       61.3
+      ],
+      [
+       107.4,
+       57.1
+      ],
+      [
+       107.4,
+       51.8
+      ]
+     ]
+    ]
+   },
+   {
+    "name": "HAB #5",
+    "outlines_m": [
+     [
+      [
+       92.6,
+       83.7
+      ],
+      [
+       78.5,
+       97.8
+      ],
+      [
+       85.6,
+       104.1
+      ],
+      [
+       82.9,
+       107.2
+      ],
+      [
+       89.1,
+       112.6
+      ],
+      [
+       90.8,
+       109.7
+      ],
+      [
+       97.0,
+       114.5
+      ],
+      [
+       110.3,
+       101.8
+      ],
+      [
+       104.1,
+       95.6
+      ],
+      [
+       112.0,
+       88.2
+      ],
+      [
+       106.7,
+       83.8
+      ],
+      [
+       101.4,
+       88.6
+      ],
+      [
+       97.9,
+       84.7
+      ],
+      [
+       96.1,
+       86.5
+      ]
+     ],
+     [
+      [
+       113.6,
+       108.7
+      ],
+      [
+       113.6,
+       103.5
+      ],
+      [
+       109.3,
+       99.2
+      ],
+      [
+       104.1,
+       99.2
+      ],
+      [
+       98.8,
+       99.2
+      ],
+      [
+       94.6,
+       103.5
+      ],
+      [
+       94.6,
+       108.7
+      ],
+      [
+       94.6,
+       114.0
+      ],
+      [
+       98.8,
+       118.2
+      ],
+      [
+       104.1,
+       118.2
+      ],
+      [
+       109.3,
+       118.2
+      ],
+      [
+       113.6,
+       114.0
+      ],
+      [
+       113.6,
+       108.7
+      ]
+     ]
+    ]
+   },
+   {
+    "name": "HAB #6",
+    "outlines_m": [
+     [
+      [
+       54.7,
+       95.4
+      ],
+      [
+       35.3,
+       95.7
+      ],
+      [
+       35.3,
+       104.8
+      ],
+      [
+       30.9,
+       104.9
+      ],
+      [
+       31.7,
+       112.8
+      ],
+      [
+       36.1,
+       113.0
+      ],
+      [
+       36.1,
+       120.6
+      ],
+      [
+       54.7,
+       120.1
+      ],
+      [
+       54.7,
+       111.9
+      ],
+      [
+       64.3,
+       111.5
+      ],
+      [
+       64.3,
+       105.1
+      ],
+      [
+       58.2,
+       105.0
+      ],
+      [
+       58.2,
+       99.5
+      ],
+      [
+       54.7,
+       99.3
+      ]
+     ],
+     [
+      [
+       55.0,
+       121.1
+      ],
+      [
+       55.0,
+       116.0
+      ],
+      [
+       50.9,
+       111.9
+      ],
+      [
+       45.8,
+       111.9
+      ],
+      [
+       40.8,
+       111.9
+      ],
+      [
+       36.6,
+       116.0
+      ],
+      [
+       36.6,
+       121.1
+      ],
+      [
+       36.6,
+       126.2
+      ],
+      [
+       40.8,
+       130.3
+      ],
+      [
+       45.8,
+       130.3
+      ],
+      [
+       50.9,
+       130.3
+      ],
+      [
+       55.0,
+       126.2
+      ],
+      [
+       55.0,
+       121.1
+      ]
+     ]
+    ]
+   }
+  ],
+  "bounds_m": {
+   "min": [
+    -156.32,
+    -133.82
+   ],
+   "max": [
+    118.78,
+    143.63
+   ],
+   "extent_x_m": 275.1,
+   "extent_y_m": 277.45,
+   "previous_extent_m": [
+    251.3,
+    213.3
+   ]
+  }
+ },
+ "srvsurvey": {
+  "economy": "Tourist",
+  "subType": 2,
+  "name": "Aergia",
+  "name_note": null,
+  "source": "SrvSurvey settlements/humanSiteTemplates.json, https://github.com/njthomson/SrvSurvey",
+  "licence": "GPL-3.0",
+  "credit": "Settlement measurements from SrvSurvey (njthomson) and its contributors.",
+  "templates_md5": "83e441a5466ac0c5c958c18c58bc920d"
+ },
+ "merge": {
+  "date": "2026-10-29",
+  "tool": "merge.py",
+  "source_file": "1 Tourism/02 Aergia/tourist-2.json",
+  "source_md5": "c0062e155f770bd0c9ec985c299cfc58"
+ }
+}

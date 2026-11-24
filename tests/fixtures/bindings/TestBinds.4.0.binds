@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Root PresetName="TestBinds" MajorVersion="4" MinorVersion="0">
+	<GalaxyMapOpen><Primary Device="Keyboard" Key="Key_M" /><Secondary Device="{NoDevice}" Key="" /></GalaxyMapOpen>
+	<SystemMapOpen><Primary Device="Keyboard" Key="Key_Comma" /><Secondary Device="{NoDevice}" Key="" /></SystemMapOpen>
+	<Hyperspace><Primary Device="Keyboard" Key="Key_J" /><Secondary Device="{NoDevice}" Key="" /></Hyperspace>
+	<Supercruise><Primary Device="Keyboard" Key="Key_J"><Modifier Device="Keyboard" Key="Key_LeftShift" /></Primary><Secondary Device="{NoDevice}" Key="" /></Supercruise>
+	<CycleNextTarget><Primary Device="{NoDevice}" Key="" /><Secondary Device="1234ABCD" Key="Joy_3" /></CycleNextTarget>
+</Root>

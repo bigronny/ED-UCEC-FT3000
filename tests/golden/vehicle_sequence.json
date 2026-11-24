@@ -1,0 +1,32 @@
+[
+ [
+  "ship",
+  "foot",
+  ""
+ ],
+ [
+  "",
+  "ship",
+  ""
+ ],
+ [
+  "ship",
+  "srv",
+  "SRV Scarab"
+ ],
+ [
+  "srv",
+  "ship",
+  ""
+ ],
+ [
+  "ship",
+  "fighter",
+  "Four"
+ ],
+ [
+  "fighter",
+  "ship",
+  ""
+ ]
+]

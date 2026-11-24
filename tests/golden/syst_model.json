@@ -1,0 +1,6463 @@
+{
+ "auto": {
+  "key": "s3224777216",
+  "why": "docked"
+ },
+ "bodies": 23,
+ "docked": "s3224777216",
+ "entries": [
+  {
+   "bodyId": 0,
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 0,
+   "gravity": null,
+   "icon": "star",
+   "key": "b0",
+   "kind": "star",
+   "lab": "Star · arrival point",
+   "label": "HIP 20277 · K2 star",
+   "mine": false,
+   "name": "HIP 20277",
+   "pic": {
+    "body": "HIP 20277",
+    "kind": "star",
+    "sites": []
+   },
+   "radius": 609926.4458,
+   "right": "0",
+   "rows": [
+    [
+     "Class",
+     "K2 V · K (Yellow-Orange) Star",
+     true
+    ],
+    [
+     "Temperature",
+     "4,864 K",
+     false
+    ],
+    [
+     "Mass",
+     "0.78 suns",
+     false
+    ],
+    [
+     "Radius",
+     "0.88 suns",
+     false
+    ],
+    [
+     "Age",
+     "1,176 million years",
+     false
+    ],
+    [
+     "Belt",
+     "HIP 20277 A Belt · Metal Rich",
+     true
+    ],
+    [
+     "System first logged (EDSM)",
+     "CMDR Ishwin · 2015-06-06",
+     true
+    ],
+    [
+     "Exploration value",
+     "58,059 CR · 182,015 CR mapped",
+     true
+    ],
+    [
+     "Commander deaths (EDSM)",
+     "1 this week · 155 all time",
+     true
+    ],
+    [
+     "Spansh updated",
+     "9 Jan 2021 10:11",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 5,
+   "chips": [],
+   "depth": 0,
+   "gravity": 1.7073,
+   "icon": "planet",
+   "key": "b5",
+   "kind": "planet",
+   "lab": "Planet · 13 ls · orbits HIP 20277",
+   "label": "1 High metal",
+   "mine": false,
+   "name": "HIP 20277 1",
+   "pic": {
+    "body": "HIP 20277 1",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 8187.8175,
+   "right": "13",
+   "rows": [
+    [
+     "Type",
+     "High metal content world",
+     true
+    ],
+    [
+     "Gravity",
+     "1.71 g",
+     false
+    ],
+    [
+     "Temperature",
+     "1,219 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "Hot Sulphur dioxide",
+     false
+    ],
+    [
+     "Pressure",
+     "3.90 atm",
+     false
+    ],
+    [
+     "Radius",
+     "8,188 km",
+     false
+    ],
+    [
+     "Day",
+     "1.7 days",
+     false
+    ],
+    [
+     "Year",
+     "1.7 days",
+     false
+    ],
+    [
+     "Air",
+     "Sulphur dioxide 100.0%",
+     true
+    ],
+    [
+     "Volcanism",
+     "Major Silicate Vapour Geysers",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 6,
+   "chips": [],
+   "depth": 0,
+   "gravity": 1.7775,
+   "icon": "planet",
+   "key": "b6",
+   "kind": "planet",
+   "lab": "Planet · 164 ls · orbits HIP 20277",
+   "label": "2 Gas giant III",
+   "mine": false,
+   "name": "HIP 20277 2",
+   "pic": {
+    "body": "HIP 20277 2",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 67042.332,
+   "right": "164",
+   "rows": [
+    [
+     "Type",
+     "Class III gas giant",
+     true
+    ],
+    [
+     "Gravity",
+     "1.78 g",
+     false
+    ],
+    [
+     "Temperature",
+     "329 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "No atmosphere",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "67,042 km",
+     false
+    ],
+    [
+     "Day",
+     "74.3 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "18.0 days",
+     false
+    ],
+    [
+     "Air",
+     "Hydrogen 72.2% · Helium 27.8%",
+     true
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 8,
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 0,
+   "gravity": 5.428,
+   "icon": "planet",
+   "key": "b8",
+   "kind": "planet",
+   "lab": "Planet · 943 ls · paired with HIP 20277 4",
+   "label": "3 Gas giant",
+   "mine": false,
+   "name": "HIP 20277 3",
+   "pic": {
+    "body": "HIP 20277 3",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 76177.144,
+   "right": "943",
+   "rows": [
+    [
+     "Type",
+     "Gas giant with water-based life",
+     true
+    ],
+    [
+     "Gravity",
+     "5.43 g",
+     false
+    ],
+    [
+     "Temperature",
+     "249 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "No atmosphere",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "76,177 km",
+     false
+    ],
+    [
+     "Day",
+     "3.3 days",
+     false
+    ],
+    [
+     "Year",
+     "132.3 days",
+     false
+    ],
+    [
+     "Air",
+     "Hydrogen 72.2% · Helium 27.8% · Oxygen 0.1%",
+     true
+    ],
+    [
+     "Ring",
+     "3 A Ring · Metal Rich",
+     true
+    ],
+    [
+     "Ring",
+     "3 B Ring · Metal Rich",
+     true
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 11,
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "gravity": 0.092,
+   "icon": "landable",
+   "key": "b11",
+   "kind": "planet",
+   "lab": "Moon · 942 ls · orbits HIP 20277 3",
+   "label": "3 a Rocky",
+   "mine": false,
+   "name": "HIP 20277 3 a",
+   "pic": {
+    "body": "HIP 20277 3 a",
+    "kind": "globe",
+    "sites": [
+     {
+      "key": "s3814632192",
+      "lat": -2.6374,
+      "lon": -171.907,
+      "name": "Crossland Industrial Creations"
+     },
+     {
+      "key": "s3814631936",
+      "lat": 58.7693,
+      "lon": 51.4311,
+      "name": "Dhaenens's Lodgings"
+     }
+    ]
+   },
+   "radius": 786.0883,
+   "right": "942",
+   "rows": [
+    [
+     "Type",
+     "Rocky body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.09 g",
+     false
+    ],
+    [
+     "Temperature",
+     "164 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "No atmosphere",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "786 km",
+     false
+    ],
+    [
+     "Day",
+     "0.9 days",
+     false
+    ],
+    [
+     "Year",
+     "0.9 days",
+     false
+    ],
+    [
+     "Materials",
+     "Iron 19.0 · Sulphur 18.6 · Carbon 15.7 · Nickel 14.4 · Phosphorus 10.0 · Chromium 8.6 · Manganese 7.8 · Selenium 2.9 · Niobium 1.3 · Tungsten 1.0 · Technetium 0.7",
+     true
+    ],
+    [
+     "Volcanism",
+     "Metallic Magma",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ],
+    [
+     "Signals",
+     "Geological 3 · Human 3 · Mining 15",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "body": "HIP 20277 3 a",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814632192",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 3 a surface",
+   "label": "Crossland Industrial Creations",
+   "name": "Crossland Industrial Creations",
+   "pic": {
+    "body": "HIP 20277 3 a",
+    "kind": "surface",
+    "lat": -2.6374,
+    "lon": -171.907
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-2.64, -171.91",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "5 Oct 2026 04:08",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "industrial",
+    "key": "m:3814632192"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 3 a",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814631936",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 3 a surface",
+   "label": "Dhaenens's Lodgings",
+   "name": "Dhaenens's Lodgings",
+   "pic": {
+    "body": "HIP 20277 3 a",
+    "kind": "surface",
+    "lat": 58.7693,
+    "lon": 51.4311
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Tourism",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Crew Lounge · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 2 large",
+     true
+    ],
+    [
+     "Position",
+     "58.77, 51.43",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "30 Jan 2026 02:23",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "tourism",
+    "economy": "Tourism",
+    "guess": "tourism",
+    "key": "m:3814631936"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "bodyId": 12,
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "gravity": 0.0912,
+   "icon": "landable",
+   "key": "b12",
+   "kind": "planet",
+   "lab": "Moon · 942 ls · orbits HIP 20277 3",
+   "label": "3 b Rocky",
+   "mine": false,
+   "name": "HIP 20277 3 b",
+   "pic": {
+    "body": "HIP 20277 3 b",
+    "kind": "globe",
+    "sites": [
+     {
+      "key": "s3814633728",
+      "lat": -13.4086,
+      "lon": 34.7333,
+      "name": "Hao Extraction Prospect"
+     },
+     {
+      "key": "s3814633216",
+      "lat": 18.1838,
+      "lon": 175.423,
+      "name": "Mori Horticultural Centre"
+     },
+     {
+      "key": "s3814632704",
+      "lat": 10.859,
+      "lon": 36.6436,
+      "name": "Gowers Manufacturing Exchange"
+     },
+     {
+      "key": "s3814632960",
+      "lat": -46.9067,
+      "lon": -109.508,
+      "name": "Franklin Industries"
+     },
+     {
+      "key": "s3814632448",
+      "lat": -25.9892,
+      "lon": 173.698,
+      "name": "Preece Leisure Complex"
+     },
+     {
+      "key": "s3814633472",
+      "lat": 0.2527,
+      "lon": -164.914,
+      "name": "Hilborn Hydroponics Habitat"
+     }
+    ]
+   },
+   "radius": 779.894,
+   "right": "942",
+   "rows": [
+    [
+     "Type",
+     "Rocky body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.09 g",
+     false
+    ],
+    [
+     "Temperature",
+     "160 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "No atmosphere",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "780 km",
+     false
+    ],
+    [
+     "Day",
+     "1.3 days",
+     false
+    ],
+    [
+     "Year",
+     "1.3 days",
+     false
+    ],
+    [
+     "Materials",
+     "Iron 18.5 · Sulphur 18.1 · Carbon 15.2 · Nickel 14.0 · Phosphorus 9.8 · Chromium 8.3 · Manganese 7.7 · Germanium 5.4 · Ruthenium 1.1 · Tungsten 1.0 · Mercury 0.8",
+     true
+    ],
+    [
+     "Volcanism",
+     "Minor Metallic Magma",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "body": "HIP 20277 3 b",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814632960",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 3 b surface",
+   "label": "Franklin Industries",
+   "name": "Franklin Industries",
+   "pic": {
+    "body": "HIP 20277 3 b",
+    "kind": "surface",
+    "lat": -46.9067,
+    "lon": -109.508
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Calennero State Industries",
+     false
+    ],
+    [
+     "Government",
+     "Corporate",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-46.91, -109.51",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "4 Feb 2023 02:17",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "industrial",
+    "key": "m:3814632960"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 3 b",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814632704",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 3 b surface",
+   "label": "Gowers Manufacturing Exchange",
+   "name": "Gowers Manufacturing Exchange",
+   "pic": {
+    "body": "HIP 20277 3 b",
+    "kind": "surface",
+    "lat": 10.859,
+    "lon": 36.6436
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Calennero State Industries",
+     false
+    ],
+    [
+     "Government",
+     "Corporate",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "10.86, 36.64",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "9 Nov 2025 17:26",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "industrial",
+    "key": "m:3814632704"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 3 b",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814633728",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 3 b surface",
+   "label": "Hao Extraction Prospect",
+   "name": "Hao Extraction Prospect",
+   "pic": {
+    "body": "HIP 20277 3 b",
+    "kind": "surface",
+    "lat": -13.4086,
+    "lon": 34.7333
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Calennero State Industries",
+     false
+    ],
+    [
+     "Government",
+     "Corporate",
+     false
+    ],
+    [
+     "Economy",
+     "Extraction",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-13.41, 34.73",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "23 Sep 2026 09:18",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "extraction",
+    "economy": "Extraction",
+    "guess": "extraction",
+    "key": "m:3814633728"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 3 b",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814633472",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 3 b surface",
+   "label": "Hilborn Hydroponics Habitat",
+   "name": "Hilborn Hydroponics Habitat",
+   "pic": {
+    "body": "HIP 20277 3 b",
+    "kind": "surface",
+    "lat": 0.2527,
+    "lon": -164.914
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Constitution Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Agriculture",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "0.25, -164.91",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "31 Jan 2023 00:12",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "agriculture",
+    "economy": "Agriculture",
+    "guess": "agriculture",
+    "key": "m:3814633472"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 3 b",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814633216",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 3 b surface",
+   "label": "Mori Horticultural Centre",
+   "name": "Mori Horticultural Centre",
+   "pic": {
+    "body": "HIP 20277 3 b",
+    "kind": "surface",
+    "lat": 18.1838,
+    "lon": 175.423
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Agriculture",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "18.18, 175.42",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "20 Dec 2025 20:21",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "agriculture",
+    "economy": "Agriculture",
+    "guess": "agriculture",
+    "key": "m:3814633216"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 3 b",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814632448",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 3 b surface",
+   "label": "Preece Leisure Complex",
+   "name": "Preece Leisure Complex",
+   "pic": {
+    "body": "HIP 20277 3 b",
+    "kind": "surface",
+    "lat": -25.9892,
+    "lon": 173.698
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Sentinel",
+     false
+    ],
+    [
+     "Government",
+     "Corporate",
+     false
+    ],
+    [
+     "Economy",
+     "Tourism",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Crew Lounge · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-25.99, 173.70",
+     true
+    ],
+    [
+     "Information updated",
+     "21 Oct 2026 20:42",
+     false
+    ],
+    [
+     "Market updated",
+     "26 Aug 2025 21:42",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "tourism",
+    "economy": "Tourism",
+    "guess": "tourism",
+    "key": "m:3814632448"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "bodyId": 13,
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 0,
+   "gravity": 1.9855,
+   "icon": "planet",
+   "key": "b13",
+   "kind": "planet",
+   "lab": "Planet · 977 ls · paired with HIP 20277 3",
+   "label": "4 Gas giant",
+   "mine": false,
+   "name": "HIP 20277 4",
+   "pic": {
+    "body": "HIP 20277 4",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 69392.944,
+   "right": "977",
+   "rows": [
+    [
+     "Type",
+     "Gas giant with water-based life",
+     true
+    ],
+    [
+     "Gravity",
+     "1.99 g",
+     false
+    ],
+    [
+     "Temperature",
+     "159 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "No atmosphere",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "69,393 km",
+     false
+    ],
+    [
+     "Day",
+     "151.0 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "132.3 days",
+     false
+    ],
+    [
+     "Air",
+     "Hydrogen 72.2% · Helium 27.8% · Oxygen 0.1%",
+     true
+    ],
+    [
+     "Ring",
+     "4 A Ring · Rocky",
+     true
+    ],
+    [
+     "Ring",
+     "4 B Ring · Rocky",
+     true
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 16,
+   "chips": [],
+   "depth": 1,
+   "gravity": 0.167,
+   "icon": "planet",
+   "key": "b16",
+   "kind": "planet",
+   "lab": "Moon · 978 ls · orbits HIP 20277 4",
+   "label": "4 a Rocky",
+   "mine": false,
+   "name": "HIP 20277 4 a",
+   "pic": {
+    "body": "HIP 20277 4 a",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 1400.361,
+   "right": "978",
+   "rows": [
+    [
+     "Type",
+     "Rocky body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.17 g",
+     false
+    ],
+    [
+     "Temperature",
+     "294 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "Thick Carbon dioxide",
+     false
+    ],
+    [
+     "Pressure",
+     "5.36 atm",
+     false
+    ],
+    [
+     "Radius",
+     "1,400 km",
+     false
+    ],
+    [
+     "Day",
+     "1.4 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "1.4 days",
+     false
+    ],
+    [
+     "Air",
+     "Carbon dioxide 95.8% · Ammonia 3.2% · Sulphur dioxide 1.0%",
+     true
+    ],
+    [
+     "Volcanism",
+     "Minor Silicate Vapour Geysers",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 17,
+   "chips": [],
+   "depth": 1,
+   "gravity": 0.1089,
+   "icon": "planet",
+   "key": "b17",
+   "kind": "planet",
+   "lab": "Moon · 976 ls · orbits HIP 20277 4",
+   "label": "4 b Rocky",
+   "mine": false,
+   "name": "HIP 20277 4 b",
+   "pic": {
+    "body": "HIP 20277 4 b",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 926.8074,
+   "right": "976",
+   "rows": [
+    [
+     "Type",
+     "Rocky body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.11 g",
+     false
+    ],
+    [
+     "Temperature",
+     "258 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "Carbon dioxide",
+     false
+    ],
+    [
+     "Pressure",
+     "2.21 atm",
+     false
+    ],
+    [
+     "Radius",
+     "927 km",
+     false
+    ],
+    [
+     "Day",
+     "2.6 days",
+     false
+    ],
+    [
+     "Year",
+     "2.6 days",
+     false
+    ],
+    [
+     "Air",
+     "Carbon dioxide 99.0% · Sulphur dioxide 1.0%",
+     true
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 18,
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "gravity": 0.1356,
+   "icon": "landable",
+   "key": "b18",
+   "kind": "planet",
+   "lab": "Moon · 974 ls · orbits HIP 20277 4",
+   "label": "4 c Rocky",
+   "mine": false,
+   "name": "HIP 20277 4 c",
+   "pic": {
+    "body": "HIP 20277 4 c",
+    "kind": "globe",
+    "sites": [
+     {
+      "key": "s3814635008",
+      "lat": -3.3022,
+      "lon": -174.611,
+      "name": "Krause Hydroponics Range"
+     },
+     {
+      "key": "s3790415104",
+      "lat": -3.7839,
+      "lon": -26.7831,
+      "name": "Lichtenberg Survey"
+     },
+     {
+      "key": "s3814635520",
+      "lat": -30.307,
+      "lon": 108.252,
+      "name": "Anand Defence Complex"
+     },
+     {
+      "key": "s3790414848",
+      "lat": 6.3842,
+      "lon": 120.317,
+      "name": "Shumil Bastion"
+     },
+     {
+      "key": "s3814635776",
+      "lat": 25.1786,
+      "lon": -133.651,
+      "name": "Deshmukh Industrial Base"
+     },
+     {
+      "key": "s3814635264",
+      "lat": 35.8651,
+      "lon": 103.566,
+      "name": "Kotyschenko Hydroponics Facility"
+     }
+    ]
+   },
+   "radius": 1146.4243,
+   "right": "974",
+   "rows": [
+    [
+     "Type",
+     "Rocky body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.14 g",
+     false
+    ],
+    [
+     "Temperature",
+     "171 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "Thin Carbon dioxide",
+     false
+    ],
+    [
+     "Pressure",
+     "0.03 atm",
+     false
+    ],
+    [
+     "Radius",
+     "1,146 km",
+     false
+    ],
+    [
+     "Day",
+     "6.0 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "6.0 days",
+     false
+    ],
+    [
+     "Air",
+     "Carbon dioxide 99.0% · Sulphur dioxide 1.0%",
+     true
+    ],
+    [
+     "Materials",
+     "Iron 19.1 · Sulphur 18.7 · Carbon 15.7 · Nickel 14.4 · Phosphorus 10.1 · Chromium 8.6 · Manganese 7.9 · Zirconium 2.2 · Niobium 1.3 · Yttrium 1.1 · Tungsten 1.1",
+     true
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ],
+    [
+     "Signals",
+     "Biological 2 · Human 6",
+     true
+    ],
+    [
+     "Biology",
+     "Concha · Bacterium",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "body": "HIP 20277 4 c",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814635520",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 4 c surface",
+   "label": "Anand Defence Complex",
+   "name": "Anand Defence Complex",
+   "pic": {
+    "body": "HIP 20277 4 c",
+    "kind": "surface",
+    "lat": -30.307,
+    "lon": 108.252
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Constitution Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Military",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Restock · Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-30.31, 108.25",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "25 Oct 2026 11:48",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "military",
+    "economy": "Military",
+    "guess": "military",
+    "key": "m:3814635520"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 4 c",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814635776",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 4 c surface",
+   "label": "Deshmukh Industrial Base",
+   "name": "Deshmukh Industrial Base",
+   "pic": {
+    "body": "HIP 20277 4 c",
+    "kind": "surface",
+    "lat": 25.1786,
+    "lon": -133.651
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "25.18, -133.65",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "17 Jul 2026 17:26",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "industrial",
+    "key": "m:3814635776"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 4 c",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814635264",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 4 c surface",
+   "label": "Kotyschenko Hydroponics Facility",
+   "name": "Kotyschenko Hydroponics Facility",
+   "pic": {
+    "body": "HIP 20277 4 c",
+    "kind": "surface",
+    "lat": 35.8651,
+    "lon": 103.566
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Agriculture",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "35.87, 103.57",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "10 Nov 2025 19:26",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "agriculture",
+    "economy": "Agriculture",
+    "guess": "agriculture",
+    "key": "m:3814635264"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 4 c",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814635008",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 4 c surface",
+   "label": "Krause Hydroponics Range",
+   "name": "Krause Hydroponics Range",
+   "pic": {
+    "body": "HIP 20277 4 c",
+    "kind": "surface",
+    "lat": -3.3022,
+    "lon": -174.611
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Agriculture",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-3.30, -174.61",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "2 Apr 2026 16:00",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "agriculture",
+    "economy": "Agriculture",
+    "guess": "agriculture",
+    "key": "m:3814635008"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 4 c",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "surface",
+   "key": "s3790415104",
+   "kind": "station",
+   "lab": "Planetary Outpost · HIP 20277 4 c surface",
+   "label": "Lichtenberg Survey",
+   "name": "Lichtenberg Survey",
+   "pic": {
+    "body": "HIP 20277 4 c",
+    "kind": "surface",
+    "lat": -3.7839,
+    "lon": -26.7831
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Colony",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Restock · Refuel · Repair · Contacts · Universal Cartographics · Missions · Tuning · Search and Rescue · Bartender · Apex Interstellar Transport · Frontline Solutions · Pioneer Supplies · Vista Genomics · System colonisation",
+     true
+    ],
+    [
+     "Landing pads",
+     "4 small · 2 medium · 2 large",
+     true
+    ],
+    [
+     "Position",
+     "-3.78, -26.78",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "-",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "25 Oct 2026 04:18",
+     false
+    ]
+   ],
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 4 c",
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "surface",
+   "key": "s3790414848",
+   "kind": "station",
+   "lab": "Planetary Outpost · HIP 20277 4 c surface",
+   "label": "Shumil Bastion",
+   "name": "Shumil Bastion",
+   "pic": {
+    "body": "HIP 20277 4 c",
+    "kind": "surface",
+    "lat": 6.3842,
+    "lon": 120.317
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Military",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Restock · Refuel · Repair · Contacts · Universal Cartographics · Missions · Crew Lounge · Tuning · Search and Rescue · Bartender · Apex Interstellar Transport · Frontline Solutions · Pioneer Supplies · Vista Genomics · System colonisation",
+     true
+    ],
+    [
+     "Landing pads",
+     "4 small · 2 medium · 2 large",
+     true
+    ],
+    [
+     "Position",
+     "6.38, 120.32",
+     true
+    ],
+    [
+     "Information updated",
+     "26 Oct 2026 02:17",
+     false
+    ],
+    [
+     "Market updated",
+     "26 Oct 2026 02:17",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "26 Oct 2026 02:17",
+     false
+    ]
+   ],
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "bodyId": 19,
+   "chips": [],
+   "depth": 0,
+   "gravity": 1.8099,
+   "icon": "planet",
+   "key": "b19",
+   "kind": "planet",
+   "lab": "Planet · 1,383 ls · orbits HIP 20277",
+   "label": "5 Icy",
+   "mine": false,
+   "name": "HIP 20277 5",
+   "pic": {
+    "body": "HIP 20277 5",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 14663.924,
+   "right": "1,383",
+   "rows": [
+    [
+     "Type",
+     "Icy body",
+     true
+    ],
+    [
+     "Gravity",
+     "1.81 g",
+     false
+    ],
+    [
+     "Temperature",
+     "137 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "Thick Nitrogen",
+     false
+    ],
+    [
+     "Pressure",
+     "1296.58 atm",
+     false
+    ],
+    [
+     "Radius",
+     "14,664 km",
+     false
+    ],
+    [
+     "Day",
+     "1.8 days",
+     false
+    ],
+    [
+     "Year",
+     "5.2 years",
+     false
+    ],
+    [
+     "Air",
+     "Nitrogen 99.8% · Helium 0.1% · Argon 0.1%",
+     true
+    ],
+    [
+     "Volcanism",
+     "Water Geysers",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 21,
+   "chips": [],
+   "depth": 0,
+   "gravity": null,
+   "icon": "star",
+   "key": "b21",
+   "kind": "star",
+   "lab": "Star · 2,654 ls",
+   "label": "6 · Y4 star",
+   "mine": false,
+   "name": "HIP 20277 6",
+   "pic": {
+    "body": "HIP 20277 6",
+    "kind": "star",
+    "sites": []
+   },
+   "radius": 50041.65,
+   "right": "2,654",
+   "rows": [
+    [
+     "Class",
+     "Y4 V · Y (Brown dwarf) Star",
+     true
+    ],
+    [
+     "Temperature",
+     "400 K",
+     false
+    ],
+    [
+     "Mass",
+     "0.02 suns",
+     false
+    ],
+    [
+     "Radius",
+     "0.07 suns",
+     false
+    ],
+    [
+     "Age",
+     "1,176 million years",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 23,
+   "chips": [],
+   "depth": 0,
+   "gravity": 0.265,
+   "icon": "planet",
+   "key": "b23",
+   "kind": "planet",
+   "lab": "Planet · 2,653 ls · orbits HIP 20277 6",
+   "label": "6 a Rocky",
+   "mine": false,
+   "name": "HIP 20277 6 a",
+   "pic": {
+    "body": "HIP 20277 6 a",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 2164.2385,
+   "right": "2,653",
+   "rows": [
+    [
+     "Type",
+     "Rocky body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.27 g",
+     false
+    ],
+    [
+     "Temperature",
+     "335 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "Thick Sulphur dioxide",
+     false
+    ],
+    [
+     "Pressure",
+     "13.52 atm",
+     false
+    ],
+    [
+     "Radius",
+     "2,164 km",
+     false
+    ],
+    [
+     "Day",
+     "1.7 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "1.7 days",
+     false
+    ],
+    [
+     "Air",
+     "Sulphur dioxide 75.2% · Ammonia 15.7% · Silicates 4.2%",
+     true
+    ],
+    [
+     "Volcanism",
+     "Major Rocky Magma",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 25,
+   "chips": [],
+   "depth": 0,
+   "gravity": 0.2437,
+   "icon": "planet",
+   "key": "b25",
+   "kind": "planet",
+   "lab": "Planet · 2,656 ls · paired with HIP 20277 6 c",
+   "label": "6 b Rocky",
+   "mine": false,
+   "name": "HIP 20277 6 b",
+   "pic": {
+    "body": "HIP 20277 6 b",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 2001.7313,
+   "right": "2,656",
+   "rows": [
+    [
+     "Type",
+     "Rocky body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.24 g",
+     false
+    ],
+    [
+     "Temperature",
+     "303 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "Thick Carbon dioxide",
+     false
+    ],
+    [
+     "Pressure",
+     "11.07 atm",
+     false
+    ],
+    [
+     "Radius",
+     "2,002 km",
+     false
+    ],
+    [
+     "Day",
+     "0.6 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "0.4 days",
+     false
+    ],
+    [
+     "Air",
+     "Carbon dioxide 98.8% · Sulphur dioxide 1.0% · Ammonia 0.1%",
+     true
+    ],
+    [
+     "Volcanism",
+     "Major Silicate Vapour Geysers",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 26,
+   "chips": [],
+   "depth": 0,
+   "gravity": 0.216,
+   "icon": "planet",
+   "key": "b26",
+   "kind": "planet",
+   "lab": "Planet · 2,656 ls · paired with HIP 20277 6 b",
+   "label": "6 c Rocky",
+   "mine": false,
+   "name": "HIP 20277 6 c",
+   "pic": {
+    "body": "HIP 20277 6 c",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 1787.8961,
+   "right": "2,656",
+   "rows": [
+    [
+     "Type",
+     "Rocky body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.22 g",
+     false
+    ],
+    [
+     "Temperature",
+     "294 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "Thick Carbon dioxide",
+     false
+    ],
+    [
+     "Pressure",
+     "8.69 atm",
+     false
+    ],
+    [
+     "Radius",
+     "1,788 km",
+     false
+    ],
+    [
+     "Day",
+     "0.5 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "0.4 days",
+     false
+    ],
+    [
+     "Air",
+     "Carbon dioxide 99.0% · Sulphur dioxide 0.9% · Ammonia 0.1%",
+     true
+    ],
+    [
+     "Volcanism",
+     "Major Silicate Vapour Geysers",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 27,
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 0,
+   "gravity": 0.3377,
+   "icon": "landable",
+   "key": "b27",
+   "kind": "planet",
+   "lab": "Planet · 2,664 ls · orbits HIP 20277 6",
+   "label": "6 d Rocky",
+   "mine": false,
+   "name": "HIP 20277 6 d",
+   "pic": {
+    "body": "HIP 20277 6 d",
+    "kind": "globe",
+    "sites": [
+     {
+      "key": "s3817672192",
+      "lat": 30.0368,
+      "lon": -160.762,
+      "name": "Montes Synthetics Enterprise"
+     },
+     {
+      "key": "s3817671424",
+      "lat": 17.5132,
+      "lon": -154.214,
+      "name": "Oluwusi Hospitality Resort"
+     },
+     {
+      "key": "s3817671936",
+      "lat": 11.1009,
+      "lon": 77.0749,
+      "name": "Brunt's Foundry"
+     },
+     {
+      "key": "s3817672448",
+      "lat": 16.7841,
+      "lon": 153.644,
+      "name": "Wilton Territories"
+     },
+     {
+      "key": "s3817671680",
+      "lat": 32.4575,
+      "lon": 94.6146,
+      "name": "Pozandr Chemical Site"
+     }
+    ]
+   },
+   "radius": 2702.874,
+   "right": "2,664",
+   "rows": [
+    [
+     "Type",
+     "Rocky body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.34 g",
+     false
+    ],
+    [
+     "Temperature",
+     "113 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "No atmosphere",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "2,703 km",
+     false
+    ],
+    [
+     "Day",
+     "12.5 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "12.5 days",
+     false
+    ],
+    [
+     "Materials",
+     "Iron 20.4 · Sulphur 19.9 · Carbon 16.8 · Nickel 15.4 · Phosphorus 10.7 · Zinc 5.5 · Vanadium 5.0 · Arsenic 2.6 · Niobium 1.4 · Yttrium 1.2 · Tungsten 1.1",
+     true
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "body": "HIP 20277 6 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "icon": "coriolis",
+   "key": "s3224777216",
+   "kind": "station",
+   "lab": "Coriolis Starport · near HIP 20277 6 d (est.) · 2,664 ls",
+   "label": "Fabian City",
+   "name": "Fabian City",
+   "pic": {
+    "body": "HIP 20277 6 d",
+    "kind": "coriolis",
+    "lat": null,
+    "lon": null
+   },
+   "right": "est.",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial / Extraction",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Restock · Refuel · Repair · Contacts · Universal Cartographics · Missions · Crew Lounge · Tuning · Search and Rescue · Material Trader · Bartender · Apex Interstellar Transport · Frontline Solutions · Pioneer Supplies · Vista Genomics · System colonisation",
+     true
+    ],
+    [
+     "Landing pads",
+     "8 small · 10 medium · 6 large",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 21:27",
+     false
+    ],
+    [
+     "Market updated",
+     "27 Oct 2026 21:27",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "27 Oct 2026 21:27",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "27 Oct 2026 21:39",
+     false
+    ]
+   ],
+   "src": "spansh",
+   "surface": false
+  },
+  {
+   "body": "HIP 20277 6 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "icon": "settlement",
+   "key": "s3817671936",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 6 d surface",
+   "label": "Brunt's Foundry",
+   "name": "Brunt's Foundry",
+   "pic": {
+    "body": "HIP 20277 6 d",
+    "kind": "surface",
+    "lat": 11.1009,
+    "lon": 77.0749
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "11.10, 77.07",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "9 Aug 2026 15:49",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "industrial",
+    "key": "m:3817671936"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 6 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "icon": "settlement",
+   "key": "s3817672192",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 6 d surface",
+   "label": "Montes Synthetics Enterprise",
+   "name": "Montes Synthetics Enterprise",
+   "pic": {
+    "body": "HIP 20277 6 d",
+    "kind": "surface",
+    "lat": 30.0368,
+    "lon": -160.762
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "30.04, -160.76",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "30 Jan 2023 23:51",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "hightech",
+    "key": "m:3817672192"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 6 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "icon": "settlement",
+   "key": "s3817671424",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 6 d surface",
+   "label": "Oluwusi Hospitality Resort",
+   "name": "Oluwusi Hospitality Resort",
+   "pic": {
+    "body": "HIP 20277 6 d",
+    "kind": "surface",
+    "lat": 17.5132,
+    "lon": -154.214
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Calennero State Industries",
+     false
+    ],
+    [
+     "Government",
+     "Corporate",
+     false
+    ],
+    [
+     "Economy",
+     "Tourism",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Crew Lounge · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "17.51, -154.21",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "20 Dec 2025 20:08",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "tourism",
+    "economy": "Tourism",
+    "guess": "tourism",
+    "key": "m:3817671424"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 6 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "icon": "settlement",
+   "key": "s3817671680",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 6 d surface",
+   "label": "Pozandr Chemical Site",
+   "name": "Pozandr Chemical Site",
+   "pic": {
+    "body": "HIP 20277 6 d",
+    "kind": "surface",
+    "lat": 32.4575,
+    "lon": 94.6146
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Calennero State Industries",
+     false
+    ],
+    [
+     "Government",
+     "Corporate",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "32.46, 94.61",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "15 Apr 2025 02:56",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "",
+    "key": "m:3817671680"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 6 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "icon": "settlement",
+   "key": "s3817672448",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 6 d surface",
+   "label": "Wilton Territories",
+   "name": "Wilton Territories",
+   "pic": {
+    "body": "HIP 20277 6 d",
+    "kind": "surface",
+    "lat": 16.7841,
+    "lon": 153.644
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Calennero State Industries",
+     false
+    ],
+    [
+     "Government",
+     "Corporate",
+     false
+    ],
+    [
+     "Economy",
+     "Extraction",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "16.78, 153.64",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "17 Mar 2025 02:43",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "extraction",
+    "economy": "Extraction",
+    "guess": "",
+    "key": "m:3817672448"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "bodyId": 28,
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 0,
+   "gravity": 3.5253,
+   "icon": "planet",
+   "key": "b28",
+   "kind": "planet",
+   "lab": "Planet · 2,563 ls · orbits HIP 20277",
+   "label": "7 Gas giant II",
+   "mine": false,
+   "name": "HIP 20277 7",
+   "pic": {
+    "body": "HIP 20277 7",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 74663.6,
+   "right": "2,563",
+   "rows": [
+    [
+     "Type",
+     "Class II gas giant",
+     true
+    ],
+    [
+     "Gravity",
+     "3.53 g",
+     false
+    ],
+    [
+     "Temperature",
+     "155 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "No atmosphere",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "74,664 km",
+     false
+    ],
+    [
+     "Day",
+     "1.0 days",
+     false
+    ],
+    [
+     "Year",
+     "441.3 days",
+     false
+    ],
+    [
+     "Air",
+     "Hydrogen 72.2% · Helium 27.8%",
+     true
+    ],
+    [
+     "Ring",
+     "7 A Ring · Metal Rich",
+     true
+    ],
+    [
+     "Ring",
+     "7 B Ring · Metal Rich",
+     true
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 31,
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "gravity": 0.1122,
+   "icon": "landable",
+   "key": "b31",
+   "kind": "planet",
+   "lab": "Moon · 2,562 ls · orbits HIP 20277 7",
+   "label": "7 a Rocky",
+   "mine": false,
+   "name": "HIP 20277 7 a",
+   "pic": {
+    "body": "HIP 20277 7 a",
+    "kind": "globe",
+    "sites": [
+     {
+      "key": "s3814637824",
+      "lat": -65.068,
+      "lon": 104.771,
+      "name": "Wan Mineralogic Claim"
+     },
+     {
+      "key": "s3814637312",
+      "lat": -54.6364,
+      "lon": -163.922,
+      "name": "Schubert's Sanctuary"
+     },
+     {
+      "key": "s3814637568",
+      "lat": 25.0709,
+      "lon": 171.234,
+      "name": "Navarrete Metallurgic Base"
+     },
+     {
+      "key": "s3516368896",
+      "lat": -15.9,
+      "lon": -32.87,
+      "name": "Fenwick Prospect"
+     }
+    ]
+   },
+   "radius": 955.213,
+   "right": "2,562",
+   "rows": [
+    [
+     "Type",
+     "Rocky body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.11 g",
+     false
+    ],
+    [
+     "Temperature",
+     "109 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "No atmosphere",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "955 km",
+     false
+    ],
+    [
+     "Day",
+     "1.1 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "1.1 days",
+     false
+    ],
+    [
+     "Materials",
+     "Iron 19.1 · Sulphur 18.8 · Carbon 15.8 · Nickel 14.4 · Phosphorus 10.1 · Chromium 8.6 · Germanium 5.5 · Vanadium 4.7 · Molybdenum 1.2 · Tungsten 1.1 · Technetium 0.7",
+     true
+    ],
+    [
+     "Volcanism",
+     "Minor Metallic Magma",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "body": "HIP 20277 7 a",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814637568",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 7 a surface",
+   "label": "Navarrete Metallurgic Base",
+   "name": "Navarrete Metallurgic Base",
+   "pic": {
+    "body": "HIP 20277 7 a",
+    "kind": "surface",
+    "lat": 25.0709,
+    "lon": 171.234
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Extraction",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "25.07, 171.23",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "24 Apr 2026 06:23",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "extraction",
+    "economy": "Extraction",
+    "guess": "extraction",
+    "key": "m:3814637568"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 7 a",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814637312",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 7 a surface",
+   "label": "Schubert's Sanctuary",
+   "name": "Schubert's Sanctuary",
+   "pic": {
+    "body": "HIP 20277 7 a",
+    "kind": "surface",
+    "lat": -54.6364,
+    "lon": -163.922
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Tourism",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Crew Lounge · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-54.64, -163.92",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "17 Jul 2026 15:44",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "tourism",
+    "economy": "Tourism",
+    "guess": "tourism",
+    "key": "m:3814637312"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 7 a",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814637824",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 7 a surface",
+   "label": "Wan Mineralogic Claim",
+   "name": "Wan Mineralogic Claim",
+   "pic": {
+    "body": "HIP 20277 7 a",
+    "kind": "surface",
+    "lat": -65.068,
+    "lon": 104.771
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Extraction",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-65.07, 104.77",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "21 Jul 2026 14:34",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "extraction",
+    "economy": "Extraction",
+    "guess": "extraction",
+    "key": "m:3814637824"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 7 a",
+   "chips": [],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3516368896",
+   "kind": "station",
+   "lab": "Settlement · HIP 20277 7 a surface",
+   "label": "Fenwick Prospect",
+   "name": "Fenwick Prospect",
+   "pic": {
+    "body": "HIP 20277 7 a",
+    "kind": "surface",
+    "lat": -15.9,
+    "lon": -32.87
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "-",
+     false
+    ],
+    [
+     "Government",
+     "-",
+     false
+    ],
+    [
+     "Economy",
+     "-",
+     false
+    ],
+    [
+     "Allegiance",
+     "-",
+     false
+    ],
+    [
+     "Position",
+     "-15.90, -32.87",
+     true
+    ],
+    [
+     "Information updated",
+     "19 Feb 2023 13:44",
+     false
+    ],
+    [
+     "Market updated",
+     "-",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "",
+    "economy": "",
+    "guess": "extraction",
+    "key": "m:3516368896",
+    "unsure": true
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "bodyId": 32,
+   "chips": [],
+   "depth": 1,
+   "gravity": 0.1045,
+   "icon": "planet",
+   "key": "b32",
+   "kind": "planet",
+   "lab": "Moon · 2,563 ls · orbits HIP 20277 7",
+   "label": "7 b Rocky",
+   "mine": false,
+   "name": "HIP 20277 7 b",
+   "pic": {
+    "body": "HIP 20277 7 b",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 891.4177,
+   "right": "2,563",
+   "rows": [
+    [
+     "Type",
+     "Rocky body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.10 g",
+     false
+    ],
+    [
+     "Temperature",
+     "107 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "Sulphur dioxide",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "891 km",
+     false
+    ],
+    [
+     "Day",
+     "1.7 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "1.7 days",
+     false
+    ],
+    [
+     "Air",
+     "Sulphur dioxide 90.0% · Silicates 5.0% · Oxygen 3.0%",
+     true
+    ],
+    [
+     "Volcanism",
+     "Major Rocky Magma",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 33,
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "gravity": 0.1272,
+   "icon": "landable",
+   "key": "b33",
+   "kind": "planet",
+   "lab": "Moon · 2,561 ls · orbits HIP 20277 7",
+   "label": "7 c Icy",
+   "mine": false,
+   "name": "HIP 20277 7 c",
+   "pic": {
+    "body": "HIP 20277 7 c",
+    "kind": "globe",
+    "sites": [
+     {
+      "key": "s3814638080",
+      "lat": -64.772,
+      "lon": -132.152,
+      "name": "Mendy's Venue"
+     },
+     {
+      "key": "s3516367616",
+      "lat": 8.0167,
+      "lon": 1.3512,
+      "name": "Trujillo Prospect"
+     },
+     {
+      "key": "s3814638592",
+      "lat": -21.6355,
+      "lon": 161.037,
+      "name": "Papacosta Industrial Depot"
+     },
+     {
+      "key": "s3814638336",
+      "lat": 57.8229,
+      "lon": 169.485,
+      "name": "Owor's Productions"
+     }
+    ]
+   },
+   "radius": 1978.2332,
+   "right": "2,561",
+   "rows": [
+    [
+     "Type",
+     "Icy body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.13 g",
+     false
+    ],
+    [
+     "Temperature",
+     "92 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "No atmosphere",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "1,978 km",
+     false
+    ],
+    [
+     "Day",
+     "3.1 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "3.1 days",
+     false
+    ],
+    [
+     "Materials",
+     "Sulphur 25.9 · Carbon 21.8 · Phosphorus 14.0 · Iron 13.0 · Nickel 9.8 · Chromium 5.8 · Germanium 3.8 · Zinc 3.5 · Niobium 0.9 · Antimony 0.8 · Tungsten 0.7",
+     true
+    ],
+    [
+     "Volcanism",
+     "Minor Carbon Dioxide Geysers",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "body": "HIP 20277 7 c",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814638080",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 7 c surface",
+   "label": "Mendy's Venue",
+   "name": "Mendy's Venue",
+   "pic": {
+    "body": "HIP 20277 7 c",
+    "kind": "surface",
+    "lat": -64.772,
+    "lon": -132.152
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Constitution Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Tourism",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Crew Lounge · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-64.77, -132.15",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "18 Mar 2025 16:31",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "tourism",
+    "economy": "Tourism",
+    "guess": "tourism",
+    "key": "m:3814638080"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 7 c",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814638336",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 7 c surface",
+   "label": "Owor's Productions",
+   "name": "Owor's Productions",
+   "pic": {
+    "body": "HIP 20277 7 c",
+    "kind": "surface",
+    "lat": 57.8229,
+    "lon": 169.485
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "57.82, 169.49",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "21 Jul 2026 07:21",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "industrial",
+    "key": "m:3814638336"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 7 c",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814638592",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 7 c surface",
+   "label": "Papacosta Industrial Depot",
+   "name": "Papacosta Industrial Depot",
+   "pic": {
+    "body": "HIP 20277 7 c",
+    "kind": "surface",
+    "lat": -21.6355,
+    "lon": 161.037
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-21.64, 161.04",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "9 Nov 2025 16:01",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "industrial",
+    "key": "m:3814638592"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 7 c",
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "surface",
+   "key": "s3516367616",
+   "kind": "station",
+   "lab": "Planetary Outpost · HIP 20277 7 c surface",
+   "label": "Trujillo Prospect",
+   "name": "Trujillo Prospect",
+   "pic": {
+    "body": "HIP 20277 7 c",
+    "kind": "surface",
+    "lat": 8.0167,
+    "lon": 1.3512
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Sentinel",
+     false
+    ],
+    [
+     "Government",
+     "Corporate",
+     false
+    ],
+    [
+     "Economy",
+     "Colony",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Restock · Refuel · Repair · Contacts · Universal Cartographics · Missions · Crew Lounge · Tuning · Search and Rescue · Bartender · Apex Interstellar Transport · Frontline Solutions · Pioneer Supplies · Vista Genomics · System colonisation",
+     true
+    ],
+    [
+     "Landing pads",
+     "4 small · 2 medium · 2 large",
+     true
+    ],
+    [
+     "Position",
+     "8.02, 1.35",
+     true
+    ],
+    [
+     "Information updated",
+     "26 Oct 2026 02:27",
+     false
+    ],
+    [
+     "Market updated",
+     "26 Oct 2026 02:27",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "26 Oct 2026 02:27",
+     false
+    ]
+   ],
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "bodyId": 34,
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "gravity": 0.1066,
+   "icon": "landable",
+   "key": "b34",
+   "kind": "planet",
+   "lab": "Moon · 2,558 ls · orbits HIP 20277 7",
+   "label": "7 d Icy",
+   "mine": false,
+   "name": "HIP 20277 7 d",
+   "pic": {
+    "body": "HIP 20277 7 d",
+    "kind": "globe",
+    "sites": [
+     {
+      "key": "s3516368128",
+      "lat": 6.832,
+      "lon": 20.9223,
+      "name": "Lemonnier Survey"
+     },
+     {
+      "key": "s3814636800",
+      "lat": -19.1648,
+      "lon": -25.3279,
+      "name": "Joo Industrial Creations"
+     },
+     {
+      "key": "s3814636544",
+      "lat": 1.4359,
+      "lon": -104.147,
+      "name": "Fontaine Engineering Silo"
+     },
+     {
+      "key": "s3814637056",
+      "lat": -41.1512,
+      "lon": -14.8227,
+      "name": "Wilton Synthetics Facility"
+     },
+     {
+      "key": "s3814636032",
+      "lat": -51.2323,
+      "lon": -114.231,
+      "name": "Hennessy Control"
+     },
+     {
+      "key": "s3814636288",
+      "lat": 24.5709,
+      "lon": 104.147,
+      "name": "Huber Resolve"
+     }
+    ]
+   },
+   "radius": 1670.7493,
+   "right": "2,558",
+   "rows": [
+    [
+     "Type",
+     "Icy body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.11 g",
+     false
+    ],
+    [
+     "Temperature",
+     "89 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "No atmosphere",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "1,671 km",
+     false
+    ],
+    [
+     "Day",
+     "5.8 days, locked",
+     false
+    ],
+    [
+     "Year",
+     "5.8 days",
+     false
+    ],
+    [
+     "Materials",
+     "Sulphur 25.6 · Carbon 21.5 · Phosphorus 13.8 · Iron 12.8 · Nickel 9.7 · Chromium 5.8 · Manganese 5.3 · Vanadium 3.1 · Tellurium 1.0 · Molybdenum 0.8 · Tin 0.8",
+     true
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "body": "HIP 20277 7 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814636544",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 7 d surface",
+   "label": "Fontaine Engineering Silo",
+   "name": "Fontaine Engineering Silo",
+   "pic": {
+    "body": "HIP 20277 7 d",
+    "kind": "surface",
+    "lat": 1.4359,
+    "lon": -104.147
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Sentinel",
+     false
+    ],
+    [
+     "Government",
+     "Corporate",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "1.44, -104.15",
+     true
+    ],
+    [
+     "Information updated",
+     "21 Oct 2026 20:42",
+     false
+    ],
+    [
+     "Market updated",
+     "30 Jan 2023 23:27",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "",
+    "key": "m:3814636544"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 7 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814636032",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 7 d surface",
+   "label": "Hennessy Control",
+   "name": "Hennessy Control",
+   "pic": {
+    "body": "HIP 20277 7 d",
+    "kind": "surface",
+    "lat": -51.2323,
+    "lon": -114.231
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Military",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Restock · Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-51.23, -114.23",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "17 Jul 2026 16:52",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "military",
+    "economy": "Military",
+    "guess": "",
+    "key": "m:3814636032"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 7 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814636288",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 7 d surface",
+   "label": "Huber Resolve",
+   "name": "Huber Resolve",
+   "pic": {
+    "body": "HIP 20277 7 d",
+    "kind": "surface",
+    "lat": 24.5709,
+    "lon": 104.147
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Military",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Restock · Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "24.57, 104.15",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "24 Jul 2026 13:22",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "military",
+    "economy": "Military",
+    "guess": "",
+    "key": "m:3814636288"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 7 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814636800",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 7 d surface",
+   "label": "Joo Industrial Creations",
+   "name": "Joo Industrial Creations",
+   "pic": {
+    "body": "HIP 20277 7 d",
+    "kind": "surface",
+    "lat": -19.1648,
+    "lon": -25.3279
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-19.16, -25.33",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "15 Dec 2024 21:00",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "industrial",
+    "key": "m:3814636800"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 7 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "surface",
+   "key": "s3516368128",
+   "kind": "station",
+   "lab": "Planetary Outpost · HIP 20277 7 d surface",
+   "label": "Lemonnier Survey",
+   "name": "Lemonnier Survey",
+   "pic": {
+    "body": "HIP 20277 7 d",
+    "kind": "surface",
+    "lat": 6.832,
+    "lon": 20.9223
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Military",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Restock · Refuel · Repair · Contacts · Universal Cartographics · Missions · Crew Lounge · Tuning · Search and Rescue · Bartender · Apex Interstellar Transport · Frontline Solutions · Pioneer Supplies · Vista Genomics · System colonisation",
+     true
+    ],
+    [
+     "Landing pads",
+     "4 small · 2 medium · 2 large",
+     true
+    ],
+    [
+     "Position",
+     "6.83, 20.92",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "-",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "25 Oct 2026 10:00",
+     false
+    ]
+   ],
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 7 d",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814637056",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 7 d surface",
+   "label": "Wilton Synthetics Facility",
+   "name": "Wilton Synthetics Facility",
+   "pic": {
+    "body": "HIP 20277 7 d",
+    "kind": "surface",
+    "lat": -41.1512,
+    "lon": -14.8227
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-41.15, -14.82",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "10 Feb 2026 10:28",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "hightech",
+    "key": "m:3814637056"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "bodyId": 36,
+   "chips": [],
+   "depth": 0,
+   "gravity": 6.2447,
+   "icon": "planet",
+   "key": "b36",
+   "kind": "planet",
+   "lab": "Planet · 4,132 ls · orbits HIP 20277",
+   "label": "8 Icy",
+   "mine": false,
+   "name": "HIP 20277 8",
+   "pic": {
+    "body": "HIP 20277 8",
+    "kind": "globe",
+    "sites": []
+   },
+   "radius": 23187.876,
+   "right": "4,132",
+   "rows": [
+    [
+     "Type",
+     "Icy body",
+     true
+    ],
+    [
+     "Gravity",
+     "6.24 g",
+     false
+    ],
+    [
+     "Temperature",
+     "59 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "Thick Helium",
+     false
+    ],
+    [
+     "Pressure",
+     "19.72 atm",
+     false
+    ],
+    [
+     "Radius",
+     "23,188 km",
+     false
+    ],
+    [
+     "Day",
+     "1.2 days",
+     false
+    ],
+    [
+     "Year",
+     "29.0 years",
+     false
+    ],
+    [
+     "Air",
+     "Helium 89.3% · Hydrogen 8.4% · Neon 2.2%",
+     true
+    ],
+    [
+     "Volcanism",
+     "Water Geysers",
+     false
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "bodyId": 37,
+   "chips": [
+    {
+     "t": "<varies>"
+    },
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 1,
+   "gravity": 0.7441,
+   "icon": "landable",
+   "key": "b37",
+   "kind": "planet",
+   "lab": "Moon · 4,101 ls · orbits HIP 20277 8",
+   "label": "8 a Icy",
+   "mine": false,
+   "name": "HIP 20277 8 a",
+   "pic": {
+    "body": "HIP 20277 8 a",
+    "kind": "globe",
+    "sites": [
+     {
+      "key": "s3814633984",
+      "lat": -16.8435,
+      "lon": -102.627,
+      "name": "Nakamura Synthetics Site"
+     },
+     {
+      "key": "s3814634240",
+      "lat": 25.1482,
+      "lon": 159.97,
+      "name": "Beck's Creations"
+     },
+     {
+      "key": "s3814634752",
+      "lat": 63.8755,
+      "lon": -153.858,
+      "name": "Hale Boarding Zone"
+     },
+     {
+      "key": "s3814634496",
+      "lat": -18.5845,
+      "lon": 160.491,
+      "name": "Shewayish Synthetics Holdings"
+     }
+    ]
+   },
+   "radius": 11133.371,
+   "right": "4,101",
+   "rows": [
+    [
+     "Type",
+     "Icy body",
+     true
+    ],
+    [
+     "Gravity",
+     "0.74 g",
+     false
+    ],
+    [
+     "Temperature",
+     "58 K",
+     false
+    ],
+    [
+     "Atmosphere",
+     "No atmosphere",
+     false
+    ],
+    [
+     "Pressure",
+     "0.00 atm",
+     false
+    ],
+    [
+     "Radius",
+     "11,133 km",
+     false
+    ],
+    [
+     "Day",
+     "0.9 days",
+     false
+    ],
+    [
+     "Year",
+     "604.8 days",
+     false
+    ],
+    [
+     "Materials",
+     "Sulphur 27.4 · Carbon 23.0 · Phosphorus 14.7 · Iron 12.0 · Nickel 9.1 · Chromium 5.4 · Zinc 3.2 · Vanadium 2.9 · Cadmium 0.9 · Antimony 0.7 · Tungsten 0.7",
+     true
+    ],
+    [
+     "Spansh updated",
+     "25 Oct 2026 03:53",
+     true
+    ]
+   ],
+   "src": "spansh"
+  },
+  {
+   "body": "HIP 20277 8 a",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814634240",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 8 a surface",
+   "label": "Beck's Creations",
+   "name": "Beck's Creations",
+   "pic": {
+    "body": "HIP 20277 8 a",
+    "kind": "surface",
+    "lat": 25.1482,
+    "lon": 159.97
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Lavigny's Legion",
+     false
+    ],
+    [
+     "Government",
+     "Patronage",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "25.15, 159.97",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "16 Jul 2026 13:05",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "industrial",
+    "key": "m:3814634240"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 8 a",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814634752",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 8 a surface",
+   "label": "Hale Boarding Zone",
+   "name": "Hale Boarding Zone",
+   "pic": {
+    "body": "HIP 20277 8 a",
+    "kind": "surface",
+    "lat": 63.8755,
+    "lon": -153.858
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "HIP 20277 Party",
+     false
+    ],
+    [
+     "Government",
+     "Dictatorship",
+     false
+    ],
+    [
+     "Economy",
+     "Tourism",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Crew Lounge · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "63.88, -153.86",
+     true
+    ],
+    [
+     "Information updated",
+     "25 Oct 2026 20:12",
+     false
+    ],
+    [
+     "Market updated",
+     "28 Nov 2024 00:30",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "tourism",
+    "economy": "Tourism",
+    "guess": "tourism",
+    "key": "m:3814634752"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 8 a",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814633984",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 8 a surface",
+   "label": "Nakamura Synthetics Site",
+   "name": "Nakamura Synthetics Site",
+   "pic": {
+    "body": "HIP 20277 8 a",
+    "kind": "surface",
+    "lat": -16.8435,
+    "lon": -102.627
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Calennero State Industries",
+     false
+    ],
+    [
+     "Government",
+     "Corporate",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-16.84, -102.63",
+     true
+    ],
+    [
+     "Information updated",
+     "27 Oct 2026 20:27",
+     false
+    ],
+    [
+     "Market updated",
+     "22 Sep 2026 03:47",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "hightech",
+    "key": "m:3814633984"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "HIP 20277 8 a",
+   "chips": [
+    {
+     "t": "<varies>"
+    }
+   ],
+   "depth": 2,
+   "icon": "settlement",
+   "key": "s3814634496",
+   "kind": "station",
+   "lab": "Odyssey Settlement · HIP 20277 8 a surface",
+   "label": "Shewayish Synthetics Holdings",
+   "name": "Shewayish Synthetics Holdings",
+   "pic": {
+    "body": "HIP 20277 8 a",
+    "kind": "surface",
+    "lat": -18.5845,
+    "lon": 160.491
+   },
+   "right": "",
+   "rows": [
+    [
+     "Faction",
+     "Sentinel",
+     false
+    ],
+    [
+     "Government",
+     "Corporate",
+     false
+    ],
+    [
+     "Economy",
+     "Industrial",
+     false
+    ],
+    [
+     "Allegiance",
+     "Empire",
+     false
+    ],
+    [
+     "Services",
+     "Refuel · Repair · Contacts · Missions · Search and Rescue",
+     true
+    ],
+    [
+     "Landing pads",
+     "2 small · 0 medium · 1 large",
+     true
+    ],
+    [
+     "Position",
+     "-18.58, 160.49",
+     true
+    ],
+    [
+     "Information updated",
+     "21 Oct 2026 20:42",
+     false
+    ],
+    [
+     "Market updated",
+     "17 Mar 2025 04:54",
+     false
+    ],
+    [
+     "Shipyard updated",
+     "-",
+     false
+    ],
+    [
+     "Outfitting updated",
+     "-",
+     false
+    ]
+   ],
+   "settlement": {
+    "category": "industrial",
+    "economy": "Industrial",
+    "guess": "hightech",
+    "key": "m:3814634496"
+   },
+   "src": "spansh",
+   "surface": true
+  },
+  {
+   "body": "",
+   "chips": [],
+   "depth": 0,
+   "icon": "carrier",
+   "key": "carriers",
+   "kind": "station",
+   "lab": "Fleet carriers seen here (Spansh)",
+   "label": "Fleet carriers ×21",
+   "name": "21 fleet carriers",
+   "pic": {
+    "kind": "carrier"
+   },
+   "right": "",
+   "rows": [
+    [
+     "BBZ-8TY",
+     "4 Oct 2026 02:18",
+     true
+    ],
+    [
+     "BLZ-LVZ",
+     "23 Sep 2026 13:29",
+     true
+    ],
+    [
+     "D0T-T5Z",
+     "25 Oct 2026 15:10",
+     true
+    ],
+    [
+     "G0J-00B",
+     "5 Oct 2026 12:19",
+     true
+    ],
+    [
+     "H5V-9VN",
+     "26 Sep 2026 19:16",
+     true
+    ],
+    [
+     "J1B-1TW",
+     "23 Oct 2026 23:52",
+     true
+    ],
+    [
+     "J8M-7TT",
+     "25 Dec 2024 04:52",
+     true
+    ],
+    [
+     "J9M-01K",
+     "3 Jan 2026 14:49",
+     true
+    ],
+    [
+     "K6J-T4Z",
+     "20 Dec 2020 22:56",
+     true
+    ],
+    [
+     "K9N-4XB",
+     "25 Jan 2025 12:48",
+     true
+    ],
+    [
+     "Q9S-49Z",
+     "26 Oct 2026 14:04",
+     true
+    ],
+    [
+     "QHN-T0Q",
+     "9 Jan 2022 19:25",
+     true
+    ],
+    [
+     "QZQ-59V",
+     "30 Aug 2026 03:49",
+     true
+    ],
+    [
+     "T9J-79X",
+     "5 Oct 2026 17:53",
+     true
+    ],
+    [
+     "V0H-4XN",
+     "14 Nov 2024 16:12",
+     true
+    ],
+    [
+     "VLW-0XT",
+     "4 Jul 2026 18:46",
+     true
+    ],
+    [
+     "VNG-56J",
+     "25 Oct 2026 10:58",
+     true
+    ],
+    [
+     "WZJ-N4G",
+     "4 Oct 2026 05:25",
+     true
+    ],
+    [
+     "X2W-67J",
+     "27 Mar 2026 20:26",
+     true
+    ],
+    [
+     "Y2K-95Z",
+     "17 Dec 2025 20:59",
+     true
+    ],
+    [
+     "Y9B-13Z",
+     "11 Jan 2026 17:07",
+     true
+    ]
+   ],
+   "src": "spansh",
+   "surface": false
+  }
+ ],
+ "error": "",
+ "from": "Spansh",
+ "headings": {},
+ "id64": 102,
+ "layouts": {},
+ "live": "<varies>",
+ "map": {
+  "bodies": [
+   {
+    "belts": [
+     {
+      "name": "A Belt",
+      "t": "<varies>"
+     }
+    ],
+    "cls": "K2",
+    "gas": false,
+    "key": "b0",
+    "km": 609926.4,
+    "land": false,
+    "lbl": "K2",
+    "locked": false,
+    "ls": 0.0,
+    "lum": "V",
+    "main": true,
+    "mass": 0.7773,
+    "mine": false,
+    "name": "HIP 20277",
+    "nulls": [],
+    "parent": null,
+    "ports": 0,
+    "rings": [],
+    "rot": 3.6305,
+    "rsol": 0.8767,
+    "sites": 0,
+    "star": true,
+    "sub": "K (Yellow-Orange) Star",
+    "temp": 4864,
+    "tilt": 9.26
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b5",
+    "km": 8187.8,
+    "land": false,
+    "lbl": "1",
+    "locked": false,
+    "ls": 13.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 1",
+    "nulls": [],
+    "parent": "b0",
+    "ports": 0,
+    "rings": [],
+    "rot": 1.686,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "High metal content world",
+    "temp": 1219,
+    "tilt": -8.14
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": true,
+    "key": "b6",
+    "km": 67042.3,
+    "land": false,
+    "lbl": "2",
+    "locked": true,
+    "ls": 164.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 2",
+    "nulls": [],
+    "parent": "b0",
+    "ports": 0,
+    "rings": [],
+    "rot": 74.3237,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Class III gas giant",
+    "temp": 329,
+    "tilt": 20.02
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": true,
+    "key": "b8",
+    "km": 76177.1,
+    "land": false,
+    "lbl": "3",
+    "locked": false,
+    "ls": 943.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 3",
+    "nulls": [
+     7
+    ],
+    "parent": "b0",
+    "ports": 0,
+    "rings": [
+     {
+      "i": 134960.0,
+      "o": 170540.0,
+      "t": "<varies>"
+     },
+     {
+      "i": 170640.0,
+      "o": 319680.0,
+      "t": "<varies>"
+     }
+    ],
+    "rot": 3.2926,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Gas giant with water-based life",
+    "temp": 249,
+    "tilt": 21.93
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b11",
+    "km": 786.1,
+    "land": true,
+    "lbl": "3 a",
+    "locked": false,
+    "ls": 942.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 3 a",
+    "nulls": [],
+    "parent": "b8",
+    "ports": 0,
+    "rings": [],
+    "rot": 0.9479,
+    "rsol": null,
+    "sites": 2,
+    "star": false,
+    "sub": "Rocky body",
+    "temp": 164,
+    "tilt": 12.64
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b12",
+    "km": 779.9,
+    "land": true,
+    "lbl": "3 b",
+    "locked": false,
+    "ls": 942.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 3 b",
+    "nulls": [],
+    "parent": "b8",
+    "ports": 0,
+    "rings": [],
+    "rot": 1.3029,
+    "rsol": null,
+    "sites": 6,
+    "star": false,
+    "sub": "Rocky body",
+    "temp": 160,
+    "tilt": 17.59
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": true,
+    "key": "b13",
+    "km": 69392.9,
+    "land": false,
+    "lbl": "4",
+    "locked": true,
+    "ls": 977.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 4",
+    "nulls": [
+     7
+    ],
+    "parent": "b0",
+    "ports": 0,
+    "rings": [
+     {
+      "i": 117740.0,
+      "o": 135700.0,
+      "t": "<varies>"
+     },
+     {
+      "i": 135800.0,
+      "o": 214840.0,
+      "t": "<varies>"
+     }
+    ],
+    "rot": 151.0143,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Gas giant with water-based life",
+    "temp": 159,
+    "tilt": 14.84
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b16",
+    "km": 1400.4,
+    "land": false,
+    "lbl": "4 a",
+    "locked": true,
+    "ls": 978.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 4 a",
+    "nulls": [],
+    "parent": "b13",
+    "ports": 0,
+    "rings": [],
+    "rot": 1.3839,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Rocky body",
+    "temp": 294,
+    "tilt": 22.05
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b17",
+    "km": 926.8,
+    "land": false,
+    "lbl": "4 b",
+    "locked": false,
+    "ls": 976.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 4 b",
+    "nulls": [],
+    "parent": "b13",
+    "ports": 0,
+    "rings": [],
+    "rot": 2.5505,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Rocky body",
+    "temp": 258,
+    "tilt": 10.99
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b18",
+    "km": 1146.4,
+    "land": true,
+    "lbl": "4 c",
+    "locked": true,
+    "ls": 974.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 4 c",
+    "nulls": [],
+    "parent": "b13",
+    "ports": 2,
+    "rings": [],
+    "rot": 5.9504,
+    "rsol": null,
+    "sites": 4,
+    "star": false,
+    "sub": "Rocky body",
+    "temp": 171,
+    "tilt": -27.94
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b19",
+    "km": 14663.9,
+    "land": false,
+    "lbl": "5",
+    "locked": false,
+    "ls": 1383.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 5",
+    "nulls": [],
+    "parent": "b0",
+    "ports": 0,
+    "rings": [],
+    "rot": 1.7565,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Icy body",
+    "temp": 137,
+    "tilt": 10.35
+   },
+   {
+    "belts": [],
+    "cls": "Y4",
+    "gas": false,
+    "key": "b21",
+    "km": 50041.6,
+    "land": false,
+    "lbl": "6",
+    "locked": false,
+    "ls": 2654.0,
+    "lum": "V",
+    "main": false,
+    "mass": 0.0156,
+    "mine": false,
+    "name": "HIP 20277 6",
+    "nulls": [
+     20
+    ],
+    "parent": "b0",
+    "ports": 0,
+    "rings": [
+     {
+      "i": 112720.0,
+      "o": 607540.0,
+      "t": "<varies>"
+     }
+    ],
+    "rot": 1.2671,
+    "rsol": 0.0719,
+    "sites": 0,
+    "star": true,
+    "sub": "Y (Brown dwarf) Star",
+    "temp": 400,
+    "tilt": 33.93
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b23",
+    "km": 2164.2,
+    "land": false,
+    "lbl": "6 a",
+    "locked": true,
+    "ls": 2653.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 6 a",
+    "nulls": [],
+    "parent": "b21",
+    "ports": 0,
+    "rings": [],
+    "rot": 1.6851,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Rocky body",
+    "temp": 335,
+    "tilt": -18.92
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b25",
+    "km": 2001.7,
+    "land": false,
+    "lbl": "6 b",
+    "locked": true,
+    "ls": 2656.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 6 b",
+    "nulls": [
+     24
+    ],
+    "parent": "b21",
+    "ports": 0,
+    "rings": [],
+    "rot": 0.5849,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Rocky body",
+    "temp": 303,
+    "tilt": -20.34
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b26",
+    "km": 1787.9,
+    "land": false,
+    "lbl": "6 c",
+    "locked": true,
+    "ls": 2656.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 6 c",
+    "nulls": [
+     24
+    ],
+    "parent": "b21",
+    "ports": 0,
+    "rings": [],
+    "rot": 0.4919,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Rocky body",
+    "temp": 294,
+    "tilt": -17.06
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b27",
+    "km": 2702.9,
+    "land": true,
+    "lbl": "6 d",
+    "locked": true,
+    "ls": 2664.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 6 d",
+    "nulls": [],
+    "parent": "b21",
+    "ports": 0,
+    "rings": [],
+    "rot": 12.4509,
+    "rsol": null,
+    "sites": 5,
+    "star": false,
+    "sub": "Rocky body",
+    "temp": 113,
+    "tilt": -2.18
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": true,
+    "key": "b28",
+    "km": 74663.6,
+    "land": false,
+    "lbl": "7",
+    "locked": false,
+    "ls": 2563.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 7",
+    "nulls": [
+     20
+    ],
+    "parent": "b0",
+    "ports": 0,
+    "rings": [
+     {
+      "i": 141720.0,
+      "o": 153230.0,
+      "t": "<varies>"
+     },
+     {
+      "i": 153330.0,
+      "o": 273170.0,
+      "t": "<varies>"
+     }
+    ],
+    "rot": 0.9697,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Class II gas giant",
+    "temp": 155,
+    "tilt": -4.14
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b31",
+    "km": 955.2,
+    "land": true,
+    "lbl": "7 a",
+    "locked": true,
+    "ls": 2562.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 7 a",
+    "nulls": [],
+    "parent": "b28",
+    "ports": 0,
+    "rings": [],
+    "rot": 1.1382,
+    "rsol": null,
+    "sites": 4,
+    "star": false,
+    "sub": "Rocky body",
+    "temp": 109,
+    "tilt": 26.1
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b32",
+    "km": 891.4,
+    "land": false,
+    "lbl": "7 b",
+    "locked": true,
+    "ls": 2563.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 7 b",
+    "nulls": [],
+    "parent": "b28",
+    "ports": 0,
+    "rings": [],
+    "rot": 1.6699,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Rocky body",
+    "temp": 107,
+    "tilt": 23.84
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b33",
+    "km": 1978.2,
+    "land": true,
+    "lbl": "7 c",
+    "locked": true,
+    "ls": 2561.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 7 c",
+    "nulls": [],
+    "parent": "b28",
+    "ports": 1,
+    "rings": [],
+    "rot": 3.0779,
+    "rsol": null,
+    "sites": 3,
+    "star": false,
+    "sub": "Icy body",
+    "temp": 92,
+    "tilt": 23.65
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b34",
+    "km": 1670.7,
+    "land": true,
+    "lbl": "7 d",
+    "locked": true,
+    "ls": 2558.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 7 d",
+    "nulls": [],
+    "parent": "b28",
+    "ports": 1,
+    "rings": [],
+    "rot": 5.821,
+    "rsol": null,
+    "sites": 5,
+    "star": false,
+    "sub": "Icy body",
+    "temp": 89,
+    "tilt": 13.95
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b36",
+    "km": 23187.9,
+    "land": false,
+    "lbl": "8",
+    "locked": false,
+    "ls": 4132.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 8",
+    "nulls": [],
+    "parent": "b0",
+    "ports": 0,
+    "rings": [],
+    "rot": 1.2024,
+    "rsol": null,
+    "sites": 0,
+    "star": false,
+    "sub": "Icy body",
+    "temp": 59,
+    "tilt": 164.82
+   },
+   {
+    "belts": [],
+    "cls": "",
+    "gas": false,
+    "key": "b37",
+    "km": 11133.4,
+    "land": true,
+    "lbl": "8 a",
+    "locked": false,
+    "ls": 4101.0,
+    "lum": "",
+    "main": false,
+    "mass": null,
+    "mine": false,
+    "name": "HIP 20277 8 a",
+    "nulls": [],
+    "parent": "b36",
+    "ports": 0,
+    "rings": [],
+    "rot": 0.8885,
+    "rsol": null,
+    "sites": 4,
+    "star": false,
+    "sub": "Icy body",
+    "temp": 58,
+    "tilt": 1.09
+   }
+  ],
+  "carriers": 21,
+  "hosts": {
+   "s3516367616": "b33",
+   "s3516368128": "b34",
+   "s3516368896": "b31",
+   "s3790414848": "b18",
+   "s3790415104": "b18",
+   "s3814631936": "b11",
+   "s3814632192": "b11",
+   "s3814632448": "b12",
+   "s3814632704": "b12",
+   "s3814632960": "b12",
+   "s3814633216": "b12",
+   "s3814633472": "b12",
+   "s3814633728": "b12",
+   "s3814633984": "b37",
+   "s3814634240": "b37",
+   "s3814634496": "b37",
+   "s3814634752": "b37",
+   "s3814635008": "b18",
+   "s3814635264": "b18",
+   "s3814635520": "b18",
+   "s3814635776": "b18",
+   "s3814636032": "b34",
+   "s3814636288": "b34",
+   "s3814636544": "b34",
+   "s3814636800": "b34",
+   "s3814637056": "b34",
+   "s3814637312": "b31",
+   "s3814637568": "b31",
+   "s3814637824": "b31",
+   "s3814638080": "b33",
+   "s3814638336": "b33",
+   "s3814638592": "b33",
+   "s3817671424": "b27",
+   "s3817671680": "b27",
+   "s3817671936": "b27",
+   "s3817672192": "b27",
+   "s3817672448": "b27"
+  },
+  "order": [
+   "b0",
+   "carriers",
+   "b5",
+   "b6",
+   "b8",
+   "b11",
+   "b12",
+   "b13",
+   "b16",
+   "b17",
+   "b18",
+   "b19",
+   "b21",
+   "b23",
+   "b25",
+   "b26",
+   "b27",
+   "s3224777216",
+   "b28",
+   "b31",
+   "b32",
+   "b33",
+   "b34",
+   "b36",
+   "b37"
+  ],
+  "stations": [
+   {
+    "est": true,
+    "host": "b27",
+    "icon": "coriolis",
+    "key": "s3224777216",
+    "kind": "coriolis",
+    "name": "Fabian City",
+    "type": "Coriolis Starport"
+   }
+  ]
+ },
+ "me": null,
+ "nav": {
+  "auto": true,
+  "built": null,
+  "marks": [],
+  "next": 1,
+  "oaps": {},
+  "plan": {
+   "base": 300,
+   "cs": "WK5",
+   "hdg": null,
+   "kts": 480,
+   "profile": "pop2",
+   "role": 1,
+   "step": 300
+  },
+  "profiles": {
+   "pop2": {
+    "name": "2-ship pop",
+    "ref": 480,
+    "roles": {
+     "1": [
+      [
+       "START",
+       20.0,
+       0.0,
+       "base",
+       ""
+      ],
+      [
+       "IP",
+       10.0,
+       0.0,
+       "base",
+       ""
+      ],
+      [
+       "OFFSET",
+       7.0,
+       0.0,
+       "base",
+       ""
+      ],
+      [
+       "IN",
+       2.7,
+       1.45,
+       "in",
+       "{cs}, IN {from}"
+      ],
+      [
+       "TGT",
+       0.0,
+       0.0,
+       "in",
+       ""
+      ],
+      [
+       "OFF",
+       -1.66,
+       -0.89,
+       "off",
+       "{cs}, OFF {to}"
+      ],
+      [
+       "EGRESS",
+       1.1,
+       -2.65,
+       "off",
+       ""
+      ],
+      [
+       "EXIT",
+       6.0,
+       -2.65,
+       "base",
+       ""
+      ]
+     ],
+     "2": [
+      [
+       "START",
+       20.0,
+       -1.5,
+       "base",
+       ""
+      ],
+      [
+       "SPLIT",
+       8.0,
+       -1.5,
+       "base",
+       ""
+      ],
+      [
+       "TURN",
+       8.0,
+       2.4,
+       "base",
+       ""
+      ],
+      [
+       "JOIN",
+       6.0,
+       1.6,
+       "base",
+       ""
+      ],
+      [
+       "IN",
+       0.0,
+       1.6,
+       "in",
+       "{cs}, IN {from}"
+      ],
+      [
+       "TGT",
+       0.0,
+       0.0,
+       "in",
+       ""
+      ],
+      [
+       "OFF",
+       0.0,
+       -3.1,
+       "off",
+       "{cs}, OFF {to}, VISUAL/BLIND"
+      ],
+      [
+       "EXIT",
+       6.0,
+       -3.1,
+       "base",
+       ""
+      ]
+     ]
+    }
+   }
+  },
+  "seq": "none",
+  "seqs": {
+   "1": [],
+   "2": [],
+   "3": [],
+   "atk": []
+  },
+  "steer": null,
+  "tgt": null,
+  "tots": {
+   "1": {
+    "gspd": null,
+    "tgt": null,
+    "tot": null
+   },
+   "2": {
+    "gspd": null,
+    "tgt": null,
+    "tot": null
+   },
+   "3": {
+    "gspd": null,
+    "tgt": null,
+    "tot": null
+   }
+  },
+  "xb": {
+   "body": "",
+   "list": [],
+   "max": 10
+  }
+ },
+ "near": {},
+ "pad": null,
+ "remote": {
+  "here": "HIP 20277",
+  "ly": null,
+  "on": false,
+  "system": ""
+ },
+ "source": "spansh",
+ "status": "ok",
+ "system": "HIP 20277",
+ "target": null,
+ "target_body": null,
+ "target_name": "",
+ "tgts": [],
+ "traffic": {
+  "day": 3,
+  "seen": [
+   [
+    "Federal Corvette",
+    1
+   ],
+   [
+    "Mandalay",
+    1
+   ],
+   [
+    "Panther Clipper Mk II",
+    1
+   ]
+  ],
+  "total": 3937,
+  "week": 11
+ },
+ "types": {},
+ "uplink": "<varies>",
+ "uplinking": "<varies>",
+ "you": {
+  "first": "",
+  "last": "",
+  "visits": 0
+ }
+}

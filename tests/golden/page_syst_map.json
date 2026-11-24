@@ -1,0 +1,16 @@
+{
+ "app": [
+  "symap",
+  "syst"
+ ],
+ "boot": false,
+ "halt": false,
+ "hyper": false,
+ "map": "HIP 20277 · 23 BODIES · UFC | FABIAN CITY · CORIOLIS STARPORT · NEAR HIP 20277 6 D",
+ "panel": null,
+ "rail": null,
+ "strip": "■\n1 HOME\n2 NAV\n3 CONTRACTS\n4 SETUP\n5\nCMDR DECKARD\nLOC HIP 20277\n0 ACTIVE\nLIVE_\n[ EXIT ]",
+ "sub": "▸\n1 SYST\n2 TRAJ\n3 WPT\n4 HSI\n5 ATK\n6 HIST\nKEYPAD 1-6",
+ "tab": "nav",
+ "view": "map"
+}

@@ -1,0 +1,15 @@
+{
+ "app": [
+  "ocor"
+ ],
+ "boot": false,
+ "halt": false,
+ "hyper": false,
+ "map": null,
+ "panel": "WAR · # Mon 2026\nTEST SECTOR AB-C D1-2\nCOPY\nFACTION\nExample Legion\nGOVERNMENT\nPatronage\nSCORE\n2-1 (day 3)\nAGAINST\nRival Liberal Command\nDISTANCE\n25.7 ly from HIP 20277 · ~1 jump\nORDERS\n[ INARA ]\nSupport Example Legion [Patronage] in their war against Rival Liberal Command.\nComplete combat zones and combat-oriented missions, and hand in combat bonds and bounties.\nSTANDING ORDERS\nBOUNTIES only help the faction in whose name they are handed in.\nNever turn in bounties for other factions than the supported one.\nYou can submit contributions towards our daily objectives here:\nhttps://example.org/submit",
+ "rail": "INDEX\nWAR\n01 EXAMPLE LEGION\n2-1\nTEST SECTOR AB-C D1-2\n26 LY\n~1 JUMP\nINFLUENCE WORK\n02 EXAMPLE LEGION\nDONE\nCARTHAGE\n12 LY\n~1 JUMP\n03 SAMPLE CARTEL\n▲24.0%\nHIP 20277\nHERE\n04 RIVAL LIBERAL COMMAND\n▼15.3%\nMAIA\n395 LY\n~13 JUMPS\n05 EXAMPLE LEGION\n▲9.5%\nNOWHERE KNOWN AA-A H0\nFETCHED #:#\n1H # ago\n[ FETCH BRIEFING ]",
+ "strip": "■\n1 HOME\n2 NAV\n3 CONTRACTS\n4 SETUP\n5\nCMDR DECKARD\nLOC HIP 20277\n0 ACTIVE\nLIVE_\n[ EXIT ]",
+ "sub": "▸\n1 ACTIVE\n2 HISTORY\n3 OCOR\nKEYPAD 1-3",
+ "tab": "contracts",
+ "view": "list"
+}

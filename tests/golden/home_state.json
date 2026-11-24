@@ -1,0 +1,174 @@
+{
+ "body": "",
+ "cmdr": {
+  "combat": "Deadly",
+  "combat_pct": 47,
+  "credits": 120000000,
+  "emp": "Count",
+  "fed": "Midshipman",
+  "mode": "Solo",
+  "name": "Deckard",
+  "power": {
+   "power": "Aisling Duval",
+   "rank": 3
+  },
+  "rep": [
+   {
+    "value": 20.0,
+    "who": "Federation"
+   },
+   {
+    "value": 75.0,
+    "who": "Empire"
+   },
+   {
+    "value": 0.0,
+    "who": "Alliance"
+   }
+  ],
+  "session": {
+   "bounty": 350000,
+   "earned": 350000,
+   "jumps": 0,
+   "kills": 2,
+   "since": "<time>"
+  },
+  "ship": "Krait Mk II",
+  "ship_ident": "BR-49K",
+  "ship_name": "Night Owl",
+  "stats": {
+   "assassinations": 77,
+   "bounties": 1234,
+   "bounty_profit": 456789000,
+   "highest": 12500000
+  }
+ },
+ "commander": "Deckard",
+ "jump_range": 30.4,
+ "log": [
+  {
+   "n": 1,
+   "t": "<varies>",
+   "tag": "LOGIN",
+   "text": "Krait Mk II · Solo"
+  },
+  {
+   "n": 2,
+   "t": "<varies>",
+   "tag": "UNDOCK",
+   "text": "Fabian City"
+  },
+  {
+   "n": 3,
+   "t": "<varies>",
+   "tag": "KILL",
+   "text": "Ana Diaz · Python · Black Sun Crew · +350,000 CR"
+  },
+  {
+   "n": 4,
+   "t": "<varies>",
+   "tag": "BOND",
+   "text": "Black Sun Crew · +80,000 CR"
+  },
+  {
+   "n": 5,
+   "t": "<varies>",
+   "tag": "INTRDCT",
+   "text": "by Bo Rix"
+  },
+  {
+   "n": 6,
+   "t": "<varies>",
+   "tag": "ESCAPE",
+   "text": "from Bo Rix"
+  },
+  {
+   "n": 7,
+   "t": "<varies>",
+   "tag": "CRIME",
+   "text": "collided At Speed In No Fire Zone · 400 CR"
+  },
+  {
+   "n": 8,
+   "t": "<varies>",
+   "tag": "PROMO",
+   "text": "Combat: Deadly"
+  },
+  {
+   "n": 9,
+   "t": "<varies>",
+   "tag": "DOCK",
+   "text": "Fabian City"
+  },
+  {
+   "n": 10,
+   "t": "<varies>",
+   "tag": "CASH",
+   "text": "Bounty vouchers · +350,000 CR"
+  }
+ ],
+ "sit": {
+  "allegiance": "Empire",
+  "conflicts": [
+   {
+    "a": "Ovid Vision & Co",
+    "a_won": 2,
+    "b": "Black Sun Crew",
+    "b_won": 1,
+    "status": "active",
+    "type": "War"
+   }
+  ],
+  "controlling": "HIP 20277 Party",
+  "docked": "Fabian City",
+  "economy": "Industrial",
+  "economy2": "Refinery",
+  "factions": [
+   {
+    "controlling": true,
+    "influence": 41.0,
+    "name": "HIP 20277 Party",
+    "pending": [
+     "Expansion"
+    ],
+    "rep": 55.0,
+    "states": [
+     "Boom"
+    ]
+   },
+   {
+    "controlling": false,
+    "influence": 33.0,
+    "name": "Ovid Vision & Co",
+    "pending": [],
+    "rep": 12.0,
+    "states": [
+     "War"
+    ]
+   },
+   {
+    "controlling": false,
+    "influence": 26.0,
+    "name": "Black Sun Crew",
+    "pending": [],
+    "rep": -40.0,
+    "states": [
+     "War",
+     "Pirate Attack"
+    ]
+   }
+  ],
+  "government": "Patronage",
+  "population": 5400000,
+  "power": "Aisling Duval",
+  "power_state": "Exploited",
+  "security": "Medium Security",
+  "system": "HIP 20277"
+ },
+ "star_pos": [
+  106.4375,
+  -95.6875,
+  -0.1875
+ ],
+ "system": "HIP 20277"
+}

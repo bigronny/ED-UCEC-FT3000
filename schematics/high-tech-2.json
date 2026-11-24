@@ -1,0 +1,9109 @@
+{
+ "schema": "ucec-settlement/1",
+ "id": "high-tech-2",
+ "category": "High-Tech / Bio",
+ "layout": 2,
+ "name": "Pheobe",
+ "source": {
+  "image": "High Tech 2 - Icons.png",
+  "width": 1644,
+  "height": 925,
+  "map_area": [
+   0,
+   40,
+   1644,
+   875
+  ],
+  "unmarked_image": "High Tech 2 - Satellite.png",
+  "angled_image": null,
+  "height_reference_images": [
+   "../../4 Industrial/04 Meteope/Industrial 4 - Side.png",
+   "../../4 Industrial/02 Palici/Industrial 2 - Side.png",
+   "../../4 Industrial/01 Fontus/Industrial 1 - Side.png",
+   "../../4 Industrial/03 Minthe/Industrial 3 - Side.png",
+   "../../1 Tourism/04 Gelos/Toruism 4 - Verticality.png"
+  ],
+  "map_area_convention": "[left,top,right,bottom], right/bottom exclusive; original icon-image pixels, x right, y down",
+  "geometry_convention": "Clockwise y-down polygons, not repeated closed vertex; simplified visible roof/main-structure footprints; heights above local ground/platform",
+  "rotation_convention": "Pad rotation_deg: clockwise from +x to first polygon edge, modulo 180; a drawing reference, not a pad class or in-game heading",
+  "image_sha256": "e42aebf6a542673ac7d863bc38fc0741229986e4e8e0deb04f0333f7e4499aa9",
+  "unmarked_image_sha256": "087c0e5b0b2efb27a5d7fddee7628d2b9076299cd62de241ed06c7a3f6862c3b",
+  "unmarked_image_width": 1644,
+  "unmarked_image_height": 925
+ },
+ "scale": {
+  "model": "uniform",
+  "m_per_px": 0.1724119029857248,
+  "m_per_px_is_nominal": false,
+  "m_per_px_x": 0.1724119029857248,
+  "m_per_px_y": 0.1724119029857248,
+  "pixel_to_metre_matrix_2x3": [
+   [
+    0.1724119029857248,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.1724119029857248,
+    0.0
+   ]
+  ],
+  "metre_to_pixel_matrix_2x3": [
+   [
+    5.800063584257272,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    5.800063584257272,
+    0.0
+   ]
+  ],
+  "coordinate_transform_required": false,
+  "confidence": "low",
+  "how": "One shared X/Y scale for the whole source image, fitted by least squares in metres to the listed independent visible pad-side controls; uniform fallback when directional scales are not identifiable or would require excessive stretch.",
+  "basis": "User-confirmed classes, user working dimensions Large170x90m, Medium135x70m, Small70x50m.",
+  "origin_pixel": [
+   0,
+   0
+  ],
+  "origin_metres": [
+   0,
+   0
+  ],
+  "axes": {
+   "x": "right",
+   "y": "down"
+  },
+  "rms_dimension_residual_m": 5.70193312392191,
+  "limitations": [
+   "A confirmed class does not identify a precise mechanical deck boundary: traced paint/apron envelopes are approximate.",
+   "One shared transform retains residuals at individual pads. Reference dimensions are not forced independently on each pad.",
+   "Reconstructed hidden edges are inferred, not additional calibration observations. Negative/out-of-image pixels are permitted only for documented reconstructions.",
+   "Camera perspective, roof parallax and terrain can cause local differences; estimates are unsuitable for survey accuracy.",
+   "No statistical confidence interval is claimed. Roof heights and floor estimates are preserved."
+  ],
+  "fallback_reason": "Separate X/Y fit would require more than 25% directional stretch; use the conservative uniform best fit instead."
+ },
+ "fingerprint": {
+  "habs": 2,
+  "description": "One connected stepped research complex and northern PWR face a western landing area, with two long rounded HAB pods to the east.",
+  "pad_count_confidence": "high"
+ },
+ "buildings": [
+  {
+   "id": "building-research",
+   "kind": "other",
+   "label": "RES",
+   "outline": [
+    [
+     862.31,
+     281.52
+    ],
+    [
+     1012.66,
+     336.24
+    ],
+    [
+     964.44,
+     468.74
+    ],
+    [
+     908.99,
+     448.56
+    ],
+    [
+     878.21,
+     533.13
+    ],
+    [
+     939.29,
+     555.37
+    ],
+    [
+     870.55,
+     744.24
+    ],
+    [
+     574.54,
+     636.51
+    ],
+    [
+     618.32,
+     516.23
+    ],
+    [
+     693.5,
+     543.59
+    ],
+    [
+     680.84,
+     578.36
+    ],
+    [
+     746.62,
+     602.3
+    ],
+    [
+     774.67,
+     525.24
+    ],
+    [
+     812.25,
+     538.92
+    ],
+    [
+     852.61,
+     428.04
+    ],
+    [
+     814.09,
+     414.02
+    ]
+   ],
+   "height_m": 8,
+   "floors": 2,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Connected upper research block and lower L-shaped laboratory wings",
+    "reference_images": [
+     "4 Industrial - Saved,/Industrial 4 - Side.png",
+     "4 Industrial - Saved,/Industrial 2 - Side.png"
+    ],
+    "notes": "Generic previous Industrial4/2 laboratory/research-bay family guess8m/two levels. HighTech2 has no Side and is not an exact module match; one tall bay or partial upper floor remains plausible. Single continuous roof/connector retained as one complex without invented room divisions. Roof tanks/plant tops excluded.",
+    "confidence": "low"
+   }
+  },
+  {
+   "id": "building-power",
+   "kind": "power",
+   "label": "PWR",
+   "outline": [
+    [
+     1026.61,
+     65.06
+    ],
+    [
+     1125.28,
+     100.97
+    ],
+    [
+     1114.68,
+     130.1
+    ],
+    [
+     1132.53,
+     136.6
+    ],
+    [
+     1106.54,
+     208.02
+    ],
+    [
+     1086.8,
+     200.84
+    ],
+    [
+     1072.44,
+     240.3
+    ],
+    [
+     980.35,
+     206.79
+    ],
+    [
+     986.16,
+     190.81
+    ],
+    [
+     973.01,
+     186.02
+    ],
+    [
+     1003.11,
+     103.33
+    ],
+    [
+     1011.56,
+     106.41
+    ]
+   ],
+   "height_m": 8,
+   "floors": 1,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Standalone rectangular PWR body with central round machinery",
+    "reference_images": [
+     "4 Industrial - Saved,/Industrial 4 - Side.png",
+     "4 Industrial - Saved,/Industrial 2 - Side.png"
+    ],
+    "notes": "Industrial4 PWR family8m/one tall occupied level, low confidence. Main roof excludes central power machinery top separately guessed13m above local ground.",
+    "confidence": "low"
+   }
+  },
+  {
+   "id": "building-hab-north",
+   "kind": "hab",
+   "label": "HAB",
+   "outline": [
+    [
+     1251,
+     418
+    ],
+    [
+     1402,
+     459
+    ],
+    [
+     1434,
+     480
+    ],
+    [
+     1458,
+     507
+    ],
+    [
+     1465,
+     533
+    ],
+    [
+     1455,
+     557
+    ],
+    [
+     1437,
+     574
+    ],
+    [
+     1405,
+     582
+    ],
+    [
+     1377,
+     581
+    ],
+    [
+     1320,
+     560
+    ],
+    [
+     1305,
+     603
+    ],
+    [
+     1266,
+     588
+    ],
+    [
+     1273,
+     546
+    ],
+    [
+     1214,
+     512
+    ]
+   ],
+   "height_m": 8,
+   "floors": 2,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Long rounded-end accommodation pod with flat service end and side entry",
+    "reference_images": [
+     "Tourism/Toruism 4 - Verticality.png"
+    ],
+    "notes": "Generic Tourism accommodation-pod family fallback8m/two floors, not an exact confirmed module match. Main roof is distinct from vents. With no HighTech Side, one tall floor or partial second level is also possible; access1/0 does not establish floors.",
+    "confidence": "low"
+   }
+  },
+  {
+   "id": "building-hab-south",
+   "kind": "hab",
+   "label": "HAB",
+   "outline": [
+    [
+     1188,
+     641
+    ],
+    [
+     1339,
+     682
+    ],
+    [
+     1371,
+     703
+    ],
+    [
+     1395,
+     730
+    ],
+    [
+     1402,
+     756
+    ],
+    [
+     1392,
+     780
+    ],
+    [
+     1374,
+     797
+    ],
+    [
+     1342,
+     805
+    ],
+    [
+     1314,
+     804
+    ],
+    [
+     1257,
+     783
+    ],
+    [
+     1242,
+     826
+    ],
+    [
+     1203,
+     811
+    ],
+    [
+     1210,
+     769
+    ],
+    [
+     1151,
+     735
+    ]
+   ],
+   "height_m": 8,
+   "floors": 2,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Long rounded-end accommodation pod with flat service end and side entry",
+    "reference_images": [
+     "Tourism/Toruism 4 - Verticality.png"
+    ],
+    "notes": "Generic Tourism accommodation-pod family fallback8m/two floors, not an exact confirmed module match. Main roof is distinct from vents. With no HighTech Side, one tall floor or partial second level is also possible; access1/0 does not establish floors.",
+    "confidence": "low"
+   }
+  },
+  {
+   "id": "building-utility-northwest",
+   "kind": "other",
+   "label": null,
+   "outline": [
+    [
+     804.56,
+     166.35
+    ],
+    [
+     842.6,
+     153.99
+    ],
+    [
+     856.2,
+     195.84
+    ],
+    [
+     845.74,
+     199.24
+    ],
+    [
+     849.14,
+     209.7
+    ],
+    [
+     827.26,
+     216.81
+    ],
+    [
+     824.17,
+     207.3
+    ],
+    [
+     818.47,
+     209.15
+    ]
+   ],
+   "height_m": 4,
+   "floors": 1,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Small detached service cube",
+    "reference_images": [
+     "4 Industrial - Saved,/Industrial 1 - Side.png",
+     "4 Industrial - Saved,/Industrial 3 - Side.png"
+    ],
+    "notes": "Generic low utility-hut family,4m/one storey; exact function/identity unconfirmed.",
+    "confidence": "low"
+   }
+  },
+  {
+   "id": "building-service-northwest",
+   "kind": "other",
+   "label": null,
+   "outline": [
+    [
+     749.83,
+     241.92
+    ],
+    [
+     804.33,
+     261.76
+    ],
+    [
+     800.57,
+     272.09
+    ],
+    [
+     811.85,
+     276.2
+    ],
+    [
+     801.93,
+     303.45
+    ],
+    [
+     736.15,
+     279.51
+    ]
+   ],
+   "height_m": 4,
+   "floors": 1,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Low service hut with yellow flat roof bays",
+    "reference_images": [
+     "4 Industrial - Saved,/Industrial 1 - Side.png",
+     "4 Industrial - Saved,/Industrial 3 - Side.png"
+    ],
+    "notes": "Generic offset service-module family from Industrial1/3, best guess4m/one level.",
+    "confidence": "low"
+   }
+  },
+  {
+   "id": "building-service-northeast",
+   "kind": "other",
+   "label": null,
+   "outline": [
+    [
+     1126.06,
+     306.1
+    ],
+    [
+     1209.75,
+     278.9
+    ],
+    [
+     1212.22,
+     286.51
+    ],
+    [
+     1225.54,
+     282.19
+    ],
+    [
+     1236.66,
+     316.42
+    ],
+    [
+     1154.87,
+     343.0
+    ],
+    [
+     1152.09,
+     334.44
+    ],
+    [
+     1136.87,
+     339.38
+    ]
+   ],
+   "height_m": 4,
+   "floors": 1,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Low oblong detached utility/service hut",
+    "reference_images": [
+     "4 Industrial - Saved,/Industrial 1 - Side.png",
+     "4 Industrial - Saved,/Industrial 3 - Side.png"
+    ],
+    "notes": "Generic Industrial service-hut family,4m/one level. No exact match, and the rounded exterior/footprint is simplified.",
+    "confidence": "low"
+   }
+  },
+  {
+   "id": "building-service-west",
+   "kind": "other",
+   "label": null,
+   "outline": [
+    [
+     482.04,
+     586.07
+    ],
+    [
+     515.87,
+     598.38
+    ],
+    [
+     510.39,
+     613.42
+    ],
+    [
+     518.85,
+     616.5
+    ],
+    [
+     506.88,
+     649.38
+    ],
+    [
+     469.29,
+     635.7
+    ],
+    [
+     473.06,
+     625.37
+    ],
+    [
+     463.66,
+     621.95
+    ],
+    [
+     472.21,
+     598.45
+    ],
+    [
+     476.91,
+     600.16
+    ]
+   ],
+   "height_m": 4,
+   "floors": 1,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Small western utility hut on pad approach",
+    "reference_images": [
+     "4 Industrial - Saved,/Industrial 1 - Side.png",
+     "4 Industrial - Saved,/Industrial 3 - Side.png"
+    ],
+    "notes": "Generic low service cube family from previous Industrial Side views;4m/one storey fallback.",
+    "confidence": "low"
+   }
+  },
+  {
+   "id": "building-gate-service",
+   "kind": "other",
+   "label": null,
+   "outline": [
+    [
+     606.22,
+     395.75
+    ],
+    [
+     640.98,
+     408.4
+    ],
+    [
+     630.72,
+     436.59
+    ],
+    [
+     595.96,
+     423.94
+    ]
+   ],
+   "height_m": 3.5,
+   "floors": 1,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Small fixed service enclosure at route junction",
+    "reference_images": [
+     "4 Industrial - Saved,/Industrial 1 - Side.png",
+     "4 Industrial - Saved,/Industrial 3 - Side.png"
+    ],
+    "notes": "Generic low route-side service module,3.5m/one level. Not a vehicle, use inferred conservatively from fixed plinth.",
+    "confidence": "low"
+   }
+  },
+  {
+   "id": "building-service-southeast",
+   "kind": "other",
+   "label": null,
+   "outline": [
+    [
+     1022.23,
+     719.03
+    ],
+    [
+     1058.18,
+     701.5
+    ],
+    [
+     1065.19,
+     715.88
+    ],
+    [
+     1075.08,
+     711.05
+    ],
+    [
+     1106.64,
+     775.77
+    ],
+    [
+     1094.06,
+     781.9
+    ],
+    [
+     1100.64,
+     795.39
+    ],
+    [
+     1066.48,
+     812.04
+    ],
+    [
+     1059.03,
+     796.76
+    ],
+    [
+     1050.94,
+     800.71
+    ],
+    [
+     1021.57,
+     740.49
+    ],
+    [
+     1030.56,
+     736.11
+    ]
+   ],
+   "height_m": 4,
+   "floors": 1,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Detached oblong utility/control module",
+    "reference_images": [
+     "4 Industrial - Saved,/Industrial 1 - Side.png",
+     "4 Industrial - Saved,/Industrial 3 - Side.png"
+    ],
+    "notes": "Generic low service module,4m/one occupied level. Exact relation to nearby HAB pods unverified.",
+    "confidence": "low"
+   }
+  },
+  {
+   "id": "building-service-south",
+   "kind": "other",
+   "label": null,
+   "outline": [
+    [
+     900.6,
+     720.17
+    ],
+    [
+     950.41,
+     738.3
+    ],
+    [
+     945.28,
+     752.39
+    ],
+    [
+     955.61,
+     756.16
+    ],
+    [
+     932.01,
+     820.99
+    ],
+    [
+     917.92,
+     815.86
+    ],
+    [
+     914.5,
+     825.26
+    ],
+    [
+     868.45,
+     808.5
+    ]
+   ],
+   "height_m": 4,
+   "floors": 1,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Low service enclosure on southern plinth",
+    "reference_images": [
+     "4 Industrial - Saved,/Industrial 1 - Side.png",
+     "4 Industrial - Saved,/Industrial 3 - Side.png"
+    ],
+    "notes": "Generic low utility-hut family4m/one level. Open-plinth versus enclosed interior boundaries are uncertain; no unsupported use assigned.",
+    "confidence": "low"
+   }
+  },
+  {
+   "id": "building-utility-southwest",
+   "kind": "other",
+   "label": null,
+   "outline": [
+    [
+     700.94,
+     785.64
+    ],
+    [
+     738.53,
+     799.32
+    ],
+    [
+     734.08,
+     811.54
+    ],
+    [
+     742.54,
+     814.62
+    ],
+    [
+     730.57,
+     847.51
+    ],
+    [
+     684.52,
+     830.75
+    ]
+   ],
+   "height_m": 4,
+   "floors": 1,
+   "confidence": "low",
+   "height_estimate_basis": {
+    "method": "module_family_analogue_or_fallback",
+    "matched_module": "Small utility/service building southwest of research complex",
+    "reference_images": [
+     "4 Industrial - Saved,/Industrial 1 - Side.png",
+     "4 Industrial - Saved,/Industrial 3 - Side.png"
+    ],
+    "notes": "Generic Industrial1/3 one-storey utility family fallback4m; no exact match.",
+    "confidence": "low"
+   }
+  }
+ ],
+ "pads": [
+  {
+   "id": "pad-west",
+   "outline": [
+    [
+     228,
+     273
+    ],
+    [
+     459,
+     369
+    ],
+    [
+     275,
+     738
+    ],
+    [
+     44,
+     642
+    ]
+   ],
+   "centre": [
+    251.5,
+    505.5
+   ],
+   "rotation_deg": 22.57,
+   "size": "small",
+   "size_source": "Explicit user confirmation during settlement-by-settlement review",
+   "size_confidence": "high",
+   "review_status": "user_confirmed",
+   "reference_dimensions_m": {
+    "length_m": 70,
+    "width_m": 50
+   }
+  }
+ ],
+ "walkways": [
+  {
+   "id": "walkway-west-spine",
+   "kind": "open",
+   "line": [
+    [
+     503,
+     588
+    ],
+    [
+     570,
+     512
+    ],
+    [
+     629,
+     431
+    ],
+    [
+     697,
+     363
+    ],
+    [
+     743,
+     306
+    ],
+    [
+     784,
+     246
+    ]
+   ],
+   "width_px": 25,
+   "confidence": "medium"
+  },
+  {
+   "id": "walkway-east-spine",
+   "kind": "open",
+   "line": [
+    [
+     1100,
+     309
+    ],
+    [
+     1070,
+     408
+    ],
+    [
+     1048,
+     489
+    ],
+    [
+     1028,
+     577
+    ],
+    [
+     989,
+     657
+    ]
+   ],
+   "width_px": 25,
+   "confidence": "medium"
+  },
+  {
+   "id": "walkway-pad-link",
+   "kind": "open",
+   "line": [
+    [
+     403,
+     500
+    ],
+    [
+     495,
+     541
+    ],
+    [
+     550,
+     556
+    ]
+   ],
+   "width_px": 25,
+   "confidence": "medium"
+  },
+  {
+   "id": "walkway-hab-north",
+   "kind": "open",
+   "line": [
+    [
+     1090,
+     409
+    ],
+    [
+     1168,
+     435
+    ],
+    [
+     1214,
+     451
+    ]
+   ],
+   "width_px": 25,
+   "confidence": "medium"
+  }
+ ],
+ "details": [
+  {
+   "id": "detail-power-cap",
+   "kind": "roof_machinery",
+   "outline": [
+    [
+     1064.0,
+     97.1
+    ],
+    [
+     1083.5,
+     115.0
+    ],
+    [
+     1084.6,
+     141.3
+    ],
+    [
+     1066.8,
+     160.8
+    ],
+    [
+     1040.4,
+     162.0
+    ],
+    [
+     1032.0,
+     158.9
+    ],
+    [
+     1012.5,
+     141.0
+    ],
+    [
+     1011.4,
+     114.7
+    ],
+    [
+     1029.2,
+     95.2
+    ],
+    [
+     1055.6,
+     94.0
+    ]
+   ]
+  },
+  {
+   "id": "detail-research-tank-1",
+   "kind": "roof_machinery",
+   "outline": [
+    [
+     869.4,
+     340.6
+    ],
+    [
+     878.4,
+     348.9
+    ],
+    [
+     878.9,
+     361.2
+    ],
+    [
+     870.6,
+     370.2
+    ],
+    [
+     858.4,
+     370.7
+    ],
+    [
+     854.6,
+     369.4
+    ],
+    [
+     845.6,
+     361.1
+    ],
+    [
+     845.1,
+     348.8
+    ],
+    [
+     853.4,
+     339.8
+    ],
+    [
+     865.6,
+     339.3
+    ]
+   ]
+  },
+  {
+   "id": "detail-research-tank-2",
+   "kind": "roof_machinery",
+   "outline": [
+    [
+     680.4,
+     585.6
+    ],
+    [
+     689.4,
+     593.9
+    ],
+    [
+     689.9,
+     606.2
+    ],
+    [
+     681.6,
+     615.2
+    ],
+    [
+     669.4,
+     615.7
+    ],
+    [
+     665.6,
+     614.4
+    ],
+    [
+     656.6,
+     606.1
+    ],
+    [
+     656.1,
+     593.8
+    ],
+    [
+     664.4,
+     584.8
+    ],
+    [
+     676.6,
+     584.3
+    ]
+   ]
+  },
+  {
+   "id": "detail-research-tank-3",
+   "kind": "roof_machinery",
+   "outline": [
+    [
+     660.4,
+     635.6
+    ],
+    [
+     669.4,
+     643.9
+    ],
+    [
+     669.9,
+     656.2
+    ],
+    [
+     661.6,
+     665.2
+    ],
+    [
+     649.4,
+     665.7
+    ],
+    [
+     645.6,
+     664.4
+    ],
+    [
+     636.6,
+     656.1
+    ],
+    [
+     636.1,
+     643.8
+    ],
+    [
+     644.4,
+     634.8
+    ],
+    [
+     656.6,
+     634.3
+    ]
+   ]
+  },
+  {
+   "id": "detail-hab-roof-panel-1",
+   "kind": "roof_panel",
+   "outline": [
+    [
+     1328.35,
+     435.66
+    ],
+    [
+     1388.49,
+     457.55
+    ],
+    [
+     1381.65,
+     476.34
+    ],
+    [
+     1321.51,
+     454.45
+    ]
+   ]
+  },
+  {
+   "id": "detail-hab-roof-panel-2",
+   "kind": "roof_panel",
+   "outline": [
+    [
+     1330.86,
+     470.39
+    ],
+    [
+     1355.29,
+     479.28
+    ],
+    [
+     1323.14,
+     567.61
+    ],
+    [
+     1298.71,
+     558.72
+    ]
+   ]
+  },
+  {
+   "id": "detail-hab-roof-panel-3",
+   "kind": "roof_panel",
+   "outline": [
+    [
+     1265.35,
+     658.66
+    ],
+    [
+     1325.49,
+     680.55
+    ],
+    [
+     1318.65,
+     699.34
+    ],
+    [
+     1258.51,
+     677.45
+    ]
+   ]
+  },
+  {
+   "id": "detail-hab-roof-panel-4",
+   "kind": "roof_panel",
+   "outline": [
+    [
+     1267.86,
+     693.39
+    ],
+    [
+     1292.29,
+     702.28
+    ],
+    [
+     1260.14,
+     790.61
+    ],
+    [
+     1235.71,
+     781.72
+    ]
+   ]
+  },
+  {
+   "id": "detail-utility-unit-1",
+   "kind": "roof_machinery",
+   "outline": [
+    [
+     1105.6,
+     523.4
+    ],
+    [
+     1145.1,
+     537.8
+    ],
+    [
+     1132.4,
+     572.6
+    ],
+    [
+     1092.9,
+     558.2
+    ]
+   ]
+  },
+  {
+   "id": "detail-utility-unit-2",
+   "kind": "roof_machinery",
+   "outline": [
+    [
+     1141.4,
+     448.9
+    ],
+    [
+     1180.9,
+     463.3
+    ],
+    [
+     1168.6,
+     497.1
+    ],
+    [
+     1129.1,
+     482.7
+    ]
+   ]
+  },
+  {
+   "id": "detail-utility-unit-3",
+   "kind": "roof_machinery",
+   "outline": [
+    [
+     1060.7,
+     717.7
+    ],
+    [
+     1096.6,
+     700.2
+    ],
+    [
+     1113.3,
+     734.3
+    ],
+    [
+     1077.4,
+     751.8
+    ]
+   ]
+  },
+  {
+   "id": "detail-utility-unit-4",
+   "kind": "roof_machinery",
+   "outline": [
+    [
+     815.7,
+     175.8
+    ],
+    [
+     838.5,
+     168.4
+    ],
+    [
+     846.3,
+     192.2
+    ],
+    [
+     823.5,
+     199.6
+    ]
+   ]
+  },
+  {
+   "id": "detail-utility-unit-5",
+   "kind": "roof_machinery",
+   "outline": [
+    [
+     847.4,
+     452.4
+    ],
+    [
+     870.9,
+     461.0
+    ],
+    [
+     862.6,
+     483.6
+    ],
+    [
+     839.1,
+     475.0
+    ]
+   ]
+  },
+  {
+   "id": "detail-utility-unit-6",
+   "kind": "roof_machinery",
+   "outline": [
+    [
+     773.3,
+     671.8
+    ],
+    [
+     794.9,
+     679.7
+    ],
+    [
+     786.7,
+     702.2
+    ],
+    [
+     765.1,
+     694.3
+    ]
+   ]
+  },
+  {
+   "id": "detail-utility-unit-7",
+   "kind": "roof_machinery",
+   "outline": [
+    [
+     744.4,
+     551.9
+    ],
+    [
+     765.1,
+     559.4
+    ],
+    [
+     757.6,
+     580.1
+    ],
+    [
+     736.9,
+     572.6
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-01",
+   "kind": "container",
+   "outline": [
+    [
+     885.3,
+     195.2
+    ],
+    [
+     921.0,
+     208.2
+    ],
+    [
+     912.7,
+     230.8
+    ],
+    [
+     877.0,
+     217.8
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-02",
+   "kind": "container",
+   "outline": [
+    [
+     922.7,
+     224.7
+    ],
+    [
+     955.5,
+     236.7
+    ],
+    [
+     947.3,
+     259.3
+    ],
+    [
+     914.5,
+     247.3
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-03",
+   "kind": "container",
+   "outline": [
+    [
+     761.8,
+     238.6
+    ],
+    [
+     789.0,
+     248.6
+    ],
+    [
+     782.2,
+     267.4
+    ],
+    [
+     755.0,
+     257.4
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-04",
+   "kind": "container",
+   "outline": [
+    [
+     723.8,
+     349.9
+    ],
+    [
+     760.4,
+     363.2
+    ],
+    [
+     754.2,
+     380.1
+    ],
+    [
+     717.6,
+     366.8
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-05",
+   "kind": "container",
+   "outline": [
+    [
+     689.6,
+     346.1
+    ],
+    [
+     721.5,
+     357.8
+    ],
+    [
+     716.4,
+     371.9
+    ],
+    [
+     684.5,
+     360.2
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-06",
+   "kind": "container",
+   "outline": [
+    [
+     618.2,
+     464.4
+    ],
+    [
+     652.0,
+     476.7
+    ],
+    [
+     645.8,
+     493.6
+    ],
+    [
+     612.0,
+     481.3
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-07",
+   "kind": "container",
+   "outline": [
+    [
+     546.2,
+     494.0
+    ],
+    [
+     581.9,
+     507.0
+    ],
+    [
+     575.8,
+     524.0
+    ],
+    [
+     540.1,
+     511.0
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-08",
+   "kind": "container",
+   "outline": [
+    [
+     698.4,
+     283.5
+    ],
+    [
+     718.1,
+     290.7
+    ],
+    [
+     711.6,
+     308.5
+    ],
+    [
+     691.9,
+     301.3
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-09",
+   "kind": "container",
+   "outline": [
+    [
+     761.6,
+     559.7
+    ],
+    [
+     791.6,
+     570.6
+    ],
+    [
+     784.4,
+     590.3
+    ],
+    [
+     754.4,
+     579.4
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-10",
+   "kind": "container",
+   "outline": [
+    [
+     1044.4,
+     471.6
+    ],
+    [
+     1080.1,
+     484.6
+    ],
+    [
+     1073.6,
+     502.4
+    ],
+    [
+     1037.9,
+     489.4
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-11",
+   "kind": "container",
+   "outline": [
+    [
+     986.6,
+     648.9
+    ],
+    [
+     1012.9,
+     658.5
+    ],
+    [
+     1005.4,
+     679.1
+    ],
+    [
+     979.1,
+     669.5
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-12",
+   "kind": "container",
+   "outline": [
+    [
+     913.5,
+     707.2
+    ],
+    [
+     946.4,
+     719.2
+    ],
+    [
+     938.5,
+     740.8
+    ],
+    [
+     905.6,
+     728.8
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-13",
+   "kind": "container",
+   "outline": [
+    [
+     953.7,
+     770.6
+    ],
+    [
+     989.4,
+     783.6
+    ],
+    [
+     982.3,
+     803.4
+    ],
+    [
+     946.6,
+     790.4
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-14",
+   "kind": "container",
+   "outline": [
+    [
+     841.7,
+     756.7
+    ],
+    [
+     866.1,
+     765.6
+    ],
+    [
+     858.3,
+     787.3
+    ],
+    [
+     833.9,
+     778.4
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-15",
+   "kind": "container",
+   "outline": [
+    [
+     1123.4,
+     364.7
+    ],
+    [
+     1143.1,
+     371.8
+    ],
+    [
+     1134.6,
+     395.3
+    ],
+    [
+     1114.9,
+     388.2
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-16",
+   "kind": "container",
+   "outline": [
+    [
+     744.5,
+     488.1
+    ],
+    [
+     784.0,
+     502.4
+    ],
+    [
+     775.5,
+     525.9
+    ],
+    [
+     736.0,
+     511.6
+    ]
+   ]
+  },
+  {
+   "id": "detail-cargo-17",
+   "kind": "container",
+   "outline": [
+    [
+     703.5,
+     520.1
+    ],
+    [
+     743.0,
+     534.4
+    ],
+    [
+     734.5,
+     557.9
+    ],
+    [
+     695.0,
+     543.6
+    ]
+   ]
+  },
+  {
+   "id": "detail-platform-1",
+   "kind": "platform",
+   "outline": [
+    [
+     680.05,
+     504.67
+    ],
+    [
+     757.1,
+     532.71
+    ],
+    [
+     737.95,
+     585.33
+    ],
+    [
+     660.9,
+     557.29
+    ]
+   ]
+  },
+  {
+   "id": "detail-platform-2",
+   "kind": "platform",
+   "outline": [
+    [
+     878.74,
+     711.38
+    ],
+    [
+     970.83,
+     744.89
+    ],
+    [
+     935.26,
+     842.62
+    ],
+    [
+     843.17,
+     809.11
+    ]
+   ]
+  },
+  {
+   "id": "detail-platform-3",
+   "kind": "platform",
+   "outline": [
+    [
+     1137.07,
+     434.55
+    ],
+    [
+     1193.45,
+     455.07
+    ],
+    [
+     1172.93,
+     511.45
+    ],
+    [
+     1116.55,
+     490.93
+    ]
+   ]
+  },
+  {
+   "id": "detail-platform-4",
+   "kind": "platform",
+   "outline": [
+    [
+     1100.13,
+     509.21
+    ],
+    [
+     1158.39,
+     530.41
+    ],
+    [
+     1137.87,
+     586.79
+    ],
+    [
+     1079.61,
+     565.59
+    ]
+   ]
+  },
+  {
+   "id": "detail-platform-5",
+   "kind": "platform",
+   "outline": [
+    [
+     999.67,
+     719.93
+    ],
+    [
+     1067.98,
+     686.62
+    ],
+    [
+     1122.33,
+     798.07
+    ],
+    [
+     1054.02,
+     831.38
+    ]
+   ]
+  },
+  {
+   "id": "detail-gate-1",
+   "kind": "gate",
+   "outline": [
+    [
+     427.9,
+     450.2
+    ],
+    [
+     442.0,
+     455.3
+    ],
+    [
+     422.1,
+     509.8
+    ],
+    [
+     408.0,
+     504.7
+    ]
+   ]
+  },
+  {
+   "id": "detail-gate-2",
+   "kind": "gate",
+   "outline": [
+    [
+     402.1,
+     507.4
+    ],
+    [
+     414.3,
+     511.9
+    ],
+    [
+     395.9,
+     562.6
+    ],
+    [
+     383.7,
+     558.1
+    ]
+   ]
+  },
+  {
+   "id": "detail-gate-3",
+   "kind": "gate",
+   "outline": [
+    [
+     597.0,
+     436.1
+    ],
+    [
+     610.1,
+     440.9
+    ],
+    [
+     593.0,
+     487.9
+    ],
+    [
+     579.9,
+     483.1
+    ]
+   ]
+  },
+  {
+   "id": "detail-gate-4",
+   "kind": "gate",
+   "outline": [
+    [
+     1059.2,
+     365.8
+    ],
+    [
+     1076.2,
+     371.9
+    ],
+    [
+     1060.8,
+     414.2
+    ],
+    [
+     1043.8,
+     408.1
+    ]
+   ]
+  },
+  {
+   "id": "detail-gate-5",
+   "kind": "gate",
+   "outline": [
+    [
+     1086.5,
+     282.4
+    ],
+    [
+     1102.5,
+     288.2
+    ],
+    [
+     1087.5,
+     329.6
+    ],
+    [
+     1071.5,
+     323.8
+    ]
+   ]
+  },
+  {
+   "id": "detail-gate-6",
+   "kind": "gate",
+   "outline": [
+    [
+     1005.4,
+     610.1
+    ],
+    [
+     1022.3,
+     616.3
+    ],
+    [
+     1008.6,
+     653.9
+    ],
+    [
+     991.7,
+     647.7
+    ]
+   ]
+  },
+  {
+   "id": "detail-gate-7",
+   "kind": "gate",
+   "outline": [
+    [
+     702.2,
+     304.4
+    ],
+    [
+     714.4,
+     308.8
+    ],
+    [
+     701.8,
+     343.6
+    ],
+    [
+     689.6,
+     339.2
+    ]
+   ]
+  },
+  {
+   "id": "detail-pad-barrier-1",
+   "kind": "barrier",
+   "outline": [
+    [
+     226,
+     272
+    ],
+    [
+     232,
+     275
+    ],
+    [
+     193,
+     352
+    ],
+    [
+     187,
+     349
+    ]
+   ]
+  },
+  {
+   "id": "detail-pad-barrier-2",
+   "kind": "barrier",
+   "outline": [
+    [
+     234,
+     271
+    ],
+    [
+     281,
+     291
+    ],
+    [
+     278,
+     296
+    ],
+    [
+     231,
+     276
+    ]
+   ]
+  },
+  {
+   "id": "detail-pad-barrier-3",
+   "kind": "barrier",
+   "outline": [
+    [
+     415,
+     347
+    ],
+    [
+     461,
+     366
+    ],
+    [
+     459,
+     372
+    ],
+    [
+     413,
+     353
+    ]
+   ]
+  },
+  {
+   "id": "detail-pad-barrier-4",
+   "kind": "barrier",
+   "outline": [
+    [
+     458,
+     373
+    ],
+    [
+     464,
+     376
+    ],
+    [
+     429,
+     449
+    ],
+    [
+     423,
+     446
+    ]
+   ]
+  },
+  {
+   "id": "detail-pad-barrier-5",
+   "kind": "barrier",
+   "outline": [
+    [
+     83,
+     567
+    ],
+    [
+     89,
+     570
+    ],
+    [
+     52,
+     644
+    ],
+    [
+     46,
+     641
+    ]
+   ]
+  },
+  {
+   "id": "detail-pad-barrier-6",
+   "kind": "barrier",
+   "outline": [
+    [
+     48,
+     645
+    ],
+    [
+     95,
+     666
+    ],
+    [
+     93,
+     672
+    ],
+    [
+     45,
+     651
+    ]
+   ]
+  },
+  {
+   "id": "detail-pad-barrier-7",
+   "kind": "barrier",
+   "outline": [
+    [
+     234,
+     716
+    ],
+    [
+     278,
+     735
+    ],
+    [
+     276,
+     741
+    ],
+    [
+     232,
+     722
+    ]
+   ]
+  },
+  {
+   "id": "detail-pad-barrier-8",
+   "kind": "barrier",
+   "outline": [
+    [
+     310,
+     656
+    ],
+    [
+     316,
+     659
+    ],
+    [
+     279,
+     733
+    ],
+    [
+     273,
+     730
+    ]
+   ]
+  }
+ ],
+ "detail_notes": {
+  "detail-power-cap": "Round elevated power-machinery cap, separate from PWR main roof; cast shadow excluded.",
+  "detail-research-tank-1": "Clearly visible cylindrical roof utility tank, not its shadow.",
+  "detail-research-tank-2": "Clearly visible cylindrical roof utility tank, not its shadow.",
+  "detail-research-tank-3": "Clearly visible cylindrical roof utility tank, not its shadow.",
+  "detail-hab-roof-panel-1": "Visible dark fixed roof panel/vent strip; no technological function or extra storey inferred.",
+  "detail-hab-roof-panel-2": "Visible dark fixed roof panel/vent strip; no technological function or extra storey inferred.",
+  "detail-hab-roof-panel-3": "Visible dark fixed roof panel/vent strip; no technological function or extra storey inferred.",
+  "detail-hab-roof-panel-4": "Visible dark fixed roof panel/vent strip; no technological function or extra storey inferred.",
+  "detail-utility-unit-1": "Visible fixed utility/machinery module. Geometry includes only body/plinth, not dark shadow.",
+  "detail-utility-unit-2": "Visible fixed utility/machinery module. Geometry includes only body/plinth, not dark shadow.",
+  "detail-utility-unit-3": "Visible fixed utility/machinery module. Geometry includes only body/plinth, not dark shadow.",
+  "detail-utility-unit-4": "Visible fixed utility/machinery module. Geometry includes only body/plinth, not dark shadow.",
+  "detail-utility-unit-5": "Visible fixed utility/machinery module. Geometry includes only body/plinth, not dark shadow.",
+  "detail-utility-unit-6": "Visible fixed utility/machinery module. Geometry includes only body/plinth, not dark shadow.",
+  "detail-utility-unit-7": "Visible fixed utility/machinery module. Geometry includes only body/plinth, not dark shadow.",
+  "detail-cargo-01": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-02": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-03": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-04": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-05": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-06": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-07": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-08": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-09": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-10": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-11": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-12": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-13": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-14": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-15": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-16": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-cargo-17": "Clearly bounded fixed cargo/pipe-stack or utility housing in unmarked image; exact use uncertain.",
+  "detail-platform-1": "Visible solid service/cargo platform or apron around fixed module; simplified perimeter excludes shadow.",
+  "detail-platform-2": "Visible solid service/cargo platform or apron around fixed module; simplified perimeter excludes shadow.",
+  "detail-platform-3": "Visible solid service/cargo platform or apron around fixed module; simplified perimeter excludes shadow.",
+  "detail-platform-4": "Visible solid service/cargo platform or apron around fixed module; simplified perimeter excludes shadow.",
+  "detail-platform-5": "Visible solid service/cargo platform or apron around fixed module; simplified perimeter excludes shadow.",
+  "detail-gate-1": "Visible fixed frame/post or route-side service span; openings between pieces remain open.",
+  "detail-gate-2": "Visible fixed frame/post or route-side service span; openings between pieces remain open.",
+  "detail-gate-3": "Visible fixed frame/post or route-side service span; openings between pieces remain open.",
+  "detail-gate-4": "Visible fixed frame/post or route-side service span; openings between pieces remain open.",
+  "detail-gate-5": "Visible fixed frame/post or route-side service span; openings between pieces remain open.",
+  "detail-gate-6": "Visible fixed frame/post or route-side service span; openings between pieces remain open.",
+  "detail-gate-7": "Visible fixed frame/post or route-side service span; openings between pieces remain open.",
+  "detail-pad-barrier-1": "Visible perimeter barrier/frame segment bounding the pad; no ship or shadow footprint.",
+  "detail-pad-barrier-2": "Visible perimeter barrier/frame segment bounding the pad; no ship or shadow footprint.",
+  "detail-pad-barrier-3": "Visible perimeter barrier/frame segment bounding the pad; no ship or shadow footprint.",
+  "detail-pad-barrier-4": "Visible perimeter barrier/frame segment bounding the pad; no ship or shadow footprint.",
+  "detail-pad-barrier-5": "Visible perimeter barrier/frame segment bounding the pad; no ship or shadow footprint.",
+  "detail-pad-barrier-6": "Visible perimeter barrier/frame segment bounding the pad; no ship or shadow footprint.",
+  "detail-pad-barrier-7": "Visible perimeter barrier/frame segment bounding the pad; no ship or shadow footprint.",
+  "detail-pad-barrier-8": "Visible perimeter barrier/frame segment bounding the pad; no ship or shadow footprint."
+ },
+ "detail_confidence": {
+  "detail-power-cap": "medium",
+  "detail-research-tank-1": "medium",
+  "detail-research-tank-2": "medium",
+  "detail-research-tank-3": "medium",
+  "detail-hab-roof-panel-1": "medium",
+  "detail-hab-roof-panel-2": "medium",
+  "detail-hab-roof-panel-3": "medium",
+  "detail-hab-roof-panel-4": "medium",
+  "detail-utility-unit-1": "low",
+  "detail-utility-unit-2": "low",
+  "detail-utility-unit-3": "low",
+  "detail-utility-unit-4": "low",
+  "detail-utility-unit-5": "low",
+  "detail-utility-unit-6": "low",
+  "detail-utility-unit-7": "low",
+  "detail-cargo-01": "low",
+  "detail-cargo-02": "low",
+  "detail-cargo-03": "low",
+  "detail-cargo-04": "low",
+  "detail-cargo-05": "low",
+  "detail-cargo-06": "low",
+  "detail-cargo-07": "low",
+  "detail-cargo-08": "low",
+  "detail-cargo-09": "low",
+  "detail-cargo-10": "low",
+  "detail-cargo-11": "low",
+  "detail-cargo-12": "low",
+  "detail-cargo-13": "low",
+  "detail-cargo-14": "low",
+  "detail-cargo-15": "low",
+  "detail-cargo-16": "low",
+  "detail-cargo-17": "low",
+  "detail-platform-1": "low",
+  "detail-platform-2": "low",
+  "detail-platform-3": "low",
+  "detail-platform-4": "low",
+  "detail-platform-5": "low",
+  "detail-gate-1": "low",
+  "detail-gate-2": "low",
+  "detail-gate-3": "low",
+  "detail-gate-4": "low",
+  "detail-gate-5": "low",
+  "detail-gate-6": "low",
+  "detail-gate-7": "low",
+  "detail-pad-barrier-1": "low",
+  "detail-pad-barrier-2": "low",
+  "detail-pad-barrier-3": "low",
+  "detail-pad-barrier-4": "low",
+  "detail-pad-barrier-5": "low",
+  "detail-pad-barrier-6": "low",
+  "detail-pad-barrier-7": "low",
+  "detail-pad-barrier-8": "low"
+ },
+ "detail_height_estimates": {
+  "detail-power-cap": {
+   "height_above_ground_m": 13,
+   "height_above_roof_m": 5,
+   "roof_building": "building-power",
+   "confidence": "low",
+   "basis": "Industrial4 PWR machinery family guess13m total,5m above8m body. No HighTech Side, module size may differ.",
+   "reference_images": [
+    "4 Industrial - Saved,/Industrial 4 - Side.png",
+    "4 Industrial - Saved,/Industrial 2 - Side.png"
+   ]
+  },
+  "detail-research-tank-1": {
+   "height_above_ground_m": 11,
+   "height_above_roof_m": 3,
+   "roof_building": "building-research",
+   "confidence": "low",
+   "basis": "Generic low roof vessel fallback against Industrial2/4 research/factory roof fixtures;11m total from8m roof plus3m plant, not measured.",
+   "reference_images": [
+    "4 Industrial - Saved,/Industrial 4 - Side.png",
+    "4 Industrial - Saved,/Industrial 2 - Side.png"
+   ]
+  },
+  "detail-research-tank-2": {
+   "height_above_ground_m": 11,
+   "height_above_roof_m": 3,
+   "roof_building": "building-research",
+   "confidence": "low",
+   "basis": "Generic low roof vessel fallback against Industrial2/4 research/factory roof fixtures;11m total from8m roof plus3m plant, not measured.",
+   "reference_images": [
+    "4 Industrial - Saved,/Industrial 4 - Side.png",
+    "4 Industrial - Saved,/Industrial 2 - Side.png"
+   ]
+  },
+  "detail-research-tank-3": {
+   "height_above_ground_m": 11,
+   "height_above_roof_m": 3,
+   "roof_building": "building-research",
+   "confidence": "low",
+   "basis": "Generic low roof vessel fallback against Industrial2/4 research/factory roof fixtures;11m total from8m roof plus3m plant, not measured.",
+   "reference_images": [
+    "4 Industrial - Saved,/Industrial 4 - Side.png",
+    "4 Industrial - Saved,/Industrial 2 - Side.png"
+   ]
+  }
+ },
+ "points": [
+  {
+   "id": "point-power-alarm",
+   "type": "alarm_console",
+   "at": [
+    1030,
+    94
+   ],
+   "building": "building-power",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "yellow",
+    "symbol": "A",
+    "text": "A^"
+   },
+   "confidence": "medium",
+   "notes": "One raised caret after A is copied literally. No physical floor or access is inferred from the caret.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-power-regulator",
+   "type": "power_regulator",
+   "at": [
+    1045,
+    125
+   ],
+   "building": "building-power",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "yellow",
+    "symbol": "P",
+    "text": "P"
+   },
+   "confidence": "high",
+   "notes": "Power regulator; physical floor unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-power-air-east",
+   "type": "airlock",
+   "at": [
+    1135,
+    161
+   ],
+   "building": "building-power",
+   "floor": null,
+   "access": 3,
+   "icon": {
+    "colour": "red",
+    "symbol": "circle",
+    "text": "3"
+   },
+   "confidence": "high",
+   "notes": "Numeral is security/access level, not floor; physical storey remains unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-power-air-south",
+   "type": "airlock",
+   "at": [
+    1008,
+    232
+   ],
+   "building": "building-power",
+   "floor": null,
+   "access": 3,
+   "icon": {
+    "colour": "red",
+    "symbol": "circle",
+    "text": "3"
+   },
+   "confidence": "high",
+   "notes": "Numeral is security/access level, not floor; physical storey remains unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-power-tip",
+   "type": "tip",
+   "at": [
+    1095,
+    264
+   ],
+   "building": "building-power",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "blue",
+    "symbol": "i",
+    "text": "i"
+   },
+   "confidence": "low",
+   "notes": "Editorial tip near PWR approach; association is to nearby observed power building, not a physical device or confirmed room.",
+   "scope": "editorial"
+  },
+  {
+   "id": "point-res-air-north",
+   "type": "airlock",
+   "at": [
+    952,
+    311
+   ],
+   "building": "building-research",
+   "floor": null,
+   "access": 2,
+   "icon": {
+    "colour": "red",
+    "symbol": "circle",
+    "text": "2"
+   },
+   "confidence": "high",
+   "notes": "Numeral is security/access level, not floor; physical storey remains unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-res-terminal-north",
+   "type": "terminal_above_lo",
+   "at": [
+    887,
+    322
+   ],
+   "building": "building-research",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "cyan",
+    "symbol": "terminal",
+    "text": null
+   },
+   "confidence": "high",
+   "notes": "L0/>L0 denotes security/access, not physical storey.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-res-tip",
+   "type": "tip",
+   "at": [
+    841,
+    486
+   ],
+   "building": "building-research",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "blue",
+    "symbol": "i",
+    "text": "i"
+   },
+   "confidence": "low",
+   "notes": "Editorial tip over shared research connector; not a physical device and exact room association unavailable.",
+   "scope": "editorial"
+  },
+  {
+   "id": "point-res-terminal-courtyard",
+   "type": "terminal_lo",
+   "at": [
+    727,
+    527
+   ],
+   "building": "building-research",
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "lime",
+    "symbol": "terminal",
+    "text": null
+   },
+   "confidence": "low",
+   "notes": "L0/>L0 denotes security/access, not physical storey. Marker is on the research service/cargo plinth; host is the nearby observed research complex, not a confirmed room/roof attachment.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-res-air-west",
+   "type": "airlock",
+   "at": [
+    590,
+    585
+   ],
+   "building": "building-research",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "red",
+    "symbol": "circle",
+    "text": "1"
+   },
+   "confidence": "high",
+   "notes": "Numeral is security/access level, not floor; physical storey remains unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-res-terminal-west",
+   "type": "terminal_above_lo",
+   "at": [
+    639,
+    587
+   ],
+   "building": "building-research",
+   "floor": null,
+   "access": null,
+   "icon": {
+    "colour": "cyan",
+    "symbol": "terminal",
+    "text": null
+   },
+   "confidence": "high",
+   "notes": "L0/>L0 denotes security/access, not physical storey.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-res-door",
+   "type": "inner_door",
+   "at": [
+    673,
+    610
+   ],
+   "building": "building-research",
+   "floor": null,
+   "access": 2,
+   "icon": {
+    "colour": "blue",
+    "symbol": "circle",
+    "text": "2"
+   },
+   "confidence": "high",
+   "notes": "Numeral is security/access level, not floor; physical storey remains unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-hab-n-air",
+   "type": "airlock",
+   "at": [
+    1231,
+    450
+   ],
+   "building": "building-hab-north",
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "red",
+    "symbol": "circle",
+    "text": "0"
+   },
+   "confidence": "high",
+   "notes": "Numeral is security/access level, not floor; physical storey remains unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-hab-n-door",
+   "type": "inner_door",
+   "at": [
+    1294,
+    466
+   ],
+   "building": "building-hab-north",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "blue",
+    "symbol": "circle",
+    "text": "1"
+   },
+   "confidence": "high",
+   "notes": "Numeral is security/access level, not floor; physical storey remains unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-hab-n-terminal",
+   "type": "terminal_lo",
+   "at": [
+    1267,
+    484
+   ],
+   "building": "building-hab-north",
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "lime",
+    "symbol": "terminal",
+    "text": null
+   },
+   "confidence": "high",
+   "notes": "L0/>L0 denotes security/access, not physical storey.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-hab-s-air",
+   "type": "airlock",
+   "at": [
+    1172,
+    670
+   ],
+   "building": "building-hab-south",
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "red",
+    "symbol": "circle",
+    "text": "0"
+   },
+   "confidence": "high",
+   "notes": "Numeral is security/access level, not floor; physical storey remains unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-hab-s-door",
+   "type": "inner_door",
+   "at": [
+    1231,
+    689
+   ],
+   "building": "building-hab-south",
+   "floor": null,
+   "access": 1,
+   "icon": {
+    "colour": "blue",
+    "symbol": "circle",
+    "text": "1"
+   },
+   "confidence": "high",
+   "notes": "Numeral is security/access level, not floor; physical storey remains unknown.",
+   "scope": "physical_marker"
+  },
+  {
+   "id": "point-hab-s-terminal",
+   "type": "terminal_lo",
+   "at": [
+    1191,
+    710
+   ],
+   "building": "building-hab-south",
+   "floor": null,
+   "access": 0,
+   "icon": {
+    "colour": "lime",
+    "symbol": "terminal",
+    "text": null
+   },
+   "confidence": "high",
+   "notes": "L0/>L0 denotes security/access, not physical storey.",
+   "scope": "physical_marker"
+  }
+ ],
+ "legend": [
+  {
+   "icon": {
+    "colour": "lime",
+    "symbol": "terminal",
+    "text": null
+   },
+   "type": "terminal_lo",
+   "meaning": "Terminal L0",
+   "notes": "Security/access level0, not floor."
+  },
+  {
+   "icon": {
+    "colour": "cyan",
+    "symbol": "terminal",
+    "text": null
+   },
+   "type": "terminal_above_lo",
+   "meaning": "Terminal > L0",
+   "notes": "Security/access above0, not floor."
+  },
+  {
+   "icon": {
+    "colour": "red",
+    "symbol": "circle",
+    "text": "number"
+   },
+   "type": "airlock",
+   "meaning": "Airlock",
+   "notes": "Visible numerals0,1,2,3 are access levels."
+  },
+  {
+   "icon": {
+    "colour": "blue",
+    "symbol": "circle",
+    "text": "number"
+   },
+   "type": "inner_door",
+   "meaning": "Inner Door",
+   "notes": "Visible plain numerals1,2 are access levels."
+  },
+  {
+   "icon": {
+    "colour": "yellow",
+    "symbol": "A",
+    "text": "A"
+   },
+   "type": "alarm_console",
+   "meaning": "Alarm console",
+   "notes": "Nominal printed legend style."
+  },
+  {
+   "icon": {
+    "colour": "yellow",
+    "symbol": "A",
+    "text": "A^"
+   },
+   "type": "alarm_console",
+   "meaning": "Alarm console",
+   "notes": "Observed single-caret variant, retained literally without floor assignment."
+  },
+  {
+   "icon": {
+    "colour": "yellow",
+    "symbol": "P",
+    "text": "P"
+   },
+   "type": "power_regulator",
+   "meaning": "Power regulator",
+   "notes": ""
+  },
+  {
+   "icon": {
+    "colour": "blue",
+    "symbol": "i",
+    "text": "i"
+   },
+   "type": "tip",
+   "meaning": "Tips & tricks",
+   "notes": "Editorial information, not physical device."
+  }
+ ],
+ "clipped_edges": {},
+ "uncertain": [
+  "No HighTech Side exists. ALL heights/floors are numeric LOW-confidence guesses from previously processed Industrial/Tourism module families or generic utility fallback; each building records its height_estimate_basis and source names. No measured metre scale is claimed.",
+  "Research8m/two floors is a generic Industrial laboratory-family fallback. It could be one tall bay with partial upper level. The connected northern block, central spine and lower L-wing remain one roof complex rather than invented room/building divisions.",
+  "HAB8m/two levels uses a generic Tourism rounded accommodation-module family, not an exact confirmed match. One tall level or partial second storey remains possible. PWR separates8m body roof from13m machinery top.",
+  "All point.floor values remain null. Door numerals and Terminal L0/>L0 are security/access information. The only letter/caret variant in this map is alarm A^, retained literally with no floor/access inference.",
+  "Research courtyard L0 marker is beside cargo/service plinth; its building reference is nearby RES with explicit low confidence, not proof of a room or interior attachment. Both blue information markers are editorial and have low-confidence nearest-building associations.",
+  "Rounded HAB ends use polygonal curve approximations and main corners are kept distinct. Perspective and roof eaves prevent exact ground-wall recovery; all outlines remain original-image pixels.",
+  "Historical tracing note, superseded by this revision's scale and verified pad classes: Pad boundary follows visible perimeter frame/paint, with no size class and no outline inferred from parked ship or its shadow. Scale remains null.",
+  "Only bounded fixed utility bodies, cargo, roof fixtures, platforms and gate/barrier pieces are drawn. Thin ambiguous dark dots/shadows are not invented as fixed poles.",
+  "Paved/gate routes stop at visible endpoints. Gaps and unpaved space are intentional rather than assumed continuous paths. Orange website i, menu/legend/CREDIT, craft, vehicles/skimmers, people, rocks and shadows are excluded."
+ ],
+ "notes": [],
+ "category_id": "high-tech",
+ "landing_pads_available": {
+  "small": 1,
+  "medium": 0,
+  "large": 0,
+  "total": 1
+ },
+ "metric_estimates": {
+  "units": "metres",
+  "estimated": true,
+  "scope": "One shared pad-based horizontal transform applied to source traces and documented pad reconstructions.",
+  "buildings": {
+   "building-research": {
+    "length_m": 74.5,
+    "width_m": 54.3,
+    "area_m2": 2277.4,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "building-power": {
+    "length_m": 25.7,
+    "width_m": 22.9,
+    "area_m2": 526.5,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "building-hab-north": {
+    "length_m": 42.7,
+    "width_m": 28.3,
+    "area_m2": 837.9,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "building-hab-south": {
+    "length_m": 42.7,
+    "width_m": 28.3,
+    "area_m2": 837.9,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "building-utility-northwest": {
+    "length_m": 9.5,
+    "width_m": 6.9,
+    "area_m2": 60.0,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "building-service-northwest": {
+    "length_m": 12.1,
+    "width_m": 6.9,
+    "area_m2": 79.3,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "building-service-northeast": {
+    "length_m": 17.6,
+    "width_m": 7.6,
+    "area_m2": 125.8,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "building-service-west": {
+    "length_m": 8.8,
+    "width_m": 8.6,
+    "area_m2": 66.0,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "building-gate-service": {
+    "length_m": 6.4,
+    "width_m": 5.2,
+    "area_m2": 33.0,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "building-service-southeast": {
+    "length_m": 17.8,
+    "width_m": 10.5,
+    "area_m2": 165.1,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "building-service-south": {
+    "length_m": 16.2,
+    "width_m": 11.0,
+    "area_m2": 169.5,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "building-utility-southwest": {
+    "length_m": 8.4,
+    "width_m": 8.3,
+    "area_m2": 66.4,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   }
+  },
+  "pads": {
+   "pad-west": {
+    "length_m": 74.1,
+    "width_m": 43.0,
+    "area_m2": 3058.9,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   }
+  },
+  "details": {
+   "detail-power-cap": {
+    "length_m": 12.4,
+    "width_m": 11.6,
+    "area_m2": 118.5,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-research-tank-1": {
+    "length_m": 5.7,
+    "width_m": 5.4,
+    "area_m2": 25.4,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-research-tank-2": {
+    "length_m": 5.7,
+    "width_m": 5.4,
+    "area_m2": 25.4,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-research-tank-3": {
+    "length_m": 5.7,
+    "width_m": 5.4,
+    "area_m2": 25.4,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-hab-roof-panel-1": {
+    "length_m": 11.0,
+    "width_m": 3.4,
+    "area_m2": 38.0,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-hab-roof-panel-2": {
+    "length_m": 16.2,
+    "width_m": 4.5,
+    "area_m2": 72.6,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-hab-roof-panel-3": {
+    "length_m": 11.0,
+    "width_m": 3.4,
+    "area_m2": 38.0,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-hab-roof-panel-4": {
+    "length_m": 16.2,
+    "width_m": 4.5,
+    "area_m2": 72.6,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-utility-unit-1": {
+    "length_m": 7.3,
+    "width_m": 6.4,
+    "area_m2": 46.3,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-utility-unit-2": {
+    "length_m": 7.3,
+    "width_m": 6.2,
+    "area_m2": 45.0,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-utility-unit-3": {
+    "length_m": 6.9,
+    "width_m": 6.5,
+    "area_m2": 45.1,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-utility-unit-4": {
+    "length_m": 4.3,
+    "width_m": 4.1,
+    "area_m2": 17.8,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-utility-unit-5": {
+    "length_m": 4.3,
+    "width_m": 4.2,
+    "area_m2": 17.9,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-utility-unit-6": {
+    "length_m": 4.1,
+    "width_m": 4.0,
+    "area_m2": 16.4,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-utility-unit-7": {
+    "length_m": 3.8,
+    "width_m": 3.8,
+    "area_m2": 14.4,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-01": {
+    "length_m": 6.6,
+    "width_m": 4.2,
+    "area_m2": 27.2,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-02": {
+    "length_m": 6.0,
+    "width_m": 4.1,
+    "area_m2": 25.0,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-03": {
+    "length_m": 5.0,
+    "width_m": 3.4,
+    "area_m2": 17.2,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-04": {
+    "length_m": 6.7,
+    "width_m": 3.1,
+    "area_m2": 20.8,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-05": {
+    "length_m": 5.9,
+    "width_m": 2.6,
+    "area_m2": 15.1,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-06": {
+    "length_m": 6.2,
+    "width_m": 3.1,
+    "area_m2": 19.2,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-07": {
+    "length_m": 6.6,
+    "width_m": 3.1,
+    "area_m2": 20.4,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-08": {
+    "length_m": 3.6,
+    "width_m": 3.3,
+    "area_m2": 11.8,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-09": {
+    "length_m": 5.5,
+    "width_m": 3.6,
+    "area_m2": 19.9,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-10": {
+    "length_m": 6.6,
+    "width_m": 3.3,
+    "area_m2": 21.4,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-11": {
+    "length_m": 4.8,
+    "width_m": 3.8,
+    "area_m2": 18.2,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-12": {
+    "length_m": 6.0,
+    "width_m": 4.0,
+    "area_m2": 23.9,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-13": {
+    "length_m": 6.6,
+    "width_m": 3.6,
+    "area_m2": 23.8,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-14": {
+    "length_m": 4.5,
+    "width_m": 4.0,
+    "area_m2": 17.8,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-15": {
+    "length_m": 4.3,
+    "width_m": 3.6,
+    "area_m2": 15.6,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-16": {
+    "length_m": 7.2,
+    "width_m": 4.3,
+    "area_m2": 31.2,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-cargo-17": {
+    "length_m": 7.2,
+    "width_m": 4.3,
+    "area_m2": 31.2,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-platform-1": {
+    "length_m": 14.1,
+    "width_m": 9.7,
+    "area_m2": 136.5,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-platform-2": {
+    "length_m": 17.9,
+    "width_m": 16.9,
+    "area_m2": 303.0,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-platform-3": {
+    "length_m": 10.3,
+    "width_m": 10.3,
+    "area_m2": 107.0,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-platform-4": {
+    "length_m": 10.7,
+    "width_m": 10.3,
+    "area_m2": 110.6,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-platform-5": {
+    "length_m": 21.4,
+    "width_m": 13.1,
+    "area_m2": 280.1,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-gate-1": {
+    "length_m": 10.0,
+    "width_m": 2.6,
+    "area_m2": 25.9,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-gate-2": {
+    "length_m": 9.3,
+    "width_m": 2.2,
+    "area_m2": 20.8,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-gate-3": {
+    "length_m": 8.6,
+    "width_m": 2.4,
+    "area_m2": 20.7,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-gate-4": {
+    "length_m": 7.8,
+    "width_m": 3.1,
+    "area_m2": 24.2,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-gate-5": {
+    "length_m": 7.6,
+    "width_m": 2.9,
+    "area_m2": 22.3,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-gate-6": {
+    "length_m": 6.9,
+    "width_m": 3.1,
+    "area_m2": 21.4,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-gate-7": {
+    "length_m": 6.4,
+    "width_m": 2.2,
+    "area_m2": 14.3,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-pad-barrier-1": {
+    "length_m": 14.9,
+    "width_m": 1.2,
+    "area_m2": 17.2,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-pad-barrier-2": {
+    "length_m": 8.9,
+    "width_m": 1.0,
+    "area_m2": 8.8,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-pad-barrier-3": {
+    "length_m": 8.7,
+    "width_m": 1.1,
+    "area_m2": 9.3,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-pad-barrier-4": {
+    "length_m": 14.0,
+    "width_m": 1.2,
+    "area_m2": 16.1,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-pad-barrier-5": {
+    "length_m": 14.3,
+    "width_m": 1.2,
+    "area_m2": 16.5,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-pad-barrier-6": {
+    "length_m": 9.0,
+    "width_m": 1.2,
+    "area_m2": 10.0,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-pad-barrier-7": {
+    "length_m": 8.4,
+    "width_m": 1.1,
+    "area_m2": 9.0,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   },
+   "detail-pad-barrier-8": {
+    "length_m": 14.3,
+    "width_m": 1.2,
+    "area_m2": 16.5,
+    "confidence": "low",
+    "extent_is_partial": false,
+    "basis": "Minimum rectangle and polygon area after applying the full image-to-metre transform."
+   }
+  },
+  "walkways": {
+   "walkway-west-spine": {
+    "length_m": 76.5,
+    "width_m": 4.3,
+    "confidence": "low"
+   },
+   "walkway-east-spine": {
+    "length_m": 63.2,
+    "width_m": 4.3,
+    "confidence": "low"
+   },
+   "walkway-pad-link": {
+    "length_m": 27.2,
+    "width_m": 4.3,
+    "confidence": "low"
+   },
+   "walkway-hab-north": {
+    "length_m": 22.6,
+    "width_m": 4.3,
+    "confidence": "low"
+   }
+  },
+  "height_note": "Original height_m and floor estimates are retained; horizontal calibration does not establish heights.",
+  "visible_axis_aligned_extent_m": {
+   "x": 245.0,
+   "y": 134.9,
+   "confidence": "low"
+  },
+  "footprint_axis_aligned_extent_m": {
+   "x": 245.0,
+   "y": 134.9,
+   "confidence": "low"
+  }
+ },
+ "Colonisation": {
+  "id": "pheobe",
+  "url": "https://ravencolonial.com/#vis=pheobe",
+  "name": "Pheobe",
+  "facility_type": "Bio Settlement: Small",
+  "tier": 2,
+  "image_caption": "Pheobe | Tier:  2 Cmdr Kekosummer Vytrebenko Biochemical Centre - Col 285 Sector GL-X c1-11, B 4",
+  "landing_pads": {
+   "small": 1,
+   "medium": 0,
+   "large": 0
+  },
+  "properties": {
+   "System score": "+2",
+   "Economic inf": "High Tech",
+   "Population": "+1",
+   "Max population": "+1",
+   "Tech level": "+3",
+   "Development level": "+1",
+   "Average haul": "~2,841 units"
+  },
+  "images": [
+   {
+    "url": "https://njthomson.github.io/SrvSurvey/colony/pheobe.jpg",
+    "caption": "Pheobe | Tier:  2 Cmdr Kekosummer Vytrebenko Biochemical Centre - Col 285 Sector GL-X c1-11, B 4",
+    "credit": "Kekosummer",
+    "file": "raven-pheobe.jpg",
+    "sha256": "d7f0269c1faee03b6949d35916ca90ef80683e3be35d3653bc255254dc304ed5"
+   }
+  ],
+  "needs": [
+   {
+    "tier": 2,
+    "points": 1
+   }
+  ],
+  "provides": [
+   {
+    "tier": 3,
+    "points": 1
+   }
+  ],
+  "retrieved_date": "2026-10-29",
+  "construction": {
+   "approximate": true,
+   "average_haul_units": 2841,
+   "build_type": "pheobe",
+   "commodities": {
+    "liquidoxygen": 351,
+    "ceramiccomposites": 41,
+    "polymers": 115,
+    "semiconductors": 21,
+    "superconductors": 21,
+    "aluminium": 607,
+    "copper": 34,
+    "steel": 945,
+    "computercomponents": 41,
+    "medicaldiagnosticequipment": 41,
+    "foodcartridges": 41,
+    "fruitandvegetables": 27,
+    "surfacestabilisers": 81,
+    "buildingfabricators": 54,
+    "structuralregulators": 81,
+    "evacuationshelter": 27,
+    "emergencypowercells": 27,
+    "survivalequipment": 14,
+    "microcontrollers": 14,
+    "hazardousenvironmentsuits": 27,
+    "geologicalequipment": 27,
+    "mutomimager": 95,
+    "basicmedicines": 14,
+    "advancedcatalysers": 95
+   },
+   "source": "https://ravencolonial.com/#vis=pheobe",
+   "verification": "Every live Approximate Shopping List was opened and its commodity IDs/quantities captured. Sorted commodity-pair FNV-1a digest and quantity sum were independently checked against this saved record. Values are approximate, not a guaranteed project bill.",
+   "live_capture_fnv1a": "05cb84e1",
+   "repository_cost_source": "https://github.com/njthomson/SrvSurvey/blob/main/SrvSurvey/colonization-costs2.json",
+   "repository_costs_agree": true,
+   "repository_commodity_total": 2841
+  },
+  "live_page_capture_fnv1a": "572e2eb3",
+  "match": {
+   "local_plan_id": "high-tech-2",
+   "original_name": "High Tech 2",
+   "original_category": "high-tech",
+   "confidence": "high",
+   "distinctive_geometry_features": [
+    "A connected stepped RES complex forms the central building mass.",
+    "Two long rounded HAB pods are parallel on the east and PWR stands north of RES.",
+    "One Small pad lies west with a bridge-like service approach from the research yard."
+   ],
+   "pad_correspondence": [
+    {
+     "local_pad_id": "pad-west",
+     "size": "small",
+     "template_pad_index": 0,
+     "confidence": "high",
+     "template_offset": {
+      "X": -113.89136,
+      "Y": -53.61541
+     },
+     "template_rotation_deg": 0,
+     "recorded_centre_px": [
+      251.5,
+      505.5
+     ],
+     "outline_clipped": false,
+     "clipping_evidence": null,
+     "recorded_centre_is_fragment_midpoint": false,
+     "ideal_corrected_landing_target_centre_px": null,
+     "landing_target_confidence": null,
+     "landing_target_notes": "No image-space correction asserted. The coordinate is schematic; target visibility must be independently checked before metric fitting."
+    }
+   ],
+   "evidence_file": "../../_reference/matches-tourist-high-tech.json"
+  },
+  "calibration": {
+   "method": "One shared X/Y scale for the whole source image, fitted by least squares in metres to the listed independent visible pad-side controls; uniform fallback when directional scales are not identifiable or would require excessive stretch.",
+   "basis": "Human-confirmed pad classes and agreed working dimensions",
+   "confidence": "low",
+   "evidence_file": "../../_reference/manual-review/final-calibrations/high-tech-2.json",
+   "limitations": [
+    "A confirmed class does not identify a precise mechanical deck boundary: traced paint/apron envelopes are approximate.",
+    "One shared transform retains residuals at individual pads. Reference dimensions are not forced independently on each pad.",
+    "Reconstructed hidden edges are inferred, not additional calibration observations. Negative/out-of-image pixels are permitted only for documented reconstructions.",
+    "Camera perspective, roof parallax and terrain can cause local differences; estimates are unsuitable for survey accuracy.",
+    "No statistical confidence interval is claimed. Roof heights and floor estimates are preserved."
+   ],
+   "evidence_sha256": "cfc701eab6f7c921de264697d3e696f085dc59f4e01c6e0e33310fa335d76876"
+  },
+  "original_plan": {
+   "filename": "high-tech-2.json",
+   "sha256": "bd4e051b8d905a5aaff0e069b32aa82e54df6e90c0e31aeb823ec0ce35b0d7d4",
+   "schema": "ucec-settlement/1",
+   "previous_scale": null,
+   "previous_pad_sizes": {
+    "pad-west": null
+   },
+   "source_geometry_digest": "3faaebcf62f9c6f6b41c7fcfacd4ae4a1eb7c5256e92552bf7434695d8d93e26",
+   "previous_reference_fields": {
+    "source.height_reference_images": [
+     "4 Industrial - Saved,/Industrial 4 - Side.png",
+     "4 Industrial - Saved,/Industrial 2 - Side.png",
+     "4 Industrial - Saved,/Industrial 1 - Side.png",
+     "4 Industrial - Saved,/Industrial 3 - Side.png",
+     "Tourism/Toruism 4 - Verticality.png"
+    ]
+   }
+  },
+  "category_display": "High-Tech / Bio",
+  "metric_height_policy": "Prior roof/storey/equipment height estimates are retained, with their original confidence/basis. The revised pad-based registration updates horizontal metres and visible footprint dimensions.",
+  "manual_review": {
+   "status": "user_confirmed",
+   "confirmation_date": "2026-10-29",
+   "confirmed_by": "user",
+   "confirmed_pad_classes": {
+    "pad-west": "small"
+   },
+   "working_pad_dimensions_m": {
+    "large": {
+     "length_m": 170,
+     "width_m": 90
+    },
+    "medium": {
+     "length_m": 135,
+     "width_m": 70
+    },
+    "small": {
+     "length_m": 70,
+     "width_m": 50
+    }
+   },
+   "pixel_geometry_preserved_except_queued_pads": true,
+   "height_estimates_preserved": true,
+   "corrected_pad_ids": [],
+   "pre_final_batch_file": "../../_reference/manual-review/pre-final-batch/high-tech-2.json",
+   "previous_scale": {
+    "m_per_px": 0.202,
+    "confidence": "medium",
+    "estimate_range_m_per_px": [
+     0.18,
+     0.23
+    ],
+    "how": "Pad target and matched template feature registration in independently established metre coordinates.",
+    "basis": "Visually matched SrvSurvey telemetry-based metric layout: verified pad classes/positions with roof or physical-feature checks. Physical S/M/L pad deck dimensions are not treated as officially specified.",
+    "limitations": "Approximate uniform horizontal scale; camera perspective, terrain, roof parallax and cropped/obscured landing targets limit accuracy. Range is a practical judgement, not a statistical confidence interval.",
+    "source": "https://github.com/njthomson/SrvSurvey/blob/1a734c1412cb78cef6ff7e2e20ea8af7b5ccd7cc/SrvSurvey/settlements/humanSiteTemplates.json"
+   },
+   "previous_calibration": {
+    "template_economy": "HighTech",
+    "template_subType": 2,
+    "template_name": "Pheobe",
+    "range_note": "Judgement range including icon placement, community template, target occlusion and camera projection uncertainty; not a confidence interval.",
+    "confidence": "medium",
+    "evidence_file": "../../_reference/calibration-single-tourist-high-tech.json",
+    "evidence_sha256": "7fdbaf96f6e6fd290f7637ece1e11e9c2c71a6f735185ab04a48db0992e6effa"
+   },
+   "outline_evidence_sha256": null
+  }
+ },
+ "geometry_m": {
+  "schema": "ucec-metric-geometry/1",
+  "units": "m",
+  "origin": {
+   "description": "Original source image top-left",
+   "pixel": [
+    0,
+    0
+   ],
+   "metres": [
+    0,
+    0
+   ]
+  },
+  "axes": {
+   "x": "right",
+   "y": "down"
+  },
+  "pixel_to_metre_matrix_2x3": [
+   [
+    0.1724119029857248,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.1724119029857248,
+    0.0
+   ]
+  ],
+  "metre_to_pixel_matrix_2x3": [
+   [
+    5.800063584257272,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    5.800063584257272,
+    0.0
+   ]
+  ],
+  "coordinate_precision_note": "Four decimals support reproducible drawing and do not imply millimetre physical accuracy.",
+  "height_policy": "Original height_m and floor estimates are retained; horizontal calibration does not establish heights.",
+  "buildings": [
+   {
+    "id": "building-research",
+    "outline_m": [
+     [
+      148.6725,
+      48.5374
+     ],
+     [
+      174.5946,
+      57.9718
+     ],
+     [
+      166.2809,
+      80.8164
+     ],
+     [
+      156.7207,
+      77.3371
+     ],
+     [
+      151.4139,
+      91.918
+     ],
+     [
+      161.9448,
+      95.7524
+     ],
+     [
+      150.0932,
+      128.3158
+     ],
+     [
+      99.0575,
+      109.7419
+     ],
+     [
+      106.6057,
+      89.0042
+     ],
+     [
+      119.5677,
+      93.7214
+     ],
+     [
+      117.3849,
+      99.7161
+     ],
+     [
+      128.7262,
+      103.8437
+     ],
+     [
+      133.5623,
+      90.5576
+     ],
+     [
+      140.0416,
+      92.9162
+     ],
+     [
+      147.0001,
+      73.7992
+     ],
+     [
+      140.3588,
+      71.382
+     ]
+    ],
+    "kind": "other",
+    "label": "RES",
+    "height_m": 8,
+    "floors": 2,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "building-power",
+    "outline_m": [
+     [
+      176.9998,
+      11.2171
+     ],
+     [
+      194.0117,
+      17.4084
+     ],
+     [
+      192.1841,
+      22.4308
+     ],
+     [
+      195.2617,
+      23.5515
+     ],
+     [
+      190.7807,
+      35.8651
+     ],
+     [
+      187.3773,
+      34.6272
+     ],
+     [
+      184.9014,
+      41.4306
+     ],
+     [
+      169.024,
+      35.6531
+     ],
+     [
+      170.0257,
+      32.8979
+     ],
+     [
+      167.7585,
+      32.0721
+     ],
+     [
+      172.9481,
+      17.8153
+     ],
+     [
+      174.405,
+      18.3464
+     ]
+    ],
+    "kind": "power",
+    "label": "PWR",
+    "height_m": 8,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "building-hab-north",
+    "outline_m": [
+     [
+      215.6873,
+      72.0682
+     ],
+     [
+      241.7215,
+      79.1371
+     ],
+     [
+      247.2387,
+      82.7577
+     ],
+     [
+      251.3766,
+      87.4128
+     ],
+     [
+      252.5834,
+      91.8955
+     ],
+     [
+      250.8593,
+      96.0334
+     ],
+     [
+      247.7559,
+      98.9644
+     ],
+     [
+      242.2387,
+      100.3437
+     ],
+     [
+      237.4112,
+      100.1713
+     ],
+     [
+      227.5837,
+      96.5507
+     ],
+     [
+      224.9975,
+      103.9644
+     ],
+     [
+      218.2735,
+      101.3782
+     ],
+     [
+      219.4804,
+      94.1369
+     ],
+     [
+      209.3081,
+      88.2749
+     ]
+    ],
+    "kind": "hab",
+    "label": "HAB",
+    "height_m": 8,
+    "floors": 2,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "building-hab-south",
+    "outline_m": [
+     [
+      204.8253,
+      110.516
+     ],
+     [
+      230.8595,
+      117.5849
+     ],
+     [
+      236.3767,
+      121.2056
+     ],
+     [
+      240.5146,
+      125.8607
+     ],
+     [
+      241.7215,
+      130.3434
+     ],
+     [
+      239.9974,
+      134.4813
+     ],
+     [
+      236.894,
+      137.4123
+     ],
+     [
+      231.3768,
+      138.7916
+     ],
+     [
+      226.5492,
+      138.6192
+     ],
+     [
+      216.7218,
+      134.9985
+     ],
+     [
+      214.1356,
+      142.4122
+     ],
+     [
+      207.4115,
+      139.8261
+     ],
+     [
+      208.6184,
+      132.5848
+     ],
+     [
+      198.4461,
+      126.7227
+     ]
+    ],
+    "kind": "hab",
+    "label": "HAB",
+    "height_m": 8,
+    "floors": 2,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "building-utility-northwest",
+    "outline_m": [
+     [
+      138.7157,
+      28.6807
+     ],
+     [
+      145.2743,
+      26.5497
+     ],
+     [
+      147.6191,
+      33.7651
+     ],
+     [
+      145.8156,
+      34.3513
+     ],
+     [
+      146.4018,
+      36.1548
+     ],
+     [
+      142.6295,
+      37.3806
+     ],
+     [
+      142.0967,
+      35.741
+     ],
+     [
+      141.114,
+      36.0599
+     ]
+    ],
+    "kind": "other",
+    "label": null,
+    "height_m": 4,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "building-service-northwest",
+    "outline_m": [
+     [
+      129.2796,
+      41.7099
+     ],
+     [
+      138.6761,
+      45.1305
+     ],
+     [
+      138.0278,
+      46.9116
+     ],
+     [
+      139.9726,
+      47.6202
+     ],
+     [
+      138.2623,
+      52.3184
+     ],
+     [
+      126.921,
+      48.1909
+     ]
+    ],
+    "kind": "other",
+    "label": null,
+    "height_m": 4,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "building-service-northeast",
+    "outline_m": [
+     [
+      194.1461,
+      52.7753
+     ],
+     [
+      208.5753,
+      48.0857
+     ],
+     [
+      209.0012,
+      49.3977
+     ],
+     [
+      211.2977,
+      48.6529
+     ],
+     [
+      213.2149,
+      54.5546
+     ],
+     [
+      199.1133,
+      59.1373
+     ],
+     [
+      198.634,
+      57.6614
+     ],
+     [
+      196.0099,
+      58.5132
+     ]
+    ],
+    "kind": "other",
+    "label": null,
+    "height_m": 4,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "building-service-west",
+    "outline_m": [
+     [
+      83.1094,
+      101.0454
+     ],
+     [
+      88.9421,
+      103.1678
+     ],
+     [
+      87.9973,
+      105.7609
+     ],
+     [
+      89.4559,
+      106.2919
+     ],
+     [
+      87.3921,
+      111.9608
+     ],
+     [
+      80.9112,
+      109.6022
+     ],
+     [
+      81.5612,
+      107.8212
+     ],
+     [
+      79.9405,
+      107.2316
+     ],
+     [
+      81.4146,
+      103.1799
+     ],
+     [
+      82.225,
+      103.4747
+     ]
+    ],
+    "kind": "other",
+    "label": null,
+    "height_m": 4,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "building-gate-service",
+    "outline_m": [
+     [
+      104.5195,
+      68.232
+     ],
+     [
+      110.5126,
+      70.413
+     ],
+     [
+      108.7436,
+      75.2733
+     ],
+     [
+      102.7506,
+      73.0923
+     ]
+    ],
+    "kind": "other",
+    "label": null,
+    "height_m": 3.5,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "building-service-southeast",
+    "outline_m": [
+     [
+      176.2446,
+      123.9693
+     ],
+     [
+      182.4428,
+      120.9469
+     ],
+     [
+      183.6514,
+      123.4262
+     ],
+     [
+      185.3566,
+      122.5935
+     ],
+     [
+      190.7979,
+      133.752
+     ],
+     [
+      188.629,
+      134.8089
+     ],
+     [
+      189.7634,
+      137.1347
+     ],
+     [
+      183.8738,
+      140.0054
+     ],
+     [
+      182.5894,
+      137.3709
+     ],
+     [
+      181.1946,
+      138.0519
+     ],
+     [
+      176.1308,
+      127.6693
+     ],
+     [
+      177.6808,
+      126.9141
+     ]
+    ],
+    "kind": "other",
+    "label": null,
+    "height_m": 4,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "building-service-south",
+    "outline_m": [
+     [
+      155.2742,
+      124.1659
+     ],
+     [
+      163.862,
+      127.2917
+     ],
+     [
+      162.9775,
+      129.721
+     ],
+     [
+      164.7585,
+      130.371
+     ],
+     [
+      160.6896,
+      141.5484
+     ],
+     [
+      158.2603,
+      140.664
+     ],
+     [
+      157.6707,
+      142.2846
+     ],
+     [
+      149.7311,
+      139.395
+     ]
+    ],
+    "kind": "other",
+    "label": null,
+    "height_m": 4,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   },
+   {
+    "id": "building-utility-southwest",
+    "outline_m": [
+     [
+      120.8504,
+      135.4537
+     ],
+     [
+      127.3314,
+      137.8123
+     ],
+     [
+      126.5641,
+      139.9192
+     ],
+     [
+      128.0227,
+      140.4502
+     ],
+     [
+      125.959,
+      146.1208
+     ],
+     [
+      118.0194,
+      143.2312
+     ]
+    ],
+    "kind": "other",
+    "label": null,
+    "height_m": 4,
+    "floors": 1,
+    "height_confidence": "low",
+    "extent_is_partial": false
+   }
+  ],
+  "pads": [
+   {
+    "id": "pad-west",
+    "outline_m": [
+     [
+      39.3099,
+      47.0684
+     ],
+     [
+      79.1371,
+      63.62
+     ],
+     [
+      47.4133,
+      127.24
+     ],
+     [
+      7.5861,
+      110.6884
+     ]
+    ],
+    "size": "small",
+    "centre_m": [
+     43.3616,
+     87.1542
+    ],
+    "reference_dimensions_m": {
+     "length_m": 70,
+     "width_m": 50
+    },
+    "centre_basis": "Original drawn pad centre",
+    "extent_is_partial": false
+   }
+  ],
+  "walkways": [
+   {
+    "id": "walkway-west-spine",
+    "kind": "open",
+    "line_m": [
+     [
+      86.7232,
+      101.3782
+     ],
+     [
+      98.2748,
+      88.2749
+     ],
+     [
+      108.4471,
+      74.3095
+     ],
+     [
+      120.1711,
+      62.5855
+     ],
+     [
+      128.102,
+      52.758
+     ],
+     [
+      135.1709,
+      42.4133
+     ]
+    ],
+    "width_m": 4.3103,
+    "segment_widths_m": [
+     4.3103,
+     4.3103,
+     4.3103,
+     4.3103,
+     4.3103
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "walkway-east-spine",
+    "kind": "open",
+    "line_m": [
+     [
+      189.6531,
+      53.2753
+     ],
+     [
+      184.4807,
+      70.3441
+     ],
+     [
+      180.6877,
+      84.3094
+     ],
+     [
+      177.2394,
+      99.4817
+     ],
+     [
+      170.5154,
+      113.2746
+     ]
+    ],
+    "width_m": 4.3103,
+    "segment_widths_m": [
+     4.3103,
+     4.3103,
+     4.3103,
+     4.3103
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "walkway-pad-link",
+    "kind": "open",
+    "line_m": [
+     [
+      69.482,
+      86.206
+     ],
+     [
+      85.3439,
+      93.2748
+     ],
+     [
+      94.8265,
+      95.861
+     ]
+    ],
+    "width_m": 4.3103,
+    "segment_widths_m": [
+     4.3103,
+     4.3103
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   },
+   {
+    "id": "walkway-hab-north",
+    "kind": "open",
+    "line_m": [
+     [
+      187.929,
+      70.5165
+     ],
+     [
+      201.3771,
+      74.9992
+     ],
+     [
+      209.3081,
+      77.7578
+     ]
+    ],
+    "width_m": 4.3103,
+    "segment_widths_m": [
+     4.3103,
+     4.3103
+    ],
+    "width_note": "Perpendicular segment widths transformed by the full matrix; width_m is the length-weighted mean."
+   }
+  ],
+  "details": [
+   {
+    "id": "detail-power-cap",
+    "outline_m": [
+     [
+      183.4463,
+      16.7412
+     ],
+     [
+      186.8083,
+      19.8274
+     ],
+     [
+      186.9979,
+      24.3618
+     ],
+     [
+      183.929,
+      27.7238
+     ],
+     [
+      179.3773,
+      27.9307
+     ],
+     [
+      177.9291,
+      27.3963
+     ],
+     [
+      174.5671,
+      24.3101
+     ],
+     [
+      174.3774,
+      19.7756
+     ],
+     [
+      177.4463,
+      16.4136
+     ],
+     [
+      181.998,
+      16.2067
+     ]
+    ],
+    "kind": "roof_machinery",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-research-tank-1",
+    "outline_m": [
+     [
+      149.8949,
+      58.7235
+     ],
+     [
+      151.4466,
+      60.1545
+     ],
+     [
+      151.5328,
+      62.2752
+     ],
+     [
+      150.1018,
+      63.8269
+     ],
+     [
+      147.9984,
+      63.9131
+     ],
+     [
+      147.3432,
+      63.689
+     ],
+     [
+      145.7915,
+      62.2579
+     ],
+     [
+      145.7053,
+      60.1373
+     ],
+     [
+      147.1363,
+      58.5856
+     ],
+     [
+      149.2397,
+      58.4994
+     ]
+    ],
+    "kind": "roof_machinery",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-research-tank-2",
+    "outline_m": [
+     [
+      117.3091,
+      100.9644
+     ],
+     [
+      118.8608,
+      102.3954
+     ],
+     [
+      118.947,
+      104.5161
+     ],
+     [
+      117.516,
+      106.0678
+     ],
+     [
+      115.4125,
+      106.154
+     ],
+     [
+      114.7574,
+      105.9299
+     ],
+     [
+      113.2057,
+      104.4989
+     ],
+     [
+      113.1194,
+      102.3782
+     ],
+     [
+      114.5505,
+      100.8265
+     ],
+     [
+      116.6539,
+      100.7403
+     ]
+    ],
+    "kind": "roof_machinery",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-research-tank-3",
+    "outline_m": [
+     [
+      113.8608,
+      109.585
+     ],
+     [
+      115.4125,
+      111.016
+     ],
+     [
+      115.4987,
+      113.1367
+     ],
+     [
+      114.0677,
+      114.6884
+     ],
+     [
+      111.9643,
+      114.7746
+     ],
+     [
+      111.3091,
+      114.5505
+     ],
+     [
+      109.7574,
+      113.1194
+     ],
+     [
+      109.6712,
+      110.9988
+     ],
+     [
+      111.1022,
+      109.4471
+     ],
+     [
+      113.2057,
+      109.3609
+     ]
+    ],
+    "kind": "roof_machinery",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-hab-roof-panel-1",
+    "outline_m": [
+     [
+      229.0234,
+      75.113
+     ],
+     [
+      239.3922,
+      78.8871
+     ],
+     [
+      238.2129,
+      82.1267
+     ],
+     [
+      227.8441,
+      78.3526
+     ]
+    ],
+    "kind": "roof_panel",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-hab-roof-panel-2",
+    "outline_m": [
+     [
+      229.4561,
+      81.1008
+     ],
+     [
+      233.6681,
+      82.6336
+     ],
+     [
+      228.1251,
+      97.8627
+     ],
+     [
+      223.9131,
+      96.33
+     ]
+    ],
+    "kind": "roof_panel",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-hab-roof-panel-3",
+    "outline_m": [
+     [
+      218.1614,
+      113.5608
+     ],
+     [
+      228.5303,
+      117.3349
+     ],
+     [
+      227.351,
+      120.5745
+     ],
+     [
+      216.9821,
+      116.8004
+     ]
+    ],
+    "kind": "roof_panel",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-hab-roof-panel-4",
+    "outline_m": [
+     [
+      218.5942,
+      119.5487
+     ],
+     [
+      222.8062,
+      121.0814
+     ],
+     [
+      217.2631,
+      136.3106
+     ],
+     [
+      213.0511,
+      134.7778
+     ]
+    ],
+    "kind": "roof_panel",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-utility-unit-1",
+    "outline_m": [
+     [
+      190.6186,
+      90.2404
+     ],
+     [
+      197.4289,
+      92.7231
+     ],
+     [
+      195.2392,
+      98.7231
+     ],
+     [
+      188.429,
+      96.2403
+     ]
+    ],
+    "kind": "roof_machinery",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-utility-unit-2",
+    "outline_m": [
+     [
+      196.7909,
+      77.3957
+     ],
+     [
+      203.6012,
+      79.8784
+     ],
+     [
+      201.4805,
+      85.706
+     ],
+     [
+      194.6703,
+      83.2232
+     ]
+    ],
+    "kind": "roof_machinery",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-utility-unit-3",
+    "outline_m": [
+     [
+      182.8773,
+      123.74
+     ],
+     [
+      189.0669,
+      120.7228
+     ],
+     [
+      191.9462,
+      126.6021
+     ],
+     [
+      185.7566,
+      129.6193
+     ]
+    ],
+    "kind": "roof_machinery",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-utility-unit-4",
+    "outline_m": [
+     [
+      140.6364,
+      30.31
+     ],
+     [
+      144.5674,
+      29.0342
+     ],
+     [
+      145.9122,
+      33.1376
+     ],
+     [
+      141.9812,
+      34.4134
+     ]
+    ],
+    "kind": "roof_machinery",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-utility-unit-5",
+    "outline_m": [
+     [
+      146.1018,
+      77.9991
+     ],
+     [
+      150.1535,
+      79.4819
+     ],
+     [
+      148.7225,
+      83.3784
+     ],
+     [
+      144.6708,
+      81.8957
+     ]
+    ],
+    "kind": "roof_machinery",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-utility-unit-6",
+    "outline_m": [
+     [
+      133.3261,
+      115.8263
+     ],
+     [
+      137.0502,
+      117.1884
+     ],
+     [
+      135.6364,
+      121.0676
+     ],
+     [
+      131.9123,
+      119.7056
+     ]
+    ],
+    "kind": "roof_machinery",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-utility-unit-7",
+    "outline_m": [
+     [
+      128.3434,
+      95.1541
+     ],
+     [
+      131.9123,
+      96.4472
+     ],
+     [
+      130.6193,
+      100.0161
+     ],
+     [
+      127.0503,
+      98.7231
+     ]
+    ],
+    "kind": "roof_machinery",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-01",
+    "outline_m": [
+     [
+      152.6363,
+      33.6548
+     ],
+     [
+      158.7914,
+      35.8962
+     ],
+     [
+      157.3603,
+      39.7927
+     ],
+     [
+      151.2052,
+      37.5513
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-02",
+    "outline_m": [
+     [
+      159.0845,
+      38.741
+     ],
+     [
+      164.7396,
+      40.8099
+     ],
+     [
+      163.3258,
+      44.7064
+     ],
+     [
+      157.6707,
+      42.6375
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-03",
+    "outline_m": [
+     [
+      131.3434,
+      41.1375
+     ],
+     [
+      136.033,
+      42.8616
+     ],
+     [
+      134.8606,
+      46.1029
+     ],
+     [
+      130.171,
+      44.3788
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-04",
+    "outline_m": [
+     [
+      124.7917,
+      60.3269
+     ],
+     [
+      131.102,
+      62.62
+     ],
+     [
+      130.0331,
+      65.5338
+     ],
+     [
+      123.7228,
+      63.2407
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-05",
+    "outline_m": [
+     [
+      118.8952,
+      59.6718
+     ],
+     [
+      124.3952,
+      61.689
+     ],
+     [
+      123.5159,
+      64.12
+     ],
+     [
+      118.0159,
+      62.1028
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-06",
+    "outline_m": [
+     [
+      106.585,
+      80.0681
+     ],
+     [
+      112.4126,
+      82.1888
+     ],
+     [
+      111.3436,
+      85.1025
+     ],
+     [
+      105.5161,
+      82.9818
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-07",
+    "outline_m": [
+     [
+      94.1714,
+      85.1715
+     ],
+     [
+      100.3265,
+      87.4128
+     ],
+     [
+      99.2748,
+      90.3438
+     ],
+     [
+      93.1197,
+      88.1025
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-08",
+    "outline_m": [
+     [
+      120.4125,
+      48.8788
+     ],
+     [
+      123.809,
+      50.1201
+     ],
+     [
+      122.6883,
+      53.1891
+     ],
+     [
+      119.2918,
+      51.9477
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-09",
+    "outline_m": [
+     [
+      131.3089,
+      96.4989
+     ],
+     [
+      136.4813,
+      98.3782
+     ],
+     [
+      135.2399,
+      101.7747
+     ],
+     [
+      130.0675,
+      99.8955
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-10",
+    "outline_m": [
+     [
+      180.067,
+      81.3095
+     ],
+     [
+      186.2221,
+      83.5508
+     ],
+     [
+      185.1014,
+      86.6197
+     ],
+     [
+      178.9463,
+      84.3784
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-11",
+    "outline_m": [
+     [
+      170.1016,
+      111.8781
+     ],
+     [
+      174.636,
+      113.5332
+     ],
+     [
+      173.3429,
+      117.0849
+     ],
+     [
+      168.8085,
+      115.4298
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-12",
+    "outline_m": [
+     [
+      157.4983,
+      121.9297
+     ],
+     [
+      163.1706,
+      123.9986
+     ],
+     [
+      161.8086,
+      127.7227
+     ],
+     [
+      156.1362,
+      125.6538
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-13",
+    "outline_m": [
+     [
+      164.4292,
+      132.8606
+     ],
+     [
+      170.5843,
+      135.102
+     ],
+     [
+      169.3602,
+      138.5157
+     ],
+     [
+      163.2051,
+      136.2744
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-14",
+    "outline_m": [
+     [
+      145.1191,
+      130.4641
+     ],
+     [
+      149.3259,
+      131.9986
+     ],
+     [
+      147.9811,
+      135.7399
+     ],
+     [
+      143.7743,
+      134.2054
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-15",
+    "outline_m": [
+     [
+      193.6875,
+      62.8786
+     ],
+     [
+      197.084,
+      64.1027
+     ],
+     [
+      195.6185,
+      68.1544
+     ],
+     [
+      192.222,
+      66.9303
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-16",
+    "outline_m": [
+     [
+      128.3607,
+      84.1542
+     ],
+     [
+      135.1709,
+      86.6197
+     ],
+     [
+      133.7054,
+      90.6714
+     ],
+     [
+      126.8952,
+      88.2059
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-cargo-17",
+    "outline_m": [
+     [
+      121.2918,
+      89.6714
+     ],
+     [
+      128.102,
+      92.1369
+     ],
+     [
+      126.6365,
+      96.1886
+     ],
+     [
+      119.8263,
+      93.7231
+     ]
+    ],
+    "kind": "container",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-platform-1",
+    "outline_m": [
+     [
+      117.2487,
+      87.0111
+     ],
+     [
+      130.5331,
+      91.8455
+     ],
+     [
+      127.2314,
+      100.9179
+     ],
+     [
+      113.947,
+      96.0834
+     ]
+    ],
+    "kind": "platform",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-platform-2",
+    "outline_m": [
+     [
+      151.5052,
+      122.6504
+     ],
+     [
+      167.3826,
+      128.4279
+     ],
+     [
+      161.25,
+      145.2777
+     ],
+     [
+      145.3725,
+      139.5002
+     ]
+    ],
+    "kind": "platform",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-platform-3",
+    "outline_m": [
+     [
+      196.0444,
+      74.9216
+     ],
+     [
+      205.765,
+      78.4595
+     ],
+     [
+      202.2271,
+      88.1801
+     ],
+     [
+      192.5065,
+      84.6422
+     ]
+    ],
+    "kind": "platform",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-platform-4",
+    "outline_m": [
+     [
+      189.6755,
+      87.7939
+     ],
+     [
+      199.7202,
+      91.449
+     ],
+     [
+      196.1823,
+      101.1696
+     ],
+     [
+      186.1376,
+      97.5144
+     ]
+    ],
+    "kind": "platform",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-platform-5",
+    "outline_m": [
+     [
+      172.355,
+      124.1245
+     ],
+     [
+      184.1325,
+      118.3815
+     ],
+     [
+      193.5031,
+      137.5968
+     ],
+     [
+      181.7256,
+      143.3398
+     ]
+    ],
+    "kind": "platform",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-gate-1",
+    "outline_m": [
+     [
+      73.7751,
+      77.6198
+     ],
+     [
+      76.2061,
+      78.4991
+     ],
+     [
+      72.7751,
+      87.8956
+     ],
+     [
+      70.3441,
+      87.0163
+     ]
+    ],
+    "kind": "gate",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-gate-2",
+    "outline_m": [
+     [
+      69.3268,
+      87.4818
+     ],
+     [
+      71.4303,
+      88.2577
+     ],
+     [
+      68.2579,
+      96.9989
+     ],
+     [
+      66.1544,
+      96.2231
+     ]
+    ],
+    "kind": "gate",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-gate-3",
+    "outline_m": [
+     [
+      102.9299,
+      75.1888
+     ],
+     [
+      105.1885,
+      76.0164
+     ],
+     [
+      102.2403,
+      84.1198
+     ],
+     [
+      99.9817,
+      83.2922
+     ]
+    ],
+    "kind": "gate",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-gate-4",
+    "outline_m": [
+     [
+      182.6187,
+      63.0683
+     ],
+     [
+      185.5497,
+      64.12
+     ],
+     [
+      182.8945,
+      71.413
+     ],
+     [
+      179.9635,
+      70.3613
+     ]
+    ],
+    "kind": "gate",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-gate-5",
+    "outline_m": [
+     [
+      187.3255,
+      48.6891
+     ],
+     [
+      190.0841,
+      49.6891
+     ],
+     [
+      187.4979,
+      56.827
+     ],
+     [
+      184.7394,
+      55.827
+     ]
+    ],
+    "kind": "gate",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-gate-6",
+    "outline_m": [
+     [
+      173.3429,
+      105.1885
+     ],
+     [
+      176.2567,
+      106.2575
+     ],
+     [
+      173.8946,
+      112.7401
+     ],
+     [
+      170.9809,
+      111.6712
+     ]
+    ],
+    "kind": "gate",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-gate-7",
+    "outline_m": [
+     [
+      121.0676,
+      52.4822
+     ],
+     [
+      123.1711,
+      53.2408
+     ],
+     [
+      120.9987,
+      59.2407
+     ],
+     [
+      118.8952,
+      58.4821
+     ]
+    ],
+    "kind": "gate",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-pad-barrier-1",
+    "outline_m": [
+     [
+      38.9651,
+      46.896
+     ],
+     [
+      39.9996,
+      47.4133
+     ],
+     [
+      33.2755,
+      60.689
+     ],
+     [
+      32.241,
+      60.1718
+     ]
+    ],
+    "kind": "barrier",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-pad-barrier-2",
+    "outline_m": [
+     [
+      40.3444,
+      46.7236
+     ],
+     [
+      48.4477,
+      50.1719
+     ],
+     [
+      47.9305,
+      51.0339
+     ],
+     [
+      39.8271,
+      47.5857
+     ]
+    ],
+    "kind": "barrier",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-pad-barrier-3",
+    "outline_m": [
+     [
+      71.5509,
+      59.8269
+     ],
+     [
+      79.4819,
+      63.1028
+     ],
+     [
+      79.1371,
+      64.1372
+     ],
+     [
+      71.2061,
+      60.8614
+     ]
+    ],
+    "kind": "barrier",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-pad-barrier-4",
+    "outline_m": [
+     [
+      78.9647,
+      64.3096
+     ],
+     [
+      79.9991,
+      64.8269
+     ],
+     [
+      73.9647,
+      77.4129
+     ],
+     [
+      72.9302,
+      76.8957
+     ]
+    ],
+    "kind": "barrier",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-pad-barrier-5",
+    "outline_m": [
+     [
+      14.3102,
+      97.7575
+     ],
+     [
+      15.3447,
+      98.2748
+     ],
+     [
+      8.9654,
+      111.0333
+     ],
+     [
+      7.9309,
+      110.516
+     ]
+    ],
+    "kind": "barrier",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-pad-barrier-6",
+    "outline_m": [
+     [
+      8.2758,
+      111.2057
+     ],
+     [
+      16.3791,
+      114.8263
+     ],
+     [
+      16.0343,
+      115.8608
+     ],
+     [
+      7.7585,
+      112.2401
+     ]
+    ],
+    "kind": "barrier",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-pad-barrier-7",
+    "outline_m": [
+     [
+      40.3444,
+      123.4469
+     ],
+     [
+      47.9305,
+      126.7227
+     ],
+     [
+      47.5857,
+      127.7572
+     ],
+     [
+      39.9996,
+      124.4814
+     ]
+    ],
+    "kind": "barrier",
+    "extent_is_partial": false
+   },
+   {
+    "id": "detail-pad-barrier-8",
+    "outline_m": [
+     [
+      53.4477,
+      113.1022
+     ],
+     [
+      54.4822,
+      113.6194
+     ],
+     [
+      48.1029,
+      126.3779
+     ],
+     [
+      47.0684,
+      125.8607
+     ]
+    ],
+    "kind": "barrier",
+    "extent_is_partial": false
+   }
+  ],
+  "points": [
+   {
+    "id": "point-power-alarm",
+    "type": "alarm_console",
+    "at_m": [
+     177.5843,
+     16.2067
+    ],
+    "building": "building-power",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "yellow",
+     "symbol": "A",
+     "text": "A^"
+    }
+   },
+   {
+    "id": "point-power-regulator",
+    "type": "power_regulator",
+    "at_m": [
+     180.1704,
+     21.5515
+    ],
+    "building": "building-power",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "yellow",
+     "symbol": "P",
+     "text": "P"
+    }
+   },
+   {
+    "id": "point-power-air-east",
+    "type": "airlock",
+    "at_m": [
+     195.6875,
+     27.7583
+    ],
+    "building": "building-power",
+    "floor": null,
+    "access": 3,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "3"
+    }
+   },
+   {
+    "id": "point-power-air-south",
+    "type": "airlock",
+    "at_m": [
+     173.7912,
+     39.9996
+    ],
+    "building": "building-power",
+    "floor": null,
+    "access": 3,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "3"
+    }
+   },
+   {
+    "id": "point-power-tip",
+    "type": "tip",
+    "at_m": [
+     188.791,
+     45.5167
+    ],
+    "building": "building-power",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "blue",
+     "symbol": "i",
+     "text": "i"
+    }
+   },
+   {
+    "id": "point-res-air-north",
+    "type": "airlock",
+    "at_m": [
+     164.1361,
+     53.6201
+    ],
+    "building": "building-research",
+    "floor": null,
+    "access": 2,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "2"
+    }
+   },
+   {
+    "id": "point-res-terminal-north",
+    "type": "terminal_above_lo",
+    "at_m": [
+     152.9294,
+     55.5166
+    ],
+    "building": "building-research",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "terminal",
+     "text": null
+    }
+   },
+   {
+    "id": "point-res-tip",
+    "type": "tip",
+    "at_m": [
+     144.9984,
+     83.7922
+    ],
+    "building": "building-research",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "blue",
+     "symbol": "i",
+     "text": "i"
+    }
+   },
+   {
+    "id": "point-res-terminal-courtyard",
+    "type": "terminal_lo",
+    "at_m": [
+     125.3435,
+     90.8611
+    ],
+    "building": "building-research",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "lime",
+     "symbol": "terminal",
+     "text": null
+    }
+   },
+   {
+    "id": "point-res-air-west",
+    "type": "airlock",
+    "at_m": [
+     101.723,
+     100.861
+    ],
+    "building": "building-research",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "1"
+    }
+   },
+   {
+    "id": "point-res-terminal-west",
+    "type": "terminal_above_lo",
+    "at_m": [
+     110.1712,
+     101.2058
+    ],
+    "building": "building-research",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "terminal",
+     "text": null
+    }
+   },
+   {
+    "id": "point-res-door",
+    "type": "inner_door",
+    "at_m": [
+     116.0332,
+     105.1713
+    ],
+    "building": "building-research",
+    "floor": null,
+    "access": 2,
+    "icon": {
+     "colour": "blue",
+     "symbol": "circle",
+     "text": "2"
+    }
+   },
+   {
+    "id": "point-hab-n-air",
+    "type": "airlock",
+    "at_m": [
+     212.2391,
+     77.5854
+    ],
+    "building": "building-hab-north",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "0"
+    }
+   },
+   {
+    "id": "point-hab-n-door",
+    "type": "inner_door",
+    "at_m": [
+     223.101,
+     80.3439
+    ],
+    "building": "building-hab-north",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "circle",
+     "text": "1"
+    }
+   },
+   {
+    "id": "point-hab-n-terminal",
+    "type": "terminal_lo",
+    "at_m": [
+     218.4459,
+     83.4474
+    ],
+    "building": "building-hab-north",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "lime",
+     "symbol": "terminal",
+     "text": null
+    }
+   },
+   {
+    "id": "point-hab-s-air",
+    "type": "airlock",
+    "at_m": [
+     202.0668,
+     115.516
+    ],
+    "building": "building-hab-south",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "0"
+    }
+   },
+   {
+    "id": "point-hab-s-door",
+    "type": "inner_door",
+    "at_m": [
+     212.2391,
+     118.7918
+    ],
+    "building": "building-hab-south",
+    "floor": null,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "circle",
+     "text": "1"
+    }
+   },
+   {
+    "id": "point-hab-s-terminal",
+    "type": "terminal_lo",
+    "at_m": [
+     205.3426,
+     122.4125
+    ],
+    "building": "building-hab-south",
+    "floor": null,
+    "access": 0,
+    "icon": {
+     "colour": "lime",
+     "symbol": "terminal",
+     "text": null
+    }
+   }
+  ],
+  "excluded_points": [],
+  "visible_bounds_m": {
+   "min": [
+    7.5861,
+    11.2171
+   ],
+   "max": [
+    252.5834,
+    146.1208
+   ],
+   "extent_x_m": 245.0,
+   "extent_y_m": 134.9
+  },
+  "footprint_bounds_m": {
+   "min": [
+    7.5861,
+    11.2171
+   ],
+   "max": [
+    252.5834,
+    146.1208
+   ],
+   "extent_x_m": 245.0,
+   "extent_y_m": 134.9,
+   "includes_inferred_pad_extensions": false,
+   "scope": "Traced structures plus documented full-pad reconstructions; other off-image/clipped structures remain incomplete.",
+   "confidence": "low"
+  },
+  "superseded_by": "site_m",
+  "superseded_note": "Kept for traceability. site_m holds the plan fitted to SrvSurvey's measured positions, in SrvSurvey's site frame."
+ },
+ "site_m": {
+  "schema": "ucec-site-geometry/1",
+  "units": "m",
+  "frame": {
+   "origin": "Settlement position from the journal (ApproachSettlement Latitude/Longitude), as SrvSurvey uses it",
+   "axes": {
+    "x": "right of the site heading",
+    "y": "along the site heading"
+   },
+   "heading": "Site heading = ship heading while docked on pad 1, or ship heading minus that pad's rotation_deg on any other pad (SrvSurvey HumanSiteData).",
+   "to_world": "bearing = heading + atan2(x, y); east = x*cos(h) + y*sin(h); north = -x*sin(h) + y*cos(h)",
+   "rotation_convention": "rotation_deg and rot_deg are clockwise from +y",
+   "floor_convention": "SrvSurvey floors: 1 = ground floor, 2 = one floor up, 3 = two floors up. SrvSurvey also uses 0: on every combat-zone point and on a few others, where its meaning isn't documented; those are copied as given. floor_basis says where each floor came from: srvsurvey, or icon carets (the plan's ^ marks, no caret = ground floor). plan_floor keeps the plan's reading where SrvSurvey's differs.",
+   "access_convention": "Security level 0-3: SrvSurvey's level where matched, otherwise the plan's printed number",
+   "source_convention": "plan = only on the plan; srvsurvey = only in SrvSurvey; plan+srvsurvey = both, at SrvSurvey's position"
+  },
+  "pixel_to_site_matrix_3x3": [
+   [
+    0.18563954,
+    0.0734012,
+    -196.50384945
+   ],
+   [
+    0.0734012,
+    -0.18563954,
+    22.04624292
+   ],
+   [
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "pixel_to_site_note": "[X, Y, W] = M . [px, py, 1]; site = (X/W, Y/W). Third row is [0, 0, 1] for a uniform fit.",
+  "fit": {
+   "status": "good",
+   "model": "similarity",
+   "flags": [],
+   "scale_m_per_px": 0.19962,
+   "scale_m_per_px_note": "uniform",
+   "local_scale_range_m_per_px": null,
+   "previous_nominal_m_per_px": 0.1724119029857248,
+   "scale_change_pct": 15.78,
+   "previous_axis_m_per_px": [
+    0.1724119029857248,
+    0.1724119029857248
+   ],
+   "image_up_bearing_deg": 338.43,
+   "point_rms_m": 4.84,
+   "matched_points": 10,
+   "residual_median_m": {
+    "buildings": 4.74,
+    "pads": 1.21,
+    "doors": 4.7,
+    "power_alarm": 3.64
+   },
+   "matched_buildings": 4,
+   "building_iou_mean": 0.62,
+   "srvsurvey_buildings_without_plan_outline": [],
+   "door_level_agreement": "9/9",
+   "icon_to_measured_median_m": 5.47,
+   "pad_error_uniform_m": {
+    "0": 1.21
+   },
+   "perspective_test": {
+    "accepted": false,
+    "point_rms_m": 3.24,
+    "point_matches": 9,
+    "score": 4.8,
+    "uniform_score": 5.33,
+    "building_iou": 0.63,
+    "uniform_building_iou": 0.63,
+    "pad_error_m": [
+     0.43
+    ],
+    "local_scale_m_per_px": [
+     0.15,
+     0.26
+    ]
+   },
+   "plan_vs_srvsurvey_counts": {
+    "pads": {
+     "plan": 1,
+     "srvsurvey": 1,
+     "merged": 1
+    },
+    "doors": {
+     "plan": 9,
+     "srvsurvey": 9,
+     "merged": 9
+    },
+    "terminals": {
+     "plan": 5,
+     "srvsurvey": 5,
+     "merged": 3
+    },
+    "power_alarm": {
+     "plan": 2,
+     "srvsurvey": 2,
+     "merged": 2
+    }
+   },
+   "added_from_srvsurvey": {
+    "secure_door": 0,
+    "data_terminal": 0,
+    "terminal": 2,
+    "power_regulator": 0,
+    "alarm_console": 0,
+    "loot": 4,
+    "cz_point": 0
+   },
+   "plan_only": {
+    "terminal_above_lo": 2
+   },
+   "plan_only_terminals_outside_srvsurvey_buildings": 0,
+   "icon_floor_agreement": "2/11"
+  },
+  "buildings": [
+   {
+    "id": "building-research",
+    "kind": "other",
+    "label": "RES",
+    "outline_m": [
+     [
+      -15.76,
+      33.08
+     ],
+     [
+      16.17,
+      33.96
+     ],
+     [
+      16.94,
+      5.82
+     ],
+     [
+      5.17,
+      5.5
+     ],
+     [
+      5.66,
+      -12.46
+     ],
+     [
+      18.63,
+      -12.11
+     ],
+     [
+      19.73,
+      -52.21
+     ],
+     [
+      -43.13,
+      -53.94
+     ],
+     [
+      -43.83,
+      -28.4
+     ],
+     [
+      -27.86,
+      -27.96
+     ],
+     [
+      -27.66,
+      -35.35
+     ],
+     [
+      -13.69,
+      -34.96
+     ],
+     [
+      -14.14,
+      -18.6
+     ],
+     [
+      -6.16,
+      -18.38
+     ],
+     [
+      -6.81,
+      5.17
+     ],
+     [
+      -14.99,
+      4.94
+     ]
+    ],
+    "centre_m": [
+     -4.98,
+     -17.56
+    ],
+    "height_m": 8,
+    "floors": 2,
+    "srvsurvey_building": {
+     "name": "RES",
+     "iou": 0.72
+    }
+   },
+   {
+    "id": "building-power",
+    "kind": "power",
+    "label": "PWR",
+    "outline_m": [
+     [
+      -1.15,
+      85.32
+     ],
+     [
+      19.8,
+      85.9
+     ],
+     [
+      19.97,
+      79.71
+     ],
+     [
+      23.77,
+      79.82
+     ],
+     [
+      24.18,
+      64.65
+     ],
+     [
+      19.99,
+      64.53
+     ],
+     [
+      20.22,
+      56.16
+     ],
+     [
+      0.67,
+      55.62
+     ],
+     [
+      0.57,
+      59.01
+     ],
+     [
+      -2.22,
+      58.93
+     ],
+     [
+      -2.7,
+      76.49
+     ],
+     [
+      -0.91,
+      76.54
+     ]
+    ],
+    "centre_m": [
+     10.23,
+     70.84
+    ],
+    "height_m": 8,
+    "floors": 1,
+    "srvsurvey_building": {
+     "name": "POW",
+     "iou": 0.68
+    }
+   },
+   {
+    "id": "building-hab-north",
+    "kind": "hab",
+    "label": "HAB",
+    "outline_m": [
+     [
+      66.41,
+      36.27
+     ],
+     [
+      97.45,
+      39.75
+     ],
+     [
+      104.94,
+      38.2
+     ],
+     [
+      111.37,
+      34.95
+     ],
+     [
+      114.58,
+      30.63
+     ],
+     [
+      114.49,
+      25.44
+     ],
+     [
+      112.39,
+      20.97
+     ],
+     [
+      107.04,
+      17.13
+     ],
+     [
+      101.77,
+      15.26
+     ],
+     [
+      89.65,
+      14.98
+     ],
+     [
+      90.02,
+      5.89
+     ],
+     [
+      81.68,
+      5.82
+     ],
+     [
+      79.89,
+      14.13
+     ],
+     [
+      66.44,
+      16.11
+     ]
+    ],
+    "centre_m": [
+     89.13,
+     25.58
+    ],
+    "height_m": 8,
+    "floors": 2,
+    "srvsurvey_building": {
+     "name": "HAB #1",
+     "iou": 0.63
+    }
+   },
+   {
+    "id": "building-hab-south",
+    "kind": "hab",
+    "label": "HAB",
+    "outline_m": [
+     [
+      71.09,
+      -9.75
+     ],
+     [
+      102.13,
+      -6.28
+     ],
+     [
+      109.61,
+      -7.83
+     ],
+     [
+      116.05,
+      -11.08
+     ],
+     [
+      119.25,
+      -15.39
+     ],
+     [
+      119.16,
+      -20.58
+     ],
+     [
+      117.07,
+      -25.06
+     ],
+     [
+      111.71,
+      -28.89
+     ],
+     [
+      106.44,
+      -30.76
+     ],
+     [
+      94.32,
+      -31.04
+     ],
+     [
+      94.69,
+      -40.13
+     ],
+     [
+      86.35,
+      -40.21
+     ],
+     [
+      84.57,
+      -31.9
+     ],
+     [
+      71.12,
+      -29.91
+     ]
+    ],
+    "centre_m": [
+     93.81,
+     -20.44
+    ],
+    "height_m": 8,
+    "floors": 2,
+    "srvsurvey_building": {
+     "name": "HAB #2",
+     "iou": 0.45
+    }
+   },
+   {
+    "id": "building-utility-northwest",
+    "kind": "other",
+    "label": null,
+    "outline_m": [
+     [
+      -34.94,
+      50.22
+     ],
+     [
+      -28.78,
+      55.31
+     ],
+     [
+      -23.18,
+      48.54
+     ],
+     [
+      -24.88,
+      47.14
+     ],
+     [
+      -23.48,
+      45.45
+     ],
+     [
+      -27.02,
+      42.52
+     ],
+     [
+      -28.29,
+      44.06
+     ],
+     [
+      -29.21,
+      43.3
+     ]
+    ],
+    "centre_m": [
+     -28.67,
+     48.8
+    ],
+    "height_m": 4,
+    "floors": 1
+   },
+   {
+    "id": "building-service-northwest",
+    "kind": "other",
+    "label": null,
+    "outline_m": [
+     [
+      -39.55,
+      32.17
+     ],
+     [
+      -27.97,
+      32.49
+     ],
+     [
+      -27.91,
+      30.3
+     ],
+     [
+      -25.52,
+      30.36
+     ],
+     [
+      -25.36,
+      24.58
+     ],
+     [
+      -39.33,
+      24.19
+     ]
+    ],
+    "centre_m": [
+     -32.74,
+     28.22
+    ],
+    "height_m": 4,
+    "floors": 1
+   },
+   {
+    "id": "building-service-northeast",
+    "kind": "other",
+    "label": null,
+    "outline_m": [
+     [
+      35.01,
+      47.88
+     ],
+     [
+      48.55,
+      59.07
+     ],
+     [
+      49.56,
+      57.84
+     ],
+     [
+      51.72,
+      59.62
+     ],
+     [
+      56.29,
+      54.08
+     ],
+     [
+      43.06,
+      43.14
+     ],
+     [
+      41.92,
+      44.53
+     ],
+     [
+      39.46,
+      42.49
+     ]
+    ],
+    "centre_m": [
+     45.68,
+     51.04
+    ],
+    "height_m": 4,
+    "floors": 1
+   },
+   {
+    "id": "building-service-west",
+    "kind": "other",
+    "label": null,
+    "outline_m": [
+     [
+      -64.0,
+      -51.37
+     ],
+     [
+      -56.82,
+      -51.17
+     ],
+     [
+      -56.73,
+      -54.37
+     ],
+     [
+      -54.93,
+      -54.32
+     ],
+     [
+      -54.74,
+      -61.3
+     ],
+     [
+      -62.72,
+      -61.52
+     ],
+     [
+      -62.78,
+      -59.32
+     ],
+     [
+      -64.78,
+      -59.38
+     ],
+     [
+      -64.92,
+      -54.39
+     ],
+     [
+      -63.92,
+      -54.36
+     ]
+    ],
+    "centre_m": [
+     -59.78,
+     -56.5
+    ],
+    "height_m": 4,
+    "floors": 1
+   },
+   {
+    "id": "building-gate-service",
+    "kind": "other",
+    "label": null,
+    "outline_m": [
+     [
+      -54.92,
+      -6.92
+     ],
+     [
+      -47.54,
+      -6.72
+     ],
+     [
+      -47.37,
+      -12.71
+     ],
+     [
+      -54.75,
+      -12.91
+     ]
+    ],
+    "centre_m": [
+     -51.15,
+     -9.82
+    ],
+    "height_m": 3.5,
+    "floors": 1
+   },
+   {
+    "id": "building-service-southeast",
+    "kind": "other",
+    "label": null,
+    "outline_m": [
+     [
+      46.04,
+      -36.4
+     ],
+     [
+      51.43,
+      -30.51
+     ],
+     [
+      53.78,
+      -32.66
+     ],
+     [
+      55.27,
+      -31.04
+     ],
+     [
+      65.87,
+      -40.74
+     ],
+     [
+      63.99,
+      -42.8
+     ],
+     [
+      66.2,
+      -44.82
+     ],
+     [
+      61.08,
+      -50.42
+     ],
+     [
+      58.58,
+      -48.13
+     ],
+     [
+      57.37,
+      -49.46
+     ],
+     [
+      47.49,
+      -40.43
+     ],
+     [
+      48.84,
+      -38.96
+     ]
+    ],
+    "centre_m": [
+     56.37,
+     -40.33
+    ],
+    "height_m": 4,
+    "floors": 1
+   },
+   {
+    "id": "building-service-south",
+    "kind": "other",
+    "label": null,
+    "outline_m": [
+     [
+      23.54,
+      -45.54
+     ],
+     [
+      34.12,
+      -45.25
+     ],
+     [
+      34.2,
+      -48.24
+     ],
+     [
+      36.4,
+      -48.18
+     ],
+     [
+      36.78,
+      -61.95
+     ],
+     [
+      33.78,
+      -62.03
+     ],
+     [
+      33.84,
+      -64.03
+     ],
+     [
+      24.06,
+      -64.3
+     ]
+    ],
+    "centre_m": [
+     29.91,
+     -54.76
+    ],
+    "height_m": 4,
+    "floors": 1
+   },
+   {
+    "id": "building-utility-southwest",
+    "kind": "other",
+    "label": null,
+    "outline_m": [
+     [
+      -8.71,
+      -72.35
+     ],
+     [
+      -0.73,
+      -72.13
+     ],
+     [
+      -0.66,
+      -74.73
+     ],
+     [
+      1.14,
+      -74.68
+     ],
+     [
+      1.33,
+      -81.66
+     ],
+     [
+      -8.45,
+      -81.93
+     ]
+    ],
+    "centre_m": [
+     -3.89,
+     -77.19
+    ],
+    "height_m": 4,
+    "floors": 1
+   }
+  ],
+  "pads": [
+   {
+    "id": "pad-west",
+    "size": "small",
+    "plan_centre_m": [
+     -112.71,
+     -53.33
+    ],
+    "plan_outline_m": [
+     [
+      -134.14,
+      -11.9
+     ],
+     [
+      -84.21,
+      -12.76
+     ],
+     [
+      -91.28,
+      -94.77
+     ],
+     [
+      -141.21,
+      -93.9
+     ]
+    ],
+    "plan_dimensions_m": {
+     "length": 85.74,
+     "width": 49.82
+    },
+    "working_dimensions_m": {
+     "length_m": 70,
+     "width_m": 50
+    },
+    "partial_in_source": false,
+    "pad_number": 1,
+    "centre_m": [
+     -113.89,
+     -53.62
+    ],
+    "rotation_deg": 0,
+    "outline_m": [
+     [
+      -138.89,
+      -18.62
+     ],
+     [
+      -88.89,
+      -18.62
+     ],
+     [
+      -88.89,
+      -88.62
+     ],
+     [
+      -138.89,
+      -88.62
+     ]
+    ],
+    "moved_m": 1.21,
+    "source": "plan+srvsurvey",
+    "axis_error_deg": 4.93
+   }
+  ],
+  "walkways": [
+   {
+    "id": "walkway-west-spine",
+    "kind": "open",
+    "line_m": [
+     [
+      -59.97,
+      -50.19
+     ],
+     [
+      -53.11,
+      -31.16
+     ],
+     [
+      -48.1,
+      -11.8
+     ],
+     [
+      -40.47,
+      5.82
+     ],
+     [
+      -36.11,
+      19.78
+     ],
+     [
+      -32.91,
+      33.93
+     ]
+    ],
+    "width_m": 4.99
+   },
+   {
+    "id": "walkway-east-spine",
+    "kind": "open",
+    "line_m": [
+     [
+      30.38,
+      45.42
+     ],
+     [
+      32.08,
+      24.84
+     ],
+     [
+      33.94,
+      8.19
+     ],
+     [
+      36.69,
+      -9.61
+     ],
+     [
+      35.32,
+      -27.33
+     ]
+    ],
+    "width_m": 4.99
+   },
+   {
+    "id": "walkway-pad-link",
+    "kind": "open",
+    "line_m": [
+     [
+      -84.99,
+      -41.19
+     ],
+     [
+      -64.9,
+      -42.05
+     ],
+     [
+      -53.59,
+      -40.8
+     ]
+    ],
+    "width_m": 4.99
+   },
+   {
+    "id": "walkway-hab-north",
+    "kind": "open",
+    "line_m": [
+     [
+      35.86,
+      26.13
+     ],
+     [
+      52.25,
+      27.03
+     ],
+     [
+      61.97,
+      27.43
+     ]
+    ],
+    "width_m": 4.99
+   }
+  ],
+  "details": [
+   {
+    "id": "detail-power-cap",
+    "kind": "roof_machinery",
+    "outline_m": [
+     [
+      8.14,
+      82.12
+     ],
+     [
+      13.08,
+      80.23
+     ],
+     [
+      15.21,
+      75.43
+     ],
+     [
+      13.34,
+      70.5
+     ],
+     [
+      8.53,
+      68.34
+     ],
+     [
+      6.74,
+      68.3
+     ],
+     [
+      1.81,
+      70.19
+     ],
+     [
+      -0.33,
+      74.99
+     ],
+     [
+      1.54,
+      79.92
+     ],
+     [
+      6.36,
+      82.08
+     ]
+    ]
+   },
+   {
+    "id": "detail-research-tank-1",
+    "kind": "roof_machinery",
+    "outline_m": [
+     [
+      -10.11,
+      22.63
+     ],
+     [
+      -7.83,
+      21.75
+     ],
+     [
+      -6.83,
+      19.51
+     ],
+     [
+      -7.71,
+      17.23
+     ],
+     [
+      -9.94,
+      16.24
+     ],
+     [
+      -10.74,
+      16.2
+     ],
+     [
+      -13.02,
+      17.08
+     ],
+     [
+      -14.02,
+      19.33
+     ],
+     [
+      -13.14,
+      21.61
+     ],
+     [
+      -10.91,
+      22.59
+     ]
+    ]
+   },
+   {
+    "id": "detail-research-tank-2",
+    "kind": "roof_machinery",
+    "outline_m": [
+     [
+      -27.21,
+      -36.72
+     ],
+     [
+      -24.93,
+      -37.6
+     ],
+     [
+      -23.94,
+      -39.85
+     ],
+     [
+      -24.82,
+      -42.13
+     ],
+     [
+      -27.04,
+      -43.12
+     ],
+     [
+      -27.84,
+      -43.15
+     ],
+     [
+      -30.12,
+      -42.27
+     ],
+     [
+      -31.12,
+      -40.03
+     ],
+     [
+      -30.24,
+      -37.75
+     ],
+     [
+      -28.01,
+      -36.76
+     ]
+    ]
+   },
+   {
+    "id": "detail-research-tank-3",
+    "kind": "roof_machinery",
+    "outline_m": [
+     [
+      -27.25,
+      -47.47
+     ],
+     [
+      -24.97,
+      -48.35
+     ],
+     [
+      -23.98,
+      -50.6
+     ],
+     [
+      -24.86,
+      -52.88
+     ],
+     [
+      -27.09,
+      -53.87
+     ],
+     [
+      -27.89,
+      -53.9
+     ],
+     [
+      -30.17,
+      -53.02
+     ],
+     [
+      -31.16,
+      -50.78
+     ],
+     [
+      -30.28,
+      -48.5
+     ],
+     [
+      -28.05,
+      -47.51
+     ]
+    ]
+   },
+   {
+    "id": "detail-hab-roof-panel-1",
+    "kind": "roof_panel",
+    "outline_m": [
+     [
+      82.07,
+      38.67
+     ],
+     [
+      94.84,
+      39.02
+     ],
+     [
+      94.95,
+      35.03
+     ],
+     [
+      82.18,
+      34.68
+     ]
+    ]
+   },
+   {
+    "id": "detail-hab-roof-panel-2",
+    "kind": "roof_panel",
+    "outline_m": [
+     [
+      85.08,
+      32.41
+     ],
+     [
+      90.27,
+      32.55
+     ],
+     [
+      90.79,
+      13.8
+     ],
+     [
+      85.6,
+      13.65
+     ]
+    ]
+   },
+   {
+    "id": "detail-hab-roof-panel-3",
+    "kind": "roof_panel",
+    "outline_m": [
+     [
+      86.74,
+      -7.35
+     ],
+     [
+      99.51,
+      -7.0
+     ],
+     [
+      99.62,
+      -10.99
+     ],
+     [
+      86.85,
+      -11.34
+     ]
+    ]
+   },
+   {
+    "id": "detail-hab-roof-panel-4",
+    "kind": "roof_panel",
+    "outline_m": [
+     [
+      89.76,
+      -13.61
+     ],
+     [
+      94.94,
+      -13.47
+     ],
+     [
+      95.46,
+      -32.23
+     ],
+     [
+      90.27,
+      -32.37
+     ]
+    ]
+   },
+   {
+    "id": "detail-utility-unit-1",
+    "kind": "roof_machinery",
+    "outline_m": [
+     [
+      47.16,
+      6.03
+     ],
+     [
+      55.55,
+      6.26
+     ],
+     [
+      55.74,
+      -1.13
+     ],
+     [
+      47.35,
+      -1.36
+     ]
+    ]
+   },
+   {
+    "id": "detail-utility-unit-2",
+    "kind": "roof_machinery",
+    "outline_m": [
+     [
+      48.33,
+      22.49
+     ],
+     [
+      56.72,
+      22.72
+     ],
+     [
+      56.92,
+      15.54
+     ],
+     [
+      48.53,
+      15.32
+     ]
+    ]
+   },
+   {
+    "id": "detail-utility-unit-3",
+    "kind": "roof_machinery",
+    "outline_m": [
+     [
+      53.08,
+      -33.33
+     ],
+     [
+      58.46,
+      -27.45
+     ],
+     [
+      64.07,
+      -32.55
+     ],
+     [
+      58.69,
+      -38.44
+     ]
+    ]
+   },
+   {
+    "id": "detail-utility-unit-4",
+    "kind": "roof_machinery",
+    "outline_m": [
+     [
+      -32.17,
+      49.28
+     ],
+     [
+      -28.48,
+      52.33
+     ],
+     [
+      -25.29,
+      48.49
+     ],
+     [
+      -28.98,
+      45.44
+     ]
+    ]
+   },
+   {
+    "id": "detail-utility-unit-5",
+    "kind": "roof_machinery",
+    "outline_m": [
+     [
+      -5.99,
+      0.26
+     ],
+     [
+      -0.99,
+      0.39
+     ],
+     [
+      -0.87,
+      -4.41
+     ],
+     [
+      -5.87,
+      -4.54
+     ]
+    ]
+   },
+   {
+    "id": "detail-utility-unit-6",
+    "kind": "roof_machinery",
+    "outline_m": [
+     [
+      -3.64,
+      -45.91
+     ],
+     [
+      0.95,
+      -45.79
+     ],
+     [
+      1.08,
+      -50.57
+     ],
+     [
+      -3.51,
+      -50.68
+     ]
+    ]
+   },
+   {
+    "id": "detail-utility-unit-7",
+    "kind": "roof_machinery",
+    "outline_m": [
+     [
+      -17.8,
+      -25.77
+     ],
+     [
+      -13.41,
+      -25.64
+     ],
+     [
+      -13.28,
+      -30.03
+     ],
+     [
+      -17.68,
+      -30.16
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-01",
+    "kind": "container",
+    "outline_m": [
+     [
+      -17.83,
+      50.79
+     ],
+     [
+      -10.25,
+      51.0
+     ],
+     [
+      -10.13,
+      46.19
+     ],
+     [
+      -17.71,
+      45.99
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-02",
+    "kind": "container",
+    "outline_m": [
+     [
+      -8.72,
+      48.06
+     ],
+     [
+      -1.75,
+      48.24
+     ],
+     [
+      -1.61,
+      43.44
+     ],
+     [
+      -8.58,
+      43.26
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-03",
+    "kind": "container",
+    "outline_m": [
+     [
+      -37.57,
+      33.67
+     ],
+     [
+      -31.79,
+      33.81
+     ],
+     [
+      -31.67,
+      29.82
+     ],
+     [
+      -37.45,
+      29.68
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-04",
+    "kind": "container",
+    "outline_m": [
+     [
+      -36.45,
+      10.22
+     ],
+     [
+      -28.68,
+      10.44
+     ],
+     [
+      -28.59,
+      6.84
+     ],
+     [
+      -36.37,
+      6.63
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-05",
+    "kind": "container",
+    "outline_m": [
+     [
+      -43.08,
+      8.41
+     ],
+     [
+      -36.3,
+      8.58
+     ],
+     [
+      -36.21,
+      5.59
+     ],
+     [
+      -42.99,
+      5.42
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-06",
+    "kind": "container",
+    "outline_m": [
+     [
+      -47.65,
+      -18.79
+     ],
+     [
+      -40.48,
+      -18.59
+     ],
+     [
+      -40.39,
+      -22.18
+     ],
+     [
+      -47.56,
+      -22.38
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-07",
+    "kind": "container",
+    "outline_m": [
+     [
+      -58.85,
+      -29.57
+     ],
+     [
+      -51.27,
+      -29.36
+     ],
+     [
+      -51.15,
+      -32.96
+     ],
+     [
+      -58.73,
+      -33.17
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-08",
+    "kind": "container",
+    "outline_m": [
+     [
+      -46.04,
+      20.68
+     ],
+     [
+      -41.86,
+      20.79
+     ],
+     [
+      -41.76,
+      17.01
+     ],
+     [
+      -45.94,
+      16.9
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-09",
+    "kind": "container",
+    "outline_m": [
+     [
+      -14.04,
+      -25.95
+     ],
+     [
+      -7.67,
+      -25.78
+     ],
+     [
+      -7.56,
+      -29.96
+     ],
+     [
+      -13.93,
+      -30.14
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-10",
+    "kind": "container",
+    "outline_m": [
+     [
+      31.99,
+      11.16
+     ],
+     [
+      39.58,
+      11.37
+     ],
+     [
+      39.68,
+      7.58
+     ],
+     [
+      32.09,
+      7.38
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-11",
+    "kind": "container",
+    "outline_m": [
+     [
+      34.28,
+      -26.0
+     ],
+     [
+      39.87,
+      -25.85
+     ],
+     [
+      39.98,
+      -30.22
+     ],
+     [
+      34.4,
+      -30.37
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-12",
+    "kind": "container",
+    "outline_m": [
+     [
+      24.99,
+      -42.19
+     ],
+     [
+      31.98,
+      -42.0
+     ],
+     [
+      32.09,
+      -46.59
+     ],
+     [
+      25.11,
+      -46.78
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-13",
+    "kind": "container",
+    "outline_m": [
+     [
+      37.1,
+      -51.0
+     ],
+     [
+      44.69,
+      -50.8
+     ],
+     [
+      44.82,
+      -54.99
+     ],
+     [
+      37.24,
+      -55.2
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-14",
+    "kind": "container",
+    "outline_m": [
+     [
+      15.29,
+      -56.65
+     ],
+     [
+      20.47,
+      -56.51
+     ],
+     [
+      20.62,
+      -61.11
+     ],
+     [
+      15.44,
+      -61.25
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-15",
+    "kind": "container",
+    "outline_m": [
+     [
+      38.81,
+      36.8
+     ],
+     [
+      42.99,
+      36.93
+     ],
+     [
+      43.14,
+      31.94
+     ],
+     [
+      38.96,
+      31.82
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-16",
+    "kind": "container",
+    "outline_m": [
+     [
+      -22.47,
+      -13.92
+     ],
+     [
+      -14.09,
+      -13.67
+     ],
+     [
+      -13.94,
+      -18.66
+     ],
+     [
+      -22.32,
+      -18.9
+     ]
+    ]
+   },
+   {
+    "id": "detail-cargo-17",
+    "kind": "container",
+    "outline_m": [
+     [
+      -27.73,
+      -22.87
+     ],
+     [
+      -19.35,
+      -22.62
+     ],
+     [
+      -19.2,
+      -27.61
+     ],
+     [
+      -27.58,
+      -27.85
+     ]
+    ]
+   },
+   {
+    "id": "detail-platform-1",
+    "kind": "platform",
+    "outline_m": [
+     [
+      -33.22,
+      -21.72
+     ],
+     [
+      -16.85,
+      -21.27
+     ],
+     [
+      -16.55,
+      -32.45
+     ],
+     [
+      -32.91,
+      -32.9
+     ]
+    ]
+   },
+   {
+    "id": "detail-platform-2",
+    "kind": "platform",
+    "outline_m": [
+     [
+      18.84,
+      -45.51
+     ],
+     [
+      38.4,
+      -44.97
+     ],
+     [
+      38.97,
+      -65.73
+     ],
+     [
+      19.41,
+      -66.27
+     ]
+    ]
+   },
+   {
+    "id": "detail-platform-3",
+    "kind": "platform",
+    "outline_m": [
+     [
+      46.48,
+      24.84
+     ],
+     [
+      58.45,
+      25.17
+     ],
+     [
+      58.78,
+      13.2
+     ],
+     [
+      46.81,
+      12.87
+     ]
+    ]
+   },
+   {
+    "id": "detail-platform-4",
+    "kind": "platform",
+    "outline_m": [
+     [
+      45.1,
+      8.27
+     ],
+     [
+      57.47,
+      8.61
+     ],
+     [
+      57.8,
+      -3.36
+     ],
+     [
+      45.43,
+      -3.7
+     ]
+    ]
+   },
+   {
+    "id": "detail-platform-5",
+    "kind": "platform",
+    "outline_m": [
+     [
+      41.92,
+      -38.22
+     ],
+     [
+      52.15,
+      -27.03
+     ],
+     [
+      70.42,
+      -43.73
+     ],
+     [
+      60.19,
+      -54.92
+     ]
+    ]
+   },
+   {
+    "id": "detail-gate-1",
+    "kind": "gate",
+    "outline_m": [
+     [
+      -84.02,
+      -30.12
+     ],
+     [
+      -81.03,
+      -30.03
+     ],
+     [
+      -80.73,
+      -41.61
+     ],
+     [
+      -83.72,
+      -41.7
+     ]
+    ]
+   },
+   {
+    "id": "detail-gate-2",
+    "kind": "gate",
+    "outline_m": [
+     [
+      -84.61,
+      -42.63
+     ],
+     [
+      -82.02,
+      -42.57
+     ],
+     [
+      -81.71,
+      -53.34
+     ],
+     [
+      -84.31,
+      -53.4
+     ]
+    ]
+   },
+   {
+    "id": "detail-gate-3",
+    "kind": "gate",
+    "outline_m": [
+     [
+      -53.67,
+      -15.09
+     ],
+     [
+      -50.88,
+      -15.02
+     ],
+     [
+      -50.61,
+      -25.0
+     ],
+     [
+      -53.39,
+      -25.07
+     ]
+    ]
+   },
+   {
+    "id": "detail-gate-4",
+    "kind": "gate",
+    "outline_m": [
+     [
+      26.98,
+      31.89
+     ],
+     [
+      30.58,
+      32.0
+     ],
+     [
+      30.83,
+      23.02
+     ],
+     [
+      27.22,
+      22.9
+     ]
+    ]
+   },
+   {
+    "id": "detail-gate-5",
+    "kind": "gate",
+    "outline_m": [
+     [
+      25.92,
+      49.37
+     ],
+     [
+      29.32,
+      49.47
+     ],
+     [
+      29.57,
+      40.68
+     ],
+     [
+      26.18,
+      40.59
+     ]
+    ]
+   },
+   {
+    "id": "detail-gate-6",
+    "kind": "gate",
+    "outline_m": [
+     [
+      34.92,
+      -17.41
+     ],
+     [
+      38.51,
+      -17.33
+     ],
+     [
+      38.73,
+      -25.31
+     ],
+     [
+      35.14,
+      -25.4
+     ]
+    ]
+   },
+   {
+    "id": "detail-gate-7",
+    "kind": "gate",
+    "outline_m": [
+     [
+      -43.8,
+      17.08
+     ],
+     [
+      -41.22,
+      17.16
+     ],
+     [
+      -41.0,
+      9.77
+     ],
+     [
+      -43.59,
+      9.69
+     ]
+    ]
+   },
+   {
+    "id": "detail-pad-barrier-1",
+    "kind": "barrier",
+    "outline_m": [
+     [
+      -134.58,
+      -11.86
+     ],
+     [
+      -133.25,
+      -11.98
+     ],
+     [
+      -134.84,
+      -29.13
+     ],
+     [
+      -136.17,
+      -29.02
+     ]
+    ]
+   },
+   {
+    "id": "detail-pad-barrier-2",
+    "kind": "barrier",
+    "outline_m": [
+     [
+      -133.17,
+      -11.09
+     ],
+     [
+      -122.98,
+      -11.35
+     ],
+     [
+      -123.17,
+      -12.5
+     ],
+     [
+      -133.36,
+      -12.23
+     ]
+    ]
+   },
+   {
+    "id": "detail-pad-barrier-3",
+    "kind": "barrier",
+    "outline_m": [
+     [
+      -93.99,
+      -11.91
+     ],
+     [
+      -84.06,
+      -12.06
+     ],
+     [
+      -83.99,
+      -13.32
+     ],
+     [
+      -93.92,
+      -13.17
+     ]
+    ]
+   },
+   {
+    "id": "detail-pad-barrier-4",
+    "kind": "barrier",
+    "outline_m": [
+     [
+      -84.1,
+      -13.58
+     ],
+     [
+      -82.77,
+      -13.7
+     ],
+     [
+      -83.91,
+      -29.82
+     ],
+     [
+      -85.24,
+      -29.7
+     ]
+    ]
+   },
+   {
+    "id": "detail-pad-barrier-5",
+    "kind": "barrier",
+    "outline_m": [
+     [
+      -139.48,
+      -77.12
+     ],
+     [
+      -138.14,
+      -77.24
+     ],
+     [
+      -139.58,
+      -93.69
+     ],
+     [
+      -140.91,
+      -93.57
+     ]
+    ]
+   },
+   {
+    "id": "detail-pad-barrier-6",
+    "kind": "barrier",
+    "outline_m": [
+     [
+      -140.25,
+      -94.17
+     ],
+     [
+      -129.98,
+      -94.62
+     ],
+     [
+      -129.91,
+      -95.88
+     ],
+     [
+      -140.37,
+      -95.5
+     ]
+    ]
+   },
+   {
+    "id": "detail-pad-barrier-7",
+    "kind": "barrier",
+    "outline_m": [
+     [
+      -100.51,
+      -93.7
+     ],
+     [
+      -90.95,
+      -93.99
+     ],
+     [
+      -90.88,
+      -95.25
+     ],
+     [
+      -100.44,
+      -94.96
+     ]
+    ]
+   },
+   {
+    "id": "detail-pad-barrier-8",
+    "kind": "barrier",
+    "outline_m": [
+     [
+      -90.8,
+      -76.98
+     ],
+     [
+      -89.47,
+      -77.1
+     ],
+     [
+      -90.91,
+      -93.55
+     ],
+     [
+      -92.24,
+      -93.43
+     ]
+    ]
+   }
+  ],
+  "points": [
+   {
+    "id": "point-power-alarm",
+    "type": "alarm_console",
+    "at_m": [
+     0.75,
+     82.77
+    ],
+    "building": "building-power",
+    "floor": 2,
+    "access": 0,
+    "icon": {
+     "colour": "yellow",
+     "symbol": "A",
+     "text": "A^"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     1.6,
+     80.2
+    ],
+    "moved_m": 2.71,
+    "srvsurvey_ref": "namedPoi[1]"
+   },
+   {
+    "id": "point-power-regulator",
+    "type": "power_regulator",
+    "at_m": [
+     9.98,
+     72.4
+    ],
+    "building": "building-power",
+    "floor": 1,
+    "access": 0,
+    "icon": {
+     "colour": "yellow",
+     "symbol": "P",
+     "text": "P"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_at_m": [
+     6.66,
+     75.55
+    ],
+    "moved_m": 4.58,
+    "srvsurvey_ref": "namedPoi[0]"
+   },
+   {
+    "id": "point-power-air-east",
+    "type": "airlock",
+    "at_m": [
+     21.37,
+     75.73
+    ],
+    "building": "building-power",
+    "floor": 0,
+    "access": 3,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "3"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_floor": 1,
+    "plan_at_m": [
+     26.01,
+     75.47
+    ],
+    "moved_m": 4.65,
+    "srvsurvey_ref": "secureDoors[0]",
+    "rot_deg": 270
+   },
+   {
+    "id": "point-power-air-south",
+    "type": "airlock",
+    "at_m": [
+     5.69,
+     60.11
+    ],
+    "building": "building-power",
+    "floor": 0,
+    "access": 3,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "3"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_floor": 1,
+    "plan_at_m": [
+     7.65,
+     52.97
+    ],
+    "moved_m": 7.41,
+    "srvsurvey_ref": "secureDoors[1]",
+    "rot_deg": 180
+   },
+   {
+    "id": "point-power-tip",
+    "type": "tip",
+    "at_m": [
+     26.15,
+     53.41
+    ],
+    "building": "building-power",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "blue",
+     "symbol": "i",
+     "text": "i"
+    },
+    "source": "plan"
+   },
+   {
+    "id": "point-res-air-north",
+    "type": "airlock",
+    "at_m": [
+     3.59,
+     28.01
+    ],
+    "building": "building-research",
+    "floor": 0,
+    "access": 2,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "2"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_floor": 1,
+    "plan_at_m": [
+     3.05,
+     34.19
+    ],
+    "moved_m": 6.21,
+    "srvsurvey_ref": "secureDoors[6]",
+    "rot_deg": 0
+   },
+   {
+    "id": "point-res-terminal-north",
+    "type": "terminal_above_lo",
+    "at_m": [
+     -8.21,
+     27.38
+    ],
+    "building": "building-research",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "terminal",
+     "text": null
+    },
+    "source": "plan"
+   },
+   {
+    "id": "point-res-tip",
+    "type": "tip",
+    "at_m": [
+     -4.71,
+     -6.44
+    ],
+    "building": "building-research",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "blue",
+     "symbol": "i",
+     "text": "i"
+    },
+    "source": "plan"
+   },
+   {
+    "id": "point-res-terminal-courtyard",
+    "type": "terminal_lo",
+    "at_m": [
+     -4.25,
+     -20.09
+    ],
+    "building": "building-research",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "lime",
+     "symbol": "terminal",
+     "text": null
+    },
+    "source": "plan+srvsurvey",
+    "plan_at_m": [
+     -22.86,
+     -22.42
+    ],
+    "moved_m": 18.76,
+    "srvsurvey_ref": "dataTerminals[0]",
+    "floor_basis": "srvsurvey",
+    "function": "data"
+   },
+   {
+    "id": "point-res-air-west",
+    "type": "airlock",
+    "at_m": [
+     -37.0,
+     -41.33
+    ],
+    "building": "building-research",
+    "floor": 0,
+    "access": 1,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "1"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_floor": 1,
+    "plan_at_m": [
+     -44.04,
+     -43.25
+    ],
+    "moved_m": 7.29,
+    "srvsurvey_ref": "secureDoors[8]",
+    "rot_deg": 270
+   },
+   {
+    "id": "point-res-terminal-west",
+    "type": "terminal_above_lo",
+    "at_m": [
+     -34.79,
+     -40.02
+    ],
+    "building": "building-research",
+    "floor": null,
+    "access": null,
+    "icon": {
+     "colour": "cyan",
+     "symbol": "terminal",
+     "text": null
+    },
+    "source": "plan"
+   },
+   {
+    "id": "point-res-door",
+    "type": "inner_door",
+    "at_m": [
+     -5.69,
+     -41.77
+    ],
+    "building": "building-research",
+    "floor": 0,
+    "access": 2,
+    "icon": {
+     "colour": "blue",
+     "symbol": "circle",
+     "text": "2"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_floor": 1,
+    "plan_at_m": [
+     -26.79,
+     -41.79
+    ],
+    "moved_m": 21.1,
+    "srvsurvey_ref": "secureDoors[7]",
+    "rot_deg": 270
+   },
+   {
+    "id": "point-hab-n-air",
+    "type": "airlock",
+    "at_m": [
+     67.65,
+     26.53
+    ],
+    "building": "building-hab-north",
+    "floor": 0,
+    "access": 0,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "0"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_floor": 1,
+    "plan_at_m": [
+     65.05,
+     28.87
+    ],
+    "moved_m": 3.5,
+    "srvsurvey_ref": "secureDoors[5]",
+    "rot_deg": 270
+   },
+   {
+    "id": "point-hab-n-door",
+    "type": "inner_door",
+    "at_m": [
+     80.49,
+     26.53
+    ],
+    "building": "building-hab-north",
+    "floor": 0,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "circle",
+     "text": "1"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_floor": 1,
+    "plan_at_m": [
+     77.92,
+     30.52
+    ],
+    "moved_m": 4.74,
+    "srvsurvey_ref": "secureDoors[4]",
+    "rot_deg": 270
+   },
+   {
+    "id": "point-hab-n-terminal",
+    "type": "terminal_lo",
+    "at_m": [
+     91.87,
+     28.01
+    ],
+    "building": "building-hab-north",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "lime",
+     "symbol": "terminal",
+     "text": null
+    },
+    "source": "plan+srvsurvey",
+    "plan_at_m": [
+     74.23,
+     25.2
+    ],
+    "moved_m": 17.87,
+    "srvsurvey_ref": "dataTerminals[1]",
+    "floor_basis": "srvsurvey",
+    "function": "data"
+   },
+   {
+    "id": "point-hab-s-air",
+    "type": "airlock",
+    "at_m": [
+     69.8,
+     -14.91
+    ],
+    "building": "building-hab-south",
+    "floor": 0,
+    "access": 0,
+    "icon": {
+     "colour": "red",
+     "symbol": "circle",
+     "text": "0"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_floor": 1,
+    "plan_at_m": [
+     70.24,
+     -16.31
+    ],
+    "moved_m": 1.47,
+    "srvsurvey_ref": "secureDoors[3]",
+    "rot_deg": 270
+   },
+   {
+    "id": "point-hab-s-door",
+    "type": "inner_door",
+    "at_m": [
+     82.58,
+     -14.47
+    ],
+    "building": "building-hab-south",
+    "floor": 0,
+    "access": 1,
+    "icon": {
+     "colour": "blue",
+     "symbol": "circle",
+     "text": "1"
+    },
+    "source": "plan+srvsurvey",
+    "floor_basis": "srvsurvey",
+    "plan_floor": 1,
+    "plan_at_m": [
+     82.59,
+     -15.5
+    ],
+    "moved_m": 1.03,
+    "srvsurvey_ref": "secureDoors[2]",
+    "rot_deg": 270
+   },
+   {
+    "id": "point-hab-s-terminal",
+    "type": "terminal_lo",
+    "at_m": [
+     93.97,
+     -12.99
+    ],
+    "building": "building-hab-south",
+    "floor": 1,
+    "access": 1,
+    "icon": {
+     "colour": "lime",
+     "symbol": "terminal",
+     "text": null
+    },
+    "source": "plan+srvsurvey",
+    "plan_at_m": [
+     76.71,
+     -22.34
+    ],
+    "moved_m": 19.63,
+    "srvsurvey_ref": "dataTerminals[2]",
+    "floor_basis": "srvsurvey",
+    "function": "data"
+   },
+   {
+    "at_m": [
+     9.98,
+     -17.91
+    ],
+    "floor": 1,
+    "access": 1,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-auth-02",
+    "srvsurvey_ref": "namedPoi[2]",
+    "type": "terminal",
+    "function": "auth",
+    "building": "building-research"
+   },
+   {
+    "at_m": [
+     2.15,
+     82.77
+    ],
+    "floor": 2,
+    "access": 0,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-personel-03",
+    "srvsurvey_ref": "namedPoi[3]",
+    "type": "terminal",
+    "function": "personnel",
+    "building": "building-power"
+   },
+   {
+    "at_m": [
+     9.29,
+     80.59
+    ],
+    "floor": 1,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-atmos-04",
+    "srvsurvey_ref": "namedPoi[4]",
+    "type": "loot",
+    "item": "Atmos",
+    "building": "building-power"
+   },
+   {
+    "at_m": [
+     83.33,
+     28.77
+    ],
+    "floor": 1,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-atmos-05",
+    "srvsurvey_ref": "namedPoi[5]",
+    "type": "loot",
+    "item": "Atmos",
+    "building": "building-hab-north"
+   },
+   {
+    "at_m": [
+     85.43,
+     -12.29
+    ],
+    "floor": 1,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-atmos-06",
+    "srvsurvey_ref": "namedPoi[6]",
+    "type": "loot",
+    "item": "Atmos",
+    "building": "building-hab-south"
+   },
+   {
+    "at_m": [
+     10.68,
+     -40.62
+    ],
+    "floor": 1,
+    "access": 2,
+    "source": "srvsurvey",
+    "floor_basis": "srvsurvey",
+    "id": "ss-atmos-07",
+    "srvsurvey_ref": "namedPoi[7]",
+    "type": "loot",
+    "item": "Atmos",
+    "building": "building-research"
+   }
+  ],
+  "labels": [],
+  "srvsurvey_buildings": [
+   {
+    "name": "HAB #2",
+    "outlines_m": [
+     [
+      [
+       66.0,
+       -5.8
+      ],
+      [
+       69.4,
+       -5.8
+      ],
+      [
+       69.3,
+       -4.7
+      ],
+      [
+       78.9,
+       -4.6
+      ],
+      [
+       79.0,
+       -1.2
+      ],
+      [
+       86.3,
+       -1.2
+      ],
+      [
+       86.5,
+       -5.4
+      ],
+      [
+       94.9,
+       -5.2
+      ],
+      [
+       94.7,
+       -24.3
+      ],
+      [
+       84.8,
+       -24.4
+      ],
+      [
+       85.2,
+       -34.3
+      ],
+      [
+       78.5,
+       -34.1
+      ],
+      [
+       78.4,
+       -27.2
+      ],
+      [
+       73.0,
+       -27.4
+      ],
+      [
+       72.9,
+       -24.8
+      ],
+      [
+       69.0,
+       -24.7
+      ],
+      [
+       69.0,
+       -23.6
+      ],
+      [
+       65.6,
+       -23.6
+      ]
+     ],
+     [
+      [
+       104.7,
+       -14.7
+      ],
+      [
+       104.7,
+       -20.0
+      ],
+      [
+       100.4,
+       -24.3
+      ],
+      [
+       95.1,
+       -24.3
+      ],
+      [
+       89.8,
+       -24.3
+      ],
+      [
+       85.5,
+       -20.0
+      ],
+      [
+       85.5,
+       -14.7
+      ],
+      [
+       85.5,
+       -9.4
+      ],
+      [
+       89.8,
+       -5.1
+      ],
+      [
+       95.1,
+       -5.1
+      ],
+      [
+       100.4,
+       -5.1
+      ],
+      [
+       104.7,
+       -9.4
+      ],
+      [
+       104.7,
+       -14.7
+      ]
+     ]
+    ]
+   },
+   {
+    "name": "HAB #1",
+    "outlines_m": [
+     [
+      [
+       64.2,
+       35.3
+      ],
+      [
+       67.3,
+       35.4
+      ],
+      [
+       67.4,
+       36.3
+      ],
+      [
+       77.2,
+       36.1
+      ],
+      [
+       77.4,
+       39.9
+      ],
+      [
+       84.7,
+       39.7
+      ],
+      [
+       84.8,
+       35.9
+      ],
+      [
+       93.0,
+       35.8
+      ],
+      [
+       92.9,
+       16.8
+      ],
+      [
+       83.2,
+       16.4
+      ],
+      [
+       83.4,
+       6.8
+      ],
+      [
+       77.2,
+       6.8
+      ],
+      [
+       76.9,
+       13.9
+      ],
+      [
+       71.3,
+       13.7
+      ],
+      [
+       71.3,
+       16.7
+      ],
+      [
+       67.1,
+       16.7
+      ],
+      [
+       67.4,
+       17.4
+      ],
+      [
+       63.5,
+       17.5
+      ]
+     ],
+     [
+      [
+       103.0,
+       26.5
+      ],
+      [
+       103.0,
+       21.2
+      ],
+      [
+       98.7,
+       16.9
+      ],
+      [
+       93.4,
+       16.9
+      ],
+      [
+       88.1,
+       16.9
+      ],
+      [
+       83.8,
+       21.2
+      ],
+      [
+       83.8,
+       26.5
+      ],
+      [
+       83.8,
+       31.8
+      ],
+      [
+       88.1,
+       36.1
+      ],
+      [
+       93.4,
+       36.1
+      ],
+      [
+       98.7,
+       36.1
+      ],
+      [
+       103.0,
+       31.8
+      ],
+      [
+       103.0,
+       26.5
+      ]
+     ]
+    ]
+   },
+   {
+    "name": "RES",
+    "outlines_m": [
+     [
+      [
+       12.5,
+       28.6
+      ],
+      [
+       12.5,
+       25.3
+      ],
+      [
+       16.2,
+       25.3
+      ],
+      [
+       15.8,
+       11.9
+      ],
+      [
+       13.1,
+       11.9
+      ],
+      [
+       12.8,
+       2.6
+      ],
+      [
+       7.0,
+       2.6
+      ],
+      [
+       7.3,
+       -14.0
+      ],
+      [
+       13.0,
+       -13.8
+      ],
+      [
+       12.7,
+       -51.4
+      ],
+      [
+       -37.6,
+       -51.2
+      ],
+      [
+       -36.8,
+       -28.8
+      ],
+      [
+       -15.8,
+       -28.6
+      ],
+      [
+       -15.4,
+       -16.7
+      ],
+      [
+       -6.7,
+       -16.5
+      ],
+      [
+       -7.0,
+       4.0
+      ],
+      [
+       -13.0,
+       3.8
+      ],
+      [
+       -12.9,
+       22.7
+      ],
+      [
+       -11.7,
+       22.6
+      ],
+      [
+       -11.9,
+       30.6
+      ],
+      [
+       12.2,
+       30.2
+      ]
+     ]
+    ]
+   },
+   {
+    "name": "POW",
+    "outlines_m": [
+     [
+      [
+       -3.3,
+       58.4
+      ],
+      [
+       -2.7,
+       66.6
+      ],
+      [
+       -2.8,
+       85.3
+      ],
+      [
+       4.5,
+       85.7
+      ],
+      [
+       4.5,
+       88.6
+      ],
+      [
+       24.8,
+       88.5
+      ],
+      [
+       24.5,
+       81.4
+      ],
+      [
+       22.5,
+       81.2
+      ],
+      [
+       22.7,
+       72.0
+      ],
+      [
+       15.6,
+       72.5
+      ],
+      [
+       15.7,
+       66.0
+      ],
+      [
+       14.6,
+       66.2
+      ],
+      [
+       14.5,
+       58.3
+      ]
+     ]
+    ]
+   }
+  ],
+  "bounds_m": {
+   "min": [
+    -138.89,
+    -88.62
+   ],
+   "max": [
+    119.25,
+    85.9
+   ],
+   "extent_x_m": 258.14,
+   "extent_y_m": 174.52,
+   "previous_extent_m": [
+    245.0,
+    134.9
+   ]
+  }
+ },
+ "srvsurvey": {
+  "economy": "HighTech",
+  "subType": 2,
+  "name": "Pheobe",
+  "name_note": null,
+  "source": "SrvSurvey settlements/humanSiteTemplates.json, https://github.com/njthomson/SrvSurvey",
+  "licence": "GPL-3.0",
+  "credit": "Settlement measurements from SrvSurvey (njthomson) and its contributors.",
+  "templates_md5": "83e441a5466ac0c5c958c18c58bc920d"
+ },
+ "merge": {
+  "date": "2026-10-29",
+  "tool": "merge.py",
+  "source_file": "6 High-Tech - Bio/02 Pheobe/high-tech-2.json",
+  "source_md5": "cc44c1454adf420d198e66ccfe1e0697"
+ }
+}

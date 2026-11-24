@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060606">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>UCEC FT3000</title>
+<!-- Font: "Px437 IBM VGA 8x16" (WebPlus) from the Ultimate Oldschool PC Font Pack by VileR,
+     https://int10h.org/oldschool-pc-fonts/ - CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0/ -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="strip">
+    <div class="tabs" role="tablist" aria-label="Pages">
+      <span class="acc" aria-hidden="true">&#9632;</span>
+      <button type="button" class="tab" role="tab" data-tab="home">1 Home</button>
+      <button type="button" class="tab" role="tab" data-tab="nav">2 Nav</button>
+      <button type="button" class="tab" role="tab" data-tab="contracts">3 Contracts</button>
+      <button type="button" class="tab" role="tab" data-tab="setup">4 Setup</button>
+      <button type="button" class="tab" role="tab" disabled>5</button>
+    </div>
+    <div><span id="cmdr" class="wide"></span><span id="loc"></span><span id="rmt" class="rmt" hidden></span><span id="count" class="wide"></span><span id="link">Live<span class="blink">_</span></span></div>
+    <button type="button" class="quit" id="quit" title="Shut down the FT3000 (stops the script)">[ Exit ]</button>
+  </header>
+
+  <!-- the tab's sub-tabs (the UFC's keypad picks them); main.js fills it, on tabs that have more than one -->
+  <nav class="subtabs" id="subtabs" aria-label="Sub-pages" hidden></nav>
+
+  <div class="body">
+    <!-- Each tab is made of pages; each page owns a section of the screen. data-tab and data-sub say which
+         (data-sub: the page's place in its tab); web/js/main.js lists the same pages, and their sub-tabs. -->
+    <section class="page" id="pg-home" data-tab="home" data-sub="1" aria-label="1 Home">
+      <nav class="rail" aria-label="Commander case file">
+        <section id="casefile" aria-label="Commander case file">
+          <div class="lab">Case file</div>
+          <div class="bigname" id="cf-name"></div>
+          <div class="cf"><span class="lab">Ship</span><span class="v" id="cf-ship"></span><span class="v dim" id="cf-shipid"></span></div>
+          <div class="lab sec">This session</div>
+          <div class="cf"><span class="lab">Kills</span><span class="v" id="cf-sk"></span></div>
+          <div class="cf"><span class="lab">Bounties logged</span><span class="v" id="cf-sb"></span></div>
+          <div class="cf"><span class="lab">Credits earned</span><span class="v" id="cf-se"></span></div>
+          <div class="cf"><span class="lab">Jumps</span><span class="v" id="cf-sj"></span></div>
+          <div class="lab sec">Commander</div>
+          <div class="cf"><span class="lab">Mode</span><span class="v" id="cf-mode"></span></div>
+          <div class="cf"><span class="lab">Credits at login</span><span class="v" id="cf-cr"></span></div>
+          <div class="cf"><span class="lab">Combat rank</span><span class="v" id="cf-combat"></span><span class="v" id="cf-cbar"></span></div>
+          <div class="cf" id="cf-navy-row"><span class="lab">Navy rank</span><span class="v ml" id="cf-navy"></span></div>
+          <div class="cf" id="cf-rep-row"><span class="lab">Reputation</span><span class="v ml" id="cf-rep"></span></div>
+          <div class="cf" id="cf-pp-row"><span class="lab">Powerplay</span><span class="v" id="cf-pp"></span></div>
+          <div class="lab sec">Career</div>
+          <div class="cf"><span class="lab">Bounties claimed</span><span class="v" id="cf-bc"></span></div>
+          <div class="cf"><span class="lab">Bounty profit</span><span class="v" id="cf-bp"></span></div>
+          <div class="cf"><span class="lab">Assassinations</span><span class="v" id="cf-as"></span></div>
+          <div class="cf"><span class="lab">Highest reward</span><span class="v" id="cf-hi"></span></div>
+        </section>
+        <div class="lab foot lastev"></div>
+      </nav>
+      <main class="panel none" id="home-panel">
+        <div id="idle">
+          <section id="sit" aria-label="Local situation">
+            <div class="lab" id="st-lab">Local situation</div>
+            <div class="bigname" id="st-name"></div>
+            <div id="st-chips"></div>
+            <div class="grid">
+              <div class="cell"><span class="lab">Allegiance</span><span class="v" id="st-all"></span></div>
+              <div class="cell"><span class="lab">Government</span><span class="v" id="st-gov"></span></div>
+              <div class="cell"><span class="lab">Security</span><span class="v" id="st-sec"></span></div>
+              <div class="cell"><span class="lab">Economy</span><span class="v" id="st-eco"></span></div>
+              <div class="cell"><span class="lab">Population</span><span class="v" id="st-pop"></span></div>
+              <div class="cell"><span class="lab">Power</span><span class="v" id="st-pow"></span></div>
+            </div>
+            <div id="st-war"></div>
+            <div class="lab" id="st-flab">Factions</div>
+            <div id="st-fac"></div>
+          </section>
+          <section id="slog" aria-label="Session log">
+            <div class="lab" id="lg-lab">Session log</div>
+            <div id="lg-lines"></div>
+            <div class="lab">C:\ED\LOG&gt;<span class="blink">_</span></div>
+          </section>
+        </div>
+        <div class="empty">
+          <div>C:\ED\CONTRACTS&gt;<span class="blink">_</span></div>
+          <div class="emsg">NO ACTIVE CONTRACTS.</div>
+          <div class="lab emsg2">Accept a mission and it will appear here.</div>
+        </div>
+      </main>
+    </section>
+
+    <section class="page" id="pg-contracts" data-tab="contracts" data-sub="1" aria-label="3 Contracts: active">
+      <nav class="rail" aria-label="Contracts">
+        <div class="lab" id="idx-lab">Index</div>
+        <div id="list"></div>
+        <div class="xbox" id="rail-x"><span>No contracts</span></div>
+        <div class="lab foot lastev"></div>
+      </nav>
+      <main class="panel none" id="panel">
+        <div class="pc" id="pc">
+          <div class="head">
+            <div class="who">
+              <div class="lab" id="case"></div>
+              <h1 id="name" style="margin: 0; font-weight: normal"></h1>
+              <div id="chips"></div>
+            </div>
+            <div id="sigil"></div>
+          </div>
+          <div class="grid">
+            <div class="cell"><span class="lab">Location <button type="button" class="clipb" id="f-clip" hidden>Copy</button></span><span class="v" id="f-loc"></span></div>
+            <div class="cell"><span class="lab">Issued by</span><span class="v" id="f-iss"></span></div>
+            <div class="cell"><span class="lab">Reward</span><span class="v" id="f-rew"></span></div>
+            <div class="cell"><span class="lab">Expires</span><span class="v" id="f-exp"></span></div>
+            <div class="cell"><span class="lab" id="f-l5">Last scan</span><span class="v" id="f-scan"></span></div>
+            <div class="cell"><span class="lab">Status</span><span class="v" id="f-stat"></span></div>
+          </div>
+          <div id="bars" hidden>
+            <span><span class="lab">Shields </span><span id="b-sh"></span> <span class="pct" id="p-sh"></span></span>
+            <span><span class="lab">Hull </span><span id="b-hu"></span> <span class="pct" id="p-hu"></span></span>
+            <span class="lab" id="b-ago"></span>
+          </div>
+          <div class="dhead">
+            <span class="lab" id="dlab">Dossier</span>
+            <button class="btn" id="rw" type="button" hidden>[ Rewrite ]</button>
+          </div>
+          <div id="story"></div>
+        </div>
+        <div class="xbox flat" id="panel-x"><span>No information</span></div>
+        <div class="empty">
+          <div>C:\ED\CONTRACTS&gt;<span class="blink">_</span></div>
+          <div class="emsg">NO ACTIVE CONTRACTS.</div>
+          <div class="lab emsg2">Accept a mission and it will appear here.</div>
+        </div>
+      </main>
+    </section>
+
+    <section class="page wide" id="pg-ocor" data-tab="contracts" data-sub="3" aria-label="3 Contracts: OCOR">
+      <nav class="rail" aria-label="OCOR objectives">
+        <section id="ocor-rail" aria-label="OCOR objectives">
+          <div class="lab" id="ob-lab">Index</div>
+          <div id="ob-list"></div>
+          <div class="xbox" id="ob-railx"><span>No briefing</span></div>
+          <div class="obage" id="ob-age" hidden><span id="ob-at"></span><span id="ob-ago"></span></div>
+          <button type="button" class="obpaste" id="ob-paste" aria-haspopup="dialog">[ Fetch briefing ]</button>
+        </section>
+      </nav>
+      <main class="panel">
+        <div class="pc" id="ob-pc">
+          <div class="head">
+            <div class="who">
+              <div class="lab" id="ob-case"></div>
+              <div class="namerow"><h2 class="bigname" id="ob-name" style="margin: 0; font-weight: normal"></h2><button type="button" class="clipb" id="ob-clip" hidden>Copy</button></div>
+              <div id="ob-chips"></div>
+            </div>
+            <div id="ob-sigil"></div>
+          </div>
+          <div class="grid">
+            <div class="cell wide"><span class="lab">Faction</span><span class="v" id="ob-fac"></span></div>
+            <div class="cell"><span class="lab">Government</span><span class="v" id="ob-gov"></span></div>
+            <div class="cell"><span class="lab" id="ob-l3"></span><span class="v" id="ob-v3"></span></div>
+            <div class="cell wide"><span class="lab" id="ob-l4"></span><span class="v" id="ob-v4"></span></div>
+            <div class="cell wide"><span class="lab">Distance</span><span class="v" id="ob-dist"></span></div>
+          </div>
+          <div class="dhead">
+            <span class="lab">Orders</span>
+            <a class="btn" id="ob-inara" href="#" target="_blank" rel="noopener noreferrer">[ Inara ]</a>
+          </div>
+          <div id="ob-desc"></div>
+          <div id="ob-orders"></div>
+          <div class="lab sec" id="ob-nlab">Standing orders</div>
+          <div id="ob-notes"></div>
+        </div>
+        <div class="xbox flat" id="ob-panelx"><span>No information</span></div>
+      </main>
+    </section>
+
+    <section class="page wide" id="pg-syst-list" data-tab="nav" data-sub="1" aria-label="2 Nav: Syst list">
+      <nav class="rail" aria-label="Bodies and stations in this system">
+        <section id="syst-rail" aria-label="Bodies and stations in this system">
+          <div class="syrtop">
+            <div class="lab" id="sy-lab">System</div>
+            <div class="syview" role="group" aria-label="System view" data-subtabs="nav"><button type="button" data-sub="1" data-view="list">List</button><button type="button" data-sub="2" data-view="map">Map</button></div>
+          </div>
+          <!-- CURRENT SYSTEM / REMOTE: the system you're in, or one picked to look at and plan in (the UFC: COMM1's first stop) -->
+          <div class="syrtop syrrow"><span class="trsw syrem" id="sy-rem" role="group" aria-label="The system shown: the one you're in, or a remote one"><button type="button" data-v="cur">Current system</button><button type="button" data-v="rem">Remote</button></span>
+            <span class="lab syrly" id="sy-rly"></span></div>
+          <div id="sy-list"></div>
+          <div class="xbox" id="sy-railx"><span id="sy-railmsg">No system data</span></div>
+          <div class="syhum" id="sy-hum">
+            <div class="lab">Commanders here</div>
+            <div id="sy-edsm1"></div>
+            <div id="sy-edsm2"></div>
+            <div id="sy-you"></div>
+            <button type="button" class="syup" id="sy-up" data-key="uplink" aria-describedby="sy-upt"><span class="l1">System data</span><span class="l2">Uplink synchronise</span></button>
+            <div class="syupt" id="sy-upt"></div>
+            <!-- where system data comes from (both on: Spansh, then EDSM where it has nothing); the UFC's last two COMM1 stops -->
+            <div class="sysrc" role="group" aria-label="Uplinks">
+              <button type="button" class="sysrcb" id="sy-src-spansh" data-src="spansh" aria-pressed="true">Spansh Uplink</button>
+              <button type="button" class="sysrcb" id="sy-src-edsm" data-src="edsm" aria-pressed="true">EDSM Uplink</button>
+            </div>
+          </div>
+        </section>
+      </nav>
+      <main class="panel">
+        <div id="sy-pc">
+          <div class="sytop">
+            <div class="sysw" id="sy-sw" role="group" aria-label="Follow mode">
+              <span class="syarr" aria-hidden="true">&#9658;</span>
+              <button type="button" id="sy-auto">Auto</button><button type="button" id="sy-man">Manual</button>
+            </div>
+            <span class="lab" id="sy-age"></span>
+          </div>
+          <div class="syscroll" id="sy-scroll">
+            <div class="syhead">
+              <div class="who">
+                <div class="lab" id="sy-case"></div>
+                <h2 class="syname" id="sy-name"></h2>
+                <div id="sy-chips"></div>
+              </div>
+              <div class="sypic" id="sy-pic">
+                <!-- the picture: drawn as SVG (unseen; it takes the clicks), shown in coarse pixels on the canvas over it -->
+                <div class="sywin" id="sy-win">
+                  <svg id="sy-svg" viewBox="0 0 140 140" role="img" aria-label="Wireframe picture: tap to grab and rotate"></svg>
+                  <canvas id="sy-px" aria-hidden="true"></canvas>
+                  <!-- Align layout: over the schematic while you turn it to match what you see -->
+                  <div class="syalign" id="sy-alignbar" role="group" aria-label="Align layout" hidden>
+                    <div class="syal-txt"><span class="syal-t">Align layout</span> <span class="syal-n" id="sy-alnote"></span></div>
+                    <div class="syal-btns">
+                      <button type="button" class="sybtn" id="sy-alcancel" data-f="al-cancel">Cancel</button>
+                      <button type="button" class="sybtn" id="sy-alok" data-f="al-ok">Confirm heading</button>
+                    </div>
+                  </div>
+                </div>
+                <span class="syrot" id="sy-rotlab">Rotate</span>
+                <!-- the picture's options; the UFC's COMM2 knob steps through them (data-f) and a pull presses one -->
+                <div class="sybtns">
+                  <button type="button" class="sybtn" id="sy-max" data-f="max">Maximise</button>
+                  <button type="button" class="sybtn" id="sy-sch" data-f="sch" disabled>Schematic view</button>
+                  <button type="button" class="sybtn" id="sy-dsg" data-f="dsg" hidden title="Make it the target (TGT): Atk attacks it, the HSI shows it (or DSG on the UFC)">Designate</button>
+                  <button type="button" class="sybtn" id="sy-stor" data-f="stor" hidden title="Keep its position as one of your waypoints (2 Nav › Wpt)">Store as WP</button>
+                  <div class="synote" id="sy-snote"></div>
+                  <div class="sypick" id="sy-pick" hidden>
+                    <div class="sypick-row">
+                      <button type="button" class="sybtn sm" id="sy-prev" data-f="prev" aria-label="Previous layout">&#9664;</button>
+                      <span class="sypname"><span id="sy-pname"></span> <span class="dim" id="sy-pnum"></span></span>
+                      <button type="button" class="sybtn sm" id="sy-next" data-f="next" aria-label="Next layout">&#9654;</button>
+                    </div>
+                    <button type="button" class="sybtn" id="sy-ok" data-f="ok">Confirm layout</button>
+                    <button type="button" class="sybtn" id="sy-align" data-f="align" title="Turn the schematic to match what you see, and keep which way the settlement faces" hidden>Align layout</button>
+                  </div>
+                  <div class="syicons" id="sy-icons" role="group" aria-label="Icons" hidden>
+                    <button type="button" class="sybtn sm" data-f="ic-term" data-ic="term">Terminals</button>
+                    <button type="button" class="sybtn sm" data-f="ic-door" data-ic="door">Doors</button>
+                    <button type="button" class="sybtn sm" data-f="ic-power" data-ic="power">Power/alarm</button>
+                    <button type="button" class="sybtn sm" data-f="ic-exp" data-ic="exp" title="Medkits and batteries (SrvSurvey)">Expendables</button>
+                    <button type="button" class="sybtn sm" data-f="ic-cz" data-ic="cz" title="Frontline Solutions combat-zone checkpoints (A-F) and power posts (P) (SrvSurvey)">CZ points</button>
+                    <button type="button" class="sybtn sm" id="sy-type" data-f="ic-type" title="The settlement type whose layouts show">Type</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid" id="sy-grid"></div>
+          </div>
+        </div>
+        <div class="xbox flat" id="sy-panelx"><span>No information</span></div>
+      </main>
+      <div class="syrpop" id="sy-rpop" role="dialog" aria-label="Remote system: pick one" hidden></div>
+    </section>
+
+    <section class="page full" id="pg-syst-map" data-tab="nav" data-sub="2" aria-label="2 Nav: Syst map">
+      <section class="symap" id="symap" aria-label="System map">
+        <canvas id="sm-cv" role="img" aria-label="Map of the bodies and stations in this system. Drag to look around; tap one for its details."></canvas>
+        <div class="xbox flat" id="sm-x"><span id="sm-msg">No system data</span></div>
+        <div class="smtop">
+          <div class="syview" role="group" aria-label="System view" data-subtabs="nav"><button type="button" data-sub="1" data-view="list">List</button><button type="button" data-sub="2" data-view="map">Map</button></div>
+          <div class="lab" id="sm-lab">System</div>
+          <span class="lab smspin">Spin: 1 day = 3 s</span>
+          <button type="button" class="smkeyb smz" id="sm-zout" aria-label="Zoom out">-</button><button type="button" class="smkeyb smz" id="sm-zin" aria-label="Zoom in">+</button>
+          <button type="button" class="smkeyb" id="sm-keyb" aria-expanded="false" aria-controls="sm-key">Key</button>
+        </div>
+        <div class="smkey" id="sm-key">
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="none" stroke="#45f08a" stroke-dasharray="3 1.5"/><circle cx="12" cy="12" r="9.5" fill="none" stroke="#8affc1"/></svg>Landable</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="8" height="8" fill="#e3a24a"/></svg>Settlement</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6 L18 17 L6 17 Z" fill="#e3a24a"/></svg>Port or outpost</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="#25b85c"/><rect x="7.5" y="7.5" width="9" height="9" fill="none" stroke="#45f08a"/><path d="M12 7.5 L16.5 12 L12 16.5 L7.5 12 Z" fill="none" stroke="#45f08a"/></svg>Station, carrier, megaship, installation or beacon: its list icon</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20 V8 H19 V20 M12 8 V3" fill="none" stroke="#25b85c" stroke-width="1.5"/></svg>Shared orbit (barycentre)</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="none" stroke="#45f08a"/><path d="M9 21 L15 3" stroke="#8affc1" stroke-dasharray="2 2"/></svg>Spin axis, leaning by its tilt</div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5 L12 13 L17 5 Z" fill="#e3a24a"/></svg>You</div>
+          <canvas id="sm-keycv" aria-label="Planet type symbols"></canvas>
+          <div class="dim">Sizes compressed. Every body spins at its own day length, 1 day = 3 s (the fastest are capped).</div>
+          <div class="dim">Drag or scroll to look around. - and + zoom (or Ctrl+wheel, or pinch); double-click fits it again.</div>
+        </div>
+        <div class="sminfo" id="sm-info"></div>
+      </section>
+    </section>
+
+    <section class="page wide" id="pg-tgt" data-tab="nav" data-sub="4" aria-label="2 Nav: your waypoints, marks and flight plans">
+      <nav class="rail" aria-label="Making waypoints and marks; yours in this system, and the flight plans">
+        <section class="tgrail" aria-label="Making waypoints and marks; yours in this system, and the flight plans">
+          <div class="lab">Create</div>
+          <div class="tgmeth" id="tg-meth" role="group" aria-label="How to make a waypoint">
+            <button type="button" class="tgm" data-m="manual" data-f="m:manual" aria-pressed="true">Manual</button>
+            <button type="button" class="tgm" data-m="overfly" data-f="m:overfly" aria-pressed="false">Overfly</button>
+            <button type="button" class="tgm" data-m="desig" data-f="m:desig" aria-pressed="false" title="Where your flight path meets the ground">HUD VV</button>
+            <button type="button" class="tgm" data-m="xb" data-f="m:xb" aria-pressed="false" title="Cross bearings: where lines from you to the target cross">HUD X-B</button>
+          </div>
+          <div class="lab tgsys" id="tg-sys">Waypoints</div>
+          <div class="tglist" id="tg-list"></div>
+        </section>
+      </nav>
+      <main class="panel">
+        <div class="tgpc" id="tg-pc">
+          <div class="lab" id="tg-case"></div>
+          <h2 class="syname" id="tg-name"></h2>
+          <!-- the body: MANUAL's (what 1 Syst has selected, or the one your HUD target is on), or the target's being edited -->
+          <div class="tgsec" id="tg-bodysec">
+            <div class="tgrow" id="tg-srcrow"><span class="lab tracc">Body</span>
+              <span class="trsw" id="tg-src" data-f2="src" role="group" aria-label="Body: what's selected in Nav Syst, or the one your target in the game (DEST) is on"><button type="button" data-v="pick">1 Syst Sel</button><button type="button" data-v="hud">Dest</button></span></div>
+            <div class="tgrow"><span class="lab">On</span><span class="tgv" id="tg-body"></span></div>
+          </div>
+          <!-- MANUAL, or EDIT: a name (blank: TGT n - body) and the coordinates; SAVE, then CONFIRM -->
+          <div class="tgsec" id="tg-form">
+            <label class="tgrow"><span class="lab">Name</span><span class="tginw"><input class="tgin tgname" id="tg-nm" data-f2="name" type="text" maxlength="40" autocomplete="off" spellcheck="false" placeholder="WPT n - body"><span class="tgcar" id="tg-car" hidden></span></span></label>
+            <label class="tgrow"><span class="lab">Lat</span><input class="tgin" id="tg-lat" data-f2="lat" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="26.9707"></label>
+            <label class="tgrow"><span class="lab">Lon</span><input class="tgin" id="tg-lon" data-f2="lon" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="-59.7420"></label>
+            <div class="tgbtns">
+              <button type="button" class="sybtn" id="tg-save" data-f2="save">Save waypoint</button>
+              <button type="button" class="sybtn" id="tg-ecancel" data-f2="ecancel" hidden>Cancel</button>
+            </div>
+          </div>
+          <!-- OVERFLY: the point beneath you, live; MARK makes it a mark (the next of MK1-MK9) -->
+          <div class="tgsec" id="tg-over" hidden>
+            <div class="tgrow"><span class="lab">Body</span><span class="tgv" id="tg-obody"></span></div>
+            <div class="tgrow"><span class="lab">Lat</span><span class="tgbig" id="tg-olat">--</span></div>
+            <div class="tgrow"><span class="lab">Lon</span><span class="tgbig" id="tg-olon">--</span></div>
+            <div class="tgrow"><span class="lab">Alt</span><span class="tgv" id="tg-oalt">--</span></div>
+            <div class="tgbtns"><button type="button" class="sybtn" id="tg-mark" data-f2="mark">Mark</button></div>
+          </div>
+          <!-- HUD VV (once HUD DESIG): where your flight path (your heading, your flight-path angle) meets the ground, live - the
+               last few seconds' average, with how far it wanders; DESIG makes it a mark, designated -->
+          <div class="tgsec" id="tg-desig" hidden>
+            <div class="tgrow"><span class="lab">Body</span><span class="tgv" id="tg-dbody"></span></div>
+            <div class="tgrow"><span class="lab">Lat</span><span class="tgbig" id="tg-dlat">--</span></div>
+            <div class="tgrow"><span class="lab">Lon</span><span class="tgbig" id="tg-dlon">--</span></div>
+            <div class="tgrow"><span class="lab">Range</span><span class="tgv" id="tg-drng">--</span></div>
+            <div class="tgrow"><span class="lab">Path</span><span class="tgv" id="tg-dpath">--</span></div>
+            <div class="tgwarn" id="tg-dwarn" hidden></div>
+            <div class="tgbtns"><button type="button" class="sybtn" id="tg-dbtn" data-f2="desig">Desig</button></div>
+          </div>
+          <!-- HUD X-B: bearings to the target (the dot on it) from different places; where they cross (2), or their best fit
+               (3-10) - DESIG makes it a mark, designated -->
+          <div class="tgsec" id="tg-xb" hidden>
+            <div class="tgrow"><span class="lab">Body</span><span class="tgv" id="tg-xbody"></span></div>
+            <div class="tgrow"><span class="lab">Hdg</span><span class="tgv" id="tg-xhdg">--</span></div>
+            <div class="tgrow"><span class="lab">Lat</span><span class="tgbig" id="tg-xlat">--</span></div>
+            <div class="tgrow"><span class="lab">Lon</span><span class="tgbig" id="tg-xlon">--</span></div>
+            <div class="tgrow"><span class="lab">Fix</span><span class="tgv" id="tg-xfix">--</span></div>
+            <div class="tgwarn" id="tg-xwarn" hidden></div>
+            <div class="tgbtns">
+              <button type="button" class="sybtn" id="tg-xtake" data-f2="xtake" title="Your position and heading now: put the dot on the target first">Take bearing</button>
+              <button type="button" class="sybtn" id="tg-xdsg" data-f2="xdsg">Desig</button>
+              <button type="button" class="sybtn" id="tg-xclr" data-f2="xclr">Clear all</button>
+            </div>
+            <div class="lab" id="tg-xhd">Bearings</div>
+            <div class="tgchain tgxlist" id="tg-xlist"></div>
+          </div>
+          <!-- a waypoint: its details; EDIT, DESIGNATE (again: its offset aimpoint, then nothing), O/S, DELETE (then CONFIRM DELETE or CANCEL) -->
+          <div class="tgsec" id="tg-one" hidden>
+            <div class="grid" id="tg-grid"></div>
+            <div class="tgbtns">
+              <button type="button" class="sybtn" id="tg-edit" data-f2="edit">Edit</button>
+              <button type="button" class="sybtn" id="tg-dsg" data-f2="dsg">Designate</button>
+              <button type="button" class="sybtn" id="tg-os" data-f2="os" title="Its offset aimpoint: a range and bearing from it (the building you're after, say)">Offset (O/S)</button>
+              <button type="button" class="sybtn" id="tg-del" data-f2="del">Delete</button>
+              <button type="button" class="sybtn" id="tg-cancel" data-f2="cancel" hidden>Cancel</button>
+              <button type="button" class="sybtn tgdanger" id="tg-confirm" data-f2="confirm" hidden>Confirm delete</button>
+            </div>
+          </div>
+          <!-- O/S: a waypoint's offset aimpoint - the range (m) and bearing (degrees true) from it; SAVE, CLEAR, CANCEL -->
+          <div class="tgsec" id="tg-osf" hidden>
+            <label class="tgrow"><span class="lab">Rng m</span><input class="tgin" id="tg-orng" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="450"></label>
+            <label class="tgrow"><span class="lab">Brg &#176;</span><input class="tgin" id="tg-obrg" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="090"></label>
+            <div class="tgbtns">
+              <button type="button" class="sybtn" id="tg-osave" data-f2="osave">Save O/S</button>
+              <button type="button" class="sybtn" id="tg-oclr" data-f2="oclr">Clear O/S</button>
+              <button type="button" class="sybtn" id="tg-ocancel" data-f2="ocancel">Cancel</button>
+            </div>
+          </div>
+          <!-- a mark: its details; DESIGNATE, STORE AS WP, DELETE (then CONFIRM DELETE or CANCEL) -->
+          <div class="tgsec" id="tg-mk" hidden>
+            <div class="grid" id="tg-mgrid"></div>
+            <div class="tgbtns">
+              <button type="button" class="sybtn" id="tg-mdsg" data-f2="mdsg">Designate</button>
+              <button type="button" class="sybtn" id="tg-mstor" data-f2="mstor">Store as WP</button>
+              <button type="button" class="sybtn" id="tg-mdel" data-f2="mdel">Delete</button>
+              <button type="button" class="sybtn" id="tg-mcancel" data-f2="mcancel" hidden>Cancel</button>
+              <button type="button" class="sybtn tgdanger" id="tg-mconfirm" data-f2="mconfirm" hidden>Confirm delete</button>
+            </div>
+          </div>
+          <!-- a flight plan: its waypoints in order (pick one: INSERT puts the next after it, the arrows move it up and down, REMOVE takes it out); ACTIVATE SEQ, CLEAR PLAN -->
+          <div class="tgsec" id="tg-seq" hidden>
+            <div class="tgchain" id="tg-chain"></div>
+            <div class="tgrow"><span class="lab">Add WP</span><input class="tgin tgsm" id="tg-sadd" data-f2="sadd" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="#">
+              <button type="button" class="sybtn" id="tg-sins" title="After the waypoint picked in the plan (none picked: at the end)">Insert</button></div>
+            <!-- its time on target, as the Hornet's HSI DATA / WYPT: its TGT (the picked waypoint), TOT (Zulu) and GSPD (the IP > TGT leg) -->
+            <div class="tgrow"><span class="lab">TGT</span><span class="tgtotv" id="tg-stgtv">None</span>
+              <button type="button" class="sybtn" id="tg-stgt" data-f2="stgt" title="The picked waypoint as this plan's TGT - its time on target (again: none). Apart from the target you designate (DSG)">Set TGT</button></div>
+            <div class="tgrow"><span class="lab">TOT</span><input class="tgin tgtot" id="tg-stot" data-f2="stot" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="HH:MM:SS"><span class="lab">Z</span>
+              <span class="lab tggs">GSPD</span><input class="tgin tgsm" id="tg-sgspd" data-f2="sgspd" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="kts"><span class="lab">kts</span></div>
+            <div class="tgtotl" id="tg-totl"></div>
+            <div class="tgbtns">
+              <button type="button" class="sybtn" id="tg-sact" data-f2="sact">Activate SEQ</button>
+              <button type="button" class="sybtn tgmv" id="tg-sup" title="The picked waypoint one place up the plan (on the UFC: a COMM2 pull on it grabs it, COMM2 moves it)" aria-label="Move up">&#9650;</button>
+              <button type="button" class="sybtn tgmv" id="tg-sdn" title="The picked waypoint one place down the plan" aria-label="Move down">&#9660;</button>
+              <button type="button" class="sybtn" id="tg-sdel" data-f2="sdel">Remove</button>
+              <button type="button" class="sybtn" id="tg-sclr" data-f2="sclr">Clear plan</button>
+            </div>
+          </div>
+          <div class="ufclv" id="tg-lv" hidden></div>
+          <div class="tgnote" id="tg-note" role="status"></div>
+          <div class="tgstrip" id="tg-strip"></div>
+        </div>
+      </main>
+    </section>
+
+    <section class="page full" id="pg-hsi" data-tab="nav" data-sub="5" aria-label="2 Nav: HSI - flying your flight plans">
+      <div class="trtop">
+        <div class="trtl">
+          <span class="lab tracc">Seq</span>
+          <span class="trsw" id="hs-seq" data-f="seq" role="group" aria-label="The flight plan the HSI flies (None: no plan - steer to any of your points)"><button type="button" data-v="none">None</button><button type="button" data-v="1">Seq 1</button><button type="button" data-v="2">Seq 2</button><button type="button" data-v="3">Seq 3</button><button type="button" data-v="atk">Atk</button></span>
+          <span class="trsw hsauto" id="hs-auto" data-f="auto" role="group" aria-label="Sequencing: AUTO steps the steer-to point on as you reach each point"><button type="button" data-v="auto">Auto</button><button type="button" data-v="man">Man</button></span>
+        </div>
+        <div class="trtm">
+          <span class="trdname" id="hs-sname"></span>
+          <span class="lab trdsub" id="hs-ssub"></span>
+          <span class="chip trstate" id="hs-state" hidden></span>
+        </div>
+        <div class="trtr"></div>
+      </div>
+      <div class="trcols">
+        <div class="trwait" id="hs-wait" role="status" hidden><div class="trwt" id="hs-waitt"></div><div class="trws" id="hs-waits"></div></div>
+        <section class="trcol trside hsmap" aria-label="HSI">
+          <div class="trhead"><span class="lab">HSI</span><span class="chip trchip" id="hs-fix" hidden></span>
+            <span class="trsw trview" id="hs-view" data-f="view" role="group" aria-label="View"><button type="button" data-v="T">Trk-up</button><button type="button" data-v="N">N-up</button></span></div>
+          <div class="trwin"><svg id="hs-map-svg" aria-hidden="true"></svg><canvas id="hs-map" class="trpx" role="img" aria-label="HSI: you in the middle, the compass rose, the flight plan, the steer-to point and the target"></canvas>
+            <div class="hstmr" id="hs-tmr" role="group" aria-label="Timer: the stopwatch (ET) or the countdown (CD)">
+              <button type="button" class="hstm" id="hs-tmode" data-f="tmode" title="SEL: the stopwatch (ET) or the countdown (CD). Or COMM1, a pull">ET</button>
+              <button type="button" class="hstd" id="hs-tdig" data-f="timer" title="CTL: start it, and again reset it - a countdown with no time set: type its time. Or COMM1, a pull (its time on the keypad, ENT)">00:00:00</button>
+              <input type="text" class="hstin" id="hs-tin" inputmode="numeric" autocomplete="off" spellcheck="false" maxlength="8" placeholder="HH:MM:SS" aria-label="The countdown's time, HH:MM:SS" hidden>
+            </div></div>
+          <div class="trcrsrow">
+            <span class="lab">Scale</span><span class="trhi" id="hs-scale">--</span><span class="chip trchip" id="hs-zoom">Auto</span>
+            <button type="button" class="trbtn off" id="hs-reset" data-f="reset" title="Back to the automatic scale (or COMM1). Zoom with the COMM1 VOLUME dial or the mouse wheel">Reset scale</button>
+            <span class="trsw" id="hs-units" data-f="units" role="group" aria-label="Scale units: kilometres or nautical miles" title="The scale in kilometres or nautical miles (or COMM1)"><button type="button" data-v="km">km</button><button type="button" data-v="nm">NM</button></span>
+          </div>
+        </section>
+        <section class="trcol trside hsdata" aria-label="Steer-to point, flight plan and target">
+          <div class="trhead"><span class="lab">Steer to</span><span class="lab trright">COMM2 &#9650;&#9660; · pull designates</span></div>
+          <div class="hsstr"><span class="hsbig" id="hs-sto">--</span></div>
+          <div class="hsstn" id="hs-stn"></div>
+          <div class="grid trgrid" id="hs-grid"></div>
+          <div class="hscall" id="hs-call" hidden></div>
+          <div class="lab hssec" id="hs-totlab" hidden>Time on target</div>
+          <div class="grid trgrid" id="hs-totgrid" hidden></div>
+          <div class="lab hssec" id="hs-chainlab">Flight plan</div>
+          <div class="hschain" id="hs-chain"></div>
+          <div class="lab hssec hstgtlab">Target</div>
+          <div class="grid trgrid" id="hs-tgrid"></div>
+          <div class="aknote" id="hs-note" role="status"></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="page full" id="pg-atk" data-tab="nav" data-sub="6" aria-label="2 Nav: attack - the plan, and mine release">
+      <div class="trtop">
+        <div class="trtl">
+          <span class="trsw" id="ak-mode" data-f="view" role="group" aria-label="The attack plan, or the attack itself"><button type="button" data-v="plan">Plan</button><button type="button" data-v="atk">Attack</button></span>
+          <span class="lab tracc">Tgt</span>
+        </div>
+        <div class="trtm">
+          <span class="trdname" id="ak-dname"></span>
+          <span class="lab trdsub" id="ak-dsub"></span>
+          <span class="chip trstate" id="ak-state" hidden></span>
+        </div>
+        <div class="trtr"><span class="lab tracc" id="ak-tr">Mines · CCRP</span></div>
+      </div>
+      <!-- PLAN: the profile round the target (ATK HDG up), its settings, BUILD, and the plan code to share -->
+      <div class="trcols" id="ak-pv">
+        <div class="trwait" id="ak-pwait" role="status" hidden><div class="trwt" id="ak-pwaitt"></div><div class="trws" id="ak-pwaits"></div></div>
+        <section class="trcol trside" aria-label="The plan">
+          <div class="trhead"><span class="lab">Plan</span><span class="chip trchip" id="ak-pchip" hidden></span><span class="lab trright">Yours solid · ATK HDG up</span></div>
+          <div class="trwin"><svg id="ak-geo-svg" aria-hidden="true"></svg><canvas id="ak-geo" class="trpx" role="img" aria-label="The attack plan: both tracks round the target, ATK HDG up"></canvas></div>
+          <div class="trcrsrow">
+            <button type="button" class="trcrs" id="ak-hdg" data-f="hdg" aria-pressed="false" title="ATK HDG: the heading from the IP to the target. Click (or pull COMM1) to set it, then scroll (or turn COMM1); again to leave it"><span class="lab">Atk hdg</span><span class="trbig" id="ak-hdgv">---&#176;</span><span class="trstep" id="ak-hstep"></span></button>
+            <button type="button" class="trnudge" id="ak-hdgm" aria-label="ATK HDG 1 degree left">&#9668;</button><button type="button" class="trnudge" id="ak-hdgp" aria-label="ATK HDG 1 degree right">&#9658;</button>
+            <button type="button" class="trbtn" id="ak-hdga" title="AUTO: the bearing you have to the target when you BUILD">Auto</button>
+          </div>
+        </section>
+        <section class="trcol trside akset" aria-label="The plan's settings, its points and its code">
+          <div class="trhead"><span class="lab">Settings</span><span class="lab trright">ENT: HDG SPD BASE ROLE BLD</span></div>
+          <div class="akrow"><span class="lab">Role</span><span class="trsw" id="ak-role" data-f="role" role="group" aria-label="Your role in the flight"><button type="button" data-v="1">51</button><button type="button" data-v="2">52</button></span>
+            <span class="lab">Callsign</span><input class="tgin aksm" id="ak-cs" type="text" maxlength="6" autocomplete="off" spellcheck="false" placeholder="WK5"></div>
+          <div class="akrow"><span class="lab">Speed</span><input class="tgin aksm" id="ak-kts" type="text" inputmode="numeric" autocomplete="off" spellcheck="false"><span class="lab">kts</span><span class="akv" id="ak-ms"></span></div>
+          <div class="akrow"><span class="lab">Base</span><input class="tgin aksm" id="ak-base" type="text" inputmode="numeric" autocomplete="off" spellcheck="false"><span class="lab">m</span>
+            <span class="lab">+1</span><input class="tgin aksm" id="ak-step" type="text" inputmode="numeric" autocomplete="off" spellcheck="false"><span class="lab">m</span></div>
+          <div class="akrow"><button type="button" class="sybtn" id="ak-build" data-f="build">Build</button><span class="aknote akbn" id="ak-bnote" role="status"></span></div>
+          <div class="akpts" id="ak-pts"></div>
+          <div class="lab aktot" id="ak-tot"></div>
+          <div class="akrow akcode"><span class="lab">Code</span><span class="akc" id="ak-code">--</span><button type="button" class="clipb" id="ak-copy" data-f2="copy" data-clip="">Copy</button></div>
+          <div class="akrow"><input class="tgin akload" id="ak-loadin" type="text" autocomplete="off" spellcheck="false" placeholder="A wingman's plan code (empty: the clipboard)"><button type="button" class="sybtn" id="ak-load" data-f2="load">Load</button></div>
+          <div class="ufclv" id="ak-lv" hidden></div>
+        </section>
+      </div>
+      <!-- ATTACK: the mine-release computer -->
+      <div class="trcols" id="ak-atk" hidden>
+        <div class="trwait" id="ak-wait" role="status" hidden><div class="trwt" id="ak-waitt"></div><div class="trws" id="ak-waits"></div></div>
+        <section class="trcol trside" aria-label="Top-down">
+          <div class="trhead"><span class="lab">Top-down</span><span class="chip trchip" id="ak-steer" hidden></span><span class="lab trright">Track up</span></div>
+          <div class="trwin"><svg id="ak-plan-svg" aria-hidden="true"></svg><canvas id="ak-plan" class="trpx" role="img" aria-label="Top-down, track up: you, your track, the release point, where a mine would land, the target boxed in red"></canvas></div>
+          <div class="trcrsrow">
+            <span class="lab">Scale</span><span class="trhi" id="ak-scale">3 km</span><span class="chip trchip" id="ak-zoom">Auto</span>
+            <button type="button" class="trbtn off" id="ak-reset" title="Back to the automatic scale (or pull COMM2). Zoom with the COMM1 VOLUME dial or the mouse wheel">Reset scale</button>
+          </div>
+          <div class="grid trgrid" id="ak-lgrid"></div>
+        </section>
+        <section class="trcol trside" aria-label="Release cue">
+          <div class="trhead"><span class="lab">Release cue</span><span class="lab trright" id="ak-model"></span></div>
+          <div class="trwin"><svg id="ak-cue-svg" aria-hidden="true"></svg><canvas id="ak-cue" class="trpx" role="img" aria-label="The release cue: the azimuth steering line, the ball falling to the release bar"></canvas></div>
+          <div class="akcount" id="ak-count" role="timer">--</div>
+          <div class="grid trgrid" id="ak-rgrid"></div>
+          <div class="aknote" id="ak-warn" role="status"></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="page wide" id="pg-hist" data-tab="nav" data-sub="7" aria-label="2 Nav: history">
+      <nav class="rail" aria-label="Where you've been">
+        <section class="hrail" aria-label="Where you've been">
+          <div class="htgs" role="group" aria-label="Show">
+            <button type="button" class="htg" data-f="tg-systems" data-tg="systems" aria-pressed="true">Systems</button>
+            <button type="button" class="htg" data-f="tg-stations" data-tg="stations" aria-pressed="true">Stations</button>
+            <button type="button" class="htg" data-f="tg-planetary" data-tg="planetary" aria-pressed="true">Planetary</button>
+          </div>
+          <div class="htot" id="hi-tot"></div>
+          <div class="hlist" id="hi-list"></div>
+          <div class="xbox" id="hi-railx"><span id="hi-railmsg">No history yet</span></div>
+          <div class="lab foot" id="hi-foot"></div>
+        </section>
+      </nav>
+      <main class="panel">
+        <div class="hpc" id="hi-pc">
+          <div class="syhead">
+            <div class="who">
+              <div class="lab" id="hi-case"></div>
+              <h2 class="syname" id="hi-name"></h2>
+              <div id="hi-chips"></div>
+              <div class="hsys" id="hi-sysrow"><span class="lab">System</span> <span class="v" id="hi-sys"></span> <button type="button" class="clipb" id="hi-clip" data-f="copy" hidden>Copy</button></div>
+            </div>
+            <div class="hpic" id="hi-pic">
+              <div class="sywin">
+                <svg id="hi-svg" viewBox="0 0 140 140" role="img" aria-label="Wireframe picture"></svg>
+                <canvas id="hi-px" aria-hidden="true"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="grid" id="hi-grid"></div>
+          <div class="lab sec" id="hi-vlab">Your visits</div>
+          <div class="hvis" id="hi-vis"></div>
+          <div class="lab hnote" id="hi-note">Details as the journal recorded them on your last visit</div>
+        </div>
+        <div class="xbox flat" id="hi-panelx"><span>No information</span></div>
+      </main>
+    </section>
+
+    <section class="page full" id="pg-traj" data-tab="nav" data-sub="3" aria-label="2 Nav: trajectory guidance">
+      <div class="trtop">
+        <div class="trtl">
+          <span class="lab tracc">Dest</span>
+          <span class="trsw" id="tr-dest" data-f="dest" role="group" aria-label="Destination: what's selected in Nav Syst, or your target in the game (DEST)"><button type="button" data-v="pick">1 Syst Sel</button><button type="button" data-v="hud">Dest</button></span>
+        </div>
+        <div class="trtm">
+          <span class="trdname" id="tr-dname"></span>
+          <span class="lab trdsub" id="tr-dsub"></span>
+          <span class="chip trstate" id="tr-state" hidden></span>
+        </div>
+        <div class="trmodes trtr" role="group" aria-label="Profile">
+          <button type="button" class="trmode on" id="tr-entry1" aria-pressed="true" title="The profile (COMM2 steps to it, a pull selects it)">Entry 1</button>
+          <button type="button" class="trmode" disabled title="To come: a circling re-entry">Circle</button>
+        </div>
+      </div>
+      <div class="trcols">
+        <div class="trwait" id="tr-wait" role="status" hidden><div class="trwt" id="tr-waitt"></div><div class="trws" id="tr-waits"></div></div>
+        <section class="trcol trside" aria-label="Top-down">
+          <div class="trhead"><span class="lab">Top-down</span><span class="chip trchip" id="tr-lat"></span>
+            <span class="trsw trview" id="tr-view" data-f="view" role="group" aria-label="View"><button type="button" data-v="N">N-up</button><button type="button" data-v="C">Crs-up</button></span></div>
+          <div class="trwin"><svg id="tr-plan-svg" aria-hidden="true"></svg><canvas id="tr-plan" class="trpx" role="img" aria-label="Top-down: the course into the destination, its ±5° bounds, and you"></canvas></div>
+          <div class="trcrsrow">
+            <button type="button" class="trcrs" id="tr-crs" data-f="crs" aria-pressed="false" title="The course in: click (or pull COMM1) to set it, then scroll (or turn COMM1); again to leave it"><span class="lab">Crs</span><span class="trbig" id="tr-crsv">---&#176;</span><span class="trstep" id="tr-step"></span></button>
+            <button type="button" class="trnudge" id="tr-crsm" aria-label="Course 1 degree left">&#9668;</button><button type="button" class="trnudge" id="tr-crsp" aria-label="Course 1 degree right">&#9658;</button>
+            <span class="lab trbound" id="tr-bound">Bounds &#177;5&#176;</span>
+          </div>
+          <div class="grid trgrid" id="tr-lgrid"></div>
+        </section>
+        <section class="trcol trmid" id="tr-mid" aria-label="ILS and highway in the sky" hidden>
+          <div class="trbox">
+            <div class="trhead"><span class="lab">ILS</span><span class="lab trright" id="tr-ilscrs"></span></div>
+            <div class="trwin trsq"><svg id="tr-ils-svg" aria-hidden="true"></svg><canvas id="tr-ils" class="trpx" role="img" aria-label="ILS: the localiser and glide slope needles"></canvas></div>
+            <div class="trline"><span class="lab">Loc</span><span id="tr-loc"></span></div>
+            <div class="trline"><span class="lab">GS</span><span id="tr-gs"></span></div>
+          </div>
+          <div class="trbox trgrow">
+            <div class="trhead"><span class="lab">Highway</span><span class="lab trright" id="tr-gates"></span></div>
+            <div class="trwin"><svg id="tr-hits-svg" aria-hidden="true"></svg><canvas id="tr-hits" class="trpx" role="img" aria-label="Highway in the sky: gates down the 50° path"></canvas></div>
+          </div>
+        </section>
+        <section class="trcol trside" aria-label="Side profile">
+          <div class="trhead"><span class="lab">Side profile</span><span class="chip trchip" id="tr-vert"></span><span class="lab trright" id="tr-optwin">Opt 50&#176; &#183; 10-60&#176;</span></div>
+          <div class="trwin"><svg id="tr-prof-svg" aria-hidden="true"></svg><canvas id="tr-prof" class="trpx" role="img" aria-label="Side profile: the 50° path up from the destination, the 10° and 60° bounds, and you"></canvas></div>
+          <div class="trcrsrow">
+            <span class="lab">Scale</span><span class="trhi" id="tr-scale">30 km</span><span class="chip trchip" id="tr-zoom">Auto</span>
+            <button type="button" class="trbtn off" id="tr-reset" title="Back to the phase's own scale (or pull COMM2). Zoom with the COMM1 VOLUME dial or the mouse wheel">Reset scale</button>
+          </div>
+          <div class="grid trgrid" id="tr-rgrid"></div>
+          <div class="trvv">
+            <div class="trline"><span class="lab tracc">Vertical velocity</span><span class="lab" id="tr-vvreqlab">Req = GS x tan 50&#176;</span></div>
+            <div class="trline"><span class="lab">Req</span><span><span class="lab"><span id="tr-gsn">--</span> m/s x <span id="tr-tanopt">1.192</span> =</span> <span class="trhi" id="tr-vvreq">--</span></span></div>
+            <div class="trline"><span class="lab">Now</span><span><span class="trhi" id="tr-vvnow">--</span> <span class="lab" id="tr-vverr"></span></span></div>
+            <div class="trwin trbar"><svg id="tr-vv-svg" aria-hidden="true"></svg><canvas id="tr-vv" class="trpx" role="img" aria-label="Your vertical velocity against the 10 to 60 degree window"></canvas></div>
+            <div class="trline"><span class="lab" id="tr-vvwinlab">Window 10-60&#176;</span><span class="lab" id="tr-vvwin">--</span></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="page" id="pg-chist" data-tab="contracts" data-sub="2" aria-label="3 Contracts: history">
+      <nav class="rail" aria-label="Missions you've finished">
+        <section class="hrail" aria-label="Missions you've finished">
+          <div class="htgs" role="group" aria-label="Show">
+            <button type="button" class="htg" data-f="tg-completed" data-tg="completed" aria-pressed="true">Completed</button>
+            <button type="button" class="htg" data-f="tg-failed" data-tg="failed" aria-pressed="false">Failed</button>
+            <button type="button" class="htg" data-f="tg-abandoned" data-tg="abandoned" aria-pressed="false">Abandoned</button>
+          </div>
+          <div class="htot" id="ch-tot"></div>
+          <div class="hlist cards" id="ch-list"></div>
+          <div class="xbox" id="ch-railx"><span id="ch-railmsg">No missions</span></div>
+          <div class="lab foot" id="ch-foot"></div>
+        </section>
+      </nav>
+      <main class="panel">
+        <div class="pc" id="ch-pc">
+          <div class="head">
+            <div class="who">
+              <div class="lab" id="ch-case"></div>
+              <h1 id="ch-name" style="margin: 0; font-weight: normal"></h1>
+              <div id="ch-chips"></div>
+            </div>
+            <div id="ch-sigil"></div>
+          </div>
+          <div class="grid">
+            <div class="cell"><span class="lab">Outcome</span><span class="v" id="ch-out"></span></div>
+            <div class="cell"><span class="lab">Issued by</span><span class="v" id="ch-iss"></span></div>
+            <div class="cell"><span class="lab">Paid</span><span class="v" id="ch-paid"></span></div>
+            <div class="cell"><span class="lab">Accepted</span><span class="v" id="ch-acc"></span></div>
+            <div class="cell"><span class="lab">Ended</span><span class="v" id="ch-end"></span></div>
+            <div class="cell"><span class="lab">Destination <button type="button" class="clipb" id="ch-clip" data-f="copy" hidden>Copy</button></span><span class="v" id="ch-dest"></span></div>
+          </div>
+          <div class="dhead"><span class="lab" id="ch-dlab">Details</span></div>
+          <div class="brief" id="ch-brief"></div>
+          <div class="lab sec" id="ch-slab" hidden>Dossier</div>
+          <div id="ch-story" hidden></div>
+        </div>
+        <div class="xbox flat" id="ch-panelx"><span>No information</span></div>
+      </main>
+    </section>
+
+    <!-- 4 Setup > 1 Controls: which button or dial, on which game controller, does each of the UFC's jobs (setup.js) -->
+    <section class="page wide" id="pg-controls" data-tab="setup" data-sub="1" aria-label="4 Setup: controls">
+      <nav class="rail" aria-label="Game controllers">
+        <section class="ctrail" aria-label="Game controllers">
+          <div class="lab">Controllers</div>
+          <div class="ctdevs" id="ct-devs"></div>
+          <div class="ctoff" id="ct-off" hidden></div>
+          <div class="lab ctsub">Assigning</div>
+          <p class="cthelp">ASSIGN a job, then press its new button - or turn its new dial end to end and back - on any controller
+            here. While it waits, a press only records the button. One button, one job: one that's in use moves to the new job.</p>
+          <p class="cthelp">Pick buttons Elite doesn't use, or both will act on them.</p>
+          <div class="ctrest"><button type="button" class="sybtn" id="ct-restore" title="Every job back to the UFC's own button or dial">Restore defaults</button></div>
+          <div class="ctnote" id="ct-note" aria-live="polite"></div>
+        </section>
+      </nav>
+      <main class="panel">
+        <div class="pc ctpc" id="ct-pc">
+          <div class="lab">Setup &middot; Controls &middot; the UFC's jobs, on any game controller</div>
+          <h2 class="syname">Controls</h2>
+          <div class="ctlearn" id="ct-learn" hidden><span id="ct-learn-t"></span><button type="button" class="sybtn" id="ct-cancel">Cancel</button></div>
+          <div class="ctjobs" id="ct-jobs"></div>
+        </div>
+      </main>
+    </section>
+
+    <!-- 4 Setup > 2 Settings: what the FT3000 starts with (settings.js) -->
+    <section class="page wide" id="pg-settings" data-tab="setup" data-sub="2" aria-label="4 Setup: settings">
+      <nav class="rail" aria-label="Restart, and about the FT3000">
+        <section class="ctrail" aria-label="Restart, and about the FT3000">
+          <div class="lab">Settings</div>
+          <p class="cthelp">Each setting is kept as you change it, and takes effect when the FT3000 starts again: RESTART NOW does that
+            (this page stays open). An option given on the command line wins over its setting. Set these with the mouse and keyboard.</p>
+          <div class="ctrest"><button type="button" class="sybtn" id="st-restart" title="Close the FT3000 and start it again, with these settings">Restart now</button></div>
+          <div class="ctnote" id="st-note" aria-live="polite"></div>
+          <div class="lab ctsub">About</div>
+          <div class="stabout" id="st-about"></div>
+        </section>
+      </nav>
+      <main class="panel">
+        <div class="pc ctpc stpc">
+          <div class="lab">Setup &middot; Settings &middot; what the FT3000 starts with</div>
+          <h2 class="syname">Settings</h2>
+          <div class="strows">
+            <div class="strow" data-key="journal_dir">
+              <div class="ctname"><span class="ctn">Journal folder</span><span class="ctwhat">Where Elite writes its journals and Status.json</span></div>
+              <div class="stctl">
+                <div class="stline"><input class="tgin stin" id="st-jdir" type="text" maxlength="400" autocomplete="off" spellcheck="false" aria-label="Journal folder">
+                  <button type="button" class="sybtn sm" id="st-jsave">Save</button><button type="button" class="sybtn sm" id="st-jdef">Default</button></div>
+                <div class="stinfo" id="st-jinfo"></div>
+                <div class="stflag" id="st-f-journal_dir"></div>
+              </div>
+            </div>
+            <div class="strow" data-key="engine">
+              <div class="ctname"><span class="ctn">AI backstories</span><span class="ctwhat">Who writes each target's backstory: a command-line tool, logged in once with your subscription (no API credits)</span></div>
+              <div class="stctl">
+                <div class="stseg" id="st-engine" role="group" aria-label="AI backstories">
+                  <button type="button" class="sybtn sm" data-v="auto">Auto</button><button type="button" class="sybtn sm" data-v="claude">Claude</button><button type="button" class="sybtn sm" data-v="codex">ChatGPT</button><button type="button" class="sybtn sm" data-v="none">None</button></div>
+                <div class="stline"><span class="lab">Model</span><input class="tgin stin stsm" id="st-model" type="text" maxlength="60" autocomplete="off" spellcheck="false" placeholder="the tool's own" aria-label="Model">
+                  <button type="button" class="sybtn sm" id="st-msave">Save</button></div>
+                <div class="stinfo" id="st-einfo"></div>
+                <div class="stflag" id="st-f-engine"></div>
+                <div class="stflag" id="st-f-model"></div>
+              </div>
+            </div>
+            <div class="strow" data-key="lan">
+              <div class="ctname"><span class="ctn">View from other devices</span><span class="ctwhat">Open the page on a phone, a tablet or another PC on your network</span></div>
+              <div class="stctl">
+                <div class="stseg" id="st-lan" role="group" aria-label="View from other devices">
+                  <button type="button" class="sybtn sm" data-v="false">Off</button><button type="button" class="sybtn sm" data-v="true">On</button></div>
+                <div class="stinfo" id="st-linfo"></div>
+                <div class="stwarn" id="st-lwarn">No password: anyone on your network can open the page, and press keys in Elite with it - so only on
+                  a network you trust. Windows may ask, the first time, to let Python use the network: allow private networks.</div>
+                <div class="stflag" id="st-f-lan"></div>
+              </div>
+            </div>
+            <div class="strow" data-key="controllers">
+              <div class="ctname"><span class="ctn">Game controllers</span><span class="ctwhat">The UFC, and any controller given a job on 1 Controls. Off: the page alone</span></div>
+              <div class="stctl">
+                <div class="stseg" id="st-controllers" role="group" aria-label="Game controllers">
+                  <button type="button" class="sybtn sm" data-v="true">On</button><button type="button" class="sybtn sm" data-v="false">Off</button></div>
+                <div class="stinfo" id="st-cinfo"></div>
+                <div class="stflag" id="st-f-controllers"></div>
+              </div>
+            </div>
+            <div class="strow" data-key="open_page">
+              <div class="ctname"><span class="ctn">Open the page at start</span><span class="ctwhat">Open this page in your web browser when the FT3000 starts</span></div>
+              <div class="stctl">
+                <div class="stseg" id="st-open_page" role="group" aria-label="Open the page at start">
+                  <button type="button" class="sybtn sm" data-v="true">On</button><button type="button" class="sybtn sm" data-v="false">Off</button></div>
+                <div class="stflag" id="st-f-open_page"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <section class="hyper" id="hyper" aria-label="Hyperspace jump">
+      <div class="hy" id="hy">
+        <div class="hyhead">
+          <div class="ttl"><span class="eye">FSD &middot; folded star map</span><span class="big">Hyperspace transit</span></div>
+          <div class="state" id="hy-state">Plotting route</div>
+          <div class="checks" id="hy-checks"></div>
+        </div>
+        <div class="hyfold"><canvas id="hy-cv" role="img" aria-label="Folded star map: the route being plotted between the two stars"></canvas>
+          <div class="hyarrive" id="hy-arrive" hidden><span class="a1" id="hy-arrive-nm">Arrived</span><span class="a2" id="hy-arrive-to"></span><span class="a3" id="hy-arrive-back"></span></div></div>
+        <div class="hypanels">
+          <div class="hyp dep">
+            <span class="lab">Departure</span>
+            <span class="nm" id="hy-dep-nm"></span>
+            <span class="sub" id="hy-dep-sub"></span>
+            <div class="rows" id="hy-dep-rows"></div>
+            <canvas class="globe" id="hy-g-dep" width="300" height="300" aria-hidden="true"></canvas>
+          </div>
+          <div class="hyp phase">
+            <span class="lab">Transit phase</span>
+            <div class="list" id="hy-list"></div>
+          </div>
+          <div class="hyp dst">
+            <span class="lab">Destination</span>
+            <span class="nm" id="hy-dst-nm"></span>
+            <span class="sub" id="hy-dst-sub"></span>
+            <div class="rows" id="hy-dst-rows"></div>
+            <canvas class="globe" id="hy-g-dst" width="300" height="300" aria-hidden="true"></canvas>
+          </div>
+        </div>
+        <div class="hybar">
+          <span class="k">Origin</span><span id="hy-o"></span><span class="sep"></span>
+          <span class="k">Destination</span><span id="hy-d"></span><span class="sep"></span>
+          <div class="hyfuel" id="hy-fuel"><span class="k">Fuel</span><div class="fb" aria-hidden="true"><i class="fl" id="hy-fl"></i><i class="fu" id="hy-fu"></i></div><span class="ft" id="hy-ft"></span></div>
+          <span class="ly" id="hy-ly"></span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+<div class="dlg" id="paste" role="dialog" aria-modal="true" aria-labelledby="pd-title" hidden>
+  <div class="dbox">
+    <div id="pd-title">C:\ED\OCOR&gt; FETCH BRIEFING</div>
+    <textarea id="pd-text" spellcheck="false" autocomplete="off" autocapitalize="off"
+              aria-label="OCOR briefing text" placeholder="Paste the whole OCOR briefing from Discord here."></textarea>
+    <div class="dfoot">
+      <span class="lab" id="pd-msg" role="status"></span>
+      <span><button type="button" class="btn" id="pd-cancel">[ Cancel ]</button><button type="button" class="btn" id="pd-load">[ Load ]</button></span>
+    </div>
+  </div>
+</div>
+<!-- the terminal's own screens (power-on, boot, no signal) and changing vehicle: black until the page starts it -->
+<div id="boot" class="power" aria-hidden="true" title="Tap to skip">
+  <canvas id="bt-noise"></canvas>
+  <div id="bt-text"></div>
+  <div id="bt-sig"></div>
+  <div id="bt-vig"></div>
+  <div id="bt-osd"><div class="t1">UCEC FT3000</div><div class="t2">Waiting for input signal<span class="blink">_</span></div></div>
+  <div id="bt-flash"></div>
+</div>
+<div id="halt" hidden>
+  <div>C:\ED&gt; EXIT</div>
+  <div>UCEC FT3000 SHUT DOWN.</div>
+  <div class="lab">You can close this tab. Start the script again to bring it back.</div>
+  <div>C:\ED&gt;<span class="blink">_</span></div>
+</div>
+<div class="scan" aria-hidden="true"></div>
+<div class="sweep" aria-hidden="true"></div>
+
+<script src="js/core.js"></script>
+<script src="js/timing.js"></script>
+<script src="js/mapdraw.js"></script>
+<script src="js/home.js"></script>
+<script src="js/contracts.js"></script>
+<script src="js/ocor.js"></script>
+<script src="js/schematic.js"></script>
+<script src="js/pixel.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/syst.js"></script>
+<script src="js/sysmap.js"></script>
+<script src="js/remote.js"></script>
+<script src="js/history.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/tgt.js"></script>
+<script src="js/traj.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/hsi.js"></script>
+<script src="js/atk.js"></script>
+<script src="js/setup.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/hyper.js"></script>
+<script src="js/boot.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

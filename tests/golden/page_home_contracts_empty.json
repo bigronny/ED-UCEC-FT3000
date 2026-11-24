@@ -1,0 +1,13 @@
+{
+ "app": [],
+ "boot": false,
+ "halt": false,
+ "hyper": false,
+ "map": null,
+ "panel": "NO INFORMATION",
+ "rail": "INDEX\nNO CONTRACTS\nLAST EVENT #:#",
+ "strip": "■\n1 HOME\n2 NAV\n3 CONTRACTS\n4 SETUP\n5\nCMDR DECKARD\nLOC HIP 20277\n0 ACTIVE\nLIVE_\n[ EXIT ]",
+ "sub": "▸\n1 ACTIVE\n2 HISTORY\n3 OCOR\nKEYPAD 1-3",
+ "tab": "contracts",
+ "view": "list"
+}

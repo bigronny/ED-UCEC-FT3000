@@ -1,0 +1,15 @@
+{
+ "app": [
+  "idle"
+ ],
+ "boot": false,
+ "halt": false,
+ "hyper": false,
+ "map": null,
+ "panel": "LOCAL SITUATION · DOCKED: FABIAN CITY\nHIP 20277\nCONFLICT ZONES\nPIRATE ATTACK\nALLEGIANCE\nEmpire\nGOVERNMENT\nPatronage\nSECURITY\nMedium Security\nECONOMY\nIndustrial / Refinery\nPOPULATION\n5.4 million\nPOWER\nAisling Duval · Exploited\nWar: Ovid Vision & Co vs Black Sun Crew (2-1)\nFACTIONS\n► HIP 20277 Party\n41.0%\nBoom · Friendly · next: Expansion\nOvid Vision & Co\n33.0%\nWar · Cordial\nBlack Sun Crew\n26.0%\nWar, Pirate Attack · Unfriendly\nSESSION LOG · SINCE #:#\n#:#\nLOGIN\nKrait Mk II · Solo\n#:#\nUNDOCK\nFabian City\n#:#\nKILL\nAna Diaz · Python · Black Sun Crew · +350,000 CR\n#:#\nBOND\nBlack Sun Crew · +80,000 CR\n#:#\nINTRDCT\nby Bo Rix\n#:#\nESCAPE\nfrom Bo Rix\n#:#\nCRIME\ncollided At Speed In No Fire Zone · 400 CR\n#:#\nPROMO\nCombat: Deadly\n#:#\nDOCK\nFabian City\n#:#\nCASH\nBounty vouchers · +350,000 CR\nC:\\ED\\LOG>_",
+ "rail": "CASE FILE\nDECKARD\nSHIP\nKrait Mk II\nNight Owl · BR-49K\nTHIS SESSION\nKILLS\n2\nBOUNTIES LOGGED\n350,000 CR\nCREDITS EARNED\n350,000 CR\nJUMPS\n0\nCOMMANDER\nMODE\nSolo\nCREDITS AT LOGIN\n120,000,000 CR\nCOMBAT RANK\nDeadly\n██████░░░░░░ 47%\nNAVY RANK\nFed: Midshipman\nEmp: Count\nREPUTATION\nFed: Cordial\nEmp: Friendly\nAlliance: Neutral\nPOWERPLAY\nAisling Duval · rank 3\nCAREER\nBOUNTIES CLAIMED\n1,234\nBOUNTY PROFIT\n456,789,000 CR\nASSASSINATIONS\n77\nHIGHEST REWARD\n12,500,000 CR\nLAST EVENT #:#",
+ "strip": "■\n1 HOME\n2 NAV\n3 CONTRACTS\n4 SETUP\n5\nCMDR DECKARD\nLOC HIP 20277\n0 ACTIVE\nLIVE_\n[ EXIT ]",
+ "sub": null,
+ "tab": "home",
+ "view": "list"
+}

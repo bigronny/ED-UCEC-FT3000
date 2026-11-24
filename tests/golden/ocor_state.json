@@ -1,0 +1,141 @@
+{
+ "date": "27 October 2026",
+ "dist": {
+  "coords": {
+   "Carthage": [
+    100.3438,
+    -102.125,
+    7.3438
+   ],
+   "HIP 20277": null,
+   "Maia": [
+    -81.7812,
+    -149.4375,
+    -343.375
+   ],
+   "Nowhere Known AA-A h0": "unknown",
+   "Test Sector AB-C d1-2": [
+    120.0,
+    -80.0,
+    15.0
+   ]
+  },
+  "edsm": true,
+  "here": [
+   106.4375,
+   -95.6875,
+   -0.1875
+  ],
+  "online": true
+ },
+ "notes": [
+  {
+   "bullet": false,
+   "text": "BOUNTIES only help the faction in whose name they are handed in."
+  },
+  {
+   "bullet": true,
+   "text": "Never turn in bounties for other factions than the supported one."
+  },
+  {
+   "bullet": false,
+   "text": "You can submit contributions towards our daily objectives here:"
+  },
+  {
+   "bullet": false,
+   "text": "https://example.org/submit"
+  }
+ ],
+ "objectives": [
+  {
+   "bar": "",
+   "bullets": [
+    "Complete combat zones and combat-oriented missions, and hand in combat bonds and bounties."
+   ],
+   "desc": "Support Example Legion [Patronage] in their war against Rival Liberal Command.",
+   "dir": "",
+   "done": false,
+   "enemy": "Rival Liberal Command",
+   "faction": "Example Legion",
+   "gov": "Patronage",
+   "id": "o1",
+   "pct": "",
+   "score": "2-1 (day 3)",
+   "section": "War",
+   "system": "Test Sector AB-C d1-2",
+   "task": "war",
+   "url": "https://inara.cz/elite/starsystem/?search=Test%20Sector%20AB-C%20d1-2"
+  },
+  {
+   "bar": "▓▓▓▓▓▓▓▓▓▓",
+   "bullets": [],
+   "desc": "Raise the influence of Example Legion [Patronage] by turning in missions, trade, exploration data, and bounties.",
+   "dir": "▲",
+   "done": true,
+   "enemy": "",
+   "faction": "Example Legion",
+   "gov": "Patronage",
+   "id": "o2",
+   "pct": "0.0",
+   "score": "",
+   "section": "Influence Work",
+   "system": "Carthage",
+   "task": "raise",
+   "url": "https://inara.cz/elite/starsystem/?search=Carthage"
+  },
+  {
+   "bar": "░░░░░░░░░░",
+   "bullets": [],
+   "desc": "Raise the influence of Sample Cartel [Anarchy] by turning in missions, trade, exploration data, and bounties.",
+   "dir": "▲",
+   "done": false,
+   "enemy": "",
+   "faction": "Sample Cartel",
+   "gov": "Anarchy",
+   "id": "o3",
+   "pct": "24.0",
+   "score": "",
+   "section": "Influence Work",
+   "system": "HIP 20277",
+   "task": "raise",
+   "url": "https://inara.cz/elite/starsystem/?search=HIP%2020277"
+  },
+  {
+   "bar": "▓▓▓▓▓▓▓▓░░",
+   "bullets": [],
+   "desc": "Reduce the influence of Rival Liberal Command [Corporate] by working for other factions by completing missions for other factions in the system.",
+   "dir": "▼",
+   "done": false,
+   "enemy": "",
+   "faction": "Rival Liberal Command",
+   "gov": "Corporate",
+   "id": "o4",
+   "pct": "15.3",
+   "score": "",
+   "section": "Influence Work",
+   "system": "Maia",
+   "task": "reduce",
+   "url": "https://inara.cz/elite/starsystem/?search=Maia"
+  },
+  {
+   "bar": "▓▓▓▓▓▓▓▓░░",
+   "bullets": [],
+   "desc": "Raise the influence of Example Legion [Patronage] by turning in missions, trade, exploration data, and bounties.",
+   "dir": "▲",
+   "done": false,
+   "enemy": "",
+   "faction": "Example Legion",
+   "gov": "Patronage",
+   "id": "o5",
+   "pct": "9.5",
+   "score": "",
+   "section": "Influence Work",
+   "system": "Nowhere Known AA-A h0",
+   "task": "raise",
+   "url": "https://inara.cz/elite/starsystem/?search=Nowhere%20Known%20AA-A%20h0"
+  }
+ ],
+ "pasted": "<varies>",
+ "title": "OCOR BRIEFING for 27 October 2026",
+ "v": 1
+}
