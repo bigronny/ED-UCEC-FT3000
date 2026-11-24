@@ -24,6 +24,7 @@ OUT = HERE.parent / "docs"
 W, H = 1920, 1080
 R = 1500000.0   # HIP 20277 3 b's radius (journals.NEAR_HAO)
 PLANET = "HIP 20277 3 b"
+HAO = "Hao Extraction Prospect"
 
 STORY = ("Kirsten Vance learned to fly in the debris rings over Carthage, running salvage for a scrap-dealer uncle who "
          "paid in ration chits and bruises. When the Black Sun Crew bought out his yard she went with it - first as a "
@@ -64,10 +65,6 @@ class ShotBoard(Board):
 
     def options(self):
         return ["--port", str(self.port), "--bindings-dir", str(FIX / "bindings"), "--cli-path", str(self.dir / "claude")]
-
-
-def east(m, lat0=-13.1, lon0=34.9):
-    return round(lon0 + m / (R * math.cos(math.radians(lat0))) * 180 / math.pi, 6)
 
 
 def save(page, name, crop=None):
@@ -126,28 +123,110 @@ def main():
             save(page, "contracts")
             page.close()
 
-        # 2 Nav: the system map; the HSI flying a flight plan, with a target
-        with ShotBoard("shot_nav", **journals.syst()) as b:
+        def pick(page, name):   # (2 Nav > 1 Syst's list)
+            key = page.evaluate(f"() => ED.S.data.syst.entries.find(e => e.name === {json.dumps(name)}).key")
+            page.click(f'#sy-list .srow[data-key="{key}"]')
+            page.wait_for_function(f"() => document.getElementById('sy-name').textContent === {json.dumps(name)}")
+
+        # 2 Nav > 1 Syst: the list (a planet), the map, and a settlement's schematic (its layout confirmed, its heading
+        # known; maximised, with its terminals, doors and expendables shown)
+        lodge, lodge_key = "Dhaenens's Lodgings", "m:3814631936"
+        with ShotBoard("shot_syst", **journals.syst()) as b:
+            b.post("/api/settlement-layout", {"key": lodge_key, "layout": "tourist-4", "name": lodge})
+            b.post("/api/settlement-heading", {"key": lodge_key, "layout": "tourist-4", "heading": 45, "name": lodge})
             page = open_page(b)
             go(page, "nav", 1)
+            pick(page, PLANET)
+            settle(page, 4)
+            save(page, "syst-list")
+            pick(page, lodge)
+            page.click("#sy-max")
+            settle(page, 0.5)
+            page.click("#sy-sch")
+            settle(page, 3)
+            for icons in ("term", "door", "exp"):
+                page.click(f'#sy-icons button[data-ic="{icons}"]')
+            settle(page, 2)
+            save(page, "schematic")
             page.click('#syst-rail .syview button[data-view="map"]')
             settle(page, 4)
             save(page, "system-map")
+            page.close()
+
+        # 2 Nav > 2 Traj: gliding in towards Hao Extraction Prospect (ENTRY 1)
+        with ShotBoard("shot_traj", **journals.syst()) as b:
+            page = open_page(b)
             b.add({"event": "Undocked", "StationName": "Fabian City"})
-            ws = [b.post("/api/tgt", {"op": "add", "body": PLANET, "lat": la, "lon": lo, "method": "manual"})[1]["tgt"]
-                  for la, lo in ((-13.1, east(1500)), (-13.06, east(5000)), (-13.13, east(9000)))]
+            go(page, "nav", 2)
+            for i in range(5):
+                b.write_status(dict(journals.NEAR_HAO, Latitude=round(-13.1 - 0.004 * i, 6), Longitude=round(34.9 - 0.002 * i, 6),
+                                    Altitude=4200 - 250 * i, Flags2=1 << 12, Destination={"Name": HAO}))   # (Flags2: gliding)
+                time.sleep(1.0)
+            page.wait_for_function("() => ED.trajGuide().ok", timeout=10000)
+            settle(page, 1.5)
+            save(page, "traj")
+            page.close()
+
+        # 2 Nav > 3 Wpt, 4 HSI, 5 Atk (PLAN, then ATTACK: the mine-release computer): three waypoints in a flight plan and a
+        # mark, then Hao designated and an attack plan built round it, on a level run in towards it
+        with ShotBoard("shot_nav", **journals.syst()) as b:
+            page = open_page(b)
+            y = b.state()["syst"]
+            hao = next(e for e in y["entries"] if e["name"] == HAO)
+            lat0, lon0 = hao["pic"]["lat"], hao["pic"]["lon"]
+            from_hao = lambda n, e: (round(lat0 + n / R * 180 / math.pi, 6), round(lon0 + e / (R * math.cos(math.radians(lat0))) * 180 / math.pi, 6))
+            b.add({"event": "Undocked", "StationName": "Fabian City"})
+            ws = [b.post("/api/tgt", {"op": "add", "body": PLANET, "lat": la, "lon": lo, "method": "manual", "name": name})[1]["tgt"]
+                  for (la, lo), name in ((from_hao(-400, -2800), "Dry riverbed"), (from_hao(700, -1200), "IP Hao"),
+                                         (from_hao(2500, 3500), "Ridge gap"))]
             for w in ws:
                 b.post("/api/nav", {"op": "seq", "seq": 1, "act": "ins", "id": w["id"]})
             b.post("/api/nav", {"op": "setseq", "seq": "1"})
-            go(page, "nav", 4)
-            for i in range(5):   # east at 150 m/s, 800 m up
-                b.write_status(dict(journals.NEAR_HAO, Latitude=-13.1, Longitude=east(150 * i), Altitude=800, Heading=90))
+            la, lo = from_hao(-1500, -6500)
+            b.post("/api/nav", {"op": "mark", "body": PLANET, "lat": la, "lon": lo, "method": "overfly"})
+            go(page, "nav", 3)
+            page.click(f'#tg-list [data-key="{ws[1]["key"]}"]')
+            settle(page, 2)
+            save(page, "wpt")
+            # flying east at 150 m/s, 1,000 m up, 60 m north of Hao's line, towards the release point
+            grav = next(e for e in y["entries"] if e["name"] == PLANET)["gravity"]
+            throw = 150 * min(10, math.sqrt(2 * 1000 / (grav * 9.80665)))
+
+            def reading(i):
+                la, lo = from_hao(60, -throw - 2400 + 150 * i)
+                b.write_status(dict(journals.NEAR_HAO, Latitude=la, Longitude=lo, Altitude=1000, Heading=90))
+            for i in range(3):
+                reading(i)
                 time.sleep(1.0)
+            go(page, "nav", 4)
             page.wait_for_function("() => ED.hsiSolve().fix && ED.hsiSolve().dist != null", timeout=10000)
-            b.ufc_cmd("press ILS", "press Opt4")   # DSG: the steer-to point, the target
             page.evaluate("() => { ED.hsi.zoom = 20000; }")
             settle(page)
             save(page, "hsi")
+            b.post("/api/nav", {"op": "dsg", "key": hao["key"]})
+            go(page, "nav", 5)
+            page.click("#ak-build")
+            settle(page, 0.5)
+            page.click("#ak-build")   # (twice: BUILD, then CONFIRM)
+            page.wait_for_function("() => ED.S.data.syst.nav.built", timeout=5000)
+            settle(page, 2)
+            save(page, "atk-plan")
+            page.click('#ak-mode button[data-v="atk"]')
+            for i in range(3, 9):
+                reading(i)
+                time.sleep(1.0)
+            page.wait_for_function("() => ED.atkSolve().ok && ED.atkSolve().track && ED.atkSolve().tau > 2", timeout=10000)
+            save(page, "ccrp")
+            page.close()
+
+        # 2 Nav > 6 Hist: everywhere you've been
+        j = journals.history()
+        with ShotBoard("shot_hist", journal=j["journal"], status=j["status"]) as b:
+            b.wait(lambda: (b.state().get("hist") or {}).get("ready") or None, timeout=20, what="the old journals read")
+            page = open_page(b)
+            go(page, "nav", 6)
+            settle(page, 3)
+            save(page, "hist")
             page.close()
 
         # 4 Setup: Controls, Settings
