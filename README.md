@@ -3,9 +3,13 @@
 # UCEC FT3000
 
 **A field terminal for Elite Dangerous.** UCEC FT3000 reads your game's journal as you play and turns it into a
-green-phosphor terminal in your web browser: your missions and the people you've been sent after (each with a short
-backstory written by an AI), the system you're in, navigation and attack tools for flying low over a planet, and your
-history. It also runs a **WinWing UFC** for Elite - menus on the UFC's displays, and buttons that press your Elite key
+green-phosphor terminal in your web browser: your missions, the system you're in, navigation and attack tools for
+flying low over a planet, and your history.
+
+**Every target gets a story.** Take a contract on someone, or on a faction's ships, and **Claude or ChatGPT** writes
+them an intelligence dossier: who they are, how they got here and the incident that put a price on their head, in
+keeping with Elite's lore and drawn from the contract itself. It uses the AI subscription you already have, not a
+pay-per-use API key. See [Backstories](#backstories). It also runs a **WinWing UFC** for Elite - menus on the UFC's displays, and buttons that press your Elite key
 bindings - so the whole thing can be worked from the UFC alone, in VR, with Elite keeping the focus.
 
 In the game's fiction it is a field terminal from the Universal Computer Equipment Corporation.
@@ -107,9 +111,12 @@ planets you orbited or landed on, the settlements you came near. Select one for 
 
 ### 3 Contracts
 
-The missions you hold, soonest to expire first. Each target gets a dossier: who issued it, the
-reward, their ship and rank from your last scan, shields and hull - and a backstory. History lists what you've
-completed, failed or abandoned; OCOR takes your squadron's daily BGS briefing, pasted from Discord.
+The missions you hold, soonest to expire first. Each target - a named person, or a faction whose ships you've been
+paid to destroy - gets a case file: who issued the contract, the reward, their ship, rank, shields and hull from
+your last scan, and a **dossier written for them by Claude or ChatGPT** as soon as you accept the contract. Every
+other mission (courier, cargo, passengers, salvage, on foot...) has its destination, reward, expiry and progress.
+History lists what you've completed, failed or abandoned; OCOR takes your squadron's daily BGS briefing, pasted from
+Discord.
 
 ![Contracts: a target's dossier and backstory](docs/contracts.png)
 
@@ -194,6 +201,17 @@ The basics - getting round the page's tabs and lists - are on the ILS menu:
 
 ![The UFC's default controls for getting around: the menu buttons, the option buttons, the keypad, the COMM1 and COMM2 knobs and the three dials](docs/ufc-controls.png)
 
+1. Press **ILS** for the page menu.
+2. **Option buttons 1-3** pick the Home, Nav and Contracts tabs. Press the tab's button again for its next page.
+3. The **keypad** picks a page of the tab that's showing: Nav's 1 Syst to 6 Hist, Contracts' 1 Active, 2 History and
+   3 OCOR.
+4. **COMM1** moves the highlight through the page's list, and its pull selects.
+5. **COMM2** scrolls the right-hand panel or steps through its buttons, and its pull presses.
+6. **Option 4 (DSG)** designates what COMM1 has highlighted, and **option 5 (MK)** marks where you are.
+7. The **dials** zoom, spin and tilt the pictures.
+
+On Wpt and Atk, **ENT** opens the highlighted item on the UFC and **CLR** closes it.
+
 Every menu, in full:
 
 | UFC | What it does |
@@ -216,8 +234,29 @@ If Elite runs as administrator, run the FT3000 as administrator too, or Windows 
 
 ## Backstories
 
-Each target you're sent after gets a short backstory, written once by your AI tool and kept, so restarting doesn't
-spend your allowance again. **[ REWRITE ]** on a dossier asks for a new one.
+The moment you accept a contract on someone, the FT3000 asks Claude or ChatGPT to write their dossier: 120 to 180
+words in the voice of a Pilots Federation intelligence file. Each target gets a believable history, motives and the
+one incident that explains why the contract exists. They are consistent with Elite's Federation, Empire, Alliance
+and independent systems, but the personal details are invented freely. The AI works from the contract itself:
+
+- the target's name, or the faction, when you've been sent after a number of its ships
+- their role (pirate lord, smuggler, wanted criminal...) and who they're affiliated with
+- where they were last known to be
+- who issued the contract, what it's called, and the reward
+
+So the pirate lord a navy has put a million credits on reads differently from the deserter a local corporation
+wants quietly removed. A stack of massacre contracts against one faction shares one dossier. The dossier shows on
+the target's case file, with what your last scan said: their ship, rank, shields and hull. The Contracts screenshot
+above shows one.
+
+Each is written once and kept (in your data folder), so restarting the FT3000 doesn't ask again.
+**[ REWRITE ]** on a dossier asks for a fresh one. They're written one at a time, in the background, so the page
+never waits for them.
+
+**It uses your subscription, not an API key.** The FT3000 runs the AI's own command-line tool, logged in with your
+Claude or ChatGPT account. Each dossier uses a little of your plan's allowance, like any other question you'd ask it,
+with no API key and no pay-per-use bill. To stretch the allowance further, set a lighter model on
+4 Setup > Settings (for Claude, `haiku`).
 
 To set it up, install one of the tools and log in once with your subscription account:
 
