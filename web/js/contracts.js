@@ -1,4 +1,8 @@
-// ED Target Board page - 3 Contracts, sub-tab 1 (Active): every mission you hold; targets get a dossier.
+// ED Target Board page - 3 Contracts, sub-tab 1 (Active): every mission you hold; targets get a subject file - the
+// board's facts from the journal (affiliation, contract, serial, incept date, status, retirement bounty, threat, the
+// last scan) and the AI's parts (known as, maker, original function; background, implanted memory, behavioural notes,
+// assessment). A dossier written before the subject files shows as it was written. Held, the ID picture (top right)
+// has the target's file written again - here only.
 (function () {
   "use strict";
   var ED = window.ED, S = ED.S, $ = ED.$, reduce = ED.reduce;
@@ -49,21 +53,20 @@
       }
     });
     var expiry = (active.length ? active : ms).map(function (m) { return m.expiry; }).filter(Boolean).sort()[0] || "";
-    var kills = active.map(function (m) { return m.kill_count; }).filter(Boolean);
-    var status;
-    if (!active.length) status = "Hand in at " + (handIn[0] || "station");
-    else if (kills.length) status = "Kills: " + kills.join(" + ") + (done ? " · " + done + " done" : "");
-    else if (done) status = done + " of " + n + " done";
-    else status = "Active";
+    var f = t.file || {}, b = t.backstory || {}, w = b.fmt === 2 && b.status === "done" ? b.file || {} : null, u = f.units;
+    var status = f.status || (active.length ? "AT LARGE" : "RETIRED");
+    if (u && active.length) status += " \u00b7 " + u.left + " of " + u.need + " units";
+    if (!active.length) status += " \u00b7 hand in at " + (handIn[0] || "the issuer");
+    else if (done) status += " \u00b7 " + done + " of " + n + " done";
     var label = t.kind === "person"
-      ? ["Case " + String(m0.id).slice(-4), t.type || "Target", t.faction && t.faction !== t.name ? t.faction : ""]
-      : ["Faction", t.type || "Hostiles", n + (n === 1 ? " contract" : " contracts")];
+      ? ["Subject file", "Case " + String(m0.id).slice(-4)]
+      : ["Batch file", "Case " + String(m0.id).slice(-4), n > 1 ? n + " contracts" : ""];
     var issuers = [];
     ms.forEach(function (m) { if (m.issuer && issuers.indexOf(m.issuer) < 0) issuers.push(m.issuer); });
     var chips = [];
     if (inSys) chips.push("In system");
     if (locked) chips.push("Target locked");
-    if (!active.length) chips.push("Eliminated");
+    var foot = f.mode === "foot";
     var sysOf = (active[0] || {}).system || (ms.filter(function (m) { return m.status === "redirected"; })[0] || {}).return_system || "";
     return {
       key: t.key, name: t.name, locked: locked, done: !active.length, sys: sysOf,
@@ -72,10 +75,16 @@
       iss: issuers.length ? issuers[0] + (issuers.length > 1 ? " +" + (issuers.length - 1) : "") : "-",
       rew: ED.cr(ms.reduce(function (a, m) { return a + (Number(m.reward) || 0); }, 0)),
       expiry: expiry, status: status, chips: chips,
-      scanLab: "Last scan", scanTxt: t.scan ? [t.scan.ship, t.scan.rank].filter(Boolean).join(" \u00b7 ") : "No scan yet",
-      railTag: t.kind === "person" ? "Wanted" : (n > 1 ? "Faction \u00d7" + n : "Faction")
+      scanLab: foot ? "Located" : "Last scan",
+      scanTxt: foot ? (f.located ? "Settlement reached " + when(f.located) : "Not yet")
+        : t.scan ? [t.scan.ship, t.scan.rank].filter(Boolean).join(" \u00b7 ") : "No scan yet",
+      railTag: t.kind === "person" ? "Wanted" : (n > 1 ? "Faction \u00d7" + n : "Faction"),
+      con: f.contract || "-", aff: f.affiliation || "-", ser: f.serial || "-", inc: f.incept || "-", thr: f.threat || "-",
+      mak: w && w.maker || "-", fun: w && w.original_function || "-", known: w && w.known_as ? "Known as \u201c" + w.known_as + "\u201d" : "",
+      file: w, mode: f.mode, kind: t.kind, scanned: !!b.scanned, rescan: b.rescan || ""
     };
   }
+  function when(iso) { var d = new Date(iso); return isNaN(d) ? "" : d.toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }); }
   function renderRail(views) {
     var sig = views.map(function (v) {
       return [v.key, v.name, v.railTag, v.locked, v.done, v.key === S.sel].join("|");
@@ -122,11 +131,22 @@
 
     ED.setText($("case"), v.label, animate);
     ED.setText($("name"), v.name, animate);
+    panel.classList.toggle("contract", !!v.contract);
+    S.panelTarget = !v.contract;
+    $("known").hidden = !v.known;
+    ED.setText($("known"), v.known || "", animate);
+    $("f-l2").textContent = v.contract ? "Issued by" : "Contract";
+    $("f-l3").textContent = v.contract ? "Reward" : "Retirement bounty";
+    if (!v.contract) {
+      [["f-aff", v.aff], ["f-ser", v.ser], ["f-inc", v.inc], ["f-mak", v.mak], ["f-fun", v.fun], ["f-thr", v.thr]].forEach(function (c) {
+        ED.setText($(c[0]), c[1], animate);
+      });
+    }
     ED.setText($("f-loc"), v.loc, animate);
     S.ctClip = v.sys || "";   // the copy / paste button beside Location (a short COMM2 pull on the UFC presses it)
     if ($("f-clip").dataset.clip !== S.ctClip) { $("f-clip").dataset.clip = S.ctClip; ED.clipShow(); }
     $("f-clip").hidden = !S.ctClip;
-    ED.setText($("f-iss"), v.iss, animate);
+    ED.setText($("f-iss"), v.contract ? v.iss : v.con, animate);
     ED.setText($("f-rew"), v.rew, animate);
     $("f-l5").textContent = v.scanLab;
     ED.setText($("f-scan"), v.scanTxt, animate);
@@ -158,21 +178,35 @@
       bars.hidden = true;
     }
 
-    // dossier (targets) or the contract's details (everything else)
-    var story = $("story"), b = t.backstory || {}, rw = $("rw");
+    // the subject file's four parts (targets), a dossier written before them, or the contract's details (everything else)
+    var story = $("story"), b = t.backstory || {};
     $("dlab").textContent = v.contract ? "Details" : "Dossier";
+    var secs = !v.contract && !!v.file;
+    $("dsecs").hidden = !secs;
+    $("dhead").hidden = story.hidden = secs;
     if (v.contract) {
-      rw.hidden = true;
       var brief = contractBrief(t.missions[0]);
       if (story._final !== brief) { ED.stop(story); story._final = brief; story.className = "brief"; story.innerHTML = brief; }
       return;
     }
     var prevStatus = S.storyStatus[t.key];
     S.storyStatus[t.key] = b.status;
-    rw.hidden = !(s.engine !== "none" && (b.status === "done" || b.status === "error"));
-    rw.textContent = b.status === "error" ? "[ Retry ]" : "[ Rewrite ]";
+    if (secs) {   // (just written: typed out; its notes again from the scan: resolved in place)
+      var arrived = !switched && (prevStatus === "queued" || prevStatus === "writing");
+      [["s-bg", v.file.background], ["s-mem", v.file.implanted_memory], ["s-beh", v.file.behavioural_notes], ["s-ass", v.file.assessment]].forEach(function (c) {
+        var el = $(c[0]);
+        if (el._final === c[1]) return;
+        if (arrived) ED.typeOut(el, c[1] || ""); else ED.setText(el, c[1] || "", !switched && !S.first);
+      });
+      var lab = "Behavioural notes \u00b7 " + (v.mode === "foot" ? "on foot" : "in ship");
+      if (v.rescan) lab += " \u00b7 updating from the scan";
+      else if (v.kind === "person" && v.mode !== "foot" && !v.scanned) lab += " \u00b7 provisional";
+      $("s-behlab").textContent = lab;
+      $("s-asslab").textContent = "Assessment" + (v.kind === "person" && v.mode !== "foot" && !v.scanned && !v.rescan ? " \u00b7 provisional" : "");
+      return;
+    }
     if (s.engine === "none") {
-      story.className = "wait"; ED.setText(story, "Backstories are switched off.", false);
+      story.className = "wait"; ED.setText(story, "Dossiers are switched off.", false);
     } else if (b.status === "done") {
       story.className = "";
       if (story._final !== b.text) {
@@ -264,13 +298,30 @@
     var b = e.target.closest(".item");
     if (b) pick(b.dataset.key);
   });
-  $("rw").addEventListener("click", async function () {
-    if (!S.sel) return;
-    $("rw").hidden = true;
-    await fetch("/api/regenerate", { method: "POST", headers: { "Content-Type": "application/json" },
-                                     body: JSON.stringify({ key: S.sel }) });
-    ED.refresh();
+  // held (HOLD_MS), the ID picture has the target's subject file written again - a target of the Active page's only
+  // (the board says no to anything else), and only with an AI to write it
+  var HOLD_MS = 900, hold = null;
+  function holdEnd() {
+    if (hold) { clearTimeout(hold.t); hold = null; }
+    $("sigil").classList.remove("hold");
+  }
+  $("sigil").addEventListener("pointerdown", function (e) {
+    if (!S.panelKey || !S.panelTarget || !S.data || S.data.engine === "none") return;
+    e.preventDefault();
+    holdEnd();
+    var key = S.panelKey;
+    $("sigil").style.setProperty("--hold", HOLD_MS + "ms");
+    $("sigil").classList.add("hold");
+    hold = { t: setTimeout(async function () {
+      holdEnd();
+      if (S.panelKey !== key) return;
+      ED.replay($("sigil"), "fired");
+      await fetch("/api/regenerate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ key: key }) });
+      ED.refresh();
+    }, HOLD_MS) };
   });
+  ["pointerup", "pointerleave", "pointercancel"].forEach(function (ev) { $("sigil").addEventListener(ev, holdEnd); });
+  $("sigil").addEventListener("contextmenu", function (e) { e.preventDefault(); });
 
   ED.page({
     tab: "contracts", sub: 1, key: 1, label: "Active", el: "pg-contracts", mode: "", back: "3 Contracts · Active", list: "targets",

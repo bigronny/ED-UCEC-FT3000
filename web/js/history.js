@@ -313,8 +313,20 @@
     ED.setText($("ch-name"), it.name || "", false);
     $("ch-sigil").innerHTML = ED.sigil(it.name || "");
     $("ch-chips").innerHTML = it.partial ? '<span class="chip dim">Accepted before your journals</span>' : "";
-    $("ch-out").innerHTML = '<span class="ho big ' + ED.esc(it.outcome.toLowerCase()) + '">' + ED.esc(it.outcome) + "</span>";
-    $("ch-iss").textContent = it.issuer;
+    var f = it.file, w = f && f.fields && f.fields.background ? f.fields : null;   // (a target: its subject file)
+    $("ch-pc").classList.toggle("contract", !f);
+    $("ch-l1").textContent = f ? "Status" : "Outcome";
+    $("ch-l2").textContent = f ? "Contract" : "Issued by";
+    $("ch-out").innerHTML = '<span class="ho big ' + ED.esc(it.outcome.toLowerCase()) + '">' + ED.esc(f ? f.status : it.outcome) + "</span>";
+    $("ch-iss").textContent = f ? f.contract : it.issuer;
+    if (f) {
+      $("ch-aff").textContent = f.affiliation || "-";
+      $("ch-ser").textContent = f.serial || "-";
+      $("ch-inc").textContent = f.incept || "-";
+      $("ch-mak").textContent = w && w.maker || "-";
+      $("ch-fun").textContent = w && w.original_function || "-";
+      $("ch-thr").textContent = f.threat || "-";
+    }
     $("ch-paid").textContent = it.paid;
     $("ch-acc").textContent = it.accepted;
     $("ch-end").textContent = it.ended;
@@ -324,8 +336,15 @@
     $("ch-brief").innerHTML = (it.rows || []).map(function (r) {
       return '<span class="lab">' + ED.esc(r[0]) + '</span><span class="v">' + ED.esc(r[1]) + "</span>";
     }).join("") || '<span class="note">The journal says nothing more about it.</span>';
-    $("ch-slab").hidden = $("ch-story").hidden = !it.story;
+    $("ch-slab").hidden = $("ch-story").hidden = !it.story;   // (a dossier written before the subject files: as it was)
     $("ch-story").textContent = it.story || "";
+    $("ch-dsecs").hidden = !w;
+    if (w) {
+      $("ch-bg").textContent = w.background || "";
+      $("ch-mem").textContent = w.implanted_memory || "";
+      $("ch-beh").textContent = w.behavioural_notes || "";
+      $("ch-ass").textContent = w.assessment || "";
+    }
   }
   ED.hist.contracts = HistPage({
     page: "contracts", tab: "contracts", sub: 2, key: 2, label: "History", back: "3 Contracts \u00b7 History", list: "chist", selKey: "chSel",

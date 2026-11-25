@@ -3,7 +3,8 @@
 UCEC FT3000 Field Terminal (ED Target Board)
 ============================================
 A small local web page that lists your current Elite Dangerous missions, read
-live from the player journal, with an AI-written backstory for each target.
+live from the player journal, with a subject file for each target: a replicant
+dossier, its facts from the journal and its story written by an AI.
 On screen it's the UCEC FT3000, a field terminal from the Universal Computer
 Equipment Corporation. Its version (VERSION, below: shown on the terminal's BIOS
 screen, on the UFC as a vehicle starts up, and here in the console) goes up by
@@ -11,16 +12,16 @@ screen, on the UFC as a vehicle starts up, and here in the console) goes up by
 It also runs a WinWing UFC for Elite: menus on the UFC display, and option
 buttons that press your Elite key bindings (no VoiceAttack needed).
 
-Backstories come from a command-line tool that is logged in with your
+The subject files' stories come from a command-line tool that is logged in with your
 SUBSCRIPTION, so no API key and no pay-per-use credits are involved:
 
   * Claude Pro / Max   ->  Claude Code CLI   (`claude -p ...`)
   * ChatGPT plan       ->  OpenAI Codex CLI  (`codex exec ...`)
 
 AUTO (the default; 4 Setup > Settings) uses Claude Code if it's on this PC, else Codex,
-else none - the board works without either, only without backstories.
+else none - the board works without either, only without the written parts of the files.
 
-Each target's story is written once and cached in target_backstories.json in your
+Each target's file is written once and cached in target_backstories.json in your
 data folder (see Files), so restarting doesn't spend your allowance again.
 
 Requirements: Python 3.8+ (standard library only), plus one of the CLIs above,
@@ -52,8 +53,8 @@ Everyday settings are on the page, 4 Setup > Settings (see Settings, below); the
 command line still works, and an option given there wins over its setting:
 
     python ed_target_board.py                     # opens http://localhost:8642
-    python ed_target_board.py --test              # check your login with one sample story
-    python ed_target_board.py --engine claude     # Claude Code for backstories (auto: Claude Code if it's here, else Codex)
+    python ed_target_board.py --test              # check your login with one sample subject file
+    python ed_target_board.py --engine claude     # Claude Code for subject files (auto: Claude Code if it's here, else Codex)
     python ed_target_board.py --engine codex      # use ChatGPT (Codex CLI) instead
     python ed_target_board.py --engine none       # mission board only, no AI
     python ed_target_board.py --model haiku       # lighter Claude model, stretches your allowance
@@ -398,7 +399,7 @@ Contracts (Contracts > Active)
 Every mission you hold, soonest to expire first. Assassinations (including on-
 foot ones; a named Target) and massacres (a KillCount, where the target is the
 enemy faction) are "targets": grouped by target (a stack of massacres against
-one faction is one entry), with ship scans and an AI backstory, as before.
+one faction is one entry), with ship scans and a subject file (below).
 Every other mission - courier, delivery, source and return, mining, salvage,
 passengers, rescue, donations, on-foot work and the rest - is one entry each,
 named by what it's about ("240 x Tea", "4 passengers", "Data to Jameson
@@ -408,10 +409,37 @@ type above, and shows its destination, issuer, reward, expiry and status (cargo
 collected / delivered from the journal's CargoDepot updates; "Hand in at ..."
 once the objective is done), then the details: the mission's own description,
 the recipient or contact, passengers, influence and reputation, wing, and when
-you accepted it. No backstory for these. A mission the game lists at login but
+you accepted it. No subject file for these. A mission the game lists at login but
 that was accepted before the journal files read (--days) shows its type and
 expiry only. COPY beside Location copies the contract's system, then pastes it
 into Elite (see OCOR briefing, above).
+
+Subject files (Contracts > Active)
+----------------------------------
+Each target is a replicant gone off its lease, and its panel is its subject file
+(the setting: DOSSIER_SETTING, below). A person has a file of its own; a stack of
+massacres against one faction is one batch file, for the units made together that
+now serve it. The board fills in what the journal says: Affiliation, Contract (and
+who issued it), Location, Expires, Serial (N31, the AI's letters for sex and grades,
+and a number made from the name - always the same), Incept date (so long before you
+first took the contract; they live four years), Status (AT LARGE; LOCATED once
+it's scanned - on foot: once you reach its settlement; RETIRED once it's killed;
+a batch: how many units are left of the most any one issuer wants), Retirement
+bounty, Threat (from its rank and ship once scanned - "confirmed by scan" - else
+from the reward: provisional) and Last scan (on foot: Located). The AI writes the
+rest - Known as, Maker, Original function, Background, Implanted memory,
+Behavioural notes and Assessment - as JSON with those keys and no others, each of
+its length (DOSSIER_FIELDS). Every reply is checked; one that doesn't fit is sent
+back once, saying why, and if the second doesn't fit either the panel says so. A
+target scanned for the first time after its file was written has its behavioural
+notes and assessment written again from the scan (until then they're marked
+provisional); the rest stays. Files are written once and kept; holding the ID
+picture (top right of the panel) for a moment has a target's file written again -
+on the Active page only. A dossier written before 3.02.04 (a paragraph of prose)
+is kept as it is, unless you have it written again.
+On Contracts > History a target's file closes with how its contract ended:
+FILE CLOSED (completed), ESCAPED (failed), CONTRACT WITHDRAWN (abandoned), or
+RETIRED · UNPAID - killed, but the contract lapsed before you handed it in.
 
 History (Nav > Hist, Contracts > History)
 -----------------------------------------
@@ -439,11 +467,11 @@ Contracts > History: every mission completed, failed or abandoned, newest first,
 like Active's list (COMPLETED to start with; FAILED and ABANDONED add theirs).
 Selecting one shows how it ended and when, what was paid (credits, and any
 commodities or materials), its destination (with COPY), the details from when you
-accepted it, and the target's dossier if one was written. One accepted before your
+accepted it, and a target's subject file (see Subject files). One accepted before your
 oldest journal still shows, with what its ending said.
 Journal events used: FSDJump, CarrierJump, Docked, ApproachBody, Touchdown (yours,
 not the ship landing to pick you up), ApproachSettlement, MissionAccepted,
-MissionCompleted, MissionFailed and MissionAbandoned.
+MissionRedirected, MissionCompleted, MissionFailed and MissionAbandoned.
 
 Your waypoints (Nav > Wpt)
 --------------------------
@@ -925,7 +953,7 @@ Settings (4 Setup)
 ------------------
 2 Settings holds what the FT3000 starts with, kept in settings.json in your data
 folder as each is changed: the journal folder (blank: Saved Games\\Frontier
-Developments\\Elite Dangerous; it counts the journals there), AI backstories (AUTO -
+Developments\\Elite Dangerous; it counts the journals there), the AI for subject files (AUTO -
 Claude Code if it's on this PC, else Codex, else none - CLAUDE, CHATGPT or NONE, and
 a model, e.g. haiku; it says which tools it finds and how the login check went),
 VIEW FROM OTHER DEVICES (listening on your network as well as this PC: it shows the
@@ -1013,7 +1041,7 @@ across (the old copies are left there - a backup, safe to delete):
     settlements.sqlite      the layouts you've confirmed for settlements, and which way they face
     system_archive.sqlite   Spansh's and EDSM's last answers for each system you've been in
     edsm_cache.json         the system data cache (Spansh's and EDSM's)
-    target_backstories.json the backstories written           ocor_briefing.json   the OCOR briefing
+    target_backstories.json the subject files written         ocor_briefing.json   the OCOR briefing
     uplink_settings.json    the Spansh / EDSM Uplink switches  remote_system.json   1 Syst's REMOTE system
     exobio.json             the species you're sampling and where you took each sample (2 Nav > HSI's rings)
     controls.json           your controls, where they differ from the UFC's own layout (4 Setup > Controls)
@@ -1025,7 +1053,7 @@ across (the old copies are left there - a backup, safe to delete):
 How it fits together, for changing it:
   * What the board knows lives in BoardState, split by area: Commander (you, your
     ship, the session log), Place (where you are), Contracts (missions, scans,
-    backstories), Vehicles (changing vehicle, start-up), Jumps (route, hyperspace,
+    subject files), Vehicles (changing vehicle, start-up), Jumps (route, hyperspace,
     fuel), Exobio (the species you're sampling), ChatCodes (codes heard in the game's
     chat) and SystemTab (Syst's data). Each area handles the journal
     events it cares about in methods named on_<Event>; BoardState.apply sends each
@@ -1049,7 +1077,7 @@ How it fits together, for changing it:
   * Keeping the page up to date: Status.json and the journal being written are read
     every tenth of a second (STATUS_POLL_SECONDS; the folder, for a new journal file,
     and NavRoute.json once a second). Whenever they bring something new - or a
-    backstory moves on - the board bumps state_n on the event stream (/api/events),
+    subject file moves on - the board bumps state_n on the event stream (/api/events),
     and every open page fetches /api/state at once: one fetch at a time, and a change
     while one is on its way fetches again as soon as it lands. Pages still fetch every
     2 seconds as well, for anything slower. (The game empties Status.json for an
@@ -1116,7 +1144,7 @@ import time
 import unicodedata
 import webbrowser
 from collections import OrderedDict, deque
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, quote
@@ -1124,7 +1152,7 @@ from urllib.parse import parse_qs, quote
 # --------------------------------------------------------------------------- #
 # Settings
 # --------------------------------------------------------------------------- #
-VERSION = "3.02.03"   # the FT3000's version: + 0.00.01 each build (after .99, the middle number goes up)
+VERSION = "3.02.05"   # the FT3000's version: + 0.00.01 each build (after .99, the middle number goes up)
 PROJECT_URL = "https://github.com/bigronny/ED-UCEC-FT3000"   # the project's home page: shown on 4 Setup, and sent to Spansh/EDSM
 
 
@@ -1159,7 +1187,7 @@ def saved_games_dir():
     return Path.home() / "Saved Games"
 
 
-# Your data - waypoints and plans, history, caches, settings, controls, backstories - lives apart from the program, in
+# Your data - waypoints and plans, history, caches, settings, controls, subject files - lives apart from the program, in
 # Saved Games\UCEC FT3000 (FT3000_DATA, in the environment, puts it elsewhere), so a new version can replace the
 # program's folder without losing any of it. The first start finds it in the program's folder (where versions
 # before 3.01.42 kept it) and copies it across (move_old_data).
@@ -1172,18 +1200,132 @@ WORK_DIR = Path(tempfile.gettempdir()) / "ed_target_board"  # empty folder the A
 # your subscription. They are removed for the AI tool's process only.
 PAID_KEY_VARS = ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "OPENAI_API_KEY", "CODEX_API_KEY")
 
-SYSTEM_PROMPT = (
-    "You write short in-universe intelligence dossiers for the space game Elite Dangerous. "
-    "Reply with the dossier text only, with no preamble, headings or markdown."
-)
-INSTRUCTION = "Write the dossier for the mission target described in the input."
-STORY_BRIEF = (
-    "Write 120-180 words of plain prose in the style of a Pilots Federation intelligence dossier. "
-    "Give the target a believable history, motives and one notable incident that explains why "
-    "this contract exists. Keep it consistent with Elite Dangerous lore (the Federation, Empire, "
-    "Alliance and independent systems) but invent the personal details freely. "
-    "Do not mention game mechanics or the player."
-)
+# The subject files (3 Contracts): each target is a replicant. The board fills in the facts from the journal -
+# affiliation, contract, serial number, incept date, status, retirement bounty, threat - and the AI writes the rest,
+# as one JSON object of fixed fields (DOSSIER_FIELDS) that the board checks (check_dossier) before it's shown: a reply
+# that doesn't fit is sent back once with what was wrong, then it's an error. In ship, the behavioural notes and the
+# assessment are written again (just those two) after the target's first full scan. A person's file, or a batch's (a
+# massacre: a faction, a number of kills). DOSSIER_SETTING is the world they're written in.
+DOSSIER_FORMAT = 2        # the subject file (its fields); dossiers kept from before it are prose, and stay as they are
+DOSSIER_LINE = "N31"      # the serial's lineage: Nexus-31 (DOSSIER_SETTING)
+DOSSIER_LIFESPAN_DAYS = 4 * 365   # (incept dates fall within it, before the contract)
+GAME_YEARS = 1286         # Elite's calendar: this many years on from ours
+DOSSIER_SLACK = 0.15      # a field may be this much over or under its words before it's sent back
+DOSSIER_SETTING = """SETTING
+- Replicants of the Nexus-31 lineage are made by Azimuth Biotech under a licensed Wallace
+  pattern. They live four years and don't know when they were made. Their childhoods are
+  implanted, built from stock memory files reused across many units.
+- Units are leased to navies, corporations and security services. A unit that leaves its
+  lease is a fugitive, and retiring it is legal.
+- Everything else is Elite Dangerous as it is: the Federation, the Empire, the Alliance,
+  independent systems, minor factions, ships."""
+DOSSIER_VOICE = """VOICE
+Clipped, administrative, unsentimental. Short declarative sentences: a records officer
+briefing a hunter. No exclamation marks, no questions, nothing added for effect. The
+assessment ends with an instruction to the hunter."""
+DOSSIER_RULES = """RULES
+- Use the facts you're given exactly: names, factions, governments, allegiances, systems,
+  stations, ships, ranks and numbers. Don't contradict them, and don't add facts about
+  real factions or systems.
+- If no ship scan is given, don't name a ship.
+- Never mention the game, the player, missions or the FT3000.
+- Write the behavioural notes for the mode given: IN SHIP (the ship, how it flies and
+  fights) or ON FOOT (the settlement, how the target moves and hides there)."""
+DOSSIER_REPLY_PERSON = """REPLY
+One JSON object and nothing else, with exactly these keys, plain text in each:
+  "sex"                "M" or "F", inferred from the target's name (no clue: choose);
+                       use pronouns to match
+  "physical_grade"     "A", "B" or "C"
+  "mental_grade"       "A", "B" or "C"
+  "known_as"           an alias of 1-3 words, or "" for none
+  "maker"              under 12 words
+  "original_function"  what it was made for, then what it does now; under 15 words
+  "background"         60-90 words
+  "implanted_memory"   35-60 words; may borrow a station or system from the facts
+  "behavioural_notes"  35-60 words
+  "assessment"         20-40 words, matching the THREAT given"""
+DOSSIER_REPLY_BATCH = """REPLY
+This file is a BATCH: a run of units made together, now all serving one faction - the
+target. One JSON object and nothing else, with exactly these keys, plain text in each:
+  "known_as"           what the batch is called, 1-3 words, or "" for none
+  "maker"              under 12 words
+  "original_function"  what the batch was made for, then what it does now; under 15 words
+  "background"         60-90 words: how the batch came to serve this faction
+  "implanted_memory"   35-60 words: the stock memory every unit of the batch shares
+  "behavioural_notes"  35-60 words: how its units work together
+  "assessment"         20-40 words, matching the THREAT given"""
+DOSSIER_EXAMPLE_PERSON = """EXAMPLE INPUT
+MODE: IN SHIP
+FILE: PERSON
+DATE: 14 SEP 3312
+TARGET: Marek Holloway
+ROLE: Deserter
+TARGET FACTION: Brask Free Company (Anarchy, Independent; 1% influence in Brask)
+CONTRACT: Assassinate Deserter: Marek Holloway
+ISSUED BY: Veltani Signal Corporation (Corporate, Empire) at Harrow Market, Veltani
+ISSUER'S SITUATION: civil war with Veltani Citizens' Forum (Veltani Signal Corporation ahead, 2 days to 1)
+LAST KNOWN WHEREABOUTS: Corrigan Barracks, Brask (Medium security, Patronage, Empire)
+REWARD: 236,500 CR
+WING CONTRACT: no
+INCEPT DATE: 02 JUN 3312 (3 months ago; a four-year lifespan)
+SHIP SCAN: none yet
+THREAT: MODERATE (provisional - no scan yet)
+
+EXAMPLE REPLY
+{"sex": "M", "physical_grade": "B", "mental_grade": "A", "known_as": "Relay",
+ "maker": "Azimuth Biotech, licensed Wallace pattern",
+ "original_function": "Security. Relay-lane patrol pilot, now a deserter",
+ "background": "Incepted in June for Veltani Signal Corporation, one of a security batch leased to hold the company's relay lanes through its civil war with the Veltani Citizens' Forum. Three months in, he left his post with a company ship and a signals clearance. He turned up next door in Brask, flying for the Brask Free Company, an anarchist outfit with almost no hold on the system. Signal is winning its war. It would like its relay keys kept out of the Forum's hands until it has.",
+ "implanted_memory": "A childhood on the docking ring at Harrow Market. His father lets him read approach numbers to inbound traffic over a cracked handset, and calls him a natural. The father is stock: a signals-aptitude file Azimuth sells by the dozen. He kept the handset.",
+ "behavioural_notes": "Solo. Last placed at Corrigan Barracks, in a system that won't hide him for long. Three months out and already running, he'll stay close to the one outfit that took him in. Expect him in supercruise near Brask, not docked.",
+ "assessment": "Provisional until scanned. A deserter three months old, on a solo contract worth nearly a quarter of a million. Nobody expects much of him. Find him, scan him, retire him."}"""
+DOSSIER_EXAMPLE_BATCH = """EXAMPLE INPUT
+MODE: IN SHIP
+FILE: BATCH (5 units)
+DATE: 21 MAY 3311
+TARGET: Tollan Dark Gang
+ROLE: Pirates
+TARGET FACTION: Tollan Dark Gang (Anarchy, Independent)
+CONTRACT: Kill Tollan Dark Gang faction Pirates
+ISSUED BY: Merrow State Industries
+LAST KNOWN WHEREABOUTS: Faraday Settlement, Tollan
+REWARD: 1,180,000 CR
+WING CONTRACT: no
+INCEPT DATE: 03 JAN 3309 (the batch, 2 years 4 months ago; a four-year lifespan)
+UNITS STILL AT LARGE: 5 of 5
+THREAT: MODERATE (provisional - no scan yet)
+
+EXAMPLE REPLY
+{"known_as": "The Tollan five", "maker": "Azimuth Biotech, Wallace pattern, salvage-grade run",
+ "original_function": "Convoy escort. Now raiders working the lanes out of Tollan",
+ "background": "Five escort units from a salvage-grade run, sold on when their first lease ended early. The paperwork stops at a broker in Tollan. The Tollan Dark Gang bought the batch whole and kept it together, which no buyer should. They work the traffic around Faraday Settlement. Merrow State Industries has lost enough cargo to them to pay well for the set. A batch split up is easier to retire. Nobody split this one.",
+ "implanted_memory": "The same memory in all five: a flight school on a cold moon, an instructor who never raised her voice, and a long hangar with the lights going off one row at a time. Each unit believes it was the best in the class.",
+ "behavioural_notes": "They fly as a pack and close on one target at a time. They don't leave a unit behind, so a damaged one slows the rest. Expect them near Faraday Settlement, waiting for traffic to drop out of supercruise.",
+ "assessment": "Five units, one habit. Hit the slowest and the others turn back for it. Retire the batch. A single survivor will train the next one."}"""
+DOSSIER_INSTRUCTION = "Write the subject file for the target in the input. Reply with the JSON object only."
+DOSSIER_RESCAN = ("The target has now been scanned. Rewrite only \"behavioural_notes\" and \"assessment\" from the scan in "
+                  "the input, keeping to the background and memory given there. Reply with one JSON object with exactly "
+                  "those two keys, plain text in each.")
+DOSSIER_RETRY = "Your last reply was rejected: {why}. Reply again with the JSON object only."
+DOSSIER_FIELDS = {   # each kind of reply: its keys, and each one's words (min, max) or the letters it may be
+    "person": {"sex": "MF", "physical_grade": "ABC", "mental_grade": "ABC", "known_as": (0, 3), "maker": (2, 12),
+               "original_function": (2, 15), "background": (60, 90), "implanted_memory": (35, 60),
+               "behavioural_notes": (35, 60), "assessment": (20, 40)},
+    "batch": {"known_as": (0, 3), "maker": (2, 12), "original_function": (2, 15), "background": (60, 90),
+              "implanted_memory": (35, 60), "behavioural_notes": (35, 60), "assessment": (20, 40)},
+    "rescan": {"behavioural_notes": (35, 60), "assessment": (20, 40)},
+}
+DOSSIER_INTRO = ("You write subject files for UCEC FT3000, a terminal used by bounty hunters in 3312, in the galaxy of Elite "
+                 "Dangerous. Every target is treated as a replicant: a manufactured person with implanted memories, hunted "
+                 "for \"retirement\".")
+
+
+def dossier_system(kind):
+    """The system prompt for a person's subject file, or a batch's."""
+    batch = kind == "batch"
+    return "\n\n".join((DOSSIER_INTRO, DOSSIER_SETTING, DOSSIER_VOICE, DOSSIER_RULES,
+                         DOSSIER_REPLY_BATCH if batch else DOSSIER_REPLY_PERSON,
+                         DOSSIER_EXAMPLE_BATCH if batch else DOSSIER_EXAMPLE_PERSON))
 
 NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)  # stops console pop-ups on Windows
 
@@ -2531,7 +2673,11 @@ def entry_source(x):
 # (Contracts › History)
 # --------------------------------------------------------------------------- #
 HISTORY_EVENTS = ("FSDJump", "CarrierJump", "Docked", "ApproachBody", "Touchdown", "ApproachSettlement", "Location",
-                  "MissionAccepted", "MissionCompleted", "MissionFailed", "MissionAbandoned")
+                  "MissionAccepted", "MissionRedirected", "MissionCompleted", "MissionFailed", "MissionAbandoned")
+HISTORY_VERSION = 2   # what the history takes from the journal: a new one reads every journal again, once (2: MissionRedirected)
+# a target's subject file on Contracts › History: its status, by how its contract ended (failed after it was killed -
+# MissionRedirected first - it's retired, though the contract lapsed before it was handed in)
+FILE_STATUS = {"completed": "FILE CLOSED", "failed": "ESCAPED", "abandoned": "CONTRACT WITHDRAWN"}
 HISTORY_FILTERS = {"nav": {"systems": True, "stations": True, "planetary": True},          # each history page's toggles, as
                    "contracts": {"completed": True, "failed": False, "abandoned": False}}   # they start (kept while the board runs)
 MISSION_OUTCOMES = {"MissionCompleted": "completed", "MissionFailed": "failed", "MissionAbandoned": "abandoned"}
@@ -2700,6 +2846,10 @@ class JournalHistory:
         rec = dict(self.missions.get(mid) or {})
         if kind == "MissionAccepted":
             rec["acc"] = mission_record(ev)[0]
+        elif kind == "MissionRedirected":   # its objective done (a target: killed) - how it ends comes later
+            if rec.get("redir"):
+                return False
+            rec["redir"] = ts
         else:
             rec.update(out=MISSION_OUTCOMES[kind], end=ts)
             gets = []
@@ -2736,6 +2886,8 @@ class JournalHistory:
                 done = dict(self.db.execute("SELECT name, size FROM hfiles").fetchall())
             except sqlite3.Error:
                 done = {}
+        if done.get("#version") != HISTORY_VERSION:   # (it takes more from them now: every journal again)
+            done = {}
         todo = []
         for path in paths:
             try:
@@ -2769,6 +2921,12 @@ class JournalHistory:
                     log(f"Couldn't keep your history from {path.name} ({exc}).")
             self.progress = [n, len(todo)]
         with self.lock:
+            try:
+                self.db.execute("INSERT OR REPLACE INTO hfiles (name, size) VALUES (?, ?)", ("#version", HISTORY_VERSION))
+                self._dirty = True
+                self._commit(force=True)
+            except sqlite3.Error:
+                pass
             self.ready = True
             self._changed(now=True)
         if todo:
@@ -3082,16 +3240,33 @@ class JournalHistory:
                                                f"reputation {m['reputation']}" if m.get("reputation") else "") if x))
         if m.get("wing"):
             row("Wing", "Shared with your wing")
-        story = ""
-        if m.get("kind") != "contract" and backstories:
-            b = backstories.get(m.get("key")) or {}
-            story = (b.get("text") or "") if b.get("status") == "done" else ""
-        return {"key": key, "label": " · ".join(x for x in (f"Contract {str(mid)[-4:]}", m.get("cat")) if x),
+        story, sfile = "", None
+        target = m.get("kind") != "contract"
+        if target:   # its subject file: the status its contract ended with, the board's facts, what was written
+            b = (backstories or {}).get(m.get("key")) or {}
+            done = b.get("status") == "done"
+            story = (b.get("text") or "") if done and b.get("fmt") != DOSSIER_FORMAT else ""
+            number, incept, _ = dossier_ids(m.get("key") or "", m.get("accepted") or "")
+            fields = (b.get("file") or {}) if done and b.get("fmt") == DOSSIER_FORMAT else {}
+            batch = m.get("kind") == "faction"
+            serial = (f"{DOSSIER_LINE} batch {b.get('number') or number}" if batch else
+                      f"{DOSSIER_LINE}{(fields.get('sex', '') + fields.get('physical_grade', '') + fields.get('mental_grade', '')) or '---'}{b.get('number') or number}")
+            status = FILE_STATUS.get(rec["out"], rec["out"].upper())
+            if rec["out"] == "failed" and rec.get("redir"):
+                status = "RETIRED · UNPAID"
+            fac = m.get("target_faction") or (m.get("target") if batch else "")
+            sfile = {"status": status, "serial": serial, "incept": b.get("incept") or game_date(incept), "affiliation": fac or "",
+                     "contract": mission_verb(m) + (f", for {m['issuer']}" if m.get("issuer") else ""),
+                     "threat": b.get("threat") or "", "scan": b.get("scan") or "", "kind": "batch" if batch else "person",
+                     "fields": fields}
+        label = (f"{'Batch' if sfile['kind'] == 'batch' else 'Subject'} file · Case {str(mid)[-4:]}" if sfile else
+                 " · ".join(x for x in (f"Contract {str(mid)[-4:]}", m.get("cat")) if x))
+        return {"key": key, "label": label,
                 "name": m.get("target") or m.get("title") or "Contract", "outcome": rec["out"].capitalize(),
                 "issuer": m.get("issuer") or "-", "paid": paid[0] if paid and paid[0].endswith(" CR") else "-",
                 "accepted": _jtime(m.get("accepted")) or "-", "ended": _jtime(rec.get("end")) or "-", "dest": dest or "-",
-                "copy": fin.get("system") or m.get("system") or "", "rows": rows, "story": story,
-                "partial": bool(m.get("partial")), "target": m.get("kind") != "contract"}
+                "copy": fin.get("system") or m.get("system") or "", "rows": rows, "story": story, "file": sfile,
+                "partial": bool(m.get("partial")), "target": target}
 
 
 SCHEMATIC_ALIASES = {"tourist": "tourism", "hightechnology": "hightech", "hightechbio": "hightech"}
@@ -4179,21 +4354,6 @@ def run_cli(cmd, stdin_text=None, timeout=60):
     return subprocess.run(cmd, **kwargs)
 
 
-def tidy(text: str) -> str:
-    text = (text or "").strip()
-    if text.startswith("```"):
-        text = text.strip("`").strip()
-    lines = text.splitlines()
-    # Drop a title line such as "# Dossier" or "**Dossier: Kirsten Vance**" if one slipped in.
-    if len(lines) > 1:
-        first = lines[0].strip()
-        if first.startswith("#") or (first.startswith("**") and first.endswith("**") and len(first) < 80):
-            lines = lines[1:]
-    lines = [line.lstrip("#").strip() if line.startswith("#") else line for line in lines]
-    text = "\n".join(lines).replace("**", "").strip()
-    return text[:3000]
-
-
 # Mission kinds, from the journal's internal mission name (first match wins). HUNTS are the kinds whose
 # named target is someone to kill (the others' named person is someone to meet).
 HUNTS = ("Assassination", "Massacre")
@@ -4225,29 +4385,117 @@ def commodity_name(ev) -> str:
     return pretty(raw.replace("_", " ")) if raw else ""
 
 
-def build_details(m: dict) -> str:
-    """The context sent to the AI for one target."""
-    lines = [f"Target: {m['target']}"]
-    if m.get("kind") == "faction":
-        lines.append("The target is a group or faction (the contract is to destroy a number of its ships), not one person.")
-    if m.get("target_type"):
-        lines.append(f"Role: {m['target_type']}")
-    if m.get("target_faction") and m["target_faction"] != m["target"]:
-        lines.append(f"Affiliation: {m['target_faction']}")
-    where = ", ".join(x for x in (m.get("settlement"), m.get("station"), m.get("system")) if x)
-    if where:
-        lines.append(f"Last known whereabouts: {where}")
-    if m.get("issuer"):
-        lines.append(f"Contract issued by: {m['issuer']}")
-    if m.get("title"):
-        lines.append(f"Contract: {m['title']}")
+MONTHS = ("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")
+
+
+def game_date(d) -> str:
+    """A date in Elite's calendar: '04 JUL 3312'."""
+    return f"{d.day:02d} {MONTHS[d.month - 1]} {d.year + GAME_YEARS}"
+
+
+def dossier_ids(key, accepted):
+    """A target's serial number (5 digits) and incept date - from its name, so they're the same every time - and the
+    time they're measured from (its first contract's acceptance)."""
+    import zlib
+    h = zlib.crc32(str(key).encode("utf-8"))
+    t = parse_time(accepted) or now_utc()
+    return f"{h % 100000:05d}", (t - timedelta(days=(h >> 8) % DOSSIER_LIFESPAN_DAYS)).date(), t
+
+
+def dossier_age(incept, t) -> str:
+    """How long before t a unit was incepted: '3 months ago', '2 years 4 months ago'."""
+    months = max(0, (t.date() - incept).days) // 30
+    if months < 1:
+        return "under a month ago"
+    y, mo = divmod(months, 12)
+    parts = ([f"{y} year" + ("s" if y != 1 else "")] if y else []) + ([f"{mo} month" + ("s" if mo != 1 else "")] if mo else [])
+    return " ".join(parts) + " ago"
+
+
+# The threat a target is: in ship, once scanned, from its pilot rank and ship (confirmed); before that, or on foot (no
+# scans there), from the contract - its reward, a wing contract, a hard one, a batch's size (provisional; estimated).
+THREAT_LEVELS = ("LOW", "MODERATE", "HIGH", "EXTREME")
+RANK_THREAT = (0, 0, 1, 1, 2, 2, 3, 4, 4)   # Harmless ... Elite
+SHIPS_SMALL = {"sidewinder", "eagle", "hauler", "adder", "empire_eagle", "viper", "viper_mkiv", "cobramkiii", "cobramkiv",
+               "cobramkv", "diamondback", "diamondbackxl", "dolphin", "empire_courier", "vulture"}
+SHIPS_LARGE = {"anaconda", "cutter", "federation_corvette", "type7", "type9", "type9_military", "belugaliner", "orca",
+               "empire_trader", "panthermkii"}
+
+
+def threat_of(mode, kind, reward, wing, scan=None, hard=False, units=None):
+    """(level - an index into THREAT_LEVELS - and what it's from)."""
+    if kind == "person" and mode == "ship" and scan and scan.get("rank") in COMBAT_RANKS:
+        ship = str(scan.get("ship_id") or "").lower()
+        score = (RANK_THREAT[min(8, COMBAT_RANKS.index(scan["rank"]))] + (0 if ship in SHIPS_SMALL else 2 if ship in SHIPS_LARGE else 1)
+                 + (1 if wing else 0))
+        return (0 if score <= 1 else 1 if score <= 3 else 2 if score <= 5 else 3), "confirmed by scan"
     try:
-        if m.get("reward"):
-            lines.append(f"Reward offered: {int(m['reward']):,} CR")
+        reward = float(reward or 0)
     except (TypeError, ValueError):
-        pass
-    lines += ["", STORY_BRIEF]
-    return "\n".join(lines)
+        reward = 0.0
+    score = ((0 if reward < 200_000 else 1 if reward < 750_000 else 2 if reward < 2_000_000 else 3) + (1 if wing else 0)
+             + (1 if hard else 0) + (1 if (units or 0) >= 20 else 0) + (1 if (units or 0) >= 50 else 0))
+    level = 0 if score == 0 else 1 if score <= 2 else 2 if score == 3 else 3
+    return level, ("estimated" if mode == "foot" else "provisional - no scan yet")
+
+
+_SHIP_COMMON = {"Eagle", "Hauler", "Dolphin", "Orca", "Corsair", "Mandalay", "Imperial", "Federal", "Alliance", "Beluga"}
+_SHIP_WORDS = {n for n in SHIP_NAMES.values() if n not in _SHIP_COMMON} | \
+              {n.split()[0] for n in SHIP_NAMES.values() if n.split()[0] not in _SHIP_COMMON and len(n.split()[0]) > 2}
+_SHIP_RE = re.compile(r"\b(" + "|".join(re.escape(w) for w in sorted(_SHIP_WORDS, key=len, reverse=True)) + r")\b")
+_DOSSIER_BANNED = re.compile(r"\b(players?|the game|in-game|FT3000|UCEC)\b", re.I)
+
+
+def check_dossier(reply, kind, ship_known=True):
+    """The AI's reply as a subject file's fields (DOSSIER_FIELDS[kind]), and what's wrong with it ([] if nothing):
+    JSON with exactly those keys, each plain text of the right length (DOSSIER_SLACK either way) or one of its letters;
+    nothing about the game or the player; no ship named before there's been a scan."""
+    text = str(reply or "").strip()
+    if text.startswith("```"):
+        text = text.strip("`").strip()
+        if text.lower().startswith("json"):
+            text = text[4:]
+    i, j = text.find("{"), text.rfind("}")
+    try:
+        got = json.loads(text[i:j + 1]) if i >= 0 and j > i else None
+    except ValueError:
+        got = None
+    if not isinstance(got, dict):
+        return {}, ["the reply wasn't one JSON object"]
+    spec, problems, out = DOSSIER_FIELDS[kind], [], {}
+    for k in got:
+        if k not in spec:
+            problems.append(f'"{k}" isn\'t one of the keys')
+    for k, rule in spec.items():
+        v = got.get(k)
+        if not isinstance(v, str):
+            problems.append(f'"{k}" is missing' if k not in got else f'"{k}" isn\'t text')
+            continue
+        v = " ".join(v.split()) if "\n" not in v else v.strip()
+        if isinstance(rule, str):
+            v = v.upper()
+            if v not in tuple(rule):
+                problems.append(f'"{k}" must be one of {", ".join(rule)}')
+        else:
+            if "\n" in v or any(c in v for c in "*#`|"):
+                problems.append(f'"{k}" has line breaks or markdown')
+            n, lo, hi = len(v.split()), rule[0], rule[1]
+            if n < int(lo * (1 - DOSSIER_SLACK)) or n > round(hi * (1 + DOSSIER_SLACK)):
+                problems.append(f'"{k}" is {n} words ({lo}-{hi})')
+            if _DOSSIER_BANNED.search(v):
+                problems.append(f'"{k}" mentions the game, the player or the FT3000')
+            if not ship_known and _SHIP_RE.search(v):
+                problems.append(f'"{k}" names a ship ({_SHIP_RE.search(v).group(1)}) before any scan')
+        out[k] = v
+    return out, problems
+
+
+def mission_verb(m) -> str:
+    """What a contract asks: its title up to the target's name ('Assassinate Deserter: Marek Holloway' -> 'Assassinate
+    Deserter'), else its kind."""
+    title = str(m.get("title") or "")
+    head = title.split(":", 1)[0].strip() if ":" in title else title
+    return head or m.get("cat") or "Contract"
 
 
 def mission_record(ev):
@@ -4313,6 +4561,7 @@ def mission_record(ev):
         "kill_count": kill_count,
         "wing": bool(ev.get("Wing")),
         "accepted": ev.get("timestamp", ""),
+        "hard": "_hard" in str(ev.get("Name") or "").lower(),   # (a hard one: more of a threat, for the subject file)
         "status": "active",
     }
     return m, is_target
@@ -4325,10 +4574,10 @@ class Engine:
     name = "none"
 
     def check(self):
-        return False, "Backstories are switched off (--engine none)."
+        return False, "Dossiers are switched off (--engine none)."
 
-    def write(self, details: str, timeout: int) -> str:
-        raise RuntimeError("Backstories are switched off.")
+    def write(self, system: str, instruction: str, details: str, timeout: int) -> str:
+        raise RuntimeError("Dossiers are switched off.")
 
 
 class ClaudeEngine(Engine):
@@ -4351,16 +4600,16 @@ class ClaudeEngine(Engine):
                           "enables that check).")
         method = info.get("authMethod")
         if method in ("claude.ai", "oauth_token"):
-            return True, "Backstories: Claude, using your Claude subscription"
+            return True, "Subject files: Claude, using your Claude subscription"
         if method in (None, "none"):
             return False, "Claude Code isn't logged in. Run `claude` in a terminal and log in with your Pro account."
-        return False, (f"Claude Code is signed in with '{method}', which bills API credits, so backstories "
+        return False, (f"Claude Code is signed in with '{method}', which bills API credits, so subject files "
                        "are paused. Run `claude auth logout`, then `claude` and log in with your Pro account.")
 
-    def write(self, details, timeout):
+    def write(self, system, instruction, details, timeout):
         # Prompt first, then flags; --tools "" (no tools) goes last.
-        cmd = [self.exe, "-p", INSTRUCTION,
-               "--system-prompt", SYSTEM_PROMPT,
+        cmd = [self.exe, "-p", instruction,
+               "--system-prompt", system,
                "--strict-mcp-config",
                "--no-session-persistence"]
         if self.model:
@@ -4391,15 +4640,15 @@ class CodexEngine(Engine):
         except Exception:
             return True, "Using Codex (couldn't confirm the login type)."
         if "chatgpt" in status:
-            return True, "Backstories: ChatGPT, using your ChatGPT plan"
+            return True, "Subject files: ChatGPT, using your ChatGPT plan"
         if "api key" in status:
-            return False, ("Codex is signed in with an API key, which bills credits, so backstories are paused. "
+            return False, ("Codex is signed in with an API key, which bills credits, so dossiers are paused. "
                            "Run `codex logout`, then `codex login` and choose 'Sign in with ChatGPT'.")
         if "not logged in" in status:
             return False, "Codex isn't logged in. Run `codex login` and choose 'Sign in with ChatGPT'."
         return True, "Using Codex (couldn't confirm the login type)."
 
-    def write(self, details, timeout):
+    def write(self, system, instruction, details, timeout):
         out_file = WORK_DIR / "codex_last_message.txt"
         try:
             out_file.unlink()
@@ -4408,7 +4657,7 @@ class CodexEngine(Engine):
         cmd = [self.exe, "exec", "--skip-git-repo-check", "--ephemeral", "-o", str(out_file)]
         if self.model:
             cmd += ["-m", self.model]
-        cmd.append(f"{SYSTEM_PROMPT} {INSTRUCTION}")
+        cmd.append(f"{system}\n\n{instruction}")
         proc = run_cli(cmd, stdin_text=details, timeout=timeout)
         if proc.returncode != 0:
             msg = proc.stderr.strip().splitlines()[-1:] or [f"codex exited with code {proc.returncode}"]
@@ -4862,6 +5111,12 @@ class Contracts:
         self.scans = {}             # target key -> latest ship scan of that target
         self.cache_file = cache_file
         self.backstories = self._load_cache()
+        # for the subject files: what the journal's said lately about each faction and system (Location / FSDJump), the
+        # kills of each faction (Bounty: a batch's units still at large), the targets whose first full scan came in
+        self.factions = {}          # faction name (lower case) -> {"name", "gov", "alleg", "inf", "system", "states", "conflict"}
+        self.systems = {}           # system name (lower case) -> "Medium security, Patronage, Empire"
+        self.kills = {}             # faction name (lower case) -> times of the kills (Bounty's VictimFaction), the newest 500
+        self.rescans = []           # target keys: a full scan came in (BackstoryWriter.rescan)
 
     # ---- backstory cache ----
     def _load_cache(self):
@@ -4872,7 +5127,7 @@ class Contracts:
             return {}
 
     def _save_cache(self):
-        done = {k: v for k, v in self.backstories.items() if v.get("status") == "done"}
+        done = {k: {x: y for x, y in v.items() if x != "rescan"} for k, v in self.backstories.items() if v.get("status") == "done"}
         tmp = self.cache_file.with_suffix(".tmp")
         try:
             tmp.write_text(json.dumps(done, indent=2, ensure_ascii=False), encoding="utf-8")
@@ -4890,6 +5145,55 @@ class Contracts:
             self.backstories[key] = entry
             if status == "done":
                 self._save_cache()
+
+    def set_dossier(self, key, name, fields, job):
+        """A subject file written (DOSSIER_FORMAT): the AI's fields and the board's facts it was written from. True if
+        the target's first full scan has come in since (so it's written again from that)."""
+        with self.board.lock:
+            self.backstories[key] = {"name": name, "status": "done", "updated": now_utc().isoformat(timespec="seconds"),
+                                     "fmt": DOSSIER_FORMAT, "kind": job["kind"], "mode": job["mode"], "file": dict(fields),
+                                     "number": job["number"], "incept": job["incept"], "threat": job["threat"],
+                                     "scan": job["scan"], "scanned": job["ship_known"]}
+            self._save_cache()
+            return not job["ship_known"] and self._full_scan(key)
+
+    def update_dossier(self, key, fields, job):
+        """Its behavioural notes and assessment, written again from the target's first full scan."""
+        with self.board.lock:
+            e = self.backstories.get(key)
+            if not e or e.get("fmt") != DOSSIER_FORMAT:
+                return
+            e["file"] = dict(e.get("file") or {}, **fields)
+            e.update(scanned=True, threat=job["threat"], scan=job["scan"], updated=now_utc().isoformat(timespec="seconds"))
+            e.pop("rescan", None)
+            self._save_cache()
+
+    def set_rescan(self, key, state):
+        """A subject file's rewrite from the scan: "queued", "writing" - or None, done with (or given up)."""
+        with self.board.lock:
+            e = self.backstories.get(key)
+            if not e:
+                return False
+            if state:
+                e["rescan"] = state
+            else:
+                e.pop("rescan", None)
+            return True
+
+    def needs_rescan(self, key):
+        """A subject file written before the target's first full scan, in ship, that's since come in."""
+        with self.board.lock:
+            e = self.backstories.get(key) or {}
+            return (e.get("fmt") == DOSSIER_FORMAT and e.get("status") == "done" and e.get("mode") == "ship"
+                    and e.get("kind") == "person" and not e.get("scanned") and not e.get("rescan") and self._full_scan(key))
+
+    def _full_scan(self, key):
+        return (self.scans.get(key) or {}).get("stage", 0) >= 3
+
+    def take_rescans(self):
+        with self.board.lock:
+            out, self.rescans = self.rescans, []
+            return out
 
     # ---- journal events ----
     def on_MissionAccepted(self, ev, ts):
@@ -4949,10 +5253,54 @@ class Contracts:
         if ev.get("TargetLocked"):
             self._scan(ev)
 
+    def _arrive(self, ev):   # (Location, FSDJump, CarrierJump) what each faction there is, and the system
+        system = clean(ev.get("StarSystem"))
+        if not system:
+            return
+        sec = clean(ev.get("SystemSecurity_Localised") or ev.get("SystemSecurity")).replace("$", "")
+        bits = [sec[:1].upper() + sec[1:].lower() if sec else "", clean(ev.get("SystemGovernment_Localised")), clean(ev.get("SystemAllegiance"))]
+        self.systems[system.lower()] = ", ".join(b for b in bits if b and b.lower() != "none")
+        wars = {}
+        for c in ev.get("Conflicts") or []:
+            a, b = c.get("Faction1") or {}, c.get("Faction2") or {}
+            kind = {"war": "war", "civilwar": "civil war", "election": "election"}.get(str(c.get("WarType") or "").lower(), "conflict")
+            for us, them in ((a, b), (b, a)):
+                if us.get("Name"):
+                    wars[us["Name"].lower()] = (kind, them.get("Name", ""), us.get("WonDays", 0), them.get("WonDays", 0), us["Name"])
+        for f in ev.get("Factions") or []:
+            name = clean(f.get("Name"))
+            if not name:
+                continue
+            self.factions[name.lower()] = {
+                "name": name, "gov": clean(f.get("Government")), "alleg": clean(f.get("Allegiance")),
+                "inf": round(float(f.get("Influence") or 0) * 100), "system": system,
+                "states": [pretty(x.get("State")) for x in (f.get("ActiveStates") or []) if pretty(x.get("State"))],
+                "conflict": wars.get(name.lower()),
+            }
+
+    def on_Location(self, ev, ts):
+        self._arrive(ev)
+
+    on_FSDJump = on_CarrierJump = on_Location
+
+    def on_ApproachSettlement(self, ev, ts):   # an on-foot target's settlement reached: LOCATED
+        name = clean(ev.get("Name_Localised") or ev.get("Name")).casefold()
+        for m in self.missions.values():
+            if name and m.get("settlement") and m["settlement"].casefold() == name and not m.get("located"):
+                m["located"] = ts
+
+    def on_Bounty(self, ev, ts):   # a kill: one of a batch's units, if it's of the faction a massacre is against
+        who = clean(ev.get("VictimFaction_Localised") or ev.get("VictimFaction")).lower()
+        if who:
+            k = self.kills.setdefault(who, [])
+            k.append(ts)
+            del k[:-500]
+
     def _accept(self, ev):
         """Every mission goes on Contracts' Active page. Hunts - assassinations (a named target) and massacres
         (a kill count) - are grouped by target and get a backstory; returns those."""
         m, is_target = mission_record(ev)
+        m["issued_in"], m["issued_at"] = self.board.place.system, self.board.place.docked   # (where you took it)
         self.missions[m["id"]] = m
         return dict(m) if is_target else None
 
@@ -4980,16 +5328,27 @@ class Contracts:
         if not any(m["key"] == key for m in self.missions.values()):
             return  # only remember scans of your mission targets
         prev = self.scans.get(key, {})
-        if ev.get("ScanStage") == 3:
+        stage = ev.get("ScanStage") if isinstance(ev.get("ScanStage"), int) else 0
+        if stage == 3:
             self.board.log(ev.get("timestamp", ""), "SCAN", f"{pilot} · {ship_name(ev.get('Ship'), ev.get('Ship_Localised'))}")
+            if prev.get("stage", 0) < 3:
+                self.rescans.append(key)   # (the first full scan: its subject file's notes and assessment are written again)
+        subs = list(prev.get("subs") or [])
+        sub = clean(ev.get("Subsystem_Localised") or "")
+        if sub and sub not in subs:
+            subs = (subs + [sub])[-6:]
         self.scans[key] = {
             "time": ev.get("timestamp", ""),
+            "first": prev.get("first") or ev.get("timestamp", ""),   # (LOCATED from then)
+            "stage": max(stage, prev.get("stage", 0)),
             "ship": ship_name(ev.get("Ship"), ev.get("Ship_Localised")) or prev.get("ship", ""),
+            "ship_id": str(ev.get("Ship") or prev.get("ship_id") or "").lower(),
             "hull": ev.get("HullHealth", prev.get("hull")),
             "shields": ev.get("ShieldHealth", prev.get("shields")),
             "legal": ev.get("LegalStatus", prev.get("legal", "")),
             "bounty": ev.get("Bounty", prev.get("bounty")),
             "rank": ev.get("PilotRank", prev.get("rank", "")),
+            "subs": subs,
         }
 
     # ---- views ----
@@ -5003,6 +5362,170 @@ class Contracts:
     def for_backstory(self, key):
         """A target mission (for a backstory) by its target key."""
         return next((m for m in self.active() if m["key"] == key and m["kind"] != "contract"), None)
+
+    # ---- the subject files (under the board's lock) ----
+    def _faction_text(self, name, influence=True):
+        """'Brask Free Company (Anarchy, Independent; 1% influence in Brask)' - as much as the journal's said."""
+        f = self.factions.get(str(name or "").lower())
+        if not f:
+            return name
+        bits = ", ".join(x for x in (f["gov"], f["alleg"]) if x)
+        if influence and f.get("inf") is not None and f.get("system"):
+            bits += ("; " if bits else "") + f"{f['inf']}% influence in {f['system']}"
+        return f"{name} ({bits})" if bits else name
+
+    def _situation(self, name):
+        """A faction's states and war: 'civil war with X (Y ahead, 2 days to 1); Boom' - or ''."""
+        f = self.factions.get(str(name or "").lower())
+        if not f:
+            return ""
+        out = []
+        c = f.get("conflict")
+        if c:
+            kind, other, us, them, me = c
+            lead = (f"{me} ahead" if us > them else f"{other} ahead" if them > us else "level")
+            out.append(f"{kind} with {other} ({lead}, {max(us, them)} days to {min(us, them)})" if us != them else f"{kind} with {other} (level, {us} days each)")
+        out += [x for x in f.get("states") or [] if x.lower().replace(" ", "") not in ("civilwar", "war", "election")]
+        return "; ".join(out)
+
+    def _group(self, key):
+        return [m for m in self.active() if m["key"] == key and m["kind"] != "contract"]
+
+    def _file(self, key, ms):
+        """The board's part of a target's subject file: kind, mode, serial number, incept date, status, threat,
+        units (a batch), affiliation and contract - from the journal, the same every time it's asked."""
+        m0 = ms[0]
+        kind = "batch" if m0["kind"] == "faction" else "person"
+        mode = "foot" if any(str(m.get("cat") or "").startswith("On foot") for m in ms) else "ship"
+        live = [m for m in ms if m.get("status") != "redirected"]
+        first = min((m.get("accepted") or "9999") for m in ms)
+        number, incept, t0 = dossier_ids(key, first if first != "9999" else "")
+        e = self.backstories.get(key) or {}
+        if e.get("fmt") == DOSSIER_FORMAT:   # (as written: it's what the file says)
+            number, incept_text = e.get("number") or number, e.get("incept") or game_date(incept)
+        else:
+            incept_text = game_date(incept)
+        out = {"kind": kind, "mode": mode, "number": number, "incept": incept_text, "incept_d": incept, "t0": t0}
+        scan = self.scans.get(key) if kind == "person" else None
+        located = None
+        if kind == "person":
+            located = (scan or {}).get("first") or min((m.get("located") for m in ms if m.get("located")), default=None)
+            out["status"] = ("LOCATED" if located else "AT LARGE") if live else "RETIRED"
+        else:   # a batch: its units - the most any one issuer wants killed (kills count for each issuer at once) - less the kills since
+            per = {}
+            for m in live:
+                per[m.get("issuer") or ""] = per.get(m.get("issuer") or "", 0) + int(m.get("kill_count") or 0)
+            need = max(per.values()) if per else 0
+            since = min((m.get("accepted") or "") for m in live) if live else ""
+            kills = sum(1 for t in self.kills.get(str(m0.get("target_faction") or m0["target"]).lower(), []) if since and t >= since)
+            out["units"] = {"need": need, "left": max(0, need - kills)} if need else None
+            out["status"] = "AT LARGE" if live else "RETIRED"
+        out["located"] = located
+        reward = sum(float(m.get("reward") or 0) for m in (live or ms))
+        level, basis = threat_of(mode, kind, reward, any(m.get("wing") for m in ms), scan=scan, hard=any(m.get("hard") for m in ms),
+                                 units=(out.get("units") or {}).get("need"))
+        out["threat"] = f"{THREAT_LEVELS[level]} ({basis})"
+        fac = m0.get("target_faction") or (m0["target"] if kind == "batch" else "")
+        out["affiliation"] = self._faction_text(fac, influence=False) if fac else ""
+        issuers = []
+        for m in ms:
+            if m.get("issuer") and m["issuer"] not in issuers:
+                issuers.append(m["issuer"])
+        out["contract"] = mission_verb(m0) + (f", for {issuers[0]}" + (f" +{len(issuers) - 1}" if len(issuers) > 1 else "") if issuers else "")
+        return out
+
+    def file_view(self, key):
+        """A target's subject file as Contracts' Active panel shows it: the board's facts, and the serial with the
+        AI's letters (sex and grades) once it's written."""
+        ms = self._group(key) if key else []
+        if not ms:
+            return None
+        f = self._file(key, ms)
+        e = self.backstories.get(key) or {}
+        fields = (e.get("file") or {}) if e.get("fmt") == DOSSIER_FORMAT else {}
+        if f["kind"] == "person":
+            letters = (fields.get("sex", "") + fields.get("physical_grade", "") + fields.get("mental_grade", "")) or "---"
+            serial = f"{DOSSIER_LINE}{letters}{f['number']}"
+        else:
+            n = (f.get("units") or {}).get("need") or 0
+            serial = f"{DOSSIER_LINE} batch {f['number']}" + (f"-{(int(f['number']) + n - 1) % 100000:05d}" if n > 1 else "")
+        out = {k: v for k, v in f.items() if k not in ("incept_d", "t0")}
+        out["serial"] = serial
+        return out
+
+    def dossier_job(self, key, rescan=False):
+        """What the AI is given to write a target's subject file - its facts from the journal (only what's known) -
+        and what's kept with it; None if it's no longer an active target."""
+        with self.board.lock:
+            ms = self._group(key)
+            if not ms:
+                return None
+            f = self._file(key, ms)
+            m0, kind, mode = ms[0], f["kind"], f["mode"]
+            scan = self.scans.get(key) if kind == "person" and mode == "ship" else None
+            full = bool(scan) and scan.get("stage", 0) >= 3
+            lines = [f"MODE: {'ON FOOT' if mode == 'foot' else 'IN SHIP'}",
+                     "FILE: PERSON" if kind == "person" else f"FILE: BATCH ({(f.get('units') or {}).get('need') or 'several'} units)",
+                     f"DATE: {game_date(now_utc())}", f"TARGET: {m0['target']}"]
+            if m0.get("target_type"):
+                lines.append(f"ROLE: {m0['target_type']}")
+            fac = m0.get("target_faction") or (m0["target"] if kind == "batch" else "")
+            if fac:
+                lines.append(f"TARGET FACTION: {self._faction_text(fac)}")
+            titles = []
+            for m in ms:
+                if m.get("title") and m["title"] not in titles:
+                    titles.append(m["title"])
+            if titles:
+                lines.append("CONTRACT: " + "; ".join(titles))
+            seen = set()
+            for m in ms:
+                iss = m.get("issuer")
+                if not iss or iss in seen:
+                    continue
+                seen.add(iss)
+                where = ", ".join(x for x in (m.get("issued_at"), m.get("issued_in")) if x)
+                lines.append(f"ISSUED BY: {self._faction_text(iss, influence=False)}" + (f" at {where}" if where else ""))
+                sit = self._situation(iss)
+                if sit:
+                    lines.append(f"ISSUER'S SITUATION: {sit}")
+            places = []
+            for m in ms:
+                p = ", ".join(x for x in (m.get("settlement"), m.get("station"), m.get("system")) if x)
+                info = self.systems.get(str(m.get("system") or "").lower())
+                p = p + (f" ({info})" if p and info else "")
+                if p and p not in places:
+                    places.append(p)
+            if places:
+                lines.append("LAST KNOWN WHEREABOUTS: " + "; ".join(places))
+            reward = sum(float(m.get("reward") or 0) for m in ms)
+            if reward:
+                lines.append(f"REWARD: {int(reward):,} CR")
+            lines.append(f"WING CONTRACT: {'yes' if any(m.get('wing') for m in ms) else 'no'}")
+            lines.append(f"INCEPT DATE: {f['incept']} ({'the batch, ' if kind == 'batch' else ''}{dossier_age(f['incept_d'], now_utc())}; a four-year lifespan)")
+            if kind == "batch" and f.get("units"):
+                lines.append(f"UNITS STILL AT LARGE: {f['units']['left']} of {f['units']['need']}")
+            summary = ""
+            if kind == "person" and mode == "ship":
+                if scan and scan.get("ship"):
+                    bits = [scan.get("ship"), scan.get("rank"), pretty(scan.get("legal")) if scan.get("legal") not in (None, "", "None") else "",
+                            f"local bounty {int(scan['bounty']):,} CR" if isinstance(scan.get("bounty"), (int, float)) and scan["bounty"] else "",
+                            f"shields {round(scan['shields'])}%" if isinstance(scan.get("shields"), (int, float)) else "",
+                            f"hull {round(scan['hull'])}%" if isinstance(scan.get("hull"), (int, float)) else ""] + list(scan.get("subs") or [])
+                    summary = ", ".join(b for b in bits if b)
+                    lines.append(f"SHIP SCAN: {summary}" + ("" if full else " (partial)"))
+                else:
+                    lines.append("SHIP SCAN: none yet")
+            if kind == "person" and mode == "foot" and f.get("located"):
+                lines.append(f"SETTLEMENT REACHED: {_jtime(f['located'])}")
+            lines.append(f"THREAT: {f['threat']}")
+            if rescan:
+                e = self.backstories.get(key) or {}
+                done = e.get("file") or {}
+                lines += ["", "WRITTEN SO FAR", f"BACKGROUND: {done.get('background', '')}", f"IMPLANTED MEMORY: {done.get('implanted_memory', '')}"]
+            return {"key": key, "name": m0["target"], "kind": kind, "mode": mode, "facts": "\n".join(lines),
+                    "ship_known": bool(scan and scan.get("ship")), "number": f["number"], "incept": f["incept"],
+                    "threat": f["threat"], "scan": " · ".join(x for x in ((scan or {}).get("ship"), (scan or {}).get("rank")) if x)}
 
     def view(self):
         """Contracts' Active entries, soonest to expire first: target missions grouped by target,
@@ -5021,6 +5544,7 @@ class Contracts:
                 target = g["kind"] != "contract"
                 g["scan"] = dict(self.scans[key]) if target and key in self.scans else None
                 g["backstory"] = dict(self.backstories[key]) if target and key in self.backstories else None
+                g["file"] = self.file_view(key) if target else None
                 contracts.append(g)
             contracts.sort(key=lambda g: g["missions"][0].get("expiry") or "9999")
             return contracts
@@ -6553,8 +7077,24 @@ class BoardState:
 # --------------------------------------------------------------------------- #
 # Background workers
 # --------------------------------------------------------------------------- #
+def ask_dossier(engine, job, timeout, rescan=False):
+    """The AI's reply as a subject file's fields - asked once more if it doesn't fit, saying why: (fields, what was
+    still wrong)."""
+    kind = "rescan" if rescan else job["kind"]
+    system, instruction = dossier_system(job["kind"]), DOSSIER_RESCAN if rescan else DOSSIER_INSTRUCTION
+    fields, problems = check_dossier(engine.write(system, instruction, job["facts"], timeout), kind, job["ship_known"])
+    if problems:
+        log(f"Subject file for {job['name']} sent back: {'; '.join(problems)}")
+        again = job["facts"] + "\n\n" + DOSSIER_RETRY.format(why="; ".join(problems))
+        fields, problems = check_dossier(engine.write(system, instruction, again, timeout), kind, job["ship_known"])
+    return fields, problems
+
+
 class BackstoryWriter(threading.Thread):
-    """Writes one backstory at a time so the AI tool is never run in parallel."""
+    """Writes one subject file at a time so the AI tool is never run in parallel: a target's whole file (when its
+    contract is accepted, or again with a long press on Contracts' Active panel), or just its behavioural notes and
+    assessment once its first full scan is in. Each reply is checked (check_dossier); one that doesn't fit is sent
+    back once, saying why."""
 
     def __init__(self, state: BoardState, engine: Engine, timeout: int):
         super().__init__(daemon=True, name="backstories")
@@ -6573,7 +7113,15 @@ class BackstoryWriter(threading.Thread):
             if entry and entry.get("status") in ("queued", "writing"):
                 return False  # already in hand
             self.state.contracts.set_backstory(key, mission["target"], "queued")
-        self.jobs.put(mission)
+        self.jobs.put(("write", key, mission["target"]))
+        return True
+
+    def rescan(self, key):
+        """The notes and assessment again, from the target's first full scan (a subject file written before it)."""
+        if self.engine.name == "none" or not self.state.contracts.needs_rescan(key):
+            return False
+        self.state.contracts.set_rescan(key, "queued")
+        self.jobs.put(("rescan", key, (self.state.contracts.backstories.get(key) or {}).get("name", key)))
         return True
 
     def run(self):
@@ -6581,31 +7129,47 @@ class BackstoryWriter(threading.Thread):
         self.state.set_engine(self.ok, self.msg)
         log(self.msg)
         while True:
-            m = self.jobs.get()
-            key, name = m["key"], m["target"]
+            what, key, name = self.jobs.get()
+            rescan = what == "rescan"
             if not self.ok:  # re-check, in case you've logged in since
                 self.ok, self.msg = self.engine.check()
                 self.state.set_engine(self.ok, self.msg)
-            if not self.ok:
-                self.state.contracts.set_backstory(key, name, "error", error=self.msg)
+            job = self.state.contracts.dossier_job(key, rescan=rescan) if self.ok else None
+            if not job:
+                if rescan:
+                    self.state.contracts.set_rescan(key, None)
+                else:
+                    self.state.contracts.set_backstory(key, name, "error",
+                                                       error=self.msg if not self.ok else "it's no longer an active contract")
                 self.state.changed()
                 continue
-            self.state.contracts.set_backstory(key, name, "writing")
+            if rescan:
+                self.state.contracts.set_rescan(key, "writing")
+            else:
+                self.state.contracts.set_backstory(key, name, "writing")
             self.state.changed()
-            log(f"Writing backstory for {name}...")
+            log(f"Writing {'the scan notes in the ' if rescan else 'the '}subject file for {name}...")
             try:
-                text = tidy(self.engine.write(build_details(m), self.timeout))
-                if not text:
-                    raise RuntimeError("the AI returned an empty reply")
-                self.state.contracts.set_backstory(key, name, "done", text=text)
-                log(f"Backstory ready for {name}.")
+                fields, problems = ask_dossier(self.engine, job, self.timeout, rescan)
+                if problems:
+                    raise RuntimeError("the AI's reply didn't fit the subject file (" + "; ".join(problems) + ")")
+                if rescan:
+                    self.state.contracts.update_dossier(key, fields, job)
+                elif self.state.contracts.set_dossier(key, name, fields, job):
+                    self.rescan(key)   # (its full scan came in while it was being written)
+                log(f"Subject file ready for {name}.")
             except subprocess.TimeoutExpired:
-                self.state.contracts.set_backstory(key, name, "error", error=f"timed out after {self.timeout}s")
-                log(f"Backstory for {name} timed out.")
-            except Exception as exc:  # usage limit reached, network, etc.
-                self.state.contracts.set_backstory(key, name, "error", error=str(exc))
-                log(f"Backstory for {name} failed: {exc}")
+                self._failed(key, name, rescan, f"timed out after {self.timeout}s")
+            except Exception as exc:  # usage limit reached, network, a reply that wouldn't fit, etc.
+                self._failed(key, name, rescan, str(exc))
             self.state.changed()   # done, timed out or failed: the page shows it now
+
+    def _failed(self, key, name, rescan, why):
+        log(f"Subject file for {name} failed: {why}")
+        if rescan:   # (the file stays as it was: provisional)
+            self.state.contracts.set_rescan(key, None)
+        else:
+            self.state.contracts.set_backstory(key, name, "error", error=why)
 
 
 class JournalWatcher(threading.Thread):
@@ -6710,6 +7274,9 @@ class JournalWatcher(threading.Thread):
             if added and self.live:
                 log(f"New target: {added['target']} ({added['title']})")
                 self.writer.request(added)
+            if self.live and self.state.contracts.rescans:   # a target's first full scan: its notes and assessment again
+                for key in self.state.contracts.take_rescans():
+                    self.writer.rescan(key)
         with self.state.lock:
             self.state.journal_file = path.name
         return True
@@ -6740,6 +7307,9 @@ class JournalWatcher(threading.Thread):
         log(f"Journal loaded: {len(active)} active contract(s), {len(targets)} with a target.")
         for m in targets:
             self.writer.request(m)
+        self.state.contracts.take_rescans()   # (scans read back: any subject file written before its full scan, again)
+        for key in {m["key"] for m in targets}:
+            self.writer.rescan(key)
 
         # Status.json and the journal being written are looked at every STATUS_POLL_SECONDS; the folder (for a new
         # journal file) and NavRoute.json every `poll` seconds. Anything new and the open pages fetch the state at once.
@@ -10309,14 +10879,19 @@ def run_test(engine, timeout):
     print(msg)
     if not ok:
         sys.exit(1)
-    sample = {
-        "target": "Kirsten Vance", "kind": "person", "target_type": "Known pirate",
-        "target_faction": "Black Sun Crew", "issuer": "LHS 3447 Defence Force",
-        "system": "LHS 3447", "station": "Trevithick Dock",
-        "title": "Assassinate Known Pirate: Kirsten Vance", "reward": 1250000,
-    }
-    print("Writing a sample backstory (this uses a small amount of your subscription allowance)...\n")
-    print(tidy(engine.write(build_details(sample), timeout)))
+    number, incept, t0 = dossier_ids("kirsten vance", "")
+    facts = "\n".join(["MODE: IN SHIP", "FILE: PERSON", f"DATE: {game_date(now_utc())}", "TARGET: Kirsten Vance",
+                       "ROLE: Pirate lord", "TARGET FACTION: Black Sun Crew", "CONTRACT: Assassinate Known Pirate: Kirsten Vance",
+                       "ISSUED BY: LHS 3447 Defence Force", "LAST KNOWN WHEREABOUTS: Trevithick Dock, LHS 3447",
+                       "REWARD: 1,250,000 CR", "WING CONTRACT: no",
+                       f"INCEPT DATE: {game_date(incept)} ({dossier_age(incept, t0)}; a four-year lifespan)",
+                       "SHIP SCAN: none yet", "THREAT: HIGH (provisional - no scan yet)"])
+    print("Writing a sample subject file (this uses a small amount of your subscription allowance)...\n")
+    fields, problems = ask_dossier(engine, {"name": "Kirsten Vance", "kind": "person", "facts": facts, "ship_known": False}, timeout)
+    for k, v in fields.items():
+        print(f"{k.replace('_', ' ').upper()}: {v}")
+    if problems:
+        print("\nStill didn't fit: " + "; ".join(problems))
 
 
 def set_console_title(title):

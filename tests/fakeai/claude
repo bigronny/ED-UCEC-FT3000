@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+"""A stand-in for Claude Code's CLI, for the tests: `auth status` says it's signed in with a subscription; otherwise
+it reads the prompt (-p), the system prompt and the input (stdin), keeps them in FAKE_AI_DIR/calls.jsonl, and replies
+with the next of FAKE_AI_DIR/replies.json (a list, used up in order) - or, with none left, a subject file that fits:
+a person's, a batch's, or just the notes and assessment (a rescan), from the input's TARGET and MODE."""
+import json
+import os
+import sys
+import time
+from pathlib import Path
+
+args = sys.argv[1:]
+if args[:2] == ["auth", "status"]:
+    print(json.dumps({"authMethod": "claude.ai", "loggedIn": True}))
+    sys.exit(0)
+
+
+def opt(name):
+    return args[args.index(name) + 1] if name in args and args.index(name) + 1 < len(args) else ""
+
+
+instruction, system, stdin = opt("-p"), opt("--system-prompt"), sys.stdin.read()
+box = Path(os.environ.get("FAKE_AI_DIR") or ".")
+box.mkdir(parents=True, exist_ok=True)
+with open(box / "calls.jsonl", "a", encoding="utf-8") as f:
+    f.write(json.dumps({"instruction": instruction, "system": system, "input": stdin}) + "\n")
+time.sleep(float(os.environ.get("FAKE_AI_DELAY") or 0))
+queue = box / "replies.json"
+try:
+    replies = json.loads(queue.read_text(encoding="utf-8"))
+except (OSError, ValueError):
+    replies = []
+if replies:
+    queue.write_text(json.dumps(replies[1:]), encoding="utf-8")
+    print(replies[0] if isinstance(replies[0], str) else json.dumps(replies[0]))
+    sys.exit(0)
+
+facts = dict(line.split(": ", 1) for line in stdin.splitlines() if ": " in line and line.split(": ", 1)[0].isupper())
+name, foot = facts.get("TARGET", "the target"), facts.get("MODE") == "ON FOOT"
+WORDS = "the unit kept to its lease until the day it did not and nobody has seen it since then".split()
+
+
+def words(n, lead):
+    out = lead.split()
+    while len(out) < n:
+        out.append(WORDS[len(out) % len(WORDS)])
+    return " ".join(out[:n]) + "."
+
+
+notes = {"behavioural_notes": words(45, f"{'On foot' if foot else 'In ship'}: {name} keeps"),
+         "assessment": words(28, f"Threat {facts.get('THREAT', '').split(' ')[0]}: retire {name}")}
+if instruction.startswith("The target has now been scanned"):
+    print(json.dumps(notes))
+elif facts.get("FILE", "").startswith("BATCH"):
+    print(json.dumps(dict({"known_as": "The batch", "maker": "Azimuth Biotech, licensed Wallace pattern",
+                           "original_function": "Convoy escort, now raiders", "background": words(72, f"Batch {name} was"),
+                           "implanted_memory": words(44, "A cold moon and")}, **notes)))
+else:
+    print(json.dumps(dict({"sex": "F", "physical_grade": "A", "mental_grade": "B", "known_as": "Kestrel",
+                           "maker": "Azimuth Biotech, licensed Wallace pattern", "original_function": "Security pilot, now a fugitive",
+                           "background": words(75, f"{name} was"), "implanted_memory": words(45, "A childhood on a docking ring")}, **notes)))

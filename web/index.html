@@ -104,28 +104,44 @@
             <div class="who">
               <div class="lab" id="case"></div>
               <h1 id="name" style="margin: 0; font-weight: normal"></h1>
+              <div class="known" id="known" hidden></div>
               <div id="chips"></div>
             </div>
+            <!-- the ID picture: held, a target's subject file is written again (here only: Contracts' Active page) -->
             <div id="sigil"></div>
           </div>
-          <div class="grid">
-            <div class="cell"><span class="lab">Location <button type="button" class="clipb" id="f-clip" hidden>Copy</button></span><span class="v" id="f-loc"></span></div>
-            <div class="cell"><span class="lab">Issued by</span><span class="v" id="f-iss"></span></div>
-            <div class="cell"><span class="lab">Reward</span><span class="v" id="f-rew"></span></div>
-            <div class="cell"><span class="lab">Expires</span><span class="v" id="f-exp"></span></div>
-            <div class="cell"><span class="lab" id="f-l5">Last scan</span><span class="v" id="f-scan"></span></div>
-            <div class="cell"><span class="lab">Status</span><span class="v" id="f-stat"></span></div>
+          <!-- a target's subject file (its facts from the journal; Maker and Original function written), or a contract's
+               six (--co: their order then) -->
+          <div class="grid" id="fgrid">
+            <div class="cell tc"><span class="lab">Affiliation</span><span class="v" id="f-aff"></span></div>
+            <div class="cell" style="--co: 2"><span class="lab" id="f-l2">Issued by</span><span class="v" id="f-iss"></span></div>
+            <div class="cell" style="--co: 1"><span class="lab">Location <button type="button" class="clipb" id="f-clip" hidden>Copy</button></span><span class="v" id="f-loc"></span></div>
+            <div class="cell" style="--co: 4"><span class="lab">Expires</span><span class="v" id="f-exp"></span></div>
+            <div class="cell tc"><span class="lab">Serial</span><span class="v" id="f-ser"></span></div>
+            <div class="cell tc"><span class="lab">Incept date</span><span class="v" id="f-inc"></span></div>
+            <div class="cell tc"><span class="lab">Maker</span><span class="v" id="f-mak"></span></div>
+            <div class="cell tc"><span class="lab">Original function</span><span class="v" id="f-fun"></span></div>
+            <div class="cell" style="--co: 6"><span class="lab">Status</span><span class="v" id="f-stat"></span></div>
+            <div class="cell" style="--co: 3"><span class="lab" id="f-l3">Reward</span><span class="v" id="f-rew"></span></div>
+            <div class="cell tc"><span class="lab">Threat</span><span class="v" id="f-thr"></span></div>
+            <div class="cell" style="--co: 5"><span class="lab" id="f-l5">Last scan</span><span class="v" id="f-scan"></span></div>
           </div>
           <div id="bars" hidden>
             <span><span class="lab">Shields </span><span id="b-sh"></span> <span class="pct" id="p-sh"></span></span>
             <span><span class="lab">Hull </span><span id="b-hu"></span> <span class="pct" id="p-hu"></span></span>
             <span class="lab" id="b-ago"></span>
           </div>
-          <div class="dhead">
+          <div class="dhead" id="dhead">
             <span class="lab" id="dlab">Dossier</span>
-            <button class="btn" id="rw" type="button" hidden>[ Rewrite ]</button>
           </div>
           <div id="story"></div>
+          <!-- a subject file's four written parts -->
+          <div class="dsecs" id="dsecs" hidden>
+            <div class="lab sec">Background</div><div class="dsec" id="s-bg"></div>
+            <div class="lab sec">Implanted memory</div><div class="dsec" id="s-mem"></div>
+            <div class="lab sec" id="s-behlab">Behavioural notes</div><div class="dsec" id="s-beh"></div>
+            <div class="lab sec" id="s-asslab">Assessment</div><div class="dsec" id="s-ass"></div>
+          </div>
         </div>
         <div class="xbox flat" id="panel-x"><span>No information</span></div>
         <div class="empty">
@@ -672,18 +688,31 @@
             </div>
             <div id="ch-sigil"></div>
           </div>
-          <div class="grid">
-            <div class="cell"><span class="lab">Outcome</span><span class="v" id="ch-out"></span></div>
-            <div class="cell"><span class="lab">Issued by</span><span class="v" id="ch-iss"></span></div>
-            <div class="cell"><span class="lab">Paid</span><span class="v" id="ch-paid"></span></div>
-            <div class="cell"><span class="lab">Accepted</span><span class="v" id="ch-acc"></span></div>
-            <div class="cell"><span class="lab">Ended</span><span class="v" id="ch-end"></span></div>
-            <div class="cell"><span class="lab">Destination <button type="button" class="clipb" id="ch-clip" data-f="copy" hidden>Copy</button></span><span class="v" id="ch-dest"></span></div>
+          <!-- a target's subject file (as on Active, its status how the contract ended), or a contract's six (--co: their order then) -->
+          <div class="grid" id="ch-grid">
+            <div class="cell tc"><span class="lab">Affiliation</span><span class="v" id="ch-aff"></span></div>
+            <div class="cell" style="--co: 2"><span class="lab" id="ch-l2">Issued by</span><span class="v" id="ch-iss"></span></div>
+            <div class="cell" style="--co: 6"><span class="lab">Destination <button type="button" class="clipb" id="ch-clip" data-f="copy" hidden>Copy</button></span><span class="v" id="ch-dest"></span></div>
+            <div class="cell" style="--co: 1"><span class="lab" id="ch-l1">Outcome</span><span class="v" id="ch-out"></span></div>
+            <div class="cell tc"><span class="lab">Serial</span><span class="v" id="ch-ser"></span></div>
+            <div class="cell tc"><span class="lab">Incept date</span><span class="v" id="ch-inc"></span></div>
+            <div class="cell tc"><span class="lab">Maker</span><span class="v" id="ch-mak"></span></div>
+            <div class="cell tc"><span class="lab">Original function</span><span class="v" id="ch-fun"></span></div>
+            <div class="cell" style="--co: 3"><span class="lab">Paid</span><span class="v" id="ch-paid"></span></div>
+            <div class="cell tc"><span class="lab">Threat</span><span class="v" id="ch-thr"></span></div>
+            <div class="cell" style="--co: 4"><span class="lab">Accepted</span><span class="v" id="ch-acc"></span></div>
+            <div class="cell" style="--co: 5"><span class="lab">Ended</span><span class="v" id="ch-end"></span></div>
           </div>
           <div class="dhead"><span class="lab" id="ch-dlab">Details</span></div>
           <div class="brief" id="ch-brief"></div>
           <div class="lab sec" id="ch-slab" hidden>Dossier</div>
           <div id="ch-story" hidden></div>
+          <div class="dsecs" id="ch-dsecs" hidden>
+            <div class="lab sec">Background</div><div class="dsec" id="ch-bg"></div>
+            <div class="lab sec">Implanted memory</div><div class="dsec" id="ch-mem"></div>
+            <div class="lab sec">Behavioural notes</div><div class="dsec" id="ch-beh"></div>
+            <div class="lab sec">Assessment</div><div class="dsec" id="ch-ass"></div>
+          </div>
         </div>
         <div class="xbox flat" id="ch-panelx"><span>No information</span></div>
       </main>
@@ -742,9 +771,9 @@
               </div>
             </div>
             <div class="strow" data-key="engine">
-              <div class="ctname"><span class="ctn">AI backstories</span><span class="ctwhat">Who writes each target's backstory: a command-line tool, logged in once with your subscription (no API credits)</span></div>
+              <div class="ctname"><span class="ctn">AI subject files</span><span class="ctwhat">Who writes each target's subject file: a command-line tool, logged in once with your subscription (no API credits)</span></div>
               <div class="stctl">
-                <div class="stseg" id="st-engine" role="group" aria-label="AI backstories">
+                <div class="stseg" id="st-engine" role="group" aria-label="AI subject files">
                   <button type="button" class="sybtn sm" data-v="auto">Auto</button><button type="button" class="sybtn sm" data-v="claude">Claude</button><button type="button" class="sybtn sm" data-v="codex">ChatGPT</button><button type="button" class="sybtn sm" data-v="none">None</button></div>
                 <div class="stline"><span class="lab">Model</span><input class="tgin stin stsm" id="st-model" type="text" maxlength="60" autocomplete="off" spellcheck="false" placeholder="the tool's own" aria-label="Model">
                   <button type="button" class="sybtn sm" id="st-msave">Save</button></div>

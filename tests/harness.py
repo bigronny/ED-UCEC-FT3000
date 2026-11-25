@@ -144,13 +144,14 @@ class Board:
     opens a real page calls unstub() first, so the displays follow that page instead."""
 
     def __init__(self, name, journal=(), status=None, navroute=None, edsm=("hip 20277",), ocor=False,
-                 coords=None, no_edsm=False, ufc=True, extra_args=(), stub_page=True, edsm_age=0.0, env=None):
+                 coords=None, no_edsm=False, ufc=True, extra_args=(), stub_page=True, edsm_age=0.0, env=None, ai=False):
         self.name, self.journal, self.status, self.navroute = name, list(journal), status, navroute
         self.edsm, self.ocor, self.coords, self.no_edsm, self.ufc = edsm, ocor, coords or {}, no_edsm, ufc
         self.extra_args = list(extra_args)
         self.proc, self.simapp, self.dir = None, None, None
         self.stub_page, self.stub = stub_page, None
         self.edsm_age, self.env = edsm_age, dict(env or {})   # how long ago the seeded EDSM copy was fetched; extra environment
+        self.ai = ai   # True: subject files written by the stand-in AI (fakeai/claude: ai_replies() queues its replies, ai_calls() what it was asked)
 
     # ---- setting up ----
     def __enter__(self):
@@ -244,6 +245,8 @@ class Board:
         env = dict(os.environ, UFC_CMDS=str(self.cmds), EDTB_SIMAPP_PORT=str(self.simapp.port), PYTHONUNBUFFERED="1",
                    FT3000_DATA=str(self.dir),   # (its data beside it, as before 3.01.42 - not in this PC's Saved Games)
                    https_proxy=dead, HTTPS_PROXY=dead, http_proxy=dead, HTTP_PROXY=dead, no_proxy="", NO_PROXY="")
+        if self.ai:
+            env["FAKE_AI_DIR"] = str(self.dir / "fakeai")
         env.update(self.env)
         if self.ufc:
             env["PYTHONPATH"] = str(HERE / "fakehid") + os.pathsep + env.get("PYTHONPATH", "")
@@ -262,10 +265,23 @@ class Board:
                 self.stub_open()
         return self
 
+    def ai_replies(self, *replies):
+        """The stand-in AI's next replies, in order (text, or an object sent as JSON) - after them, ones that fit."""
+        (self.dir / "fakeai").mkdir(exist_ok=True)
+        (self.dir / "fakeai" / "replies.json").write_text(json.dumps(list(replies)), encoding="utf-8")
+
+    def ai_calls(self):
+        """What the stand-in AI has been asked: [{"instruction", "system", "input"}]."""
+        try:
+            return [json.loads(x) for x in (self.dir / "fakeai" / "calls.jsonl").read_text(encoding="utf-8").splitlines() if x]
+        except OSError:
+            return []
+
     def options(self):
         """The command line it's started with (a subclass can start it otherwise - with its settings deciding, say)."""
-        args = ["--engine", "none", "--journal-dir", str(self.jdir), "--port", str(self.port), "--no-browser",
-                "--bindings-dir", str(FIX / "bindings")]
+        engine = ["--engine", "claude", "--cli-path", str(HERE / "fakeai" / "claude")] if self.ai else ["--engine", "none"]
+        args = engine + ["--journal-dir", str(self.jdir), "--port", str(self.port), "--no-browser",
+                         "--bindings-dir", str(FIX / "bindings")]
         if not self.ufc:
             args.append("--no-ufc")
         if self.no_edsm:   # no online lookups at all (EDSM or Spansh)
@@ -384,7 +400,8 @@ class Board:
 
 # ---- golden files: what the board said last time, so a change in behaviour shows up ----
 _TS = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})?")
-_VOLATILE = {"now", "live", "updated", "fetched", "ages", "pasted", "journal", "checked", "t", "age", "uplink", "uplinking"}
+_VOLATILE = {"now", "live", "updated", "fetched", "ages", "pasted", "journal", "checked", "t", "age", "uplink", "uplinking",
+             "incept"}   # (a subject file's incept date: so many days before its contract was accepted, so it moves with the day the test runs)
 
 
 def normalise(x, key=None):

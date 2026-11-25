@@ -6,10 +6,13 @@
 green-phosphor terminal in your web browser: your missions, the system you're in, navigation and attack tools for
 flying low over a planet, and your history.
 
-**Every target gets a story.** Take a contract on someone, or on a faction's ships, and **Claude or ChatGPT** writes
-them an intelligence dossier: who they are, how they got here and the incident that put a price on their head, in
-keeping with Elite's lore and drawn from the contract itself. It uses the AI subscription you already have, not a
-pay-per-use API key. See [Backstories](#backstories). It also runs a **WinWing UFC** for Elite - menus on the UFC's displays, and buttons that press your Elite key
+**Every target gets a subject file.** Each one is a replicant gone off its lease, and the FT3000 opens a file on it:
+the facts from your journal - affiliation, contract, serial, incept date, status, bounty, threat, your last scan -
+and its story, written by **Claude or ChatGPT**: maker, original function, background, implanted memory, behavioural
+notes and an assessment. It uses the AI subscription you already have, not a pay-per-use API key. See
+[Subject files](#subject-files).
+
+It also runs a **WinWing UFC** for Elite - menus on the UFC's displays, and buttons that press your Elite key
 bindings - so the whole thing can be worked from the UFC alone, in VR, with Elite keeping the focus.
 
 In the game's fiction it is a field terminal from the Universal Computer Equipment Corporation.
@@ -136,13 +139,14 @@ planets you orbited or landed on, the settlements you came near. Select one for 
 ### 3 Contracts
 
 The missions you hold, soonest to expire first. Each target - a named person, or a faction whose ships you've been
-paid to destroy - gets a case file: who issued the contract, the reward, their ship, rank, shields and hull from
-your last scan, and a **dossier written for them by Claude or ChatGPT** as soon as you accept the contract. Every
+paid to destroy - gets a **subject file**: who it serves, who wants it retired and for how much, its serial and
+incept date, its status and threat, its ship, rank, shields and hull from your last scan, and its story, written by
+Claude or ChatGPT as soon as you accept the contract. Every
 other mission (courier, cargo, passengers, salvage, on foot...) has its destination, reward, expiry and progress.
 History lists what you've completed, failed or abandoned; OCOR takes your squadron's daily BGS briefing, pasted from
 Discord.
 
-![Contracts: a target's dossier and backstory](docs/contracts.png)
+![Contracts: a target's subject file](docs/contracts.png)
 
 ### 4 Setup
 
@@ -151,7 +155,7 @@ joystick. The UFC's own layout is the default.
 
 ![Controls](docs/controls.png)
 
-**2 Settings** - your journal folder, which AI writes backstories, viewing the page from a phone or another
+**2 Settings** - your journal folder, which AI writes subject files, viewing the page from a phone or another
 PC, the game controllers.
 
 ![Settings](docs/settings.png)
@@ -162,12 +166,12 @@ PC, the game controllers.
 - A **web browser** (Edge, Chrome or Firefox) - the terminal is a web page served from your own PC.
 - **Optional - a WinWing UFC**, with **WinWing SimApp Pro** running (it draws the UFC's text). Without a UFC, the
   page works with the mouse and keyboard, and any other game controller can drive its menus (4 Setup > Controls).
-- **Optional - backstories**: a command-line AI tool, logged in once with your **subscription** - no API key, no
-  pay-per-use credits:
+- **Optional - the subject files' stories**: a command-line AI tool, logged in once with your **subscription** - no
+  API key, no pay-per-use credits:
   - **Claude Code**, with a Claude subscription that includes it (Pro or Max), or
   - **Codex CLI**, with a ChatGPT plan.
 
-  Without either, everything else works; targets just have no backstory.
+  Without either, everything else works; targets' files just have the journal's facts and no story.
 - **Optional - an internet connection**, for system data from Spansh and EDSM. Without it, the Nav pages show what
   your own journal knows.
 
@@ -209,7 +213,7 @@ setting on the page.
 
 ## Your data
 
-Everything you build up - waypoints, flight plans, settlement layouts you've confirmed, backstories, system data,
+Everything you build up - waypoints, flight plans, settlement layouts you've confirmed, subject files, system data,
 exobiology samples, your controls and settings - is kept in **`Saved Games\UCEC FT3000`** in your user folder, apart from the program.
 4 Setup > Settings shows where. To back it up, copy that folder.
 
@@ -256,29 +260,36 @@ and back) on any controller. RESTORE DEFAULTS puts every job back on the UFC. Pi
 
 If Elite runs as administrator, run the FT3000 as administrator too, or Windows blocks its key presses.
 
-## Backstories
+## Subject files
 
-The moment you accept a contract on someone, the FT3000 asks Claude or ChatGPT to write their dossier: 120 to 180
-words in the voice of a Pilots Federation intelligence file. Each target gets a believable history, motives and the
-one incident that explains why the contract exists. They are consistent with Elite's Federation, Empire, Alliance
-and independent systems, but the personal details are invented freely. The AI works from the contract itself:
+In the FT3000's world, every target is a **replicant** - a Nexus-31 unit, made by Azimuth Biotech under a licensed
+Wallace pattern, with four years to live and a childhood that was never its own - that has walked off its lease.
+Retiring it is legal. The moment you accept a contract on one, the FT3000 opens its subject file.
 
-- the target's name, or the faction, when you've been sent after a number of its ships
-- their role (pirate lord, smuggler, wanted criminal...) and who they're affiliated with
-- where they were last known to be
-- who issued the contract, what it's called, and the reward
+**The facts come from your journal**, exactly: who it's affiliated with, the contract and who issued it, where it
+was last known to be, the bounty, when the contract expires, and - once you've scanned it - its ship, rank and legal
+status. Its serial number and incept date are made from its name, so they're the same every time. Its status reads
+AT LARGE, then LOCATED once you've scanned it (on foot: once you reach its settlement), then RETIRED. Its threat
+comes from its rank and ship once scanned; until then it's an estimate from the reward, marked provisional.
 
-So the pirate lord a navy has put a million credits on reads differently from the deserter a local corporation
-wants quietly removed. A stack of massacre contracts against one faction shares one dossier. The dossier shows on
-the target's case file, with what your last scan said: their ship, rank, shields and hull. The Contracts screenshot
-above shows one.
+**The story is written by Claude or ChatGPT**, from those facts: a short alias, its maker, what it was made for and
+what it does now, its background, the stock childhood it was implanted with, how it behaves (in its ship, or on foot
+at a settlement), and an assessment for you, the hunter. The AI has to answer in a fixed format, each part a set
+length; the FT3000 checks every reply, sends back one that doesn't fit (saying why), and says so on the file if the
+second try doesn't fit either. If you scan a target for the first time after its file was written, its behavioural
+notes and assessment are written again from what the scan showed.
 
-Each is written once and kept (in your data folder), so restarting the FT3000 doesn't ask again.
-**[ REWRITE ]** on a dossier asks for a fresh one. They're written one at a time, in the background, so the page
-never waits for them.
+A stack of massacre contracts against one faction gets one **batch file** - the units made together that now all
+serve it - with its status counting the units still at large. The Contracts screenshot above shows a person's file.
+
+Each file is written once and kept (in your data folder), so restarting the FT3000 doesn't ask again. To have one
+written again, **hold the ID picture** at the top right of the file for a moment (Contracts > Active only). They're
+written one at a time, in the background, so the page never waits for them. When a contract ends, the file moves
+to Contracts > History, closed with how it ended: FILE CLOSED, ESCAPED, CONTRACT WITHDRAWN, or RETIRED · UNPAID (you
+killed it, but the contract lapsed before you handed it in).
 
 **It uses your subscription, not an API key.** The FT3000 runs the AI's own command-line tool, logged in with your
-Claude or ChatGPT account. Each dossier uses a little of your plan's allowance, like any other question you'd ask it,
+Claude or ChatGPT account. Each file uses a little of your plan's allowance, like any other question you'd ask it,
 with no API key and no pay-per-use bill. To stretch the allowance further, set a lighter model on
 4 Setup > Settings (for Claude, `haiku`).
 
@@ -288,9 +299,9 @@ To set it up, install one of the tools and log in once with your subscription ac
   account.
 - **Codex CLI**: install it, run `codex login` and choose *Sign in with ChatGPT*.
 
-Then, in **4 Setup > Settings**, leave AI BACKSTORIES on **AUTO** (Claude Code if it's on your PC, else Codex) or pick
+Then, in **4 Setup > Settings**, leave AI SUBJECT FILES on **AUTO** (Claude Code if it's on your PC, else Codex) or pick
 one, and press RESTART NOW. The page says which tools it found and whether the login check passed. If a tool is
-signed in with an API key instead (which bills pay-per-use credits), the FT3000 pauses backstories and says how to
+signed in with an API key instead (which bills pay-per-use credits), the FT3000 pauses subject files and says how to
 switch to your subscription.
 
 ## Viewing it on a phone or another PC
@@ -313,7 +324,7 @@ FT3000 refuses requests from other websites open in your browser.
 | The UFC's displays stay blank | SimApp Pro must be running. The displays stay blank until the page is open and the terminal has started up - that's on purpose. |
 | UFC buttons don't do anything in the game | Elite must be the active window. Run with `--list-keys` to see what each button presses: `** NO KEYBOARD BINDING **` means that action needs a keyboard key in Elite's controls. Elite as administrator: run the FT3000 as administrator too. |
 | The UFC's dials don't answer | ASSIGN them on 4 Setup > Controls (turn each end to end and back), or run once with `--ufc-learn`. |
-| No backstories | 4 Setup > Settings says which tools it found and how the login check went (see [Backstories](#backstories)). |
+| No subject files written | 4 Setup > Settings says which tools it found and how the login check went (see [Subject files](#subject-files)). |
 | A phone can't open the page | VIEW FROM OTHER DEVICES on, and restarted? Same network? Allow Python through the Windows firewall on private networks. |
 | System data missing on Nav > Syst | The SPANSH and EDSM UPLINK switches on the system list must be on, and you need an internet connection. |
 | The pictures are jerky | Start it with **Timing log.bat** (or `--timing-log`), fly for a minute, and send `timing_log.jsonl` from your data folder with your report. |

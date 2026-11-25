@@ -137,7 +137,7 @@
     $("rmt").textContent = rm.on ? "Remote " + rm.system : "";
     $("rmt").hidden = !rm.on;
     $("count").textContent = s.contracts.length + " active";
-    // (the backstories' AI and its login check: on 4 Setup > Settings, not up here)
+    // (the subject files' AI and its login check: on 4 Setup > Settings, not up here)
     if ($("link").className === "bad") {
       $("link").className = "";
       $("link").innerHTML = 'Live<span class="blink">_</span>';

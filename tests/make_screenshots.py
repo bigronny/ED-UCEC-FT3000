@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import shutil
 import stat
 import sys
 import tempfile
@@ -26,42 +27,40 @@ R = 1500000.0   # HIP 20277 3 b's radius (journals.NEAR_HAO)
 PLANET = "HIP 20277 3 b"
 HAO = "Hao Extraction Prospect"
 
-STORY = ("Kirsten Vance learned to fly in the debris rings over Carthage, running salvage for a scrap-dealer uncle who "
-         "paid in ration chits and bruises. When the Black Sun Crew bought out his yard she went with it - first as a "
-         "spotter, then as the one who did the cutting. Six years on she flies a Python she calls Lullaby, keeps a "
-         "ledger of every hull she's opened, and has never once been late to an ambush. The Carthage Defence Force has "
-         "posted nine bounties on her. She has collected two of them herself, under other names.")
-
-FAKE_CLI = '''#!/usr/bin/env python3
-# Stands in for Claude Code: logged in with a subscription; writes a short backstory for anyone asked about.
-import json, sys
-if sys.argv[1:3] == ["auth", "status"]:
-    print(json.dumps({"loggedIn": True, "authMethod": "claude.ai"}))
-else:
-    sys.stdin.read()
-    print("A name on a bounty board, and not much else yet - a pilot who keeps moving and pays in cash.")
-'''
+KIRSTEN = {   # her subject file, as written (the fields the AI writes; the board fills in the rest)
+    "sex": "F",
+    "physical_grade": "A",
+    "mental_grade": "A",
+    "known_as": "Lullaby",
+    "maker": "Azimuth Biotech, licensed Wallace pattern",
+    "original_function": "Combat. Convoy interceptor, now a pirate lord",
+    "background": "Incepted thirteen months ago and leased to a Carthage shipping concern as a convoy interceptor. Eleven months in, she took the Python she was flying and the convoy it was guarding. The Black Sun Crew gave her a berth, then a command. She now runs their raids on Carthage traffic and is placed at the head of them in every report. The Carthage Defence Force wants her retired before the rest of the crew learns to fly the way she does.",
+    "implanted_memory": "A childhood in the debris rings over Carthage, running salvage for an uncle who paid in ration chits. He teaches her to cut a hull open without venting the cargo. The uncle is stock, a salvage-aptitude file. She still keeps a ledger of every hull she opens.",
+    "behavioural_notes": "Flies a Python, rated Deadly, and fights it like a lighter ship. Scanned at 64 percent shields and 89 percent hull: she had been in a fight and stayed for the next one. She opens on drives, never on cargo. Expect her in supercruise near Carthage.",
+    "assessment": "High threat, confirmed by scan. A Deadly pilot in a heavy ship, worth 950,000 CR to the Carthage Defence Force. Do not engage alone or damaged. Bring a wing, take her drives first, and retire her.",
+}
 
 
 class ShotBoard(Board):
     """A board started as someone would start it: its settings deciding (here: the test journals, AUTO with a stand-in
-    Claude Code), and backstories already written for some targets."""
+    Claude Code - the tests' own, tests/fakeai), and subject files already written for some targets."""
 
-    def __init__(self, *a, stories=None, **kw):
+    def __init__(self, *a, files=None, **kw):
         super().__init__(*a, **kw)
-        self.stories = stories or {}
+        self.files = files or {}
 
     def _write_files(self):
         super()._write_files()
         cli = self.dir / "claude"
-        cli.write_text(FAKE_CLI, encoding="utf-8")
+        shutil.copy2(HERE / "fakeai" / "claude", cli)
         cli.chmod(cli.stat().st_mode | stat.S_IEXEC)
         (self.dir / "settings.json").write_text(json.dumps({"journal_dir": str(self.jdir), "engine": "auto", "open_page": False}),
                                                 encoding="utf-8")
-        if self.stories:
+        if self.files:
             t = iso(now())
             (self.dir / "target_backstories.json").write_text(json.dumps(
-                {k: {"name": n, "status": "done", "updated": t, "text": v} for k, (n, v) in self.stories.items()}), encoding="utf-8")
+                {k: {"name": n, "status": "done", "updated": t, "fmt": 2, "kind": "person", "mode": "ship", "file": f, "scanned": True}
+                 for k, (n, f) in self.files.items()}), encoding="utf-8")
 
     def options(self):
         return ["--port", str(self.port), "--bindings-dir", str(FIX / "bindings"), "--cli-path", str(self.dir / "claude")]
@@ -114,8 +113,8 @@ def main():
             save(page, "home")
             page.close()
 
-        # 3 Contracts: the missions, a target's dossier and backstory
-        with ShotBoard("shot_contracts", stories={"kirsten vance": ("Kirsten Vance", STORY)}, **journals.contracts()) as b:
+        # 3 Contracts: the missions, a target's subject file
+        with ShotBoard("shot_contracts", files={"kirsten vance": ("Kirsten Vance", KIRSTEN)}, **journals.contracts()) as b:
             page = open_page(b)
             go(page, "contracts", 1)
             page.click('#list .item[data-key="kirsten vance"]')

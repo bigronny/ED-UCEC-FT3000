@@ -1,5 +1,5 @@
 // ED Target Board page - 4 Setup > 2 Settings: what the FT3000 starts with - the journal folder, the AI that writes
-// backstories (and its model), viewing the page from other devices on your network, the game controllers, opening the
+// subject files (and its model), viewing the page from other devices on your network, the game controllers, opening the
 // page at start. The board keeps them (settings.json - see the board's Settings) as they're changed here (POST
 // /api/settings {key, value}); each takes effect at the next start, and RESTART NOW (POST /api/restart) closes the board
 // and starts it again - this page stays open and finds the new start (its run, in GET /api/settings, changes). A setting
@@ -84,7 +84,7 @@
     input("st-model", (R.model || {}).value || "");
     $("st-einfo").innerHTML = esc("On this PC: Claude Code " + (tools.claude ? "found" : "not found") + " · Codex " + (tools.codex ? "found" : "not found") +
       " · Auto picks " + TOOL[E.auto || "none"]) + "<br>" + esc("Now: " + (E.running && E.running !== "none" ? TOOL[E.running] + (E.model ? " (" + E.model + ")" : "") +
-      (E.msg ? " · " + E.msg : "") : "none (no backstories)"));
+      (E.msg ? " · " + E.msg : "") : "none (no subject files)"));
     flag("engine", E);
     flag("model", R.model || {});
     // other devices

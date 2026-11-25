@@ -932,8 +932,9 @@ class Parts(unittest.TestCase):
                           ("person", "Bo Lindqvist", "")])
         self.assertIsNone(board.contracts.for_backstory(got[71]["key"]))   # no backstory for a contact...
         self.assertIsNotNone(board.contracts.for_backstory(got[73]["key"]))   # ...only for someone to hunt
-        self.assertIn("Last known whereabouts: Kessel Depot, Test Sector AB-C d1-2",
-                      m.build_details(board.contracts.for_backstory(got[73]["key"])))
+        facts = board.contracts.dossier_job(got[73]["key"])["facts"]
+        self.assertIn("LAST KNOWN WHEREABOUTS: Kessel Depot, Test Sector AB-C d1-2", facts)
+        self.assertIn("MODE: ON FOOT", facts)
 
     def test_done_missions_from_the_login_list(self):
         import tempfile
@@ -1875,6 +1876,271 @@ def script_version():
     return re.search(r'^VERSION = "([^"]+)"', SCRIPT.read_text(encoding="utf-8"), re.M).group(1)
 
 
+class SubjectFiles(unittest.TestCase):
+    """Contracts' subject files: the AI's reply checked (the prompt's own examples fit; a missing or extra key, a wrong
+    letter, a field too long, markdown, the game named, a ship named before any scan don't); the board's facts from the
+    journal (factions, war, system, scan, threat, incept date and serial number - the same every time); in ship LOCATED
+    at the first scan, on foot when its settlement's reached; RETIRED once killed; a batch's units, the most any one
+    issuer wants, less the kills since; History's statuses - RETIRED · UNPAID when it was killed but the contract
+    lapsed."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.m = load_script()
+
+    def board(self):
+        import tempfile
+        from pathlib import Path
+        return self.m.BoardState(Path(tempfile.mkdtemp()) / "cache.json")
+
+    LOC = {"event": "Location", "Docked": True, "StationName": "Harrow Market", "StarSystem": "Veltani", "SystemAllegiance": "Empire",
+           "SystemGovernment_Localised": "Patronage", "SystemSecurity_Localised": "High Security",
+           "Factions": [{"Name": "Veltani Signal Corporation", "Government": "Corporate", "Allegiance": "Empire", "Influence": 0.077,
+                         "ActiveStates": [{"State": "CivilWar"}, {"State": "Boom"}]},
+                        {"Name": "Veltani Citizens' Forum", "Government": "Patronage", "Allegiance": "Empire", "Influence": 0.077}],
+           "Conflicts": [{"WarType": "civilwar", "Status": "active", "Faction1": {"Name": "Veltani Citizens' Forum", "WonDays": 1},
+                          "Faction2": {"Name": "Veltani Signal Corporation", "WonDays": 2}}]}
+    ACC = {"event": "MissionAccepted", "Faction": "Veltani Signal Corporation", "Name": "Mission_Assassinate_Legal_CivilWar",
+           "LocalisedName": "Assassinate Deserter: Marek Holloway", "TargetType_Localised": "Deserter", "TargetFaction": "Brask Free Company",
+           "DestinationSystem": "Brask", "DestinationStation": "Corrigan Barracks", "Target": "Marek Holloway", "Wing": False,
+           "Influence": "+", "Reputation": "+", "Reward": 236500, "MissionID": 1000123}
+    JUMP = {"event": "FSDJump", "StarSystem": "Brask", "SystemAllegiance": "Empire", "SystemGovernment_Localised": "Patronage",
+            "SystemSecurity_Localised": "Medium Security",
+            "Factions": [{"Name": "Brask Free Company", "Government": "Anarchy", "Allegiance": "Independent", "Influence": 0.01}]}
+    SCAN = {"event": "ShipTargeted", "TargetLocked": True, "Ship": "viper", "Ship_Localised": "Viper Mk III", "ScanStage": 3,
+            "PilotName": "$npc_name_decorate:#name=Marek Holloway;", "PilotName_Localised": "Marek Holloway", "PilotRank": "Mostly Harmless",
+            "ShieldHealth": 100.0, "HullHealth": 100.0, "LegalStatus": "Wanted", "Bounty": 48300, "Subsystem_Localised": "FSD Interdictor"}
+
+    def test_checks(self):
+        m = self.m
+        for ex, kind in ((m.DOSSIER_EXAMPLE_PERSON, "person"), (m.DOSSIER_EXAMPLE_BATCH, "batch")):   # the examples fit
+            reply = ex.split("EXAMPLE REPLY\n", 1)[1]
+            fields, problems = m.check_dossier(reply, kind, ship_known=False)
+            self.assertEqual(problems, [], kind)
+            self.assertEqual(set(fields), set(m.DOSSIER_FIELDS[kind]))
+            self.assertIn("EXAMPLE INPUT", m.dossier_system(kind))
+        good = json.loads(m.DOSSIER_EXAMPLE_PERSON.split("EXAMPLE REPLY\n", 1)[1])
+        self.assertEqual(m.check_dossier("```json\n" + json.dumps(good) + "\n```", "person", False)[1], [], "fenced: fine")
+        self.assertEqual(m.check_dossier("Here it is: " + json.dumps(good), "person", False)[0]["known_as"], "Relay")
+
+        def why(**change):
+            bad = dict(good, **change)
+            for k, v in change.items():
+                if v is None:
+                    del bad[k]
+            return m.check_dossier(json.dumps(bad), "person", False)[1]
+        self.assertEqual(why(maker=None), ['"maker" is missing'])
+        self.assertEqual(why(colour="red"), ['"colour" isn\'t one of the keys'])
+        self.assertEqual(why(sex="X"), ['"sex" must be one of M, F'])
+        self.assertEqual(why(assessment="Retire him. " * 30), ['"assessment" is 60 words (20-40)'])
+        self.assertEqual(why(known_as="**Relay**"), ['"known_as" has line breaks or markdown'])
+        self.assertEqual(why(assessment=good["assessment"] + " The player will like this."),
+                         ['"assessment" mentions the game, the player or the FT3000'])
+        flies = good["behavioural_notes"].replace("Solo.", "Solo in a Viper Mk III.")
+        self.assertEqual(why(behavioural_notes=flies), ['"behavioural_notes" names a ship (Viper Mk III) before any scan'])
+        self.assertEqual(m.check_dossier(json.dumps(dict(good, behavioural_notes=flies)), "person", True)[1], [], "after a scan: fine")
+        self.assertEqual(m.check_dossier("I can't write that.", "person")[1], ["the reply wasn't one JSON object"])
+        self.assertEqual(m.check_dossier(json.dumps({"behavioural_notes": good["behavioural_notes"], "assessment": good["assessment"]}),
+                                         "rescan", True)[1], [])
+
+    def test_facts_and_file(self):
+        m, b = self.m, self.board()
+        for ev, t in ((self.LOC, 600), (self.ACC, 590)):
+            b.apply(dict(ev, timestamp=ago(t), Expiry=ahead(24)) if ev is self.ACC else dict(ev, timestamp=ago(t)))
+        key = "marek holloway"
+        job = b.contracts.dossier_job(key)
+        lines = job["facts"].splitlines()
+        self.assertEqual([x for x in lines if not x.startswith(("DATE", "INCEPT"))], [
+            "MODE: IN SHIP", "FILE: PERSON", "TARGET: Marek Holloway", "ROLE: Deserter", "TARGET FACTION: Brask Free Company",
+            "CONTRACT: Assassinate Deserter: Marek Holloway",
+            "ISSUED BY: Veltani Signal Corporation (Corporate, Empire) at Harrow Market, Veltani",
+            "ISSUER'S SITUATION: civil war with Veltani Citizens' Forum (Veltani Signal Corporation ahead, 2 days to 1); Boom",
+            "LAST KNOWN WHEREABOUTS: Corrigan Barracks, Brask", "REWARD: 236,500 CR", "WING CONTRACT: no", "SHIP SCAN: none yet",
+            "THREAT: MODERATE (provisional - no scan yet)"])
+        self.assertRegex(job["facts"], r"INCEPT DATE: \d\d [A-Z]{3} 33\d\d \(.* ago; a four-year lifespan\)")
+        self.assertFalse(job["ship_known"])
+        f = b.contracts.file_view(key)
+        self.assertEqual({k: f[k] for k in ("kind", "mode", "status", "serial", "threat", "affiliation", "contract")},
+                         {"kind": "person", "mode": "ship", "status": "AT LARGE", "serial": "N31---18218", "threat": "MODERATE (provisional - no scan yet)",
+                          "affiliation": "Brask Free Company", "contract": "Assassinate Deserter, for Veltani Signal Corporation"})
+        self.assertEqual(m.dossier_ids(key, ago(5))[0], "18218", "the serial number: from the name, always the same")
+        # written: the AI's letters in the serial; the full scan - LOCATED, confirmed, and the notes asked for again
+        fields = json.loads(m.DOSSIER_EXAMPLE_PERSON.split("EXAMPLE REPLY\n", 1)[1])
+        self.assertFalse(b.contracts.set_dossier(key, "Marek Holloway", fields, job))
+        self.assertEqual(b.contracts.file_view(key)["serial"], "N31MBA18218")
+        b.apply(dict(self.JUMP, timestamp=ago(400)))
+        b.apply(dict(self.SCAN, timestamp=ago(300)))
+        self.assertEqual(b.contracts.take_rescans(), [key])
+        self.assertTrue(b.contracts.needs_rescan(key))
+        again = b.contracts.dossier_job(key, rescan=True)
+        self.assertIn("TARGET FACTION: Brask Free Company (Anarchy, Independent; 1% influence in Brask)", again["facts"])
+        self.assertIn("LAST KNOWN WHEREABOUTS: Corrigan Barracks, Brask (Medium security, Patronage, Empire)", again["facts"])
+        self.assertIn("SHIP SCAN: Viper Mk III, Mostly Harmless, Wanted, local bounty 48,300 CR, shields 100%, hull 100%, FSD Interdictor", again["facts"])
+        self.assertIn("THREAT: LOW (confirmed by scan)", again["facts"])
+        self.assertIn("BACKGROUND: " + fields["background"], again["facts"])
+        f = b.contracts.file_view(key)
+        self.assertEqual((f["status"], f["threat"], bool(f["located"])), ("LOCATED", "LOW (confirmed by scan)", True))
+        b.contracts.update_dossier(key, {"behavioural_notes": "x " * 40, "assessment": "y " * 25}, again)
+        e = b.contracts.backstories[key]
+        self.assertEqual((e["scanned"], e["threat"], e["scan"], e["file"]["background"]), (True, "LOW (confirmed by scan)", "Viper Mk III · Mostly Harmless", fields["background"]))
+        self.assertFalse(b.contracts.needs_rescan(key))
+        b.apply({"timestamp": ago(200), "event": "MissionRedirected", "MissionID": 1000123, "NewDestinationSystem": "Veltani",
+                 "NewDestinationStation": "Harrow Market"})
+        self.assertEqual(b.contracts.file_view(key)["status"], "RETIRED")
+
+    def test_on_foot_and_batch(self):
+        m, b = self.m, self.board()
+        b.apply({"timestamp": ago(500), "event": "MissionAccepted", "Faction": "Dunmore Free", "Name": "Mission_OnFoot_AssassinationIllegal_Hard_MB",
+                 "LocalisedName": "Kill Ines Calloway", "Target": "Ines Calloway", "DestinationSystem": "Dunmore",
+                 "DestinationSettlement": "Orrin Industrial Workshop", "Expiry": ahead(24), "Reward": 275000, "MissionID": 52})
+        f = b.contracts.file_view("ines calloway")
+        self.assertEqual((f["mode"], f["status"], f["threat"]), ("foot", "AT LARGE", "MODERATE (estimated)"))
+        self.assertIn("MODE: ON FOOT", b.contracts.dossier_job("ines calloway")["facts"])
+        self.assertNotIn("SHIP SCAN", b.contracts.dossier_job("ines calloway")["facts"])
+        b.apply({"timestamp": ago(400), "event": "ApproachSettlement", "Name": "Orrin Industrial Workshop", "BodyName": "Dunmore 2 a"})
+        self.assertEqual(b.contracts.file_view("ines calloway")["status"], "LOCATED")
+        self.assertIn("SETTLEMENT REACHED", b.contracts.dossier_job("ines calloway")["facts"])
+        # a batch: two issuers' kill counts (each kill counts for both), one issuer's two contracts (one after the other)
+        common = {"event": "MissionAccepted", "Name": "Mission_Massacre", "LocalisedName": "Kill Tollan Dark Gang faction Pirates",
+                  "TargetType_Localised": "Pirates", "TargetFaction": "Tollan Dark Gang", "DestinationSystem": "Tollan", "Expiry": ahead(24)}
+        b.apply(dict(common, timestamp=ago(300), Faction="Merrow State Industries", KillCount=5, Reward=1180000, MissionID=61))
+        b.apply(dict(common, timestamp=ago(290), Faction="Merrow State Industries", KillCount=4, Reward=900000, MissionID=62))
+        b.apply(dict(common, timestamp=ago(280), Faction="Tollan Crimson Gang", KillCount=6, Reward=800000, MissionID=63))
+        b.apply({"timestamp": ago(600), "event": "Bounty", "VictimFaction": "Tollan Dark Gang", "TotalReward": 10})   # (before: not counted)
+        for t in (200, 150, 100):
+            b.apply({"timestamp": ago(t), "event": "Bounty", "VictimFaction": "Tollan Dark Gang", "TotalReward": 10})
+        f = b.contracts.file_view("tollan dark gang")
+        self.assertEqual((f["kind"], f["units"], f["status"], f["serial"][:10]), ("batch", {"need": 9, "left": 6}, "AT LARGE", "N31 batch "))
+        self.assertIn("FILE: BATCH (9 units)", b.contracts.dossier_job("tollan dark gang")["facts"])
+        self.assertIn("UNITS STILL AT LARGE: 6 of 9", b.contracts.dossier_job("tollan dark gang")["facts"])
+        self.assertRegex(f["serial"], r"^N31 batch (\d{5})-(\d{5})$")
+
+    def test_history_status(self):
+        import tempfile
+        from pathlib import Path
+        m = self.m
+        recs = m.JournalRecords(Path(tempfile.mkdtemp()) / "records.sqlite")
+        self.addCleanup(recs.db.close)
+        h = m.JournalHistory(recs)
+        acc = {"event": "MissionAccepted", "Faction": "F", "Name": "Mission_Assassinate", "LocalisedName": "Assassinate X", "Expiry": ahead(9),
+               "Reward": 100000, "TargetFaction": "G"}
+        cases = {1: ["MissionCompleted"], 2: ["MissionFailed"], 3: ["MissionAbandoned"], 4: ["MissionRedirected", "MissionFailed"]}
+        for mid, ends in cases.items():
+            h.note(dict(acc, timestamp=ago(500), MissionID=mid, Target=f"Target {mid}"))
+            for n, kind in enumerate(ends):
+                h.note({"timestamp": ago(400 - n), "event": kind, "MissionID": mid, "Name": "Mission_Assassinate", "Reward": 100000})
+        got = {mid: h.mission(f"h:{mid}", {})["file"]["status"] for mid in cases}
+        self.assertEqual(got, {1: "FILE CLOSED", 2: "ESCAPED", 3: "CONTRACT WITHDRAWN", 4: "RETIRED · UNPAID"})
+        d = h.mission("h:1", {"target 1": {"status": "done", "fmt": 2, "number": "12345", "incept": "01 JAN 3312", "threat": "LOW (estimated)",
+                                           "file": {"sex": "M", "physical_grade": "A", "mental_grade": "C", "background": "b"}}})["file"]
+        self.assertEqual((d["serial"], d["incept"], d["threat"], d["fields"]["background"]), ("N31MAC12345", "01 JAN 3312", "LOW (estimated)", "b"))
+        legacy = h.mission("h:1", {"target 1": {"status": "done", "text": "An old dossier."}})
+        self.assertEqual((legacy["story"], legacy["file"]["fields"]), ("An old dossier.", {}))
+
+
+class SeededAiBoard(Board):
+    """A board with the stand-in AI whose data folder already holds target_backstories.json (dossiers written before),
+    and the AI's first replies queued before it starts."""
+
+    def __init__(self, *a, backstories=None, replies=(), **kw):
+        super().__init__(*a, ai=True, **kw)
+        self.backstories, self.replies = backstories or {}, list(replies)
+
+    def _write_files(self):
+        super()._write_files()
+        (self.dir / "target_backstories.json").write_text(json.dumps(self.backstories), encoding="utf-8")
+        if self.replies:
+            self.ai_replies(*self.replies)
+
+
+class SubjectFilesWritten(unittest.TestCase):
+    """The subject files written (by a stand-in AI): each target's from its facts, with the system prompt for a person
+    or a batch; a reply that doesn't fit sent back once, saying why, then an error; a target's first full scan - its notes
+    and assessment again, from it; a dossier written before the subject files kept as it is, until a long press asks
+    again; rewriting only for a target on Contracts' Active page."""
+
+    def entry(self, b, key):
+        return next((c for c in b.state()["contracts"] if c["key"] == key), None)
+
+    def story(self, b, key, status="done"):
+        return b.wait(lambda: (lambda c: c if c and (c.get("backstory") or {}).get("status") == status else None)(self.entry(b, key)),
+                      timeout=20, what=f"{key}'s subject file ({status})")
+
+    def test_written_checked_and_rescanned(self):
+        j = journals.contracts()
+        old = {"black sun crew": {"name": "Black Sun Crew", "status": "done", "updated": "2026-10-01T00:00:00+00:00", "text": "An old dossier."}}
+        with SeededAiBoard("subject_files", ufc=False, backstories=old, replies=["Sorry, I can't write that."], **j) as b:
+            # Kirsten Vance: a person, scanned before she was written; the first reply sent back, the second fits
+            k = self.story(b, "kirsten vance")
+            calls = b.ai_calls()
+            self.assertEqual(len(calls), 2, "two calls: Kirsten Vance's file, once again (the old dossier's kept)")
+            first, again = calls
+            self.assertEqual(first["instruction"], "Write the subject file for the target in the input. Reply with the JSON object only.")
+            self.assertIn("EXAMPLE INPUT", first["system"])
+            self.assertIn("Marek Holloway", first["system"])
+            self.assertIn("TARGET: Kirsten Vance", first["input"])
+            self.assertIn("SHIP SCAN: Python, Deadly, Wanted", first["input"])
+            self.assertIn("THREAT: HIGH (confirmed by scan)", first["input"])
+            self.assertEqual(again["instruction"], first["instruction"])
+            self.assertEqual(again["input"], first["input"] + "\n\nYour last reply was rejected: the reply wasn't one JSON object. "
+                                                              "Reply again with the JSON object only.")
+            f = k["file"]
+            self.assertEqual((k["backstory"]["fmt"], f["status"], f["threat"], f["serial"][:6]), (2, "LOCATED", "HIGH (confirmed by scan)", "N31FAB"))
+            self.assertEqual(k["backstory"]["file"]["known_as"], "Kestrel")
+            self.assertTrue(k["backstory"]["scanned"], "scanned before it was written: no rescan")
+            # the old dossier: kept as it is, no call for it
+            self.assertEqual(self.entry(b, "black sun crew")["backstory"]["text"], "An old dossier.")
+            # live: one that never fits - an error saying why; one written, then its first full scan
+            b.ai_replies("not json", "still not json")
+            b.add({"timestamp": ago(5), "event": "MissionAccepted", "Faction": "Carthage Defence Force", "Name": "Mission_Assassinate_Legal_Corporate",
+                   "LocalisedName": "Take out known pirate: Mara Quint", "Target": "Mara Quint", "TargetType_Localised": "Pirate lord",
+                   "TargetFaction": "Black Sun Crew", "DestinationSystem": "Carthage", "Expiry": ahead(30), "Reward": 400000,
+                   "MissionID": 2101, "Wing": False})
+            bad = self.story(b, "mara quint", "error")
+            self.assertEqual(bad["backstory"]["error"], "the AI's reply didn't fit the subject file (the reply wasn't one JSON object)")
+            n = len(b.ai_calls())
+            b.add({"timestamp": ago(4), "event": "MissionAccepted", "Faction": "Carthage Defence Force", "Name": "Mission_Assassinate_Legal_Corporate",
+                   "LocalisedName": "Take out known pirate: Odo Varga", "Target": "Odo Varga", "TargetType_Localised": "Pirate lord",
+                   "TargetFaction": "Black Sun Crew", "DestinationSystem": "Carthage", "Expiry": ahead(30), "Reward": 300000,
+                   "MissionID": 2102, "Wing": False})
+            o = self.story(b, "odo varga")
+            self.assertEqual((o["file"]["status"], o["file"]["threat"]), ("AT LARGE", "MODERATE (provisional - no scan yet)"))
+            self.assertIn("SHIP SCAN: none yet", b.ai_calls()[n]["input"])
+            kept = dict(o["backstory"]["file"])
+            b.add({"timestamp": ago(3), "event": "ShipTargeted", "TargetLocked": True, "Ship": "cobramkiii", "Ship_Localised": "Cobra Mk III",
+                   "ScanStage": 3, "PilotName": "$npc_name_decorate:#name=Odo Varga;", "PilotName_Localised": "Odo Varga",
+                   "PilotRank": "Expert", "ShieldHealth": 100.0, "HullHealth": 100.0, "LegalStatus": "Wanted", "Bounty": 90000})
+            o = b.wait(lambda: (lambda c: c if c and c["backstory"].get("scanned") else None)(self.entry(b, "odo varga")),
+                       timeout=20, what="Odo Varga's notes from the scan")
+            scan = b.ai_calls()[-1]
+            self.assertTrue(scan["instruction"].startswith("The target has now been scanned"))
+            self.assertIn("SHIP SCAN: Cobra Mk III, Expert, Wanted", scan["input"])
+            self.assertIn("BACKGROUND: " + kept["background"], scan["input"])
+            got = o["backstory"]["file"]
+            self.assertEqual((got["background"], got["implanted_memory"]), (kept["background"], kept["implanted_memory"]))
+            self.assertEqual((o["file"]["status"], o["backstory"]["threat"], o["backstory"]["scan"]),
+                             ("LOCATED", "MODERATE (confirmed by scan)", "Cobra Mk III · Expert"))
+            # kept: what was written is in target_backstories.json (without the passing rescan state)
+            cache = json.loads((b.dir / "target_backstories.json").read_text(encoding="utf-8"))
+            self.assertEqual((cache["odo varga"]["fmt"], cache["odo varga"]["scanned"], "rescan" in cache["odo varga"]), (2, True, False))
+            self.assertEqual(cache["black sun crew"]["text"], "An old dossier.")
+            # the long press: the old dossier written again, as a batch's file
+            self.assertEqual(b.post("/api/regenerate", {"key": "black sun crew"}), (200, {"ok": True}))
+            bsc = b.wait(lambda: (lambda c: c if c and c["backstory"].get("fmt") == 2 and c["backstory"]["status"] == "done" else None)(
+                self.entry(b, "black sun crew")), timeout=20, what="the batch file")
+            batch = b.ai_calls()[-1]
+            self.assertIn("FILE: BATCH (30 units)", batch["input"])
+            self.assertIn("Tollan Dark Gang", batch["system"], "the batch example")
+            self.assertEqual((bsc["file"]["kind"], bsc["file"]["serial"][:10], bsc["backstory"]["file"]["known_as"]),
+                             ("batch", "N31 batch ", "The batch"))
+            # only on the Active page: not once its contract's done (and never for a mission that isn't a hunt)
+            b.add({"timestamp": ago(2), "event": "MissionCompleted", "MissionID": 2001, "Name": "Mission_Assassinate_Legal_Corporate",
+                   "Faction": "Carthage Defence Force", "Reward": 950000})
+            b.wait(lambda: self.entry(b, "kirsten vance") is None or None, what="Kirsten Vance's contract done")
+            self.assertEqual(b.post("/api/regenerate", {"key": "kirsten vance"})[0], 409)
+            self.assertEqual(b.post("/api/regenerate", {"key": "m:2002"})[0], 409)
+
+
 def check(head):
     """A shared code's check, as the board makes it: 4 hex digits of a CRC of the rest, upper case."""
     import zlib
@@ -2013,7 +2279,7 @@ class Remote(unittest.TestCase):
         j = journals.jump()
         j.pop("fuel")
         j["journal"] = j["journal"] + [journals._accept(100, 9101, "Mission_Delivery", "Deliver tea to Carthage",
-                                                        DestinationSystem="Carthage", Expiry=ahead(3600))]
+                                                        DestinationSystem="Carthage", Expiry=ahead(24))]
         with Board("remote", **j) as b:
             items = json.loads(b.get("/api/remote")[1])["items"]
             have = {(i["g"], i["name"]) for i in items}

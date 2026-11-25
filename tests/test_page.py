@@ -24,6 +24,7 @@ _TIME_PATTERNS = [
     (re.compile(r"\b\d{2}:\d{2}(:\d{2})?\b"), "#:#"),
     (re.compile(r"\b\d{1,2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b", re.I), "# Mon"),
     (re.compile(r"\b\d+s\b(?! ago)", re.I), "#s"),
+    (re.compile(r"# Mon 33\d\d\b"), "# Mon #y"),   # (a subject file's incept date, in game years: it moves with the day the test runs)
 ]
 
 FINGERPRINT_JS = r"""() => {
@@ -172,6 +173,82 @@ class Contracts(PageTest):
                 self.on(page, tab, sub, what=f"{btn}: {tab} page {sub}")
                 self.until(page, f"() => document.querySelector('.tab.on').dataset.tab === '{tab}'", what=f"the {tab} tab")
             self.no_errors()
+
+    def test_subject_files(self):
+        """A target's subject file on the Active page (written by a stand-in AI): the board's facts and the AI's
+        Maker and Original function in one grid, 'Known as' under the name, the four written parts; no Rewrite button -
+        a long press on the ID picture has it written again (a target's only); on History, its status when it closed."""
+        with Board("p_files", ufc=False, ai=True, **journals.contracts()) as b:
+            for key in ("kirsten vance", "black sun crew"):
+                b.wait(lambda: (lambda c: c if c and (c.get("backstory") or {}).get("status") == "done" else None)(
+                    next((c for c in b.state()["contracts"] if c["key"] == key), None)), timeout=20, what=f"{key}'s file")
+            b.wait(lambda: (b.state().get("hist") or {}).get("ready") or None, timeout=20, what="the history read")
+            page = self.open(b)
+            self.go(page, "contracts", 1)
+            self.assertIsNone(page.query_selector("#rw"), "no Rewrite button")
+            page.click('#list .item[data-key="kirsten vance"]')
+            self.until(page, "() => document.getElementById('f-ser').textContent === 'N31FAB73943'", what="Kirsten Vance's serial")
+            cells = page.evaluate("() => Array.from(document.querySelectorAll('#fgrid .cell')).filter(c => c.offsetParent)"
+                                  ".map(c => c.querySelector('.lab').firstChild.textContent.trim().toUpperCase())")
+            self.assertEqual(cells, ["AFFILIATION", "CONTRACT", "LOCATION", "EXPIRES", "SERIAL", "INCEPT DATE", "MAKER", "ORIGINAL FUNCTION",
+                                     "STATUS", "RETIREMENT BOUNTY", "THREAT", "LAST SCAN"])
+            self.assertEqual(page.inner_text("#case").upper(), "SUBJECT FILE · CASE 2001")
+            self.until(page, "() => document.getElementById('known').textContent === 'Known as \u201cKestrel\u201d'", what="Known as")
+            self.assertEqual((page.inner_text("#f-mak"), page.inner_text("#f-stat").upper(), page.inner_text("#f-thr").upper()),
+                             ("Azimuth Biotech, licensed Wallace pattern", "LOCATED", "HIGH (CONFIRMED BY SCAN)"))
+            file = next(c for c in b.state()["contracts"] if c["key"] == "kirsten vance")["backstory"]["file"]
+            self.until(page, f"() => document.getElementById('s-bg').textContent === {json.dumps(file['background'])}", what="the background")
+            self.assertFalse(page.evaluate("() => document.getElementById('dsecs').hidden"))
+            self.assertIsNone(page.evaluate("() => document.getElementById('story').offsetParent"),
+                              "the courier job's details (shown first) gone: the file's four parts instead")
+            self.assertEqual(page.inner_text("#s-behlab").upper(), "BEHAVIOURAL NOTES · IN SHIP")
+            self.assertEqual(page.inner_text("#dsecs").upper().split("\n")[0], "BACKGROUND")
+            # the long press: a short one does nothing; held, it's written again
+            n = len(b.ai_calls())
+            box = page.query_selector("#sigil").bounding_box()
+            page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
+            page.mouse.down()
+            time.sleep(0.3)
+            page.mouse.up()
+            time.sleep(1.2)
+            self.assertEqual(len(b.ai_calls()), n, "a tap isn't a long press")
+            page.mouse.down()
+            self.until(page, "() => document.getElementById('sigil').classList.contains('hold')", what="the hold ring")
+            time.sleep(1.2)
+            page.mouse.up()
+            b.wait(lambda: len(b.ai_calls()) > n or None, timeout=10, what="the file written again")
+            self.assertIn("TARGET: Kirsten Vance", b.ai_calls()[-1]["input"])
+            # a batch's file
+            page.click('#list .item[data-key="black sun crew"]')
+            self.until(page, "() => /^N31 batch /.test(document.getElementById('f-ser').textContent)", what="the batch serial")
+            self.assertEqual(page.inner_text("#case").upper(), "BATCH FILE · CASE 1001 · 2 CONTRACTS")
+            self.assertEqual(page.inner_text("#f-stat").upper(), "AT LARGE · 30 OF 30 UNITS")
+            self.assertEqual(page.inner_text("#s-behlab").upper(), "BEHAVIOURAL NOTES · IN SHIP")
+            # an ordinary contract: its six, in their order; no long press
+            page.click('#list .item[data-key="m:2005"]')
+            self.until(page, "() => !document.getElementById('panel').classList.contains('notgt') && document.getElementById('panel').classList.contains('contract')", what="the courier job")
+            n = len(b.ai_calls())
+            box = page.query_selector("#sigil").bounding_box()
+            page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
+            page.mouse.down()
+            time.sleep(1.3)
+            page.mouse.up()
+            self.assertFalse(page.evaluate("() => document.getElementById('sigil').classList.contains('hold')"))
+            time.sleep(0.8)
+            self.assertEqual(len(b.ai_calls()), n)
+            # done: on History, FILE CLOSED, with what was written
+            b.add({"event": "MissionCompleted", "MissionID": 2001, "Name": "Mission_Assassinate_Legal_Corporate",
+                   "Faction": "Carthage Defence Force", "Reward": 950000})
+            self.go(page, "contracts", 2)
+            self.until(page, "() => !!document.querySelector('#ch-list .item[data-key=\"h:2001\"]')", what="Kirsten Vance on History")
+            page.click('#ch-list .item[data-key="h:2001"]')
+            self.until(page, "() => /FILE CLOSED/i.test(document.getElementById('ch-out').textContent)", what="FILE CLOSED")
+            self.assertEqual((page.inner_text("#ch-ser"), page.inner_text("#ch-l1").upper(), page.inner_text("#ch-l2").upper(),
+                              page.inner_text("#ch-case").upper()), ("N31FAB73943", "STATUS", "CONTRACT", "SUBJECT FILE · CASE 2001"))
+            self.assertFalse(page.evaluate("() => document.getElementById('ch-dsecs').hidden"))
+            self.assertTrue(page.inner_text("#ch-bg").startswith("Kirsten Vance was"))
+            self.no_errors()
+
 
 
 class Home(PageTest):
@@ -2999,7 +3076,7 @@ class Setup(PageTest):
             self.until(page, "() => /VERSION\\s*3\\.\\d\\d\\.\\d\\d/i.test(document.getElementById('st-about').innerText)", what="the About block")
             self.assertEqual(page.evaluate("() => document.querySelector('#st-engine .on').dataset.v"), "auto")
             self.assertIn("SET BY --ENGINE AT START", page.inner_text("#st-f-engine").upper())
-            self.assertIn("NOW: NONE (NO BACKSTORIES)", page.inner_text("#st-einfo").upper())
+            self.assertIn("NOW: NONE (NO SUBJECT FILES)", page.inner_text("#st-einfo").upper())
             self.assertIn("THE DEFAULT FOLDER", page.inner_text("#st-jinfo").upper())
             self.assertIn(f"NOW READING {str(b.jdir).upper()}", page.inner_text("#st-jinfo").upper(), "--journal-dir's folder")
             self.assertTrue(page.evaluate("() => document.getElementById('st-lwarn').hidden"))

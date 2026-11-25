@@ -3,6 +3,31 @@
 Each build adds 0.00.01 to the version (shown on the terminal's BIOS screen, on the UFC as a vehicle starts up, and
 in the console).
 
+## 3.02.05 - 25 November 2026
+
+- The worked examples the AI is shown for subject files (a person and a batch) use invented names, systems and
+  factions.
+
+## 3.02.04 - 25 November 2026
+
+Targets' backstories are now **subject files**: replicant dossiers, the same shape every time.
+
+- **3 Contracts > Active.** A target's panel is its subject file: Affiliation, Contract, Location, Expires, Serial,
+  Incept date, Maker, Original function, Status, Retirement bounty, Threat and Last scan, then Background, Implanted
+  memory, Behavioural notes and Assessment. The board fills in what the journal says (the serial's number and the
+  incept date are made from the name, so they're always the same; the threat comes from the scan, or from the reward
+  until there is one). The AI writes the rest. "Known as" sits under the name. A stack of massacres against one
+  faction is one **batch file**, its status counting the units still at large.
+- **Every reply is checked.** The AI is given the facts and a fixed format (JSON, each part's length, a worked
+  example); a reply that doesn't fit is sent back once, saying why, and if it still doesn't fit the panel says so.
+- **The first full scan** of a target written before it rewrites its behavioural notes and assessment from the scan
+  (marked provisional until then). On foot, LOCATED is reaching its settlement.
+- **Long press on the ID picture** (top right) has a target's file written again, on the Active page only. The
+  Rewrite button and the Eliminated chip are gone. Dossiers written before this build are kept as they are until
+  you do.
+- **3 Contracts > History** closes each file with how its contract ended: FILE CLOSED, ESCAPED, CONTRACT WITHDRAWN,
+  or RETIRED · UNPAID (killed, but the contract lapsed). The history reads your journals once more, for this.
+
 ## 3.02.03 - 24 November 2026
 
 Three new things for flying and navigating.

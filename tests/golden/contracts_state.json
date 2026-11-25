@@ -26,6 +26,7 @@
   {
    "backstory": null,
    "faction": "",
+   "file": null,
    "key": "m:2005",
    "kind": "contract",
    "missions": [
@@ -38,8 +39,11 @@
      "depot": null,
      "donation": null,
      "expiry": "<time>",
+     "hard": false,
      "id": 2005,
      "influence": "+++",
+     "issued_at": "Fabian City",
+     "issued_in": "HIP 20277",
      "issuer": "HIP 20277 Party",
      "key": "m:2005",
      "kill_count": null,
@@ -66,6 +70,7 @@
   {
    "backstory": null,
    "faction": "",
+   "file": null,
    "key": "m:999",
    "kind": "contract",
    "missions": [
@@ -106,6 +111,7 @@
   {
    "backstory": null,
    "faction": "",
+   "file": null,
    "key": "m:1003",
    "kind": "contract",
    "missions": [
@@ -118,8 +124,11 @@
      "depot": null,
      "donation": null,
      "expiry": "<time>",
+     "hard": false,
      "id": 1003,
      "influence": "++",
+     "issued_at": "Fabian City",
+     "issued_in": "HIP 20277",
      "issuer": "HIP 20277 Party",
      "key": "m:1003",
      "kill_count": null,
@@ -148,6 +157,7 @@
   {
    "backstory": null,
    "faction": "",
+   "file": null,
    "key": "m:2006",
    "kind": "contract",
    "missions": [
@@ -160,8 +170,11 @@
      "depot": null,
      "donation": null,
      "expiry": "<time>",
+     "hard": false,
      "id": 2006,
      "influence": "++",
+     "issued_at": "Fabian City",
+     "issued_in": "HIP 20277",
      "issuer": "HIP 20277 Party",
      "key": "m:2006",
      "kill_count": null,
@@ -188,6 +201,18 @@
   {
    "backstory": null,
    "faction": "Black Sun Crew",
+   "file": {
+    "affiliation": "Black Sun Crew",
+    "contract": "Take out known pirate, for Carthage Defence Force",
+    "incept": "<varies>",
+    "kind": "person",
+    "located": "<time>",
+    "mode": "ship",
+    "number": "73943",
+    "serial": "N31---73943",
+    "status": "LOCATED",
+    "threat": "HIGH (confirmed by scan)"
+   },
    "key": "kirsten vance",
    "kind": "person",
    "missions": [
@@ -200,8 +225,11 @@
      "depot": null,
      "donation": null,
      "expiry": "<time>",
+     "hard": false,
      "id": 2001,
      "influence": "++",
+     "issued_at": "Fabian City",
+     "issued_in": "HIP 20277",
      "issuer": "Carthage Defence Force",
      "key": "kirsten vance",
      "kill_count": null,
@@ -224,11 +252,15 @@
    "name": "Kirsten Vance",
    "scan": {
     "bounty": 950000,
+    "first": "<time>",
     "hull": 88.5,
     "legal": "Wanted",
     "rank": "Deadly",
     "shields": 64.0,
     "ship": "Python",
+    "ship_id": "python",
+    "stage": 3,
+    "subs": [],
     "time": "<time>"
    },
    "type": "Pirate lord"
@@ -236,6 +268,7 @@
   {
    "backstory": null,
    "faction": "Ovid Vision & Co",
+   "file": null,
    "key": "m:2002",
    "kind": "contract",
    "missions": [
@@ -252,8 +285,11 @@
      },
      "donation": null,
      "expiry": "<time>",
+     "hard": false,
      "id": 2002,
      "influence": "++",
+     "issued_at": "Fabian City",
+     "issued_in": "HIP 20277",
      "issuer": "HIP 20277 Party",
      "key": "m:2002",
      "kill_count": null,
@@ -280,6 +316,7 @@
   {
    "backstory": null,
    "faction": "",
+   "file": null,
    "key": "m:2004",
    "kind": "contract",
    "missions": [
@@ -292,8 +329,11 @@
      "depot": null,
      "donation": null,
      "expiry": "<time>",
+     "hard": false,
      "id": 2004,
      "influence": "++",
+     "issued_at": "Fabian City",
+     "issued_in": "HIP 20277",
      "issuer": "HIP 20277 Party",
      "key": "m:2004",
      "kill_count": null,
@@ -325,6 +365,22 @@
   {
    "backstory": null,
    "faction": "Black Sun Crew",
+   "file": {
+    "affiliation": "Black Sun Crew",
+    "contract": "Kill Black Sun Crew faction Pirates, for Ovid Vision & Co +1",
+    "incept": "<varies>",
+    "kind": "batch",
+    "located": null,
+    "mode": "ship",
+    "number": "10627",
+    "serial": "N31 batch 10627-10656",
+    "status": "AT LARGE",
+    "threat": "EXTREME (provisional - no scan yet)",
+    "units": {
+     "left": 30,
+     "need": 30
+    }
+   },
    "key": "black sun crew",
    "kind": "faction",
    "missions": [
@@ -337,8 +393,11 @@
      "depot": null,
      "donation": null,
      "expiry": "<time>",
+     "hard": false,
      "id": 1001,
      "influence": "++",
+     "issued_at": "Fabian City",
+     "issued_in": "HIP 20277",
      "issuer": "Ovid Vision & Co",
      "key": "black sun crew",
      "kill_count": 24,
@@ -366,8 +425,11 @@
      "depot": null,
      "donation": null,
      "expiry": "<time>",
+     "hard": false,
      "id": 1002,
      "influence": "++",
+     "issued_at": "Fabian City",
+     "issued_in": "HIP 20277",
      "issuer": "HIP 20277 Party",
      "key": "black sun crew",
      "kill_count": 30,
@@ -394,6 +456,7 @@
   {
    "backstory": null,
    "faction": "",
+   "file": null,
    "key": "m:2003",
    "kind": "contract",
    "missions": [
@@ -406,8 +469,11 @@
      "depot": null,
      "donation": null,
      "expiry": "<time>",
+     "hard": false,
      "id": 2003,
      "influence": "++",
+     "issued_at": "Fabian City",
+     "issued_in": "HIP 20277",
      "issuer": "HIP 20277 Party",
      "key": "m:2003",
      "kill_count": null,
@@ -434,6 +500,7 @@
   {
    "backstory": null,
    "faction": "",
+   "file": null,
    "key": "m:2007",
    "kind": "contract",
    "missions": [
@@ -446,8 +513,11 @@
      "depot": null,
      "donation": 1250000,
      "expiry": "<time>",
+     "hard": false,
      "id": 2007,
      "influence": "+++++",
+     "issued_at": "Fabian City",
+     "issued_in": "HIP 20277",
      "issuer": "HIP 20277 Party",
      "key": "m:2007",
      "kill_count": null,

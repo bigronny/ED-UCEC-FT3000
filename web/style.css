@@ -74,8 +74,23 @@ button:focus-visible { outline: 1px dashed var(--accent); outline-offset: 2px; }
 #chips { display: flex; gap: 8px; flex-wrap: wrap; }
 #chips:empty { display: none; }
 .chip { padding: 2px 6px; background: var(--accent); color: var(--bg); text-transform: uppercase; text-shadow: none; }
-#sigil { flex: none; width: 72px; height: 72px; }
+#sigil { flex: none; width: 72px; height: 72px; position: relative; user-select: none; -webkit-user-select: none; touch-action: none; -webkit-touch-callout: none; }
 #sigil svg { width: 100%; height: 100%; }
+/* held: a ring fills round it - then the subject file is written again */
+#sigil.hold::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--accent);
+  clip-path: inset(0 0 100% 0); animation: sighold var(--hold, 900ms) linear forwards; pointer-events: none; }
+@keyframes sighold { to { clip-path: inset(0 0 0 0); } }
+#sigil.fired svg { animation: flk .4s steps(2) 2; }
+.known { color: var(--muted); text-transform: uppercase; }
+.known[hidden] { display: none; }
+/* a contract (no target): the subject file's own cells go, the six in their order */
+.grid .tc[hidden], .contract .grid .tc { display: none; }
+.contract .grid .cell { order: var(--co, 9); }
+.dsecs { display: flex; flex-direction: column; gap: 4px; padding-bottom: 4px; }
+.dsecs[hidden] { display: none; }
+.dsecs .lab.sec:first-child { margin-top: 0; }
+.dsec { line-height: 1.25; }
+.dhead[hidden], #story[hidden], #story.brief[hidden] { display: none; }   /* (#story.brief sets its own display) */
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; border-top: 1px solid var(--rule); }
 @media (min-width: 1100px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .cell { padding: 6px 0; border-bottom: 1px solid var(--rule); display: flex; flex-direction: column; gap: 4px; min-width: 0; }
