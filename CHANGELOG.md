@@ -3,6 +3,27 @@
 Each build adds 0.00.01 to the version (shown on the terminal's BIOS screen, on the UFC as a vehicle starts up, and
 in the console).
 
+## 3.02.03 - 24 November 2026
+
+Three new things for flying and navigating.
+
+- **2 Nav > Traj: CIRCLE**, a Heading Alignment Cone after the Space Shuttle's. It puts a tightening turn beside the
+  course, 4 km out (2.5 km radius where you join it, 1.5 km where you leave it), then brings you down a 20 degree
+  outer glide slope to the destination. OVHD / STRT-IN picks the side, giving the bigger turn or the smaller, from
+  where you are when you pick it. The top-down view draws the turn, WP1 (where you join it) and WP2 (where you leave
+  it). The side profile is your path unrolled: the reference altitude (14 degrees round the turn, 20 on the glide
+  slope), HIGH / LOW, and the descent rate you need. The readouts show the turn still to go and how far in or out of
+  the turn you are. All its numbers are together in `web/js/traj.js` (HAC). COMM2 steps to CIRCLE and OVHD / STRT-IN.
+- **2 Nav > HSI: exobiology.** While you sample a species with the genetic sampler, each sample shows on the map,
+  ringed at its genus's colony range (Bacterium 500 m, Osseus 800 m...); the ring turns amber while you're too close.
+  The panel shows how far you are from the nearest sample and how much further to go, and so does the UFC's
+  scratchpad when there's no steer-to point. The samples are kept in `exobio.json` in your data folder.
+- **2 Nav > Wpt: sharing codes.** Every waypoint, mark and flight plan has a code with COPY, ready to paste into the
+  game's chat (FTW1/... for a waypoint, FTP1/... for a flight plan, checked like the attack plan's FT1 code). The new
+  **CODE** method loads one, typed, pasted or from the clipboard. Codes your wingmen say in the game's chat are listed
+  there too, ready to LOAD with a press. A flight plan goes into your first empty SEQ, and waypoints you already have
+  are reused.
+
 ## 3.02.02 - 24 November 2026
 
 The first release.

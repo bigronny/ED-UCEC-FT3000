@@ -165,6 +165,34 @@ def main():
             page.wait_for_function("() => ED.trajGuide().ok", timeout=10000)
             settle(page, 1.5)
             save(page, "traj")
+            # CIRCLE: armed 9 km out on the course's left (OVHD), then flying round the HAC, 120 deg of turn after joining it
+            page.click("#tr-circle")
+            crs = page.evaluate("() => ED.trajGuide().crs")
+            d = page.evaluate("() => ED.traj.dest")
+
+            def flying(e, n, alt, hdg):   # e, n metres from Hao on a frame turned to the course (n: along it)
+                c, s_ = math.cos(math.radians(crs)), math.sin(math.radians(crs))
+                ee, nn = e * c + n * s_, -e * s_ + n * c
+                b.write_status(dict(journals.NEAR_HAO, Latitude=round(d["lat"] + nn / R * 180 / math.pi, 6), Flags2=0,
+                                    Longitude=round(d["lon"] + ee / (R * math.cos(math.radians(d["lat"]))) * 180 / math.pi, 6),
+                                    Altitude=alt, Heading=round(hdg + crs) % 360, Destination={"Name": HAO}))
+            time.sleep(4)   # (a silence: Traj's filter starts afresh at the new place)
+            for i in range(4):
+                flying(-6000, -7000, 3200, 60)
+                time.sleep(0.8)
+            page.wait_for_function("() => (ED.trajGuide().hac || {}).stage === 'acq'", timeout=10000)
+            side, k, psi_t = page.evaluate("() => [ED.traj.hac.side, ED.traj.hac.k, ED.traj.hac.psiE]")
+            time.sleep(4)
+            for i in range(7):   # round the HAC at about 160 m/s, from 30 deg past WP1
+                psi = psi_t - math.radians(30 + 4 * i)
+                p = page.evaluate(f"() => {{ const H = ED.trajHac; return H.at(H.geom(0, {side}, {k}), {psi}); }}")
+                L = 4000 + 1500 * psi + k * psi * psi / 2
+                flying(p["p"][0], p["p"][1], round(4000 * math.tan(math.radians(20)) + (L - 4000) * math.tan(math.radians(14)) + 120),
+                       math.degrees(math.atan2(p["m"][0], p["m"][1])))
+                time.sleep(1.0)
+            page.wait_for_function("() => (ED.trajGuide().hac || {}).stage === 'hac'", timeout=10000)
+            settle(page, 0.5)
+            save(page, "traj-circle")
             page.close()
 
         # 2 Nav > 3 Wpt, 4 HSI, 5 Atk (PLAN, then ATTACK: the mine-release computer): three waypoints in a flight plan and a
@@ -188,6 +216,13 @@ def main():
             page.click(f'#tg-list [data-key="{ws[1]["key"]}"]')
             settle(page, 2)
             save(page, "wpt")
+            # CODE: a wingman's flight plan code, heard in the game's chat
+            plan = b.state()["syst"]["nav"]["codes"]["seq"]["1"]
+            b.add({"event": "ReceiveText", "From": "Gaff", "Message": "o7 fly this one: " + plan, "Channel": "wing"})
+            page.click('#tg-meth button[data-m="code"]')
+            page.wait_for_function("() => document.querySelectorAll('#tg-clist .srow').length === 1", timeout=10000)
+            settle(page, 2)
+            save(page, "wpt-code")
             # flying east at 150 m/s, 1,000 m up, 60 m north of Hao's line, towards the release point
             grav = next(e for e in y["entries"] if e["name"] == PLANET)["gravity"]
             throw = 150 * min(10, math.sqrt(2 * 1000 / (grav * 9.80665)))
@@ -217,6 +252,31 @@ def main():
                 time.sleep(1.0)
             page.wait_for_function("() => ED.atkSolve().ok && ED.atkSolve().track && ED.atkSolve().tau > 2", timeout=10000)
             save(page, "ccrp")
+            page.close()
+
+        # 2 Nav > 4 HSI: exobiology - on foot, two samples of a bacterium taken 600 m apart, standing 300 m from the second
+        with ShotBoard("shot_exo", **journals.syst()) as b:
+            page = open_page(b)
+            b.add({"event": "Disembark", "SRV": False, "Taxi": False, "Multicrew": False, "ID": 1, "OnStation": False, "OnPlanet": True,
+                   "Body": PLANET})
+            foot = dict(journals.NEAR_HAO, Flags=1 << 21, Flags2=1 | 16, Altitude=0, Heading=40)
+            organic = lambda kind: {"event": "ScanOrganic", "ScanType": kind, "Genus": "$Codex_Ent_Bacterial_Genus_Name;", "Genus_Localised": "Bacterium",
+                                    "Species": "$Codex_Ent_Bacterial_04_Name;", "Species_Localised": "Bacterium Acies", "SystemAddress": 1, "Body": 5}
+            east = lambda m: round(34.9 + m / (R * math.cos(math.radians(-13.1))) * 180 / math.pi, 6)
+            for m, kind in ((0, "Log"), (600, "Sample")):
+                b.write_status(dict(foot, Longitude=east(m)))
+                b.wait(lambda: (b.state()["syst"].get("me") or {}).get("lon") == east(m), what="the position")
+                b.add(organic(kind))
+                b.wait(lambda: ((b.state().get("exo") or {}).get("cur") or {}).get("n") == (1 if kind == "Log" else 2), what="the sample")
+            go(page, "nav", 4)
+            page.click('#hs-view button[data-v="N"]')
+            time.sleep(4)   # (a silence: the filter starts afresh where you stand)
+            for i in range(6):
+                b.write_status(dict(foot, Latitude=round(-13.1 + 160 / R * 180 / math.pi, 6), Longitude=east(850)))
+                time.sleep(0.8)
+            page.wait_for_function("() => ED.hsiSolve().exo && ED.hsiSolve().exo.near < 400", timeout=10000)
+            settle(page)
+            save(page, "hsi-exobio")
             page.close()
 
         # 2 Nav > 6 Hist: everywhere you've been

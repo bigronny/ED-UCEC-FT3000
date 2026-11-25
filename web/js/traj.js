@@ -1,8 +1,17 @@
 // ED Target Board page - 2 Nav › Traj: guidance down to a planetary facility. Three panels, 40 / 20 / 40: the
 // top-down view of the course in (left), the ILS and the highway in the sky (middle), the side profile and the
-// vertical velocity (right). Profile buttons across the top (ENTRY 1 now; a circling re-entry to come - the pop-up
-// is Atk's attack plan) and the destination: 1 SYST SEL (what Nav › Syst has selected) or DEST (what you've
-// targeted in the game).
+// vertical velocity (right). Profile buttons across the top - ENTRY 1, or CIRCLE (a Heading Alignment Cone, after the
+// Shuttle's: see HAC below; the pop-up is Atk's attack plan) - and the destination: 1 SYST SEL (what Nav › Syst has
+// selected) or DEST (what you've targeted in the game).
+//
+// CIRCLE: from where you are when it's armed (picked, a new destination or course, OVHD / STRT-IN flipped, and all the
+// while in orbital cruise) it puts the HAC on the side giving the bigger turn (OVHD) or the smaller (STRT-IN), and keeps
+// it there. ACQ: fly the line to WP1, where it meets the HAC tangent; HAC: round the tightening turn, R_IN down to R_OUT,
+// to WP2 on the course; OGS: down the outer glide slope to the destination (inside FINAL_IN, the final approach - to your
+// pad, as ENTRY 1's). The top-down view draws the HAC, WP1, WP2 and the OGS; the side profile is the path unrolled - the
+// reference altitude (the OGS up to WP2, then DESC on round the HAC and out) with its band, and you. The readouts: WP1's
+// bearing and range and the turn (ACQ); the turn to go, the HAC's radius there and how far in or out you are (HAC); the
+// course (OGS); the reference altitude, HIGH / LOW, the descent rate it needs at your ground speed, the path to go.
 //
 // The page follows the flight's phases, from the game's own flags: orbital cruise (setting up: the ILS, highway
 // and vertical-velocity check wait for the glide), the glide and the flying after it (ENTRY 1), and the final
@@ -66,8 +75,26 @@
   // In orbital cruise your speed changes by thousands of m/s a second and the readings are exact, so there the
   // speed is simply the change since the last reading (smoothed a little: CRUISE_EASE of the new one)
   var CRUISE_EASE = 0.6;
+  // ---- CIRCLE: a Heading Alignment Cone, after the Shuttle's - round a tightening turn onto the course, then down the outer
+  // glide slope (OGS) to the destination. WP2, the HAC's exit, is WP2_OUT out along the course; the turn round it tightens
+  // from R_IN where you join it (WP1, where your line in meets it, tangent) to R_OUT at WP2, its radius growing in step with
+  // the turn still to go; DESC down it (and on the line in), OGS down the course. OVHD / STRT-IN picks the side - the bigger
+  // turn (overhead) or the smaller (straight in) - from where you are when it's armed: then it stays.
+  var HAC = {
+    OGS: 20,             // degrees: the outer glide slope, down the course from WP2 to the destination
+    WP2_OUT: 4000,       // metres out along the course: WP2 (4 km x tan 20 deg = 1.46 km up)
+    R_IN: 2500,          // metres: the HAC's radius where you join it ...
+    R_OUT: 1500,         // ... and at WP2
+    DESC: 14,            // degrees: the descent round the HAC and on the line in to it (about 1 in 4)
+    WIN: 6,              // degrees either side of the slope: the vertical-velocity window
+    TOL: 0.08, TOL_M: 60,   // HIGH / LOW: more than this part of the reference altitude off it (or this many metres, if more)
+    CAPTURE: 400, CAPTURE_S: 4,   // on the HAC once this close to WP1 (metres - or seconds at your ground speed, if more)
+    OGS_X: 1000,         // metres either side of the course: inside WP2 and this close, armed there, you're on the OGS already
+    SCALE: 1e4,          // metres: the pictures' scale while you fly it (until the final approach's), within 1.2 x it of the destination
+    STEP: 2              // degrees: the spiral's points (drawn, and searched for WP1)
+  };
   var STOPS = ["crs", "view", "dest"];   // COMM1's stops
-  var STOPS2 = ["entry", "reset"];        // COMM2's: ENTRY 1, Reset scale (Circle to come; the pop-up is Atk's plan)   // where COMM1's outline goes, in order
+  var STOPS2 = ["entry", "circle", "hac", "reset"];   // COMM2's: ENTRY 1, CIRCLE, its OVHD / STRT-IN (with CIRCLE), Reset scale
 
   function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
   function n360(a) { return ((a % 360) + 360) % 360; }
@@ -88,6 +115,9 @@
   var T = {
     mode: kept.mode === "hud" ? "hud" : "pick",   // the destination: Nav › Syst's pick, or the game's target
     view: kept.view === "C" ? "C" : "N",          // the top-down view: north up, or course up
+    prof: kept.prof === "circle" ? "circle" : "entry",   // the profile: ENTRY 1, or CIRCLE (the HAC)
+    hmode: kept.hmode === "strt" ? "strt" : "ovhd",      // CIRCLE's HAC: overhead (the bigger turn) or straight in
+    hac: null,                                    // CIRCLE armed: {key, crs, mode, side (1 right, -1 left), stage: acq | hac | ogs, k, psiE, psi}
     crs: kept.crs && typeof kept.crs === "object" ? kept.crs : {},   // the course for each destination (yours, or taken at the glide) ...
     took: kept.took && typeof kept.took === "object" ? kept.took : {},   // ... the ones taken at the glide (dropped when you're back in orbital cruise)
     focus: "crs", grab: false, focus2: "entry",   // COMM1's outline, the course box grabbed, COMM2's outline
@@ -97,7 +127,7 @@
     meFix: null, missAt: null                     // the last reading with a position, and since when there's been none
   };
   function keep() {
-    try { localStorage.setItem("ft3000-traj", JSON.stringify({ mode: T.mode, view: T.view, crs: T.crs, took: T.took })); } catch (e) { /* storage blocked */ }
+    try { localStorage.setItem("ft3000-traj", JSON.stringify({ mode: T.mode, view: T.view, crs: T.crs, took: T.took, prof: T.prof, hmode: T.hmode })); } catch (e) { /* storage blocked */ }
   }
 
   // ---- the filter: position and velocity along one axis, at uneven times ----
@@ -282,6 +312,7 @@
   function scaleFor(ph, d) {   // fixed for each phase; out in orbital cruise (or flying far off), 1,000 km and 100 km
     var cur = T.scale;
     if (ph === "final") return SCALE.final;
+    if (T.prof === "circle" && ph !== "cruise" && (d <= HAC.SCALE * 1.2 || (cur === HAC.SCALE && d <= HAC.SCALE * 1.5))) return HAC.SCALE;   // (flying CIRCLE)
     if (ph === "glide") return SCALE.glide;
     if (ph !== "cruise" && (d <= SCALE.glide || (cur === SCALE.glide && d <= SCALE.glide * 1.2))) return SCALE.glide;
     return d <= SCALE.near || (cur === SCALE.near && d <= SCALE.near * 1.2) ? SCALE.near : SCALE.far;
@@ -300,6 +331,92 @@
     if (any) keep();
   }
 
+  // ---- CIRCLE's geometry: metres east and north of the destination, flat (it's all within a few tens of km) ----
+  function hacGeom(crs, side, k) {   // the course, WP2, the HAC's centre (R_OUT beside WP2, on its side); k: metres of radius a radian of turn to go
+    var c = [Math.sin(crs * RAD), Math.cos(crs * RAD)], nr = [c[1], -c[0]], w2 = [-c[0] * HAC.WP2_OUT, -c[1] * HAC.WP2_OUT];
+    return { crs: crs, side: side, k: k, c: c, nr: nr, w2: w2, cc: [w2[0] + side * nr[0] * HAC.R_OUT, w2[1] + side * nr[1] * HAC.R_OUT] };
+  }
+  function hacAt(h, psi) {   // the point psi radians of turn short of WP2, its radius, and the way you fly there
+    var b = h.crs * RAD - h.side * (Math.PI / 2 + psi), r = HAC.R_OUT + h.k * psi, u = [Math.sin(b), Math.cos(b)], du = [Math.cos(b), -Math.sin(b)];
+    var m = [h.side * r * du[0] - h.k * u[0], h.side * r * du[1] - h.k * u[1]], ml = Math.hypot(m[0], m[1]);
+    return { p: [h.cc[0] + r * u[0], h.cc[1] + r * u[1]], r: r, m: [m[0] / ml, m[1] / ml] };
+  }
+  function hacPsi(h, A) {   // the turn to go (radians, 0 - 2 pi) from where A is round the HAC's centre
+    var b = Math.atan2(A[0] - h.cc[0], A[1] - h.cc[1]), psi = h.side * (h.crs * RAD - b) - Math.PI / 2, tw = 2 * Math.PI;
+    return ((psi % tw) + tw) % tw;
+  }
+  function hacTangent(h, A) {   // WP1: the turn to go where a line from A meets the HAC tangent to it, flying on round it (null: none - you're inside it)
+    var n = Math.round(360 / HAC.STEP), prev = null;
+    function f(psi) { var q = hacAt(h, psi), dx = q.p[0] - A[0], dy = q.p[1] - A[1]; return { cr: dx * q.m[1] - dy * q.m[0], dot: dx * q.m[0] + dy * q.m[1] }; }
+    for (var i = 0; i <= n; i++) {
+      var psi = 2 * Math.PI * i / n, v = f(psi);
+      if (prev && (prev.v.cr <= 0) !== (v.cr <= 0) && prev.v.dot > 0 && v.dot > 0) {
+        var a = prev.psi, b = psi, fa = prev.v.cr;
+        for (var j = 0; j < 40; j++) { var mid = (a + b) / 2, fm = f(mid).cr; if ((fm <= 0) === (fa <= 0)) { a = mid; fa = fm; } else b = mid; }
+        return (a + b) / 2;
+      }
+      prev = { psi: psi, v: v };
+    }
+    return null;
+  }
+  function hacSolve(crs, side, A, k) {   // the HAC from A - its radius R_IN where you'd join it (k given: as it is)
+    var kk = k != null ? k : (HAC.R_IN - HAC.R_OUT) / Math.PI, h = hacGeom(crs, side, kk), t = hacTangent(h, A);
+    for (var it = 0; k == null && t != null && it < 5; it++) {
+      kk = (HAC.R_IN - HAC.R_OUT) / Math.max(t, 0.5);
+      h = hacGeom(crs, side, kk);
+      t = hacTangent(h, A);
+    }
+    return { h: h, psiT: t };
+  }
+  function hacLen(h, psi) { return HAC.R_OUT * psi + h.k * psi * psi / 2; }   // the HAC's length from psi to go to WP2 (metres)
+  function hacRef(L) {   // the reference altitude (metres above the destination) this far from it along the path
+    var tO = Math.tan(HAC.OGS * RAD);
+    return L <= HAC.WP2_OUT ? L * tO : HAC.WP2_OUT * tO + (L - HAC.WP2_OUT) * Math.tan(HAC.DESC * RAD);
+  }
+  function hacArm(key, crs, A) {   // CIRCLE armed: the side (OVHD: the bigger turn, STRT-IN: the smaller), and where you are on it
+    var r = hacSolve(crs, 1, A), l = hacSolve(crs, -1, A), pick;
+    if (r.psiT == null && l.psiT == null) pick = (A[0] - r.h.w2[0]) * r.h.nr[0] + (A[1] - r.h.w2[1]) * r.h.nr[1] >= 0 ? r : l;   // (inside both: the side you're on)
+    else if (r.psiT == null || l.psiT == null) pick = r.psiT == null ? l : r;
+    else pick = (T.hmode === "strt") === (r.psiT <= l.psiT) ? r : l;
+    var h = pick.h, a = (A[0] - h.w2[0]) * h.c[0] + (A[1] - h.w2[1]) * h.c[1], x = (A[0] - h.w2[0]) * h.nr[0] + (A[1] - h.w2[1]) * h.nr[1];
+    var onOgs = a >= -200 && a <= HAC.WP2_OUT + 200 && Math.abs(x) <= HAC.OGS_X;
+    return { key: key, crs: crs, mode: T.hmode, side: h.side, stage: onOgs ? "ogs" : "acq", k: h.k, psiE: pick.psiT, psi: null };
+  }
+  function hacStep(H, A, gs) {   // where you are on CIRCLE now (and its stage: ACQ - to WP1 - then HAC, then the OGS)
+    var tw = 2 * Math.PI, out = { stage: H.stage };
+    if (H.stage === "acq") {
+      var sv = hacSolve(H.crs, H.side, A, null), h = sv.h, w1 = sv.psiT != null ? hacAt(h, sv.psiT).p : null;
+      var d1 = w1 ? Math.hypot(w1[0] - A[0], w1[1] - A[1]) : null;
+      if (w1 && d1 >= Math.max(HAC.CAPTURE, gs * HAC.CAPTURE_S)) {   // on the way to WP1 (the HAC sized from here: R_IN there)
+        H.k = h.k; H.psiE = sv.psiT;
+        out.h = h; out.w1 = w1; out.d1 = d1; out.b1 = n360(Math.atan2(w1[0] - A[0], w1[1] - A[1]) / RAD); out.psiT = sv.psiT;
+        out.L = d1 + hacLen(h, sv.psiT) + HAC.WP2_OUT;
+      } else {   // there - or inside it: on the HAC as it was sized on the way in (kept from now on)
+        var me0 = hacPsi(hacGeom(H.crs, H.side, H.k), A);
+        if (H.psiE == null) H.psiE = me0;
+        H.stage = "hac"; H.psi = me0 + Math.floor((H.psiE + 0.3 - me0) / tw) * tw;   // (the turn to go: no more than WP1's)
+      }
+    }
+    if (H.stage === "hac") {
+      var hh = hacGeom(H.crs, H.side, H.k), me = hacPsi(hh, A);
+      if (H.psi != null) me += Math.round((H.psi - me) / tw) * tw;   // (the turn to go, carried on round from the last)
+      H.psi = me;
+      out.h = hh; out.stage = "hac";
+      if (me <= 0) { H.stage = "ogs"; }
+      else if (me > (H.psiE || 0) + Math.PI / 2) { H.stage = "acq"; H.psi = null; }   // (going the wrong way round: join it again)
+      else {
+        var q = hacAt(hh, me);
+        out.psi = me; out.rr = q.r; out.rerr = Math.hypot(A[0] - hh.cc[0], A[1] - hh.cc[1]) - q.r;
+        out.L = hacLen(hh, me) + HAC.WP2_OUT; out.d2 = hacLen(hh, me);
+      }
+    }
+    if (H.stage === "ogs") {
+      out.h = out.h || hacGeom(H.crs, H.side, H.k);
+      out.stage = "ogs"; out.L = Math.hypot(A[0], A[1]);
+    }
+    return out;
+  }
+
   // ---- everything the panels show, at time t ----
   function guide(t) {
     var d = T.dest, me = T.me, g = { ok: false, d: d, dok: !!(d && d.ok), phase: "wait", scale: scaleNow() };
@@ -314,6 +431,7 @@
     if (!T.nav || !T.nav.kx.x) { g.title = "Acquiring state vector"; g.why = ""; return g; }
     var p = T.nav.at(t), R = T.nav.R, site = rel(p.lat, p.lon, p.alt, d, R);
     var ph = phaseOf(me, site.d);
+    if (ph === "final" && !me.landed && T.prof === "circle" && !(T.hac && T.hac.key === d.key && T.hac.stage === "ogs")) ph = "flight";   // (CIRCLE: the HAC can pass within FINAL_IN - the final approach is from the OGS)
     T.phase = ph;
     T.scale = scaleFor(ph, site.d);
     // the final approach: to your pad, once docking's granted and the board knows where it is
@@ -329,13 +447,39 @@
     var gs = Math.hypot(vE, vN), clos = vE * Math.sin(r.bSD * RAD) + vN * Math.cos(r.bSD * RAD);
     var th = Math.atan2(r.Y, r.X) / RAD, de = auto ? 0 : w180(crs + 180 - r.bDS);
     var trail = T.nav.trail.map(function (q) { return rel(q[0], q[1], q[2], tgt, R); });
-    return {
+    var g = {
       ok: true, d: d, dok: true, phase: ph, scale: scaleNow(), onPad: onPad, padNum: d.pad ? d.pad.num : null, toSite: site.d,
       R: R, crs: crs, auto: auto, dist: r.d, X: r.X, Y: r.Y, bDS: r.bDS, bSD: r.bSD, alt: p.alt, age: p.age, still: p.still,
       vE: vE, vN: vN, vU: vU, gs: gs, clos: clos, vv: -vU, th: th, de: de, xtk: auto ? 0 : r.d * Math.sin(de * RAD),
       trk: n360(Math.atan2(vE, vN) / RAD), hdg: me.hdg, fpa: gs > 1 ? Math.atan2(-vU, gs) / RAD : 0,
       altErr: r.Y - r.X * TAN_OPT, trail: trail, me: me, entry: ph !== "cruise"
     };
+    // ENTRY 1's vertical velocity: at your closing speed, OPT's - in the SHALLOW-STEEP window
+    g.vw = { spd: clos, req: clos * TAN_OPT, lo: clos * Math.tan(SHALLOW * RAD), hi: clos * Math.tan(STEEP * RAD), max: clos * Math.tan(66 * RAD), ang: OPT };
+    if (T.prof === "circle") circle(g, d, me, site, ph);
+    return g;
+  }
+  // CIRCLE: armed from where you are (again for a new destination or course, OVHD / STRT-IN, or back in orbital cruise),
+  // then where you are on it, its reference altitude and the vertical velocity it needs
+  function circle(g, d, me, site, ph) {
+    if (ph !== "cruise" && g.auto) {   // (it needs a course: the bearing you have now - dropped again for ENTRY 1, or back in orbital cruise)
+      takeCourse(d, me);
+      if (T.crs[d.key] != null) { g.crs = T.crs[d.key]; g.auto = false; T.circleTook = d.key; }
+    }
+    if (ph !== "cruise" && !g.auto) { g.de = w180(g.crs + 180 - g.bDS); g.xtk = g.dist * Math.sin(g.de * RAD); }   // (as ENTRY 1's, on the course it's taken)
+    var A = [site.X * Math.sin(site.bDS * RAD), site.X * Math.cos(site.bDS * RAD)], H = T.hac;
+    if (!H || H.key !== d.key || H.crs !== g.crs || H.mode !== T.hmode || ph === "cruise") H = T.hac = hacArm(d.key, g.crs, A);
+    var o = hacStep(H, A, g.gs), tO = Math.tan(HAC.OGS * RAD), tD = Math.tan(HAC.DESC * RAD);
+    o.A = A; o.side = H.side; o.mode = H.mode; o.psiE = H.psiE; o.Y = site.Y;
+    o.slope = o.stage === "ogs" ? HAC.OGS : HAC.DESC;
+    o.ref = o.L != null ? hacRef(o.L) : null;
+    o.err = o.ref != null ? site.Y - o.ref : null;
+    o.tol = o.ref != null ? Math.max(HAC.TOL_M, Math.abs(o.ref) * HAC.TOL) : null;
+    o.L1 = o.h && H.psiE != null ? HAC.WP2_OUT + hacLen(o.h, H.psiE) : null;   // (the path's length from WP1)
+    g.hac = o;
+    var grad = o.stage === "ogs" ? tO : tD, sp = g.gs;
+    g.vw = { spd: sp, req: sp * grad, lo: sp * Math.tan(Math.max(0, o.slope - HAC.WIN) * RAD), hi: sp * Math.tan((o.slope + HAC.WIN) * RAD),
+             max: sp * Math.tan((o.slope + 2 * HAC.WIN) * RAD), ang: o.slope };
   }
   function latState(g) {
     if (g.auto) return { chip: g.entry ? "Course auto" : "Course at glide", col: C.rule2 };
@@ -350,6 +494,21 @@
     if (g.th < SHALLOW) return { chip: "Too shallow " + g.th.toFixed(1) + "°", col: C.bad };
     if (Math.abs(g.th - OPT) <= 1) return { chip: "On path", col: C.text };
     return { chip: (g.th > OPT ? "High " : "Low ") + Math.abs(g.th - OPT).toFixed(1) + "°", col: C.acc };
+  }
+  function hacLat(g, ls) {   // CIRCLE's lateral chip: ACQ (to WP1), HAC (the turn to go), then the course (OGS)
+    var h = g.hac, sd = h.side > 0 ? "R" : "L";
+    if (!g.entry) return { chip: "HAC " + sd + " armed", col: C.rule2 };
+    if (h.stage === "acq") return { chip: "Acq · HAC " + sd, col: C.acc };
+    if (h.stage === "hac") return { chip: "HAC · " + (h.psi != null ? Math.round(h.psi / RAD) : "--") + "° to go", col: h.rerr != null && Math.abs(h.rerr) > 300 ? C.acc : C.text };
+    return { chip: "OGS · " + ls.chip, col: ls.col };
+  }
+  function hacVert(g) {   // CIRCLE's vertical chip: on the reference altitude, or how high or low
+    var h = g.hac;
+    if (!g.entry) return { chip: "Orbital cruise", col: C.rule2 };
+    if (h.err == null) return { chip: "No reference", col: C.rule2 };
+    var a = Math.abs(h.err);
+    if (a <= h.tol) return { chip: "On ref", col: C.text };
+    return { chip: (h.err > 0 ? "High " : "Low ") + dist(a), col: a > 3 * h.tol ? C.bad : C.acc };
   }
   function gsDefl(th) {   // the glide-slope needle, -1 (full up: fly up) .. 1 (full down)
     var even = GS_SCALE === "even";
@@ -468,7 +627,34 @@
       });
       var cs = auto ? "CRS AUTO" : "CRS " + deg3(crs) + "°", cl = beside(pt(crs, span * 0.3), pp, cs);   // past the destination, where you won't be
       out.push(txt(cl[0], cl[1], cs, auto ? C.muted : C.text));
-      if (!auto) { var bl = pt(bOut, span * 0.3); out.push(txt(bl[0] - pp[0] * 12, bl[1] - pp[1] * 12, "±" + degs(LAT), C.acc)); }
+      if (!auto && !g.hac) { var bl = pt(bOut, span * 0.3); out.push(txt(bl[0] - pp[0] * 12, bl[1] - pp[1] * 12, "±" + degs(LAT), C.acc)); }   // (CIRCLE: the HAC's there)
+    }
+    if (g.hac && g.hac.h) {   // CIRCLE: the HAC round to WP2 (what you've flown of it dimmed), the OGS on in, WP1 and your line in to it
+      var hc = g.hac, hh = hc.h, xy = function (q) { return pt(n360(Math.atan2(q[0], q[1]) / RAD), Math.hypot(q[0], q[1])); };
+      var top = hc.stage === "acq" ? hc.psiT : hc.psiE, done = hc.stage === "hac" ? hc.psi : hc.stage === "ogs" ? 0 : null, sp1 = [], sp2 = [];
+      if (top == null) top = 2 * Math.PI;
+      for (var a = top; a > 0; a -= HAC.STEP * RAD) (done != null && a > done ? sp1 : sp2).push(xy(hacAt(hh, a).p));
+      var w2p = xy(hh.w2), cp = xy(hh.cc);
+      sp2.push(w2p);
+      if (sp1.length) out.push(line(sp1.concat([sp2[0]]), C.muted, [2, 2]));
+      out.push(line(sp2, C.hi));
+      out.push(line([w2p, D], hc.stage === "ogs" ? C.hi : C.text));   // the OGS
+      out.push(line([[cp[0] - 2, cp[1]], [cp[0] + 2, cp[1]]], C.muted), line([[cp[0], cp[1] - 2], [cp[0], cp[1] + 2]], C.muted));
+      var away = function (p) { var dx = p[0] - cp[0], dy = p[1] - cp[1], l = Math.hypot(dx, dy) || 1; return [dx / l, dy / l]; };
+      out.push(circ(w2p[0], w2p[1], 2.5, C.hi, C.bg));
+      var l2 = beside(w2p, away(w2p), "WP2");
+      out.push(txt(l2[0], l2[1], "WP2", C.hi));
+      var w1 = hc.w1 || (hc.psiE != null ? hacAt(hh, hc.psiE).p : null);   // (on it, or past it: where you joined it, dimmed)
+      if (w1) {
+        var w1p = xy(w1), l1 = beside(w1p, away(w1p), "WP1"), wc = hc.w1 ? C.hi : C.muted;
+        if (g.ok && hc.w1) out.push(line([xy(hc.A), w1p], C.hi, [3, 2]));
+        out.push(circ(w1p[0], w1p[1], 2.5, wc, C.bg));
+        out.push(txt(l1[0], l1[1], "WP1", wc));
+      }
+      var ht = "HAC " + (hc.side > 0 ? "R" : "L") + " - " + (hc.mode === "strt" ? "STRT-IN" : "OVHD");   // (beyond it, away from the course)
+      var off = [hh.cc[0] - hh.w2[0], hh.cc[1] - hh.w2[1]], ol = Math.hypot(off[0], off[1]) || 1, far = HAC.R_IN + 200;
+      var ho = xy([hh.cc[0] + off[0] / ol * far, hh.cc[1] + off[1] / ol * far]), hl = beside(ho, away(ho), ht);
+      out.push(txt(hl[0], hl[1], ht, C.muted));
     }
     out.push(poly([[cx, cy - 4], [cx + 4, cy], [cx, cy + 4], [cx - 4, cy]], C.bg, C.hi));
     var ds = g.onPad ? "PAD " + g.padNum : "DEST", dl = beside(D, [-pp[0], -pp[1]], ds);   // (the other side of the course line)
@@ -476,7 +662,7 @@
     if (!g.ok) return out.join("");
     // where you've been, where you are, and where you'll be in 60 s
     g.trail.forEach(function (q) { if (q.d <= span) { var p = pt(q.bDS, q.d); out.push(circ(p[0], p[1], 0.6, null, C.muted)); } });
-    var ls = latState(g), col = !g.auto && Math.abs(g.de) > LAT ? C.bad : C.hi, dirn = sd(g.gs > 5 ? g.trk : (g.hdg || 0));
+    var ls = latState(g), col = !g.auto && Math.abs(g.de) > LAT && (!g.hac || g.hac.stage === "ogs") ? C.bad : C.hi, dirn = sd(g.gs > 5 ? g.trk : (g.hdg || 0));
     var S0 = pt(g.bDS, g.dist);
     if (g.dist > span) {   // beyond the picture: at its edge, pointing in, with how far
       var E0 = pt(g.bDS, span), inward = sd(g.bDS + 180);
@@ -485,14 +671,66 @@
       return out.join("");
     }
     var len = g.gs * 60 * k;
-    if (!g.auto && Math.cos(g.de * RAD) > 0) out.push(line([S0, pt(bOut, g.dist * Math.cos(g.de * RAD))], ls.col, [1, 2]));
+    if (!g.auto && Math.cos(g.de * RAD) > 0 && (!g.hac || g.hac.stage === "ogs")) out.push(line([S0, pt(bOut, g.dist * Math.cos(g.de * RAD))], ls.col, [1, 2]));
     if (len > 3) out.push(line([S0, [S0[0] + dirn[0] * len, S0[1] + dirn[1] * len]], C.hi, [3, 2]));
     out.push(shipMark(S0, dirn, 4, col));
     return out.join("");
   }
 
+  // right, with CIRCLE: the side profile along the path - unrolled round the HAC - its reference (the OGS up to WP2, DESC on
+  // round the HAC to WP1 and out), the band where it's on, and you (with where you'll be in 60 s)
+  function hacProfSvg(W, H, g) {
+    var out = [], L0 = 26, R0 = 6, T0 = 16, B0 = 12, pw = W - L0 - R0, ph = H - T0 - B0, ox = W - R0, oy = H - B0;
+    var sx = g.scale, k = pw / sx, sy = ph / k, step = niceStep(sx / 4), u = unit(step < 1000 ? 999 : 1000), gl = "";
+    function P(x, y) { return [ox - x * k, oy - y * k]; }
+    for (var y = 0; y <= sy + 1e-6; y += step) {
+      gl += line([[L0, oy - y * k], [ox, oy - y * k]], C.rule);
+      out.push(txt(L0 - 3, oy - y * k, tickLab(y, u), C.muted, "end", true));
+    }
+    for (var x = 0; x <= sx + 1e-6; x += step) {
+      gl += line([[ox - x * k, T0], [ox - x * k, oy]], C.rule);
+      if (x && ox - x * k > L0 + 18) out.push(txt(ox - x * k, oy + 7, tickLab(x, u), C.muted, "middle", true));
+    }
+    out.unshift(gl);
+    out.push(txt(2, 5, "ALT " + u, C.muted, "start", true));
+    var hc = g.hac || {}, n = 32, refL = [], band = [], bandLo = [];
+    for (var i = 0; i <= n; i++) {   // (clipped at the top: the picture is as tall as it is wide, in metres)
+      var bx = sx * i / n, ry = hacRef(bx), tol = Math.max(HAC.TOL_M, ry * HAC.TOL);
+      refL.push(P(bx, Math.min(ry, sy))); band.push(P(bx, Math.min(ry + tol, sy))); bandLo.push(P(bx, Math.max(0, Math.min(ry - tol, sy))));
+    }
+    out.push(poly(band.concat(bandLo.reverse()), C.text, null, 0.11));
+    out.push(bar(refL[0], P(Math.min(HAC.WP2_OUT, sx), Math.min(hacRef(Math.min(HAC.WP2_OUT, sx)), sy)), C.text, 2));
+    out.push(line(refL, C.text));
+    [[HAC.WP2_OUT, "WP2"], [hc.L1, "WP1"]].forEach(function (w) {   // where the HAC starts and ends, along the path
+      if (w[0] == null || w[0] > sx) return;
+      var q = P(w[0], Math.min(hacRef(w[0]), sy));
+      out.push(line([[q[0], oy], [q[0], q[1]]], C.acc, [2, 2]));
+      out.push(txt(q[0], T0 - 8, w[1], C.acc));
+    });
+    var mid = P(Math.min(HAC.WP2_OUT, sx) * 0.55, hacRef(Math.min(HAC.WP2_OUT, sx) * 0.55));
+    out.push(txt(mid[0] - 6, mid[1] - 8, "OGS " + degs(HAC.OGS), C.text, "end"));
+    if (sx > HAC.WP2_OUT * 1.6) { var mh = P(HAC.WP2_OUT + (sx - HAC.WP2_OUT) * 0.5, Math.min(hacRef(HAC.WP2_OUT + (sx - HAC.WP2_OUT) * 0.5), sy)); out.push(txt(mh[0], mh[1] - 9, "HAC " + degs(HAC.DESC), C.text, "middle")); }
+    out.push(poly([[ox - 3, oy], [ox - 3, oy - 3], [ox + 3, oy - 3], [ox + 3, oy]], C.bg, C.hi));
+    out.push(txt(ox, oy + 7, g.onPad ? "PAD " + g.padNum : "DEST", C.acc, "end"));
+    if (!g.ok || hc.L == null) return out.join("");
+    var col = hc.err == null || Math.abs(hc.err) <= hc.tol ? C.hi : Math.abs(hc.err) > 3 * hc.tol ? C.bad : C.acc;
+    var at = P(hc.L, hc.Y), inPic = hc.L <= sx && hc.Y <= sy && hc.Y >= -20 / k;
+    if (!inPic) {   // beyond the picture: at its edge, with how far along the path
+      var ex = P(Math.min(hc.L, sx), clamp(hc.Y, 0, sy));
+      out.push(shipMark([ex[0] + 9, ex[1]], [-1, 0], 2.5, col));
+      out.push(circ(ex[0], ex[1], 3.5, col, C.bg));
+      out.push(txt(ex[0] + 8, ex[1] + 8, dist(hc.L), col, "start", true));
+      return out.join("");
+    }
+    if (g.gs > 1) out.push(line([at, P(Math.max(0, hc.L - g.gs * 60), hc.Y - g.vv * 60)], C.hi, [3, 2]));
+    out.push(line([at, P(hc.L, Math.min(hc.ref, sy))], col, [1, 2]));   // (up or down to the reference)
+    out.push(circ(at[0], at[1], 3.5, col, C.bg));
+    return out.join("");
+  }
+
   // right: the side profile - true angles, true scale, the planet curving away
   function profSvg(W, H, g) {
+    if (T.prof === "circle") return hacProfSvg(W, H, g);
     var out = [], L0 = 26, R0 = 6, T0 = 16, B0 = 12, pw = W - L0 - R0, ph = H - T0 - B0, ox = W - R0, oy = H - B0;
     var sx = g.scale, k = pw / sx, sy = ph / k, step = niceStep(sx / 4), u = unit(step < 1000 ? 999 : 1000);
     var R = g.ok ? g.R : 1e9;
@@ -660,10 +898,11 @@
 
   // right, under the readouts: your vertical velocity against the SHALLOW-STEEP window and OPT's requirement
   function vvSvg(W, H, g) {
-    if (!g.ok || !g.entry || g.clos < 1) return line([[2, H / 2], [W - 2, H / 2]], C.rule2);
-    var out = [], max = g.clos * Math.tan(66 * RAD);
+    var w = g.vw || {};
+    if (!g.ok || !g.entry || !(w.spd >= 1)) return line([[2, H / 2], [W - 2, H / 2]], C.rule2);
+    var out = [], max = w.max;
     function X(v) { return 3 + clamp(v / max, 0, 1) * (W - 6); }
-    var lo = g.clos * Math.tan(SHALLOW * RAD), hi = g.clos * Math.tan(STEEP * RAD), req = g.clos * TAN_OPT, inWin = g.vv >= lo && g.vv <= hi;
+    var lo = w.lo, hi = w.hi, req = w.req, inWin = g.vv >= lo && g.vv <= hi;
     out.push(line([[3, H / 2], [W - 3, H / 2]], C.rule2));
     out.push(poly([[X(lo), 2], [X(hi), 2], [X(hi), H - 3], [X(lo), H - 3]], C.text, null, 0.14));
     out.push(line([[X(lo), 2], [X(hi), 2], [X(hi), H - 3], [X(lo), H - 3]], C.acc, [2, 1], true));
@@ -696,7 +935,8 @@
     var me = (ok && g.me) || T.me || {}, st = ok ? PHASES[g.phase] || "" : "", stCol = "";
     if (ok && g.me && g.age > STALE && !me.landed) { st = "No reading for " + Math.round(g.age) + " s"; stCol = "var(--bad)"; }
     chip($("tr-state"), st, stCol);
-    var ls = ok ? latState(g) : null, vs = ok ? vertState(g) : null;
+    var hc = ok ? g.hac : null, ls = ok ? latState(g) : null, vs = ok ? (hc ? hacVert(g) : vertState(g)) : null;
+    if (hc) ls = hacLat(g, ls);
     chip($("tr-lat"), ok ? ls.chip : "No guidance", ok ? ls.col : "var(--rule2)");
     chip($("tr-vert"), ok ? vs.chip : "No guidance", ok ? vs.col : "var(--rule2)");
     var set = d.ok && T.crs[d.key] != null, crs = set ? deg3(T.crs[d.key]) + "°" : d.ok ? "AUTO" : "---°";
@@ -705,27 +945,41 @@
     $("tr-ilscrs").textContent = "Crs " + crs.replace("°", "");
     if (T.stepTxt && performance.now() - T.stepAt > 900) T.stepTxt = "";
     $("tr-step").textContent = T.grab ? T.stepTxt : "";
-    var dev = ok && !g.auto;
-    $("tr-lgrid").innerHTML = [
+    var dev = ok && !g.auto, w = ok ? g.vw : {}, mmss = function (sec) { return isFinite(sec) && sec < 36000 ? Math.floor(Math.round(sec) / 60) + ":" + String(Math.round(sec) % 60).padStart(2, "0") : "--:--"; };
+    var hdgCells = [cell("Trk", ok && g.gs > 5 ? deg3(g.trk) + "°" : "-"), cell("Hdg", me.hdg != null ? deg3(me.hdg) + "°" : "-")];
+    var sgn = function (v) { return (v >= 0 ? "+" : "-") + dist(v); };
+    if (hc && hc.stage === "acq") $("tr-lgrid").innerHTML = [
+      cell("WP1 brg", hc.w1 ? deg3(hc.b1) + "°" : "-"), cell("WP1 rng", hc.w1 ? dist(hc.d1) : "-"),
+      cell("Turn", hc.psiT != null ? Math.round(hc.psiT / RAD) + "° " + (hc.side > 0 ? "R" : "L") : "-"),
+      cell("HAC", (hc.side > 0 ? "R" : "L") + " · " + (hc.mode === "strt" ? "Strt-in" : "Ovhd"))].concat(hdgCells).join("");
+    else if (hc && hc.stage === "hac") $("tr-lgrid").innerHTML = [
+      cell("Turn rem", hc.psi != null ? Math.round(hc.psi / RAD) + "° " + (hc.side > 0 ? "R" : "L") : "-"), cell("HAC R", hc.rr != null ? dist(hc.rr) : "-"),
+      cell("R err", hc.rerr != null ? (hc.rerr >= 0 ? "Out " : "In ") + dist(hc.rerr) : "-", hc.rerr != null && Math.abs(hc.rerr) > 300 ? "var(--accent)" : ""),
+      cell("WP2 rng", hc.d2 != null ? dist(hc.d2) : "-")].concat(hdgCells).join("");
+    else $("tr-lgrid").innerHTML = [
       cell("Brg", ok ? deg3(g.bSD) + "°" : "-"), cell("Rng", ok ? dist(g.dist) : "-"),
       cell("Dev", dev ? side + Math.abs(g.de).toFixed(1) + "°" : "-", dev ? ls.col : ""),
-      cell("Xtk", dev ? side + dist(g.xtk) : "-", dev ? ls.col : ""),
-      cell("Trk", ok && g.gs > 5 ? deg3(g.trk) + "°" : "-"), cell("Hdg", me.hdg != null ? deg3(me.hdg) + "°" : "-")
+      cell("Xtk", dev ? side + dist(g.xtk) : "-", dev ? ls.col : "")].concat(hdgCells).join("");
+    var req = ok ? w.req : 0, err = ok ? g.vv - req : 0;
+    if (hc) $("tr-rgrid").innerHTML = [
+      cell("Alt", dist(hc.Y)), cell("Ref alt", hc.ref != null ? dist(hc.ref) : "-"),
+      cell("Alt err", hc.err != null ? sgn(hc.err) : "-", e1 && hc.err != null ? vs.col : ""), cell("Req VV", e1 && w.spd > 1 ? speed(req) + " ↓" : "-"),
+      cell("Path", hc.L != null ? dist(hc.L) : "-"), cell("TTG", mmss(hc.L != null && g.gs > 1 ? hc.L / g.gs : NaN))
     ].join("");
-    var secs = ok && g.clos > 1 ? g.dist / g.clos : NaN, req = ok ? g.clos * TAN_OPT : 0, err = ok ? g.vv - req : 0;
-    $("tr-rgrid").innerHTML = [
+    else $("tr-rgrid").innerHTML = [
       cell("Alt", ok ? dist(g.alt) : me.alt != null ? dist(me.alt) : "-"), cell("Rng", ok ? dist(g.dist) : "-"),
       cell("Angle", ok ? g.th.toFixed(1) + "°" : "-", e1 ? vs.col : ""), cell("Fpa", ok && g.gs > 5 ? g.fpa.toFixed(1) + "°" : "-"),
       cell("Alt err", e1 ? (g.altErr >= 0 ? "+" : "-") + dist(g.altErr) : "-", e1 ? vs.col : ""),
-      cell("TTG", isFinite(secs) && secs < 36000 ? Math.floor(Math.round(secs) / 60) + ":" + String(Math.round(secs) % 60).padStart(2, "0") : "--:--")
+      cell("TTG", mmss(ok && g.clos > 1 ? g.dist / g.clos : NaN))
     ].join("");
-    var moving = e1 && g.clos > 1;
-    $("tr-gsn").textContent = moving ? Math.round(g.clos) : "--";
+    var moving = e1 && w.spd > 1;
+    $("tr-gsn").textContent = moving ? Math.round(w.spd) : "--";
     $("tr-vvreq").textContent = moving ? speed(req) + " ↓" : "--";
     $("tr-vvnow").textContent = e1 ? speed(g.vv) + (g.vv >= 0 ? " ↓" : " ↑") : "--";
     $("tr-vverr").textContent = moving ? "err " + (err >= 0 ? "+" : "-") + Math.round(Math.abs(err)) : ok && !g.entry ? "from the glide" : "";
     $("tr-vverr").style.color = moving && Math.abs(err) > 0.1 * req ? "var(--accent)" : "";
-    $("tr-vvwin").textContent = moving ? Math.round(g.clos * Math.tan(SHALLOW * RAD)) + "-" + Math.round(g.clos * Math.tan(STEEP * RAD)) + " m/s ↓" : "--";
+    $("tr-vvwin").textContent = moving ? Math.round(w.lo) + "-" + Math.round(w.hi) + " m/s ↓" : "--";
+    fixedWords(hc ? hc.slope : null);
     var loc = e1 && !g.auto;
     $("tr-loc").textContent = loc ? (Math.abs(g.de) < 0.05 ? "Centred" : (g.de > 0 ? "Fly L " : "Fly R ") + Math.abs(g.de).toFixed(1) + "°") : e1 ? "Course auto" : "Off";
     $("tr-loc").style.color = loc ? ls.col : e1 ? "var(--rule2)" : "var(--bad)";
@@ -744,6 +998,11 @@
     $("tr-crs").classList.toggle("grab", T.grab);
     $("tr-crs").setAttribute("aria-pressed", String(T.grab));
     $("tr-entry1").classList.toggle("focus", ufc && T.focus2 === "entry");
+    $("tr-circle").classList.toggle("focus", ufc && T.focus2 === "circle");
+    $("tr-hac").classList.toggle("focus", ufc && T.focus2 === "hac");
+    [["tr-entry1", "entry"], ["tr-circle", "circle"]].forEach(function (q) { var o = T.prof === q[1]; $(q[0]).classList.toggle("on", o); $(q[0]).setAttribute("aria-pressed", String(o)); });
+    $("tr-hac").hidden = T.prof !== "circle";
+    Array.prototype.forEach.call($("tr-hac").querySelectorAll("button"), function (b) { b.classList.toggle("on", b.dataset.v === T.hmode); b.setAttribute("aria-pressed", String(b.dataset.v === T.hmode)); });
     $("tr-reset").classList.toggle("focus", ufc && T.focus2 === "reset");
     $("tr-reset").classList.toggle("off", !T.zoom);
   }
@@ -807,6 +1066,22 @@
     if (ED.showing("nav", 3)) frame(true);
   }
   function setView(v) { T.view = v; keep(); if (ED.showing("nav", 3)) frame(true); }
+  function setProf(p) {   // the profile: ENTRY 1 or CIRCLE (armed afresh from where you are)
+    if (p !== "entry" && p !== "circle") return;
+    if (p !== T.prof) {
+      T.prof = p; T.hac = null;
+      if (p === "entry" && T.circleTook && T.took[T.circleTook]) { delete T.crs[T.circleTook]; delete T.took[T.circleTook]; }   // (the course CIRCLE took)
+      T.circleTook = null;
+      keep();
+    }
+    if (ED.showing("nav", 3)) frame(true);
+  }
+  function setHmode(m) {   // CIRCLE's HAC: overhead or straight in (armed afresh)
+    if (m !== "ovhd" && m !== "strt") return;
+    if (m !== T.hmode) { T.hmode = m; T.hac = null; keep(); }
+    if (ED.showing("nav", 3)) frame(true);
+  }
+  function stops2() { return STOPS2.filter(function (x) { return x !== "hac" || T.prof === "circle"; }); }
   function setMode(m) {
     T.mode = m; keep();
     T.dest = resolve((S.data || {}).syst || {});
@@ -839,6 +1114,9 @@
     }, { passive: false });
   });
   $("tr-reset").addEventListener("click", resetScale);
+  $("tr-entry1").addEventListener("click", function () { T.focus2 = "entry"; setProf("entry"); });
+  $("tr-circle").addEventListener("click", function () { T.focus2 = "circle"; setProf("circle"); });
+  $("tr-hac").addEventListener("click", function (e) { var b = e.target.closest("button[data-v]"); if (b) { T.focus2 = "hac"; setHmode(b.dataset.v); } });
 
   $("tr-crs").addEventListener("click", function () { grab(); });
   $("tr-crs").addEventListener("wheel", function (e) {   // the mouse wheel turns it, like the knob, while it's grabbed
@@ -857,17 +1135,31 @@
   window.addEventListener("resize", function () { if (ED.showing("nav", 3)) frame(true); });
 
   $("tr-mid").hidden = !SHOW_MID;
-  (function words0() {   // the page's fixed words, from ENTRY 1's settings
+  function fixedWords(slope) {   // the page's fixed words, from the profile's settings (CIRCLE: the slope you're on - HAC's, then the OGS's)
+    var sig = T.prof + "|" + slope;
+    if (sig === T.wordsSig) return;
+    T.wordsSig = sig;
     var opt = degs(OPT), win = SHALLOW + "-" + degs(STEEP), lat = "±" + degs(LAT);
     $("tr-bound").textContent = "Bounds " + lat;
+    $("tr-hits").setAttribute("aria-label", "Highway in the sky: gates down the " + opt + " path");
+    if (T.prof === "circle") {
+      var sl = slope != null ? slope : HAC.DESC;
+      $("tr-optwin").textContent = "OGS " + degs(HAC.OGS) + " · HAC " + degs(HAC.DESC);
+      $("tr-vvreqlab").textContent = "Req = GS x tan " + degs(sl);
+      $("tr-tanopt").textContent = Math.tan(sl * RAD).toFixed(3);
+      $("tr-vvwinlab").textContent = "Window " + Math.max(0, sl - HAC.WIN) + "-" + degs(sl + HAC.WIN);
+      $("tr-plan").setAttribute("aria-label", "Top-down: the Heading Alignment Cone round to WP2, the outer glide slope in along the course, WP1 and you");
+      $("tr-prof").setAttribute("aria-label", "Side profile along the path: the " + degs(HAC.OGS) + " outer glide slope up to WP2, the " + degs(HAC.DESC) + " descent round the HAC, and you");
+      return;
+    }
     $("tr-optwin").textContent = "Opt " + opt + " · " + win;
     $("tr-vvreqlab").textContent = "Req = GS x tan " + opt;
     $("tr-tanopt").textContent = TAN_OPT.toFixed(3);
     $("tr-vvwinlab").textContent = "Window " + win;
     $("tr-plan").setAttribute("aria-label", "Top-down: the course into the destination, its " + lat + " bounds, and you");
-    $("tr-hits").setAttribute("aria-label", "Highway in the sky: gates down the " + opt + " path");
     $("tr-prof").setAttribute("aria-label", "Side profile: the " + opt + " path up from the destination, the " + degs(SHALLOW) + " and " + degs(STEEP) + " bounds, and you");
-  })();
+  }
+  fixedWords(null);
 
   ED.traj = T;   // (its working state: for the tests; Wpt and Atk use its filter)
   ED.trajResolve = resolve;
@@ -877,6 +1169,7 @@
                   niceStep: niceStep, unit: unit, tickLab: tickLab, scaleTxt: scaleTxt, clamp: clamp, n360: n360, w180: w180,
                   deg3: deg3, dist: dist, speed: speed, arc: arc, RAD: RAD };
   ED.trajGuide = function () { return guide(performance.now() / 1000); };
+  ED.trajHac = { HAC: HAC, geom: hacGeom, at: hacAt, psi: hacPsi, tangent: hacTangent, solve: hacSolve, len: hacLen, ref: hacRef };   // (the tests)
   ED.page({
     tab: "nav", sub: 3, key: 2, label: "Traj", el: "pg-traj", mode: "traj", back: "2 Nav · Traj",
     update: function (s) {   // every refresh, showing or not: the filter keeps up, the destination, the course at the glide
@@ -885,6 +1178,7 @@
       T.dest = resolve(y);
       if (T.me && T.me.glide) takeCourse(T.dest, T.me);
       else if (T.me && T.me.sc) dropTaken();
+      if (T.prof === "circle" && !ED.showing("nav", 3)) guide(performance.now() / 1000);   // (CIRCLE keeps up with where you are on it, the page showing or not)
       // your own scale goes with a new destination, or going back into orbital cruise (for the next approach)
       var key = courseKey(), sc = !!(T.me && T.me.sc);
       if (T.zoom && ((key && key !== T.zoomKey) || (sc && T.wasSc === false))) unzoom();
@@ -895,12 +1189,16 @@
     leave: function () { T.grab = false; },
     cursor: function () { marks(); },
     knob1: knob1, pull1: pull1,   // COMM1 works the page ...
-    scroll: function (clicks) {   // ... COMM2 steps between ENTRY 1 and Reset scale ...
-      var i = STOPS2.indexOf(T.focus2);
-      T.focus2 = STOPS2[clamp((i < 0 ? 0 : i) + (clicks > 0 ? 1 : -1) * Math.min(Math.abs(clicks), STOPS2.length), 0, STOPS2.length - 1)];
+    scroll: function (clicks) {   // ... COMM2 steps across ENTRY 1, CIRCLE (and its OVHD / STRT-IN) and Reset scale ...
+      var st = stops2(), i = st.indexOf(T.focus2);
+      T.focus2 = st[clamp((i < 0 ? 0 : i) + (clicks > 0 ? 1 : -1) * Math.min(Math.abs(clicks), st.length), 0, st.length - 1)];
       marks();
     },
-    pull: function () { if (T.focus2 === "reset") resetScale(); },   // (ENTRY 1: the only profile, already picked)
+    pull: function () {   // ... and a pull picks the profile, flips OVHD / STRT-IN, or resets the scale
+      if (T.focus2 === "reset") resetScale();
+      else if (T.focus2 === "hac") setHmode(T.hmode === "ovhd" ? "strt" : "ovhd");
+      else setProf(T.focus2 === "circle" ? "circle" : "entry");
+    },
     dial: function (r, dt) {   // ... and the COMM1 VOLUME dial zooms (4 times a second at full turn), as on the schematic
       var cue = { z: "", t: "" };
       if (r.zoom && zoomBy(Math.exp(Math.log(4) * r.zoom * dt))) cue.z = r.zoom > 0 ? "Z+" : "Z-";

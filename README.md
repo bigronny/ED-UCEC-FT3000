@@ -61,17 +61,41 @@ you to the pad you've been given, once the settlement's layout and heading are k
 
 ![Nav > Traj: gliding in towards a settlement](docs/traj.png)
 
-**3 Wpt.** Your own waypoints on a planet's surface, made four ways: typed in (MANUAL), where you are now (OVERFLY),
-sighted along the HUD's velocity vector (HUD VV), or fixed from up to ten bearings taken through the HUD (HUD X-B).
-Also your marks (MK1-MK9) and three flight plans (SEQ 1-3). It works like the Hornet's HSI > DATA > WYPT page.
+**2 Traj - CIRCLE.** A second profile, after the Space Shuttle's Heading Alignment Cone: a turn beside the course
+that tightens as you go round it (2.5 km radius where you join it at WP1, 1.5 km where you leave it at WP2, 4 km out),
+then a 20 degree glide slope down the course to the destination. OVHD / STRT-IN chooses the side, giving the bigger
+turn (overhead) or the smaller (straight in), from where you are when you pick it. The top-down view draws the turn
+and your line in to it. The side profile is your path unrolled round the turn, with the altitude you should be at
+(down 14 degrees round the turn, 20 on the glide slope) and whether you're high or low. The readouts show the turn
+still to go, how far inside or outside the turn you are, and the descent rate you need at your ground speed.
+
+![Nav > Traj: CIRCLE, flying round the Heading Alignment Cone](docs/traj-circle.png)
+
+**3 Wpt.** Your own waypoints on a planet's surface, made five ways: typed in (MANUAL), where you are now (OVERFLY),
+sighted along the HUD's velocity vector (HUD VV), fixed from up to ten bearings taken through the HUD (HUD X-B), or
+loaded from a wingman's code (CODE). Also your marks (MK1-MK9) and three flight plans (SEQ 1-3). It works like the
+Hornet's HSI > DATA > WYPT page.
 
 ![Nav > Wpt: waypoints, a mark and a flight plan](docs/wpt.png)
+
+**3 Wpt - sharing.** Every waypoint, mark and flight plan has its own code, such as
+`FTW1/HIP 20277 3 b/-13.10000,34.90000,Crash site/7786`. COPY it, then press it again to paste it into the game's
+chat. Your wingman LOADs it on CODE: typed in, pasted, or straight from the list of codes heard in chat. A flight plan
+arrives as waypoints in their first empty SEQ, and a mistyped code is refused.
+
+![Nav > Wpt: CODE, with a wingman's flight plan heard in chat](docs/wpt-code.png)
 
 **4 HSI.** Flies a flight plan: the steer-to point, with its bearing, range and time to go, stepping on to the next
 point as you pass each one (AUTO). Also the designated target, planetary facilities (each a TACAN symbol with a 10 km
 ring), a km / NM scale, and a stopwatch and countdown timer worked like the T-6A's.
 
 ![Nav > HSI: flying a flight plan](docs/hsi.png)
+
+**4 HSI - exobiology.** Sampling a species with the genetic sampler, each sample you've taken shows on the map with a
+ring at its genus's colony range: the distance the next sample has to be from all the others. The ring turns amber
+while you're inside it. The panel shows how far you are from the nearest sample and how much further you need to go.
+
+![Nav > HSI: two samples of a bacterium, and you too close to the second](docs/hsi-exobio.png)
 
 **5 Atk - PLAN.** A 2-ship low-level pop-up attack, built round the designated target. You set the attack heading
 (from the IP to the target), your role (#1 or #2), the speed and the heights. BUILD makes both aircraft's points on
@@ -186,7 +210,7 @@ setting on the page.
 ## Your data
 
 Everything you build up - waypoints, flight plans, settlement layouts you've confirmed, backstories, system data,
-your controls and settings - is kept in **`Saved Games\UCEC FT3000`** in your user folder, apart from the program.
+exobiology samples, your controls and settings - is kept in **`Saved Games\UCEC FT3000`** in your user folder, apart from the program.
 4 Setup > Settings shows where. To back it up, copy that folder.
 
 The FT3000 only **reads** your journal files; it never changes them, and it doesn't read the game's memory.

@@ -9,9 +9,13 @@
 // ground - your heading left and right, your flight-path angle up and down - the average of the last few seconds' points,
 // with how far they wander: a mark, designated as the target), HUD X-B (cross bearings: TAKE BEARING with the dot on the
 // target - your position and heading - from places round it, up to 10 (an 11th: the oldest goes); where they cross, or
-// their best fit, with how far out it may be and how far each line misses it; DESIG: a mark, designated) - each lit while
-// its panel shows - then the waypoints in this system, by body (each by its number - WP3 - and name: its position is on
-// the right); the marks; the three flight plans.
+// their best fit, with how far out it may be and how far each line misses it; DESIG: a mark, designated), CODE (a wingman's
+// waypoint or flight plan code - typed or pasted, empty: the clipboard - or one heard in the game's chat: LOAD adds its
+// waypoints, reusing any you have there already, a flight plan's into the first empty SEQ; Atk's plan code loads as on Atk)
+// - each lit while its panel shows - then the waypoints in this system, by body (each by its number - WP3 - and name: its
+// position is on the right); the marks; the three flight plans. Each waypoint, mark and flight plan shows its own code
+// (the board's: FTW1/body/lat,lon,name/check, FTP1/body/lat,lon,name/.../check) with COPY - again within 2 minutes it's
+// pasted into Elite (its chat box, say).
 // Right: the method's controls, or what's selected - a waypoint (EDIT its name and coordinates; DESIGNATE it - again: its
 // offset aimpoint, if it has one, then nothing; O/S: its offset aimpoint, a range and bearing from it; DELETE, then
 // CONFIRM), a mark (DESIGNATE; STORE AS WP; DELETE) or a flight plan (its waypoints in order - pick one and INSERT puts
@@ -45,7 +49,7 @@
   var PLACES = 4;     // decimal places typed (and shown, as the game's HUD shows them)
   var CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789- ", NAME_MAX = 24;   // what the keypad can put in a name
   var DESIG_MIN = 0.5;   // degrees below the horizon your flight path must be to meet the ground
-  var METHODS = { manual: "Manual", overfly: "Overfly", desig: "HUD VV", xb: "HUD X-B" };   // ("desig": HUD VV - once HUD DESIG)
+  var METHODS = { manual: "Manual", overfly: "Overfly", desig: "HUD VV", xb: "HUD X-B", code: "Code" };   // ("desig": HUD VV - once HUD DESIG; "code": loaded from a code)
   var VV_WINDOW = 3, VV_SETTLE = 1.2;   // HUD VV: seconds of points averaged - and steady this long before it averages them
   var VV_WANDER = 1.5;                  // ... its flight-path angle wandering more than this (degrees) in them: unsteady
   var XB_SIG = 1.0;                     // HUD X-B: how far out each bearing may be (degrees: the game's heading is whole degrees, and the aim)
@@ -54,8 +58,8 @@
   // the UFC sub-levels (ENT): the option windows' fields for a waypoint, a mark, a flight plan
   var LV = { wpt: ["POSN", "NAME", "O/S", "DEL", ""], mk: ["POSN", "STOR", "DEL", "", ""], seq: ["INS", "AFT", "DEL", "CLR", "ACT"] };
   var G = {
-    method: "manual",     // the method picked (MANUAL / OVERFLY / HUD VV / HUD X-B)
-    view: "manual",       // what the right panel shows: "manual", "overfly", "desig", a waypoint's key ("t12"), a mark's ("mk3"), a plan ("seq:1")
+    method: "manual",     // the method picked (MANUAL / OVERFLY / HUD VV / HUD X-B / CODE)
+    view: "manual",       // what the right panel shows: "manual", "overfly", "desig", "xb", "code", a waypoint's key ("t12"), a mark's ("mk3"), a plan ("seq:1")
     edit: null,           // the target being edited (its key), on its own view
     os: null,             // the waypoint whose offset aimpoint is being set (its key), on its own view
     src: "pick",          // MANUAL's body: what 1 Syst has selected ("pick"), or the body the game's target (DEST) is on ("hud")
@@ -91,6 +95,11 @@
   function marks() { return nv().marks || []; }
   function mkOf(k) { return marks().filter(function (m) { return m.key === k; })[0] || null; }
   function seqOf(v) { var m = /^seq:([123])$/.exec(v || ""); return m ? m[1] : null; }
+  function codeOf(k) {   // a waypoint's, mark's or flight plan's code ("seq:1"), to share - the board's (or "")
+    var c = nv().codes || {}, s = seqOf(k);
+    return (s ? (c.seq || {})[s] : c[k]) || "";
+  }
+  function heard() { return nv().heard || []; }   // codes heard in the game's chat (the newest first)
   function seqIds(s) { return ((nv().seqs || {})[s] || []); }
   function tgtKey() { return (nv().tgt || {}).key || null; }
   function bodyOf(e) {   // the body something is, or is on: {name, ok, why}
@@ -775,13 +784,39 @@
     if (!t || seqIds(s).indexOf(k) < 0) { say("Pick a waypoint in the plan, then SET TGT"); draw(); return; }
     totSet(s, { tgt: totOf(s).tgt === k ? null : t.id });
   }
+  // ---- CODE: a waypoint or flight plan code from a wingman (or Atk's plan code) ----
+  function loadCode(text, from) {   // (typed or heard; none: the clipboard)
+    text = String(text || "").trim();
+    ED.nav.post(text ? { op: "share", code: text } : { op: "share", clip: true }, function (j) {
+      if (!j.ok) say("Couldn't load " + (from || (text ? "that" : "the clipboard")) + ": " + (j.why || "?"));
+      else if (j.kind === "wpt") say((j.added ? "Loaded " : "Already yours: ") + "WP" + j.num + " · " + j.name);
+      else if (j.kind === "plan") { say("Loaded into SEQ " + j.seq + " · " + j.keys.length + " WP" + (j.added < j.keys.length ? " (" + (j.keys.length - j.added) + " yours already)" : "") + " · ACTIVATE SEQ to fly it"); G.focus1 = "seq:" + j.seq; show("seq:" + j.seq); }
+      else if (j.kind === "atk") say("Attack plan loaded · Nav › Atk");
+      if (j.ok && !from) $("tg-cin").value = "";
+      draw();
+    });
+  }
+  function loadHeard(id) {
+    var h = heard().filter(function (x) { return x.id === id; })[0];
+    if (h) loadCode(h.code, "the code from " + (h.from || "chat"));
+  }
+  function heardHtml() {
+    var kinds = { wpt: "Waypoint", plan: "Flight plan", atk: "Attack plan" };
+    return heard().length ? heard().map(function (h) {
+      return '<div class="srow tgx" data-f2="h:' + h.id + '" title="' + ED.esc(h.code) + '"><span class="nm">' + ED.esc(h.from || "?") + " · " + ED.esc(kinds[h.kind] || h.kind) +
+        (h.kind === "plan" ? " · " + h.pts + " WP" : "") + (h.body ? " · " + ED.esc(short(h.body)) : "") + '</span><span class="rt">' +
+        ED.esc(String(h.channel || "").toLowerCase()) + " · " + (h.t ? new Date(h.t).toLocaleTimeString("en-GB") : "") +
+        '</span><button type="button" class="tgxdel" data-h="' + h.id + '" title="Load this code">Load</button></div>';
+    }).join("") : '<div class="tgnil">None yet - a wingman\'s COPY, pasted into the game\'s chat (wing, friend or system), shows here</div>';
+  }
+
   function seqFly(s) {
     ED.nav.post({ op: "setseq", seq: s }, function (j) { say(j.ok ? "SEQ " + s + " activated: the HSI flies it" : "Couldn't"); draw(); });
   }
 
   // ---- the panels ----
   function stops1() {
-    return ["m:manual", "m:overfly", "m:desig", "m:xb"].concat(tgts().map(function (t) { return t.key; }), marks().map(function (m) { return m.key; }),
+    return ["m:manual", "m:overfly", "m:desig", "m:xb", "m:code"].concat(tgts().map(function (t) { return t.key; }), marks().map(function (m) { return m.key; }),
                                                       ["seq:1", "seq:2", "seq:3"]);
   }
   function stops2() {
@@ -789,14 +824,15 @@
     if (G.view === "overfly") return ["mark"];
     if (G.view === "desig") return ["desig"];
     if (G.view === "xb") return G.xconfirm ? ["xclr"] : ["xtake", "xdsg", "xclr"].concat(((nv().xb || {}).list || []).slice().reverse().map(function (b) { return "x:" + b.id; }));
+    if (G.view === "code") return ["cload"].concat(heard().map(function (h) { return "h:" + h.id; }));
     var s = seqOf(G.view);
     if (s) return seqIds(s).map(function (k) { return "c:" + k; }).concat(G.sconfirm ? ["sclr"] :
-      ["sadd", "stgt"].concat(totOf(s).tgt ? ["stot", "sgspd"] : [], ["sact", "sdel", "sclr"]));
-    if (mkOf(G.view)) return G.confirm ? ["mcancel", "mconfirm"] : ["mdsg", "mstor", "mdel"];
+      ["sadd", "stgt"].concat(totOf(s).tgt ? ["stot", "sgspd"] : [], ["sact", "sdel", "sclr"], codeOf("seq:" + s) ? ["scopy"] : []));
+    if (mkOf(G.view)) return G.confirm ? ["mcancel", "mconfirm"] : ["mdsg", "mstor", "mdel", "mcopy"];
     if (!tgtOf(G.view)) return [];
     if (G.edit === G.view) return ["name", "lat", "lon", "save", "ecancel"];
     if (G.os === G.view) return ["osave", "oclr", "ocancel"];
-    return G.confirm ? ["cancel", "confirm"] : ["edit", "dsg", "os", "del"];
+    return G.confirm ? ["cancel", "confirm"] : ["edit", "dsg", "os", "del", "wcopy"];
   }
   function show(view) {
     if (view !== G.view) { stopEntry(); G.confirm = false; G.sconfirm = false; G.xconfirm = false; G.armed = false; G.edit = null; G.os = null; G.grab = null; if (G.lv && G.lv.key !== view) lvClose(); }
@@ -833,6 +869,12 @@
       return rowHtml("seq:" + s, "seq", "", "SEQ " + s + (fly ? " · HSI" : ""), n ? n + " WP" : "Empty", fly ? " tgfly" : "");
     }).join("");
     return out;
+  }
+  function shareRow(w, k) {   // a waypoint's, mark's or flight plan's code, and its COPY (again within 2 minutes: pasted into Elite)
+    var c = codeOf(k);
+    $("tg-" + w + "code").textContent = c || (seqOf(k) ? "Empty" : "--");
+    $("tg-" + w + "copy").dataset.clip = c;
+    $("tg-" + w + "copy").disabled = !c;
   }
   function grid(rows) {
     return rows.map(function (r) {
@@ -905,6 +947,7 @@
     $("tg-over").hidden = G.view !== "overfly";
     $("tg-desig").hidden = G.view !== "desig";
     $("tg-xb").hidden = G.view !== "xb";
+    $("tg-code").hidden = G.view !== "code";
     $("tg-one").hidden = !t || editing || osing;
     $("tg-osf").hidden = !osing;
     $("tg-mk").hidden = !m;
@@ -997,6 +1040,13 @@
             (miss != null ? "misses by " + dist(miss) : "") + '</span><button type="button" class="tgxdel" data-x="' + b.id + '" title="Delete this bearing">Del</button></div>';
         }).join("") : '<div class="tgnil">None yet - the dot on the target, then TAKE BEARING; again from 60-90° round</div>';
       }
+    } else if (G.view === "code") {
+      $("tg-case").textContent = "Create · code · from a wingman";
+      $("tg-name").textContent = "Code";
+      $("tg-cload").textContent = "Load";
+      $("tg-chd").textContent = "Heard in chat · " + heard().length;
+      var hsig = JSON.stringify(heard());
+      if (hsig !== G.hSig) { G.hSig = hsig; $("tg-clist").innerHTML = heardHtml(); }
     } else if (t) {
       var oap = (n.oaps || {})[t.key + "o"], tk = tgtKey(), inSeq = ["1", "2", "3"].filter(function (q) { return seqIds(q).indexOf(t.key) >= 0; });
       $("tg-case").textContent = "WP" + t.num + " · " + short(t.body) + " surface" + (tk === t.key ? " · TGT" : tk === t.key + "o" ? " · TGT (O/S)" : "");
@@ -1013,6 +1063,7 @@
       }
       $("tg-dsg").textContent = tk === t.key && oap ? "Desig O/S" : tk === t.key || tk === t.key + "o" ? "Undesignate" : "Designate";
       $("tg-edit").hidden = $("tg-dsg").hidden = $("tg-os").hidden = $("tg-del").hidden = G.confirm;
+      shareRow("w", t.key);
       $("tg-cancel").hidden = $("tg-confirm").hidden = !G.confirm;
     } else if (m) {
       $("tg-case").textContent = "Mark · " + short(m.body) + " surface" + (tgtKey() === m.key ? " · TGT" : "");
@@ -1022,6 +1073,7 @@
       $("tg-mdsg").textContent = tgtKey() === m.key ? "Undesignate" : "Designate";
       $("tg-mdsg").hidden = $("tg-mstor").hidden = $("tg-mdel").hidden = G.confirm;
       $("tg-mcancel").hidden = $("tg-mconfirm").hidden = !G.confirm;
+      shareRow("m", m.key);
     } else if (s) {
       var ids = seqIds(s), first = ids.length ? tgtOf(ids[0]) : null;
       $("tg-case").textContent = "Flight plan" + (first ? " · " + short(first.body) : "") + (n.seq === s ? " · the HSI's" : "");
@@ -1040,6 +1092,7 @@
       $("tg-sclr").classList.toggle("tgdanger", G.sconfirm);
       $("tg-sclr").disabled = !ids.length;
       $("tg-sact").hidden = $("tg-sdel").hidden = $("tg-sup").hidden = $("tg-sdn").hidden = G.sconfirm;
+      shareRow("s", "seq:" + s);
       // time on target: SET TGT (the picked one - or CLEAR TGT, it picked), then TOT and GSPD
       if (G.tt && G.focus2 !== G.tt.f) G.tt = null;   // (moved off what was being typed: dropped)
       var ip = ttw ? ids.indexOf(tt.tgt) : -1, ipw = ip > 0 ? tgtOf(ids[ip - 1]) : null;
@@ -1058,6 +1111,7 @@
     }
     $("tg-note").textContent = G.note;
     $("tg-strip").innerHTML = strip();
+    ED.clipShow();
     // the UFC sub-level, as the UFC shows it
     $("tg-lv").hidden = !G.lv;
     if (G.lv) $("tg-lv").innerHTML = ED.nav.lvHtml(LV[G.lv.kind], G.lv.opt || G.lv.armed || null, lvScratch());
@@ -1129,6 +1183,9 @@
     else if (f === "sact" && s) seqFly(s);
     else if (f === "sdel" && s && tgtOf(G.cur[s])) seqDel(s, tgtOf(G.cur[s]));
     else if (f === "sclr" && s) { if (G.sconfirm) seqClear(s); else { G.sconfirm = true; draw(); } }
+    else if (f === "wcopy" || f === "mcopy" || f === "scopy") { var c = codeOf(G.view); if (c) ED.clipPress(c, (S.ufc || {}).c2pull_n); }
+    else if (f === "cload") loadCode($("tg-cin").value);
+    else if (f.indexOf("h:") === 0) loadHeard(+f.slice(2));
   }
   function dsgKey() {   // DSG: what COMM1 has highlighted (else what the right panel shows), if it's a waypoint or a mark
     var ok = function (k) { return !!k && ((/^t\d+$/.test(k) && tgtOf(k)) || (/^mk\d$/.test(k) && mkOf(k))); };
@@ -1180,6 +1237,9 @@
   $("tg-xdsg").addEventListener("click", function () { G.focus2 = "xdsg"; markAt(xbPoint(), "xb", true, "Designated"); });
   $("tg-xclr").addEventListener("click", function () { G.focus2 = "xclr"; xbClear(); });
   $("tg-xlist").addEventListener("click", function (e) { var b = e.target.closest("button[data-x]"); if (b) xbDel(+b.dataset.x); });
+  $("tg-cload").addEventListener("click", function () { G.focus2 = "cload"; loadCode($("tg-cin").value); });
+  $("tg-cin").addEventListener("keydown", function (e) { if (e.key === "Enter") loadCode($("tg-cin").value); });
+  $("tg-clist").addEventListener("click", function (e) { var b = e.target.closest("button[data-h]"); if (b) { G.focus2 = "h:" + b.dataset.h; loadHeard(+b.dataset.h); } });
   $("tg-edit").addEventListener("click", startEdit);
   $("tg-dsg").addEventListener("click", function () { dsgIt(G.view); });
   $("tg-os").addEventListener("click", startOs);

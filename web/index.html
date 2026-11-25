@@ -305,6 +305,7 @@
             <button type="button" class="tgm" data-m="overfly" data-f="m:overfly" aria-pressed="false">Overfly</button>
             <button type="button" class="tgm" data-m="desig" data-f="m:desig" aria-pressed="false" title="Where your flight path meets the ground">HUD VV</button>
             <button type="button" class="tgm" data-m="xb" data-f="m:xb" aria-pressed="false" title="Cross bearings: where lines from you to the target cross">HUD X-B</button>
+            <button type="button" class="tgm" data-m="code" data-f="m:code" aria-pressed="false" title="A waypoint or flight plan code from a wingman: typed, pasted, or heard in the game's chat">Code</button>
           </div>
           <div class="lab tgsys" id="tg-sys">Waypoints</div>
           <div class="tglist" id="tg-list"></div>
@@ -366,6 +367,13 @@
             <div class="lab" id="tg-xhd">Bearings</div>
             <div class="tgchain tgxlist" id="tg-xlist"></div>
           </div>
+          <!-- CODE: a waypoint or flight plan code from a wingman - typed or pasted (empty: the clipboard) - or heard in the game's
+               chat: LOAD adds its waypoints (a flight plan's into the first empty SEQ) -->
+          <div class="tgsec" id="tg-code" hidden>
+            <div class="tgrow"><input class="tgin akload" id="tg-cin" type="text" autocomplete="off" spellcheck="false" placeholder="A waypoint or flight plan code (empty: the clipboard)"><button type="button" class="sybtn" id="tg-cload" data-f2="cload">Load</button></div>
+            <div class="lab" id="tg-chd">Heard in chat</div>
+            <div class="tgchain tgxlist" id="tg-clist"></div>
+          </div>
           <!-- a waypoint: its details; EDIT, DESIGNATE (again: its offset aimpoint, then nothing), O/S, DELETE (then CONFIRM DELETE or CANCEL) -->
           <div class="tgsec" id="tg-one" hidden>
             <div class="grid" id="tg-grid"></div>
@@ -377,6 +385,7 @@
               <button type="button" class="sybtn" id="tg-cancel" data-f2="cancel" hidden>Cancel</button>
               <button type="button" class="sybtn tgdanger" id="tg-confirm" data-f2="confirm" hidden>Confirm delete</button>
             </div>
+            <div class="tgrow akcode"><span class="lab">Code</span><span class="akc" id="tg-wcode">--</span><button type="button" class="clipb" id="tg-wcopy" data-f2="wcopy" data-clip="">Copy</button></div>
           </div>
           <!-- O/S: a waypoint's offset aimpoint - the range (m) and bearing (degrees true) from it; SAVE, CLEAR, CANCEL -->
           <div class="tgsec" id="tg-osf" hidden>
@@ -398,6 +407,7 @@
               <button type="button" class="sybtn" id="tg-mcancel" data-f2="mcancel" hidden>Cancel</button>
               <button type="button" class="sybtn tgdanger" id="tg-mconfirm" data-f2="mconfirm" hidden>Confirm delete</button>
             </div>
+            <div class="tgrow akcode"><span class="lab">Code</span><span class="akc" id="tg-mcode">--</span><button type="button" class="clipb" id="tg-mcopy" data-f2="mcopy" data-clip="">Copy</button></div>
           </div>
           <!-- a flight plan: its waypoints in order (pick one: INSERT puts the next after it, the arrows move it up and down, REMOVE takes it out); ACTIVATE SEQ, CLEAR PLAN -->
           <div class="tgsec" id="tg-seq" hidden>
@@ -417,6 +427,7 @@
               <button type="button" class="sybtn" id="tg-sdel" data-f2="sdel">Remove</button>
               <button type="button" class="sybtn" id="tg-sclr" data-f2="sclr">Clear plan</button>
             </div>
+            <div class="tgrow akcode"><span class="lab">Code</span><span class="akc" id="tg-scode">--</span><button type="button" class="clipb" id="tg-scopy" data-f2="scopy" data-clip="">Copy</button></div>
           </div>
           <div class="ufclv" id="tg-lv" hidden></div>
           <div class="tgnote" id="tg-note" role="status"></div>
@@ -462,6 +473,8 @@
           <div class="hsstn" id="hs-stn"></div>
           <div class="grid trgrid" id="hs-grid"></div>
           <div class="hscall" id="hs-call" hidden></div>
+          <div class="lab hssec" id="hs-exolab" hidden>Exobiology</div>
+          <div class="grid trgrid" id="hs-exogrid" hidden></div>
           <div class="lab hssec" id="hs-totlab" hidden>Time on target</div>
           <div class="grid trgrid" id="hs-totgrid" hidden></div>
           <div class="lab hssec" id="hs-chainlab">Flight plan</div>
@@ -586,8 +599,9 @@
           <span class="chip trstate" id="tr-state" hidden></span>
         </div>
         <div class="trmodes trtr" role="group" aria-label="Profile">
-          <button type="button" class="trmode on" id="tr-entry1" aria-pressed="true" title="The profile (COMM2 steps to it, a pull selects it)">Entry 1</button>
-          <button type="button" class="trmode" disabled title="To come: a circling re-entry">Circle</button>
+          <button type="button" class="trmode on" id="tr-entry1" aria-pressed="true" title="Straight in down a 50° path (COMM2 steps to it, a pull selects it)">Entry 1</button>
+          <button type="button" class="trmode" id="tr-circle" aria-pressed="false" title="A Heading Alignment Cone: round a tightening turn onto the course, then down a 20° glide slope (COMM2 steps to it, a pull selects it)">Circle</button>
+          <span class="trsw" id="tr-hac" role="group" aria-label="The HAC: overhead (the bigger turn) or straight in (the smaller)" hidden><button type="button" data-v="ovhd">Ovhd</button><button type="button" data-v="strt">Strt-in</button></span>
         </div>
       </div>
       <div class="trcols">

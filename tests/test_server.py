@@ -1602,6 +1602,63 @@ class Nav(unittest.TestCase):
             self.assertTrue(130 < got["hdg"] < 140, got)
             self.assertEqual(self.nav(b)["plan"]["hdg"], got["hdg"])
 
+    def test_shared_codes(self):
+        """Wpt's codes: each waypoint (its usual name left out), mark and flight plan as a code; LOAD (typed, or the
+        clipboard): a waypoint code adds it (method code - or finds the one you have there already), a flight plan code its
+        waypoints into the first empty SEQ (none: refused; "seq": that one), Atk's plan code as "load"; a mistyped one, or
+        one on a body not in this system, refused; codes said in the game's chat (live, not NPCs') heard, the newest first."""
+        j = journals.syst()
+        with Board("nav_codes", journal=j["journal"], status=j["status"]) as b:
+            nav = lambda **kw: b.post("/api/nav", kw)
+            add = lambda **kw: b.post("/api/tgt", dict({"op": "add", "body": self.PLANET, "lat": -13.1, "lon": 34.9, "method": "manual"}, **kw))[1]["tgt"]
+            w1, w2 = add(), add(lat=-13.0, lon=35.0, name="Crash site, north/1")
+            nav(op="seq", seq=1, act="ins", id=w1["id"])
+            nav(op="seq", seq=1, act="ins", id=w2["id"])
+            nav(op="mark", body=self.PLANET, lat=-12.95, lon=35.05, method="overfly")
+            codes = self.nav(b)["codes"]
+            self.assertEqual(codes[w1["key"]][:-4], "FTW1/HIP 20277 3 b/-13.10000,34.90000/", "the usual name left out")
+            self.assertEqual(codes[w2["key"]][:-4], "FTW1/HIP 20277 3 b/-13.00000,35.00000,Crash site north 1/")
+            self.assertEqual(codes["mk1"][:-4], "FTW1/HIP 20277 3 b/-12.95000,35.05000/")
+            self.assertEqual(codes["seq"]["1"][:-4], "FTP1/HIP 20277 3 b/-13.10000,34.90000/-13.00000,35.00000,Crash site north 1/")
+            self.assertEqual((codes["seq"]["2"], codes["seq"]["3"]), (None, None))
+            # loading: one you have already; a new one (any case); mistyped; on a body that isn't here
+            self.assertEqual(nav(op="share", code=codes[w2["key"]])[1], {"ok": True, "kind": "wpt", "key": w2["key"], "num": 2, "name": w2["name"], "added": 0})
+            fresh = b.post("/api/nav", {"op": "share", "code": "FTW1/HIP 20277 3 b/-12.8,35.2,Their target/" + check("FTW1/HIP 20277 3 b/-12.8,35.2,Their target")})
+            self.assertEqual((fresh[0], fresh[1]["added"], fresh[1]["num"], fresh[1]["name"]), (200, 1, 3, "Their target"))
+            t3 = next(t for t in b.state()["syst"]["tgts"] if t["num"] == 3)
+            self.assertEqual((t3["method"], t3["lat"], t3["lon"]), ("code", -12.8, 35.2))
+            blank = "FTW1/hip 20277 3 b/-12.7,35.3/" + check("FTW1/hip 20277 3 b/-12.7,35.3")
+            self.assertEqual(nav(op="share", code=blank)[1]["name"], "WPT 4 - 3 b", "no name: numbered here")
+            self.assertEqual(nav(op="share", code=codes[w2["key"]][:-1] + ("0" if codes[w2["key"]][-1] != "0" else "1")), (400, {"ok": False, "why": "check failed - mistyped?"}))
+            self.assertEqual(nav(op="share", code="hello")[1]["why"], "not a waypoint or flight plan code")
+            away = "FTW1/Sol 3/1,2/" + check("FTW1/Sol 3/1,2")
+            self.assertEqual(nav(op="share", code=away), (400, {"ok": False, "why": "Sol 3 isn't in this system"}))
+            # a flight plan code: into the first empty SEQ (its waypoints yours already: reused); none empty: refused
+            plan = "FTP1/HIP 20277 3 b/-13.1,34.9/-12.6,35.4,Egress/" + check("FTP1/HIP 20277 3 b/-13.1,34.9/-12.6,35.4,Egress")
+            code, got = nav(op="share", code=plan)
+            self.assertEqual((code, got["kind"], got["seq"], got["keys"][0], got["added"]), (200, "plan", "2", w1["key"], 1))
+            self.assertEqual(self.nav(b)["seqs"]["2"], got["keys"])
+            self.assertEqual(nav(op="share", code=plan)[1]["seq"], "3")
+            self.assertEqual(nav(op="share", code=plan), (409, {"ok": False, "why": "no empty flight plan - clear a SEQ first"}))
+            self.assertEqual(nav(op="share", code=plan, seq=1)[1]["seq"], "1")
+            self.assertEqual(self.nav(b)["seqs"]["1"], got["keys"], "SEQ 1 in place of what it had")
+            # from the clipboard; Atk's plan code
+            self.assertEqual(b.post("/api/clip", {"text": blank})[0], 200)
+            self.assertEqual(nav(op="share", clip=True)[1]["added"], 0)
+            nav(op="dsg", key=w1["key"])
+            nav(op="plan", hdg=0)
+            self.assertEqual(nav(op="build")[0], 200)
+            self.assertEqual(nav(op="share", code=self.nav(b)["built"]["code"])[1]["kind"], "atk")
+            # heard in the game's chat: live, not an NPC's; the newest first; a body name's spaces and the chat's words round it
+            b.add({"event": "ReceiveText", "From": "Wingman Bob", "Message": "o7 " + plan + ", fly this", "Channel": "wing"},
+                  {"event": "ReceiveText", "From": "$npc_name;", "Message": blank, "Channel": "npc"},
+                  {"event": "ReceiveText", "From": "Wingman Bob", "Message": "and the target: " + blank, "Channel": "wing"})
+            heard = b.wait(lambda: (lambda h: h if len(h) == 2 else None)(self.nav(b)["heard"]), what="the codes heard")
+            self.assertEqual([(h["kind"], h["from"], h["channel"], h["code"]) for h in heard],
+                             [("wpt", "Wingman Bob", "wing", blank), ("plan", "Wingman Bob", "wing", plan)])
+            self.assertEqual((heard[1]["pts"], heard[1]["body"]), (2, "HIP 20277 3 b"))
+            self.assertIn("Wingman Bob sent a flight plan code (Nav > Wpt > Code)", [x["text"] for x in b.state()["log"]])
+
     def test_points_gone_tokens_and_steps(self):
         """A target or steer-to point on a mark, or on an offset aimpoint, goes with it (a mark's slot reused, deleted; the
         offset cleared); a UFC press that two pages answer is acted on once, both given the same answer (its token, u);
@@ -1816,6 +1873,75 @@ def script_version():
     import re
     from harness import SCRIPT
     return re.search(r'^VERSION = "([^"]+)"', SCRIPT.read_text(encoding="utf-8"), re.M).group(1)
+
+
+def check(head):
+    """A shared code's check, as the board makes it: 4 hex digits of a CRC of the rest, upper case."""
+    import zlib
+    return f"{zlib.crc32(head.upper().encode('utf-8')) & 0xFFFF:04X}"
+
+
+def organic(kind, species="Bacterium Acies", genus="$Codex_Ent_Bacterial_Genus_Name;", shown="Bacterium"):
+    """A ScanOrganic event: the genetic sampler's Log (the first sample), Sample (the second and third) or Analyse."""
+    return {"event": "ScanOrganic", "ScanType": kind, "Genus": genus, "Genus_Localised": shown,
+            "Species": "$Codex_Ent_" + species.replace(" ", "_") + "_Name;", "Species_Localised": species, "SystemAddress": 1, "Body": 5}
+
+
+class Exobio(unittest.TestCase):
+    """2 Nav > HSI's exobiology (the board's part): the species you're sampling - live ScanOrganic only - where each sample was
+    taken (Status.json's position then), its genus's colony range (the game's genus name, then as shown; unknown: none); a
+    Sample with no Log seen starts it at 2; a Log of another species starts again; Analyse finishes it (the session log
+    says so); kept across a restart; dying loses it."""
+    PLANET = "HIP 20277 3 b"
+
+    def test_samples(self):
+        j = journals.syst()
+        old = dict(organic("Log", "Stratum Tectonicas", "$Codex_Ent_Stratum_Genus_Name;", "Stratum"), timestamp=ago(600))
+        with Board("exobio", journal=j["journal"] + [old], status=j["status"]) as b:
+            exo = lambda: b.state()["exo"]
+            cur = lambda pred: b.wait(lambda: (lambda c: c if c and pred(c) else None)(exo()["cur"]), what="the samples")
+            self.assertEqual(exo(), {"cur": None, "last": None}, "one read back at start-up has no position: not taken")
+            foot = dict(journals.NEAR_HAO, Flags=1 << 21, Flags2=1 | 16, Altitude=0)
+
+            def walk(lat, lon=34.9):
+                b.write_status(dict(foot, Latitude=lat, Longitude=lon))
+                b.wait(lambda: (b.state()["syst"].get("me") or {}).get("lat") == lat, what="the position")
+            walk(-13.1)
+            b.add(organic("Log"))
+            c = cur(lambda c: True)
+            self.assertEqual({k: c[k] for k in ("body", "genus", "species", "range", "n", "need")},
+                             {"body": self.PLANET, "genus": "Bacterium", "species": "Bacterium Acies", "range": 500, "n": 1, "need": 3})
+            self.assertEqual([(s["n"], s["lat"], s["lon"]) for s in c["samples"]], [(1, -13.1, 34.9)])
+            walk(-13.08)
+            b.add(organic("Sample"))
+            c = cur(lambda c: c["n"] == 2)
+            self.assertEqual([(s["n"], s["lat"]) for s in c["samples"]], [(1, -13.1), (2, -13.08)])
+            self.assertIn("Bacterium Acies: sample 2 of 3 (colony range 500 m)", [x["text"] for x in b.state()["log"]])
+            b.restart()   # kept
+            c = cur(lambda c: True)
+            self.assertEqual((c["n"], len(c["samples"])), (2, 2))
+            walk(-13.06)
+            b.add(organic("Log", "Osseus Spiralis", "$Codex_Ent_Osseus_Genus_Name;", "Osseus"))   # another species: again
+            c = cur(lambda c: c["species"] == "Osseus Spiralis")
+            self.assertEqual((c["n"], c["range"], [s["lat"] for s in c["samples"]]), (1, 800, [-13.06]))
+            walk(-13.04)
+            b.add(organic("Sample", "Osseus Spiralis", "$Codex_Ent_Osseus_Genus_Name;", "Osseus"))
+            cur(lambda c: c["n"] == 2)
+            walk(-13.02)
+            b.add(organic("Sample", "Osseus Spiralis", "$Codex_Ent_Osseus_Genus_Name;", "Osseus"))
+            self.assertEqual([s["n"] for s in cur(lambda c: c["n"] == 3)["samples"]], [1, 2, 3])
+            b.add(organic("Analyse", "Osseus Spiralis", "$Codex_Ent_Osseus_Genus_Name;", "Osseus"))
+            x = b.wait(lambda: (lambda x: x if x["last"] else None)(exo()), what="the analysis")
+            self.assertEqual((x["cur"], x["last"]["species"], x["last"]["body"]), (None, "Osseus Spiralis", self.PLANET))
+            self.assertIn("Osseus Spiralis analysed", [l["text"] for l in b.state()["log"]])
+            # sampling begun before the board was watching (a Sample, no Log): it starts at 2; a genus it doesn't know: no range;
+            # by the name as shown, where the game's own isn't known
+            b.add(organic("Sample", "Oddity Major", "$Codex_Ent_Mystery_Genus_Name;", "Mystery"))
+            self.assertEqual((lambda c: (c["n"], c["range"]))(cur(lambda c: c["species"] == "Oddity Major")), (2, None))
+            b.add(organic("Log", "Fonticulua Campestris", "$Codex_Ent_Unknown_Name;", "Fonticulua"))
+            self.assertEqual(cur(lambda c: c["species"] == "Fonticulua Campestris")["range"], 500)
+            b.add({"event": "Died"})   # the samples go with you
+            b.wait(lambda: exo()["cur"] is None or None, what="the samples lost")
 
 
 class OneCopy(unittest.TestCase):

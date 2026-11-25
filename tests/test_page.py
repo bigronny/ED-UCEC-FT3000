@@ -628,6 +628,85 @@ class Traj(PageTest):
             self.assertIn("PAD 2", page.inner_text("#pg-traj").upper())
             self.no_errors()
 
+    def test_circle(self):
+        """CIRCLE (the Heading Alignment Cone): armed from where you are - OVHD the bigger turn, STRT-IN the smaller (the
+        switch re-arms it); ACQ to WP1 (where your line meets the HAC, tangent; its radius R_IN there); on it at WP1, the turn
+        to go and how far in or out you are as you go round; past WP2, the OGS - its reference altitude (the 20 deg slope),
+        ON REF, HIGH; the side profile along the path; the scale 10 km; ENTRY 1 again: no HAC."""
+        R = journals.NEAR_HAO["PlanetRadius"]
+        with Board("p_traj_circle", **journals.syst()) as b:
+            page = self.open(b)
+            b.add({"event": "Undocked", "StationName": "Fabian City"})
+            b.write_status({"Flags": journals.NEAR_HAO["Flags"] | self.SC, "Flags2": 0, "Destination": {"Name": self.HAO}})
+            self.go(page, "nav", "2")
+            page.click('#tr-dest button[data-v="hud"]')
+            self.until(page, "() => ED.traj.dest && ED.traj.dest.ok", what="the destination")
+            d = page.evaluate("() => ED.traj.dest")
+            page.evaluate("() => { ED.traj.crs[ED.traj.dest.key] = 0; }")   # the course in: 000
+
+            def at(e, n, alt, js, what, hdg=0):   # standing (readings 0.6 s apart) e, n metres from the destination until js
+                lat = round(d["lat"] + n / R * 180 / math.pi, 6)
+                lon = round(d["lon"] + e / (R * math.cos(math.radians(d["lat"]))) * 180 / math.pi, 6)
+                time.sleep(4.0)   # (a silence first: the filter starts afresh at the new place, rather than fly you there ...)
+                end, n = time.time() + 15, 0
+                while time.time() < end:
+                    b.write_status(dict(journals.NEAR_HAO, Latitude=lat, Longitude=lon, Altitude=alt, Heading=hdg, Destination={"Name": self.HAO}))
+                    time.sleep(0.6)
+                    n += 1
+                    if n >= 3 and page.evaluate(js):   # (... once it's had a few readings there, standing still)
+                        return
+                self.fail(f"timed out waiting for {what}: {js} - " + json.dumps(page.evaluate("() => { const h = ED.trajGuide().hac || {}; return [h.stage, h.psi, h.psiT, ED.traj.hac]; }")))
+            self.assertFalse(page.evaluate("() => document.getElementById('tr-circle').disabled"))
+            self.assertTrue(page.evaluate("() => document.getElementById('tr-hac').hidden"), "OVHD / STRT-IN only with CIRCLE")
+            page.click("#tr-circle")
+            self.until(page, "() => ED.traj.prof === 'circle' && document.getElementById('tr-circle').classList.contains('on') && !document.getElementById('tr-hac').hidden",
+                       what="CIRCLE")
+            hac = "() => { const g = ED.trajGuide(), h = g.hac || {}; return {stage: h.stage, side: h.side, psiT: h.psiT == null ? null : h.psiT * 180 / Math.PI, psi: h.psi == null ? null : h.psi * 180 / Math.PI, rerr: h.rerr, rr: h.rr, ref: h.ref, err: h.err, L: h.L, scale: g.scale}; }"
+            at(6000, -7000, 2500, "() => (ED.trajGuide().hac || {}).stage === 'acq' && ED.trajGuide().phase === 'flight'", "ACQ, 9 km out")
+            ovhd = page.evaluate(hac)
+            self.assertEqual((ovhd["side"], ovhd["scale"]), (-1, 10000), ovhd)
+            self.assertGreater(ovhd["psiT"], 270, "OVHD: round the far side")
+            page.click('#tr-hac button[data-v="strt"]')
+            self.until(page, "() => ED.traj.hmode === 'strt' && (ED.trajGuide().hac || {}).side === 1", what="STRT-IN: the other side")
+            strt = page.evaluate(hac)
+            self.assertLess(strt["psiT"], 180, "STRT-IN: the smaller turn")
+            geo = page.evaluate("""() => { const H = ED.trajHac, s = H.solve(0, 1, ED.trajGuide().hac.A, null), q = H.at(s.h, s.psiT);
+                return {r: q.r, w2: s.h.w2, cc: s.h.cc}; }""")
+            self.assertAlmostEqual(geo["r"], 2500, delta=15, msg="R_IN where you join it")
+            self.assertEqual([round(v) for v in geo["w2"] + geo["cc"]], [0, -4000, 1500, -4000], "WP2 4 km out on the course; the centre 1.5 km beside it")
+            page.click('#tr-hac button[data-v="ovhd"]')
+            self.until(page, "() => (ED.trajGuide().hac || {}).side === -1", what="OVHD again")
+            self.assertIn("WP1", page.inner_text("#tr-lgrid").upper())
+            self.until(page, "() => /^ACQ/i.test(document.getElementById('tr-lat').textContent)", what="the ACQ chip")
+            # on the HAC: at WP1, then round it (the turn to go from WP1's, then on round), then past WP2: the OGS
+            w1 = page.evaluate("() => ED.trajGuide().hac.w1")
+            at(w1[0], w1[1], 2500, "() => (ED.trajGuide().hac || {}).stage === 'hac'", "on the HAC at WP1")
+            side, k = page.evaluate("() => [ED.traj.hac.side, ED.traj.hac.k]")
+            psi0 = page.evaluate(hac)["psi"]
+            self.assertAlmostEqual(psi0, ovhd["psiT"], delta=10)
+            for psi in (psi0 - 100, psi0 - 200, 30):
+                p = page.evaluate(f"() => {{ const H = ED.trajHac; return H.at(H.geom(0, {side}, {k}), {psi} * Math.PI / 180).p; }}")
+                at(p[0], p[1], 2000, f"() => {{ const h = ED.trajGuide().hac || {{}}; return h.stage === 'hac' && Math.abs(h.psi * 180 / Math.PI - {psi}) < 3; }}", f"{psi:.0f} deg to go")
+                g = page.evaluate(hac)
+                self.assertLess(abs(g["rerr"]), 40, g)
+            self.assertIn("TURN REM", page.inner_text("#tr-lgrid").upper())
+            self.until(page, "() => /^HAC · \\d+° TO GO/i.test(document.getElementById('tr-lat').textContent)", what="the HAC chip")
+            ref = round(3500 * math.tan(math.radians(20)))
+            at(0, -3500, ref, "() => (ED.trajGuide().hac || {}).stage === 'ogs'", "past WP2: the OGS")
+            g = page.evaluate(hac)
+            self.assertAlmostEqual(g["ref"], ref, delta=25)
+            self.until(page, "() => /^ON REF/i.test(document.getElementById('tr-vert').textContent)", what="ON REF")
+            self.assertIn("OGS 20", page.inner_text("#tr-optwin").upper())
+            self.assertIn("TAN 20", page.inner_text("#tr-vvreqlab").upper())
+            at(0, -3500, ref + 600, "() => /^HIGH/i.test(document.getElementById('tr-vert').textContent)", "HIGH")
+            self.assertGreater(page.evaluate(CANVAS_INK_JS, "tr-prof"), 5)
+            self.assertGreater(page.evaluate("() => document.getElementById('tr-plan-svg').innerHTML.split('WP2').length"), 1, "WP2 on the top-down")
+            # ENTRY 1 again: no HAC
+            page.click("#tr-entry1")
+            self.until(page, "() => ED.traj.prof === 'entry' && !ED.trajGuide().hac && document.getElementById('tr-hac').hidden", what="ENTRY 1")
+            self.assertEqual(json.loads(page.evaluate("() => localStorage.getItem('ft3000-traj')"))["hmode"], "ovhd", "kept")
+            self.no_errors()
+
     def test_ufc(self):
         with Board("p_traj_ufc", **journals.syst()) as b:
             page = self.open(b)
@@ -651,11 +730,20 @@ class Traj(PageTest):
             time.sleep(0.6)
             self.assertEqual(page.evaluate("() => ED.traj.zoom"), z)
             b.ufc_cmd("pulse COMM2_CW")
-            self.until(page, "() => document.getElementById('tr-reset').classList.contains('focus') && !document.getElementById('tr-entry1').classList.contains('focus')",
-                       what="COMM2 on Reset scale")
+            self.until(page, "() => document.getElementById('tr-circle').classList.contains('focus') && !document.getElementById('tr-entry1').classList.contains('focus')",
+                       what="COMM2 on CIRCLE")
+            b.ufc_cmd("pulse COMM2_CW")
+            self.until(page, "() => document.getElementById('tr-reset').classList.contains('focus') && !document.getElementById('tr-circle').classList.contains('focus')",
+                       what="COMM2 on Reset scale (OVHD / STRT-IN only with CIRCLE)")
             b.ufc_cmd("press COMM2_PULL")
             self.until(page, "() => ED.traj.zoom === null && ED.trajGuide().scale === 30000", what="a COMM2 pull to reset the scale")
             self.assertEqual(page.evaluate("() => [ED.traj.focus, ED.traj.grab, ED.traj.crs[ED.traj.dest.key] == null]"), ["crs", False, True])
+            b.ufc_cmd("pulse COMM2_CCW", "press COMM2_PULL")   # CIRCLE: a pull picks it - and OVHD / STRT-IN joins the stops
+            self.until(page, "() => ED.traj.prof === 'circle' && !document.getElementById('tr-hac').hidden", what="a COMM2 pull on CIRCLE")
+            b.ufc_cmd("pulse COMM2_CW", "press COMM2_PULL")
+            self.until(page, "() => ED.traj.hmode === 'strt' && document.getElementById('tr-hac').classList.contains('focus')", what="a COMM2 pull flips OVHD / STRT-IN")
+            b.ufc_cmd("pulse COMM2_CCW", "pulse COMM2_CCW", "press COMM2_PULL")
+            self.until(page, "() => ED.traj.prof === 'entry' && ED.traj.crs[ED.traj.dest.key] == null", what="back to ENTRY 1 (the course CIRCLE took goes with it)")
             b.ufc_cmd("press COMM1_PULL")
             self.until(page, "() => ED.traj.grab && document.getElementById('tr-crs').classList.contains('grab')", what="a pull grabs it")
             b.ufc_cmd("pulse COMM1_CW", "pulse COMM1_CW", "pulse COMM1_CW", pause=0.5)   # turned slowly: 1 deg a click
@@ -703,7 +791,7 @@ class Tgt(PageTest):
             self.assertEqual(page.inner_text("#subtabs .stab.on").upper(), "3 WPT")
             self.assertTrue(page.evaluate("() => !!document.querySelector('#pg-tgt .rail') && !!document.querySelector('#pg-tgt .panel')"), "two panels, as 1 Syst")
             self.assertEqual(page.evaluate("() => Array.from(document.querySelectorAll('#tg-meth button')).map(b => [b.textContent.toUpperCase(), b.disabled])"),
-                             [["MANUAL", False], ["OVERFLY", False], ["HUD VV", False], ["HUD X-B", False]])
+                             [["MANUAL", False], ["OVERFLY", False], ["HUD VV", False], ["HUD X-B", False], ["CODE", False]])
             self.assertTrue(page.evaluate("() => document.getElementById('tg-railx').offsetParent !== null"), "no targets yet")
             # MANUAL with the keyboard, on what 1 Syst has selected (a star is refused); no name: the usual one
             star = page.evaluate("() => ED.S.data.syst.entries.find(e => e.kind === 'star').name")
@@ -936,7 +1024,7 @@ class Tgt(PageTest):
                              "&& ED.S.data.syst.tgts[0].name === 'C'", what="saved, named C")
             # COMM1 to the target, a pull shows it; EDIT its name (the cursor starts at the end)
             b.ufc_cmd("pulse COMM2_CCW")   # off SAVE: the keypad's the sub-tabs' again
-            b.ufc_cmd(*["pulse COMM1_CW"] * 4, "press COMM1_PULL")   # (past MANUAL, OVERFLY, HUD VV and HUD X-B)
+            b.ufc_cmd(*["pulse COMM1_CW"] * 5, "press COMM1_PULL")   # (past MANUAL, OVERFLY, HUD VV, HUD X-B and CODE)
             self.until(page, "() => !document.getElementById('tg-one').hidden", what="the target's details")
             self.until(page, "() => document.getElementById('tg-edit').classList.contains('focus')", what="COMM2 on EDIT")
             b.ufc_cmd("press COMM2_PULL")
@@ -1260,7 +1348,7 @@ class NavPages(PageTest):
             b.ufc_cmd("press ILS", "press Opt2", "press 3")
             self.on(page, "nav", 4, what="Wpt from the keypad")
             self.until(page, "() => ED.S.data.syst.tgts.length === 3", what="the waypoints")
-            b.ufc_cmd(*["pulse COMM1_CW"] * 4)   # past the four methods: WP1
+            b.ufc_cmd(*["pulse COMM1_CW"] * 5)   # past the five methods: WP1
             self.until(page, f"() => ED.tgt.focus1 === '{w1['key']}'", what="COMM1 on WP1")
             # ENT: WP1 on the UFC - POSN NAME O/S DEL
             b.ufc_cmd("press Ent")
@@ -1355,6 +1443,54 @@ class NavPages(PageTest):
             page.click(f'#tg-chain .srow[data-c="{w3["key"]}"]')
             page.click("#tg-sdel")
             self.until(page, "() => ED.S.data.syst.nav.seqs['2'].length === 0", what="removed")
+            self.no_errors()
+
+    def test_wpt_codes(self):
+        """Wpt's codes: a waypoint's, a mark's and a flight plan's own code, with COPY (again: pasted into Elite); CODE (the
+        fifth method): a code typed and LOADed - a waypoint, or a flight plan into the first empty SEQ (its view shown) -
+        and codes heard in the game's chat, each LOADed with a press (COMM2 steps to it, a pull loads it)."""
+        from test_server import check
+        with Board("p_nav_codes", **journals.syst()) as b:
+            page = self.open(b)
+            w1, w2 = self.wpts(b, (-13.1, 34.9), (-13.0, 35.0))
+            b.post("/api/nav", {"op": "seq", "seq": 1, "act": "ins", "id": w1["id"]})
+            b.post("/api/nav", {"op": "seq", "seq": 1, "act": "ins", "id": w2["id"]})
+            self.go(page, "nav", "3")
+            page.click(f'#tg-list .srow[data-key="{w1["key"]}"]')
+            self.until(page, "() => /^FTW1\\/HIP 20277 3 B\\/-13.10000,34.90000\\/[0-9A-F]{4}$/i.test(document.getElementById('tg-wcode').textContent)", what="WP1's code")
+            self.assertEqual(page.evaluate("() => document.getElementById('tg-wcopy').dataset.clip"), page.evaluate("() => document.getElementById('tg-wcode').textContent"))
+            page.click("#tg-wcopy")
+            self.until(page, "() => /PASTE/i.test(document.getElementById('tg-wcopy').textContent)", what="copied: Paste next")
+            page.click('#tg-list .srow[data-key="seq:1"]')
+            self.until(page, "() => /^FTP1\\/.+\\/-13.00000,35.00000\\/[0-9A-F]{4}$/.test(document.getElementById('tg-scode').textContent)", what="SEQ 1's code")
+            # CODE: typed, a waypoint
+            self.assertEqual(page.evaluate("() => Array.from(document.querySelectorAll('#tg-meth button')).map(b => b.textContent.toUpperCase())"),
+                             ["MANUAL", "OVERFLY", "HUD VV", "HUD X-B", "CODE"])
+            page.click('#tg-meth button[data-m="code"]')
+            self.until(page, "() => !document.getElementById('tg-code').hidden && /CODE/i.test(document.getElementById('tg-name').textContent)", what="the CODE view")
+            wpt = "FTW1/HIP 20277 3 b/-12.8,35.2,Their target/" + check("FTW1/HIP 20277 3 b/-12.8,35.2,Their target")
+            page.fill("#tg-cin", wpt)
+            page.click("#tg-cload")
+            self.until(page, "() => /LOADED WP3 · THEIR TARGET/i.test(document.getElementById('tg-note').textContent)", what="loaded: WP3")
+            self.until(page, "() => ED.S.data.syst.tgts.length === 3 && document.getElementById('tg-cin').value === ''", what="the new waypoint")
+            page.fill("#tg-cin", "FTW1/nonsense/0000")
+            page.click("#tg-cload")
+            self.until(page, "() => /COULDN'T LOAD THAT/i.test(document.getElementById('tg-note').textContent)", what="refused")
+            # heard in chat: listed, LOADed by COMM2 (the UFC on the page menu)
+            plan = "FTP1/HIP 20277 3 b/-13.1,34.9/-12.6,35.4,Egress/" + check("FTP1/HIP 20277 3 b/-13.1,34.9/-12.6,35.4,Egress")
+            b.add({"event": "ReceiveText", "From": "Wingman Bob", "Message": "fly this: " + plan, "Channel": "wing"})
+            self.until(page, "() => document.querySelectorAll('#tg-clist .srow').length === 1 && /WINGMAN BOB · FLIGHT PLAN · 2 WP/i.test(document.getElementById('tg-clist').textContent)",
+                       what="the code heard")
+            b.ufc_cmd("press ILS", "press Opt2", "press 3")
+            self.on(page, "nav", 4, what="Wpt from the keypad")
+            page.evaluate("() => { const b = document.querySelector('#tg-meth button[data-m=\"code\"]'); b.click(); }")
+            self.until(page, "() => !document.getElementById('tg-code').hidden", what="the CODE view again")
+            b.ufc_cmd("pulse COMM2_CW")
+            self.until(page, "() => document.querySelector('#tg-clist .srow').classList.contains('focus')", what="COMM2 on the code heard")
+            b.ufc_cmd("press COMM2_PULL")
+            self.until(page, "() => ED.S.data.syst.nav.seqs['2'].length === 2 && !document.getElementById('tg-seq').hidden && /SEQ 2/.test(document.getElementById('tg-name').textContent)",
+                       what="loaded into SEQ 2, shown")
+            self.until(page, "() => /LOADED INTO SEQ 2 · 2 WP \\(1 YOURS ALREADY\\)/i.test(document.getElementById('tg-note').textContent)", what="the note")
             self.no_errors()
 
     def test_hsi_timer(self):
@@ -1547,6 +1683,57 @@ class NavPages(PageTest):
             self.until(page, "() => document.querySelectorAll('#hs-chain .srow').length === 3", what="its points listed")
             b.ufc_cmd("pulse COMM2_CCW")
             self.until(page, f"() => ED.S.data.syst.nav.steer === '{ws[2]['key']}'", what="SEQ 1: only its points - back round to WP3")
+            self.no_errors()
+
+    def test_hsi_exobio(self):
+        """Exobiology on the HSI: sampling a species on the body you're on, each sample on the map ringed at its colony range
+        (amber while you're inside it), the auto scale fitting them, the panel's species, count, range and nearest; with no
+        steer-to point the scratchpad too (EX, the count, GO and the metres still to go - or CLEAR); a steer-to point on
+        another body: the map stays on yours (its chip says where the plan is); analysed: the rings go."""
+        from test_server import organic
+        with Board("p_nav_exo", **journals.syst()) as b:
+            page = self.open(b)
+            b.ufc_cmd("press ILS", "press Opt2", "press 4")   # (the UFC on the HSI's page menu: its scratchpad)
+            self.on(page, "nav", 5, what="HSI from the keypad")
+            foot = dict(journals.NEAR_HAO, Flags=1 << 21, Flags2=1 | 16, Altitude=0, Heading=0)
+
+            def stand(m, js, what):   # standing m metres east of the first sample until the page shows js
+                end = time.time() + 15
+                while time.time() < end:
+                    b.write_status(dict(foot, Latitude=-13.1, Longitude=self.east(m)))
+                    time.sleep(0.6)
+                    if page.evaluate(js):
+                        return
+                self.fail(f"timed out waiting for {what}: {js}")
+            stand(0, "() => !!ED.nav.fix()", "a fix on foot")
+            b.add(organic("Log"))
+            self.until(page, "() => !document.getElementById('hs-exogrid').hidden && /BACTERIUM ACIES/i.test(document.getElementById('hs-exogrid').textContent)",
+                       what="the species in the panel")
+            panel = "() => document.getElementById('hs-exogrid').textContent.toUpperCase()"
+            stand(300, "() => { const e = ED.hsiSolve().exo; return e && Math.abs(e.near - 300) < 20; }", "300 m from the sample")
+            self.until(page, "() => ED.hsi.drawn.exo === 1 && ED.hsi.drawn.exoRings === 1 && [1000, 2000].includes(ED.hsi.drawn.span)",
+                       what="the sample, its ring, the scale fitting them (1 km, or 2 km if the jump overshot)")
+            text = page.evaluate(panel)
+            for want in ("SAMPLES1 OF 3", "RANGE500 M"):
+                self.assertIn(want, text.replace("\n", ""))
+            self.assertRegex(text.replace("\n", ""), r"GO\d+ M", "too close: how much further")
+            amber = page.evaluate("() => Array.from(document.querySelectorAll('#hs-map-svg path')).filter(p => p.getAttribute('stroke') === '#e3a24a').length")
+            self.assertGreaterEqual(amber, 1, "inside the ring: amber")
+            self.assertIsNone(page.evaluate("() => ED.hsiSolve().title || null"), "no steer-to point, sampling: nothing missing")
+            b.wait(lambda: (lambda d: d if d["s1"] == "EX" and d["s2"] == "1" and d["scratch"].startswith("GO ") else None)(b.display()),
+                   what="the scratchpad: EX 1 GO ...")
+            stand(700, "() => /GOCLEAR/.test(document.getElementById('hs-exogrid').textContent.toUpperCase().replace(/\\s/g, ''))", "clear of the ring")
+            b.wait(lambda: b.display()["scratch"] == "CLEAR" or None, what="the scratchpad: CLEAR")
+            self.until(page, "() => ED.hsi.drawn.span === 2000", what="the scale out to fit")
+            # a steer-to point on another body: the map stays on the one you're on, and says where the plan is
+            other = b.post("/api/tgt", {"op": "add", "body": "HIP 20277 3", "lat": 1.0, "lon": 2.0, "method": "manual"})[1]["tgt"]
+            b.post("/api/nav", {"op": "steer", "key": other["key"]})
+            self.until(page, "() => /PLAN ON HIP 20277 3$/i.test(document.getElementById('hs-fix').textContent) && !document.getElementById('hs-fix').hidden",
+                       what="the plan's elsewhere")
+            g = page.evaluate("() => { const g = ED.hsiSolve(); return [g.body, g.dist == null, ED.hsi.drawn.exo]; }")
+            self.assertEqual(g, [self.PLANET, True, 1])
+            b.add(organic("Analyse"))
+            self.until(page, "() => ED.hsi.drawn.exo === 0 && /ANALYSED/i.test(document.getElementById('hs-exogrid').textContent)", what="analysed: the rings gone")
             self.no_errors()
 
     def test_two_pages_and_syst_dsg(self):

@@ -11,7 +11,11 @@
 // reset; a countdown with no time set: type it - on the keypad, or clicked, the keyboard). AUTO sequencing steps the steer-to point on along the plan as you reach each point - or
 // pass it close by. With no fix on the plan's body (in orbital cruise far off, docked...), the map shows the plan
 // itself, north up, round its steer-to point. Your position and speeds: Traj's filter, carried on between the game's
-// readings.
+// readings. Exobiology: sampling a species with the genetic sampler on the body you're on, the map's on that body (the
+// plan's elsewhere: its chip says so), each sample you've taken is on it (S1-S3), ringed at its genus's colony range -
+// amber while you're inside it, too close for the next - and the auto scale fits them while you're within EXO_NEAR;
+// the panel gives the species, the samples, the range, how far you are from the nearest and how much further to GO (or
+// CLEAR) - with no steer-to point, the scratchpad too: EX, the count, GO and the metres still to go - or CLEAR.
 // The UFC (page menu): COMM2 turns the steer-to point and a pull designates it (WPDSG; DSG - Opt4 - too); COMM1 steps
 // across SEQ, AUTO / MAN, TRK-UP / N-UP, RESET SCALE, KM / NM, then the timer's ET / CD and its time, and a pull flips or
 // presses one (the time, a countdown with none set: the keypad types it, ENT sets it, CLR clears; ENT on the timer types a
@@ -27,6 +31,7 @@
   var AUTO_AGAIN = 3000;                // ms before AUTO asks again for the same point (the board may not have answered yet)
   var ZOOM_MIN = 300, ZOOM_MAX = 1e7;   // metres: the map's reach, from its middle to the rose
   var SITE_RING = 10000;                // metres: the dashed ring round each planetary facility
+  var EXO_NEAR = 5000;                  // metres: this close to a sample of the species you're on, the auto scale fits its rings
   var SEQS = ["none", "1", "2", "3", "atk"], STOPS1 = ["seq", "auto", "view", "reset", "units", "tmode", "timer"];   // (COMM1's)
   var kept = (function () { try { return JSON.parse(localStorage.getItem("ft3000-hsi") || "{}") || {}; } catch (e) { return {}; } })();
   var H = { view: kept.view === "N" ? "N" : "T", units: kept.units === "nm" ? "nm" : "km", zoom: null, scale: 0, focus1: "seq", raf: 0, frameAt: 0,
@@ -37,31 +42,43 @@
   function on() { return ED.showing("nav", 5); }
   function say(t) { H.note = t; H.noteAt = Date.now(); }
 
+  // ---- the exobiology: the species you're sampling (the board's, from the game's ScanOrganic) ----
+  function exo() { var x = ((S.data || {}).exo || {}).cur; return x && x.body && x.samples ? x : null; }
+  function exoLast() { var x = ((S.data || {}).exo || {}).last; return x && x.species ? x : null; }
+
   // ---- the sums ----
   function solve() {
     var nv = N.data(), seq = nv.seq || "none", keys = seq === "none" ? [] : N.seqKeys(seq), pts = N.points(), st = N.point(nv.steer), tg = N.tgt();
     var first = keys.length ? pts[keys[0]] : null, body = st ? st.body : first ? first.body : tg ? tg.body : null;
+    // (sampling a species on the body you're on: the map's on it, whatever body the plan's on)
+    var f = N.fix(), ex = exo(), exoOn = !!(ex && f && low(ex.body) === low(f.body)), away = null;
+    if (exoOn && (!body || low(body) !== low(f.body))) { away = body; body = f.body; }
     // (keys: the activated plan's points - its legs, AUTO; list: the points listed and stepped through - with SEQ NONE, all of them)
-    var f = N.fix(), g = { seq: seq, keys: keys, list: seq === "none" ? N.allKeys() : keys, st: st, tg: tg, body: body, fix: null, pts: pts, nv: nv };
+    var g = { seq: seq, keys: keys, list: seq === "none" ? N.allKeys() : keys, st: st, tg: tg, body: body, away: away, fix: null, pts: pts, nv: nv };
     if (f && body && low(f.body) === low(body)) g.fix = f;
     g.R = g.fix ? g.fix.R : body ? N.radius(body) : null;
     var c = g.fix || st || first || tg;
     g.c = c ? { lat: c.lat, lon: c.lon } : null;
     g.idx = st ? keys.indexOf(st.key) : -1;
-    var me = N.y().me;
-    if (!st && seq === "none") { g.title = "No steer-to point"; g.why = g.list.length ? "SEQ None: COMM2 steps through your waypoints and marks" : "No waypoints or marks in this system"; }
-    else if (!st && !keys.length) { g.title = "No flight plan"; g.why = "Activate a plan (Wpt › SEQ, or Atk's BUILD) - or SEQ None"; }
+    var me = N.y().me, stOn = !!(st && body && low(st.body) === low(body));
+    if (away) { g.title = "Plan on " + away; g.why = ""; }
+    else if (!st && seq === "none") { if (!exoOn) { g.title = "No steer-to point"; g.why = g.list.length ? "SEQ None: COMM2 steps through your waypoints and marks" : "No waypoints or marks in this system"; } }
+    else if (!st && !keys.length) { if (!exoOn) { g.title = "No flight plan"; g.why = "Activate a plan (Wpt › SEQ, or Atk's BUILD) - or SEQ None"; } }
     else if (!me || me.lat == null) { g.title = "No state vector"; g.why = "No planetary surface fix - the plan, round its steer-to point"; }
     else if (f && body && low(f.body) !== low(body)) { g.title = "Reference body mismatch"; g.why = "The plan is on " + body; }
     else if (!f) { g.title = "Acquiring state vector"; g.why = ""; }
     if (!g.R || !g.c) return g;
-    if (g.fix && st) {
+    if (exoOn && g.fix) {   // how far you are from each sample (a new one must be clear of them all by the colony range)
+      g.exo = { x: ex, d: ex.samples.map(function (q) { return D.arc(f.lat, f.lon, q.lat, q.lon, g.R).d; }) };
+      g.exo.near = g.exo.d.length ? Math.min.apply(null, g.exo.d) : null;
+    }
+    if (g.fix && stOn) {
       var a = D.arc(f.lat, f.lon, st.lat, st.lon, g.R);
       g.brg = a.ab; g.dist = a.d; g.gs = f.gs; g.trk = f.trk;
       g.ttg = f.gs > 5 ? a.d / f.gs : null;
       g.rel = f.trk != null ? D.w180(a.ab - f.trk) : null;
     }
-    if (g.fix && tg && low(tg.body) === low(f.body)) {
+    if (g.fix && tg && low(tg.body) === low(g.fix.body)) {
       var b = D.arc(f.lat, f.lon, tg.lat, tg.lon, g.R);
       g.tbrg = b.ab; g.tdist = b.d;
     }
@@ -76,12 +93,14 @@
   function niceUp(x) { var e = Math.pow(10, Math.floor(Math.log10(x))), f = x / e; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * e; }
   function niceIn(m) { var u = H.units === "nm" ? 1852 : 1; return niceUp(m / u) * u; }   // (metres: 1, 2, 5... km - or NM)
   function autoScale(g) {
-    var far = 0;
-    if (g.fix && g.dist != null) far = g.dist * 1.15;
+    var far = 0, e = g.exo, atExo = !!(e && e.near != null && e.near < EXO_NEAR);
+    if (atExo !== !!H.atExo) { H.atExo = atExo; H.scale = 0; }   // (at the samples, or leaving them: the scale fits afresh)
+    if (atExo) far = (Math.max.apply(null, e.d) + (e.x.range || 100)) * 1.1;   // (at the samples: them, rings and all)
+    else if (g.fix && g.dist != null) far = g.dist * 1.15;
     else if (g.R && g.c) g.keys.forEach(function (k) { var p = g.pts[k]; if (p) { var v = at(g, p.lat, p.lon); far = Math.max(far, Math.hypot(v[0], v[1]) * 1.1); } });
     if (!far) return H.scale || (H.scale = niceIn(5000));
     var need = clamp(niceIn(Math.max(far, 500)), ZOOM_MIN, ZOOM_MAX);
-    if (!H.scale || need > H.scale || need < H.scale / 3) H.scale = need;   // (steps out at once, back in only well inside)
+    if (!H.scale || need > H.scale || need < H.scale / (atExo ? 2 : 3)) H.scale = need;   // (steps out at once, back in only well inside)
     return H.scale;
   }
   function scaleNow(g) { return H.zoom || autoScale(g); }
@@ -175,6 +194,23 @@
       out.push(D.poly(tacan(x.p[0], x.p[1], 2.5), null, C.text));
       H.drawn.sites++;
     });
+    // the species you're sampling: each sample taken, ringed at its colony range (amber: you're inside it - too close for the next)
+    H.drawn.exo = 0; H.drawn.exoRings = 0;
+    if (g.exo) {
+      var ex = g.exo.x, er = (ex.range || 0) * k;
+      ex.samples.forEach(function (q, i) {
+        var v = at(g, q.lat, q.lon), p = P(v[0], v[1]), close = ex.range && g.exo.d[i] < ex.range;
+        if (er >= 3) {
+          var pts = ring(p, er);
+          if (pts.length > 1) { out.push(D.line(pts, close ? C.acc : C.text, close ? null : [4, 2], false, 0.9)); H.drawn.exoRings++; }
+        }
+        if (!inside(p)) return;
+        out.push(D.line([[p[0] - 3, p[1] - 3], [p[0] + 3, p[1] + 3]], close ? C.acc : C.hi));
+        out.push(D.line([[p[0] - 3, p[1] + 3], [p[0] + 3, p[1] - 3]], close ? C.acc : C.hi));
+        out.push(D.txt(p[0] + 6, p[1] - 6, "S" + (q.n || i + 1), close ? C.acc : C.hi, "start", true));
+        H.drawn.exo++;
+      });
+    }
     // the body's other waypoints and the marks
     N.tgts().forEach(function (t) {
       if (g.keys.indexOf(t.key) >= 0 || low(t.body) !== low(g.body)) return;
@@ -192,7 +228,7 @@
     });
     // the plan: its legs and points (ATK: the other role's track dashed too)
     function track(keys, dim) {
-      var ps = keys.map(function (key) { var q = g.pts[key]; if (!q) return null; var v = at(g, q.lat, q.lon); return { key: key, q: q, p: P(v[0], v[1]) }; })
+      var ps = keys.map(function (key) { var q = g.pts[key]; if (!q || low(q.body) !== low(g.body)) return null; var v = at(g, q.lat, q.lon); return { key: key, q: q, p: P(v[0], v[1]) }; })
         .filter(function (x) { return x; });
       for (var i = 1; i < ps.length; i++) {
         var seg = clip(ps[i - 1].p, ps[i].p);
@@ -218,7 +254,7 @@
       if (!tin) out.push(D.txt(tp[0], tp[1] + 10, "TGT", C.bad));
     }
     // the steer-to point: the line to it and its pointer on the rose (or, off the map, at the rose's edge)
-    if (g.st) {
+    if (g.st && low(g.st.body) === low(g.body)) {
       var sv = at(g, g.st.lat, g.st.lon), sp = P(sv[0], sv[1]), sin = inside(sp);
       if (g.fix) {
         out.push(D.line([[cx, cy], sin ? sp : edge(sp)], C.hi, [3, 2]));
@@ -282,6 +318,7 @@
              off == null || ontime ? "" : "var(--accent)")
       ].join("");
     }
+    exoWords(g);
     var tg = g.tg;
     $("hs-tgrid").innerHTML = tg ? [cell("Tgt", (tg.label || tg.name || "TGT").toUpperCase(), "var(--bad)"), cell("Brg", g.tbrg != null ? D.deg3(g.tbrg) + "°" : "-"),
       cell2("Rng", g.tdist != null ? D.dist(g.tdist) : "-", g.tdist != null ? nm(g.tdist) : "-")].join("") : cell("Tgt", "None - DSG designates");
@@ -307,6 +344,25 @@
     marks(g);
     scratch(g);
     tellKeys();
+  }
+  function exoWords(g) {   // the species you're sampling: its samples, colony range, and how far you are from the nearest
+    var ex = exo(), last = exoLast(), me = N.y().me || {}, rows = [];
+    var lastHere = !ex && last && me.body && low(last.body) === low(me.body);
+    if (ex) {
+      var e = g.exo, need = ex.need || 3, n = ex.n || ex.samples.length, rng = ex.range, near = e ? e.near : null;
+      var close = near != null && rng && near < rng, go;   // (Go: how much further before the next - or CLEAR)
+      if (n >= need) go = "Analysing";   // (the game says it's done once the sampler's finished)
+      else if (near == null) go = "-";
+      else if (!rng) go = "Range ?";
+      else go = close ? D.dist(rng - near) : "Clear";
+      rows.push('<div class="cell trc wide"><span class="lab">Species</span><span class="v">' + ED.esc(ex.species) + "</span></div>",
+        cell("Samples", n + " of " + need), cell("Range", rng ? D.dist(rng) : "?"));
+      if (e) rows.push(cell("Nearest", near != null ? D.dist(near) : "-", close ? "var(--accent)" : ""), cell("Go", go, close ? "var(--accent)" : ""));
+      else rows.push('<div class="cell trc wide"><span class="lab">On</span><span class="v">' + ED.esc(ex.body) + "</span></div>");
+    } else if (lastHere) rows.push('<div class="cell trc wide"><span class="lab">Analysed</span><span class="v">' + ED.esc(last.species) + "</span></div>");
+    var show = !!(ex || lastHere), sig = rows.join("");
+    $("hs-exolab").hidden = $("hs-exogrid").hidden = !show;
+    if (sig !== H.exoSig) { H.exoSig = sig; $("hs-exogrid").innerHTML = sig; }
   }
   function marks(g) {
     var ufc = (S.ufc || {}).menu === "PAGE", nv = (g || {}).nv || N.data(), built = !!nv.built;
@@ -440,9 +496,14 @@
       show.com1 = g.idx >= 0 ? String(g.idx + 1) : "";
       show.com2 = g.seq === "atk" ? "A" : g.seq === "none" ? "" : g.seq;
     } else if (!off && g && on()) {
-      show.s1 = !st ? "" : st.src === "mk" ? "MK" : st.src === "atk" ? "AT" : st.src === "oap" ? "OS" : "WP";
+      var e = g.exo;
+      show.s1 = !st ? (e ? "EX" : "") : st.src === "mk" ? "MK" : st.src === "atk" ? "AT" : st.src === "oap" ? "OS" : "WP";
       show.s2 = st ? String(st.src === "atk" ? g.idx + 1 : st.num || "").slice(0, 2) : "";
       show.num = st ? (g.dist != null ? (g.dist / 1000).toFixed(g.dist >= 1e5 ? 0 : 1) + "KM" : st.label.slice(0, 8)) : "NO STR";
+      if (!st && e) {   // (sampling, with no steer-to point: the sample count, and how much further to go - or CLEAR)
+        show.s2 = String(e.x.n || e.x.samples.length);
+        show.num = e.near == null || !e.x.range ? "SAMPLE" : e.near < e.x.range ? "GO " + Math.ceil(e.x.range - e.near) + "M" : "CLEAR";
+      }
       show.com1 = g.idx >= 0 ? String(g.idx + 1) : "";
       show.com2 = g.seq === "atk" ? "A" : g.seq === "none" ? "" : g.seq;
     }

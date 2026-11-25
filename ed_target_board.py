@@ -505,6 +505,20 @@ target boxed):
   rest - a bad sighting?) and DEL. Up to 10 are kept (an 11th: the oldest goes); they're
   the board's, on the body they're taken on (one taken on another body starts again),
   until CLEAR ALL (twice). DESIG makes the point a mark at once, and designates it.
+  CODE: a waypoint or flight plan from a wingman, as a code (below) - type or paste it in the
+  box and LOAD (the box empty: LOAD takes this PC's clipboard), or LOAD one heard in the game's
+  chat: any code said to you there (by your wing, a friend, in the system - not by NPCs) is
+  listed, newest first, with who sent it, what it is and when (this run only; the newest 8). A
+  waypoint code adds the waypoint (made: Code), unless you have one there already; a flight
+  plan code adds its waypoints the same way and puts them, in order, in your first empty flight
+  plan (SEQ 1-3; none empty: it says so - clear one), and shows it; Atk's plan code loads as on
+  Atk. A code for a body that isn't in this system is refused, and so is a mistyped one.
+  Codes: each waypoint, mark and flight plan shows its own, with COPY (again within 2 minutes:
+  pasted into Elite - its chat box, say), to send to your wingman: a waypoint or mark is
+  FTW1/<body>/<lat>,<lon>,<name>/<check>, a flight plan FTP1/<body>/<lat>,<lon>,<name>/...
+  /<check> (up to 20 points). The name's left out where it's the usual "WPT n - <body>" (the one
+  loading it numbers it), and slashes and commas are taken out of names; the check is 4 hex
+  digits of a CRC of the rest, as Atk's FT1 plan code, so a mistyped code is refused.
   A waypoint: its body, position, how and when it was made, its offset aimpoint and the
   flight plans it's in; EDIT (its name and coordinates, as MANUAL's - the body stays),
   DESIGNATE (it's the target; again: its offset aimpoint, if it has one; again:
@@ -526,15 +540,17 @@ target boxed):
   (HH:MM:SS), and GSPD, the ground speed (knots) for the last leg, from the waypoint before it
   (the IP) to the TGT. TOT and GSPD can't be set without a TGT. Plans sharing waypoints keep
   their own. The HSI then times you to it (see HSI).
-On the UFC (page menu), COMM1 steps through the left panel (MANUAL, OVERFLY, HUD VV, HUD X-B, your
-waypoints, marks and flight plans) and a pull picks one; COMM2 steps through the right panel's
+On the UFC (page menu), COMM1 steps through the left panel (MANUAL, OVERFLY, HUD VV, HUD X-B, CODE,
+your waypoints, marks and flight plans) and a pull picks one; COMM2 steps through the right panel's
 controls and a pull presses one; DSG (Opt4) designates what COMM1 has highlighted. In a flight
 plan, COMM2 steps through its waypoints, ADD WP #, SET TGT, TOT, GSPD and the buttons: a pull on
 a waypoint grabs it (picked, and lit) - COMM2 then moves it up and down the plan, and a pull
 lets go; on ADD WP #, TOT and GSPD the keypad types (shown on the scratchpad: TOT's digits fill
 HH:MM:SS), ENT (or a pull) takes it and CLR clears it (again, with nothing typed: clears the
 plan's TOT or GSPD). In HUD X-B, COMM2 steps through TAKE BEARING, DESIG, CLEAR ALL and the
-bearings (a pull on one deletes it). ENT opens
+bearings (a pull on one deletes it); in CODE, through LOAD (the box empty: the clipboard) and the
+codes heard in chat (a pull loads one); a waypoint's, mark's and flight plan's COPY is the last of
+their buttons. ENT opens
 what COMM1 has highlighted on the UFC, as the Hornet's UFC pushbutton does: the option windows
 take its fields - a waypoint: POSN NAME O/S DEL; a mark: POSN STOR DEL; a flight plan: INS
 AFT DEL CLR ACT. Press one (the ':' goes beside it) and type: POSN the latitude then the
@@ -568,6 +584,19 @@ the TGT on the TOT (on that leg, or with no GSPD: to the TGT) - and how early or
 at your ground speed now (the Hornet's early / late caret). AUTO steps the steer-to point on along the plan when you're within 3 s (400 m at
 least) of it, or once you've flown past it close by. Your position: Traj's filter. (The HSI
 flies a plan as it is: plans are put in order on Wpt.)
+Exobiology: sampling a species with the genetic sampler (the journal's ScanOrganic: Log is the
+first sample, Sample the second and third, Analyse once it's done), each sample is on the map
+where you took it (Status.json's position then: S1-S3), ringed at its genus's colony range - how
+far the next sample must be from every one before it (Bacterium 500 m, Osseus 800 m, Electricae
+1 km... EXOBIO_RANGES in this script) - amber while you're inside it, too close; the map is on the
+body you're on while you sample (a plan on another body: the chip over the map says where it is),
+and the automatic scale fits the samples and their rings while you're within 5 km of one. The
+panel gives the species, the samples taken, the colony range, how far you are from the nearest
+and how much further to GO (CLEAR once you're clear of them all; ANALYSING once the third is in);
+with no steer-to point, the scratchpad shows it too: EX, the count, GO and the metres
+still to go - or CLEAR. Once it's analysed, ANALYSED and the species while you're on that body.
+Logging a different species starts again, as the game does; dying loses it. Only samples taken
+while the FT3000 runs have positions (a restart keeps them: exobio.json).
 The timer, bottom left of the map (under the rose), works as the T-6A's clock: ET / CD is its
 SEL - the stopwatch (ET, counting up) or the countdown (CD) - and the time its CTL: start it,
 and again reset it (the stopwatch to zero; the countdown cleared, to set again). A countdown
@@ -595,9 +624,8 @@ top: over the top-down view, the destination - 1 SYST SEL (the planetary facilit
 or your own target, Nav > Syst has selected; in AUTO that's the nearest surface site once you're low)
 or DEST (the one you've targeted in the game: Status.json's Destination); in the
 middle, its name (and your pad, once docking's granted) and the phase you're in;
-over the side profile, the profiles (ENTRY 1; CIRCLE to come - the pop-up is Atk's attack
-plan). The
-phases, from Status.json's flags:
+over the side profile, the profiles (ENTRY 1 or CIRCLE, and CIRCLE's OVHD / STRT-IN - the
+pop-up is Atk's attack plan). The phases, from Status.json's flags:
   Orbital cruise: the pictures at 1,000 km, then 100 km inside 100 km; the vertical
   velocity check waits - ENTRY 1 starts at the glide.
   Glide, and flying on after it: the whole of ENTRY 1, at 30 km.
@@ -641,6 +669,30 @@ Below, two panels, half each:
   x tan 50 deg, against yours and the 10-60 degree window. (The path, its bounds and
   the course bounds are OPT, SHALLOW, STEEP and LAT in web/js/traj.js: the
   pictures and the words follow them.)
+  CIRCLE: a Heading Alignment Cone, after the Shuttle's - a tightening turn onto the course,
+  then a 20 degree outer glide slope (OGS) down it to the destination. WP2, the HAC's exit, is
+  4 km out along the course, 1.46 km up (4 km x tan 20); the HAC beside it turns you onto the
+  course there, its radius 2.5 km where you join it (WP1, where your line in meets it, tangent)
+  tightening to 1.5 km at WP2, in step with the turn still to go, descending at 14 degrees
+  (about 1 in 4) - and so the line in to WP1. OVHD puts the HAC on the side that gives the
+  bigger turn (overhead: past the destination and round), STRT-IN the smaller (straight in),
+  from where you are when it's armed: when you pick CIRCLE, flip OVHD / STRT-IN, change the
+  course or the destination, and all the while in orbital cruise; then it stays. It needs a
+  course: set none, it takes the bearing you have to the destination when you pick it (as the
+  glide does; ENTRY 1 again drops it). Three stages: ACQ (fly the line to WP1: its bearing and
+  range, the turn it gives, the side), HAC (on it once you're within 400 m of WP1 - or 4 s at
+  your ground speed - or inside it: the turn still to go, the HAC's radius there and how far in
+  or out of it you are, the path to WP2), OGS (past WP2: the course, as ENTRY 1's - bearing,
+  range, deviation, cross-track); the final approach, within 3 km, only from the OGS (the HAC
+  can pass that close). The top-down view draws the HAC (what you've flown of it dimmed), WP1,
+  WP2, the OGS and your line in; the side profile is the path to the destination unrolled
+  round the HAC: the reference altitude - the OGS up to WP2, then 14 degrees on round the HAC
+  and out - with its band (8%, or 60 m if more), WP2 and WP1 along it, and you. The readouts:
+  your altitude and the reference's, how far above or below it (HIGH / LOW, amber; red past
+  three times the band), the descent rate it needs (your ground speed x tan 14 deg - tan 20 on
+  the OGS: the vertical velocity panel shows it, in a +-6 degree window), the path still to go
+  and the time it takes. The pictures are at 10 km while you fly it near the destination (3 km
+  on the final approach). Its numbers are HAC in web/js/traj.js.
   (An ILS and a highway in the sky are drawn in a middle column, off for now:
   SHOW_MID in web/js/traj.js. The ILS's localiser full scale is the course bounds;
   its glide slope is split, full deflection down at the 60 degree bound and full up
@@ -677,8 +729,8 @@ On the UFC (page menu), COMM1 - the left knob - steps between the course box, th
 view switch and the destination switch; a pull on the course box grabs it, then
 each click turns the course - 1 degree turned slowly, 2, 5 and 10 degrees a click
 as you turn faster - until a pull lets it go; a pull on a switch flips it. COMM2
-steps between ENTRY 1 and RESET SCALE (CIRCLE and POP-UP join it when they come)
-and a short pull picks or presses; the COMM1 VOLUME dial zooms. With the mouse: click the course box to grab it, then
+steps across ENTRY 1, CIRCLE (with CIRCLE, then OVHD / STRT-IN) and RESET SCALE, and a short
+pull picks or presses (on OVHD / STRT-IN: flips it); the COMM1 VOLUME dial zooms. With the mouse: click the course box to grab it, then
 scroll (or < and >).
 
 Attack: the plan, and mine release (Nav > Atk)
@@ -963,6 +1015,7 @@ across (the old copies are left there - a backup, safe to delete):
     edsm_cache.json         the system data cache (Spansh's and EDSM's)
     target_backstories.json the backstories written           ocor_briefing.json   the OCOR briefing
     uplink_settings.json    the Spansh / EDSM Uplink switches  remote_system.json   1 Syst's REMOTE system
+    exobio.json             the species you're sampling and where you took each sample (2 Nav > HSI's rings)
     controls.json           your controls, where they differ from the UFC's own layout (4 Setup > Controls)
     settings.json           what the FT3000 starts with (4 Setup > Settings)
     ufc_axes.json           where your UFC's dials are, if --ufc-learn found them
@@ -973,7 +1026,8 @@ How it fits together, for changing it:
   * What the board knows lives in BoardState, split by area: Commander (you, your
     ship, the session log), Place (where you are), Contracts (missions, scans,
     backstories), Vehicles (changing vehicle, start-up), Jumps (route, hyperspace,
-    fuel) and SystemTab (Syst's data). Each area handles the journal
+    fuel), Exobio (the species you're sampling), ChatCodes (codes heard in the game's
+    chat) and SystemTab (Syst's data). Each area handles the journal
     events it cares about in methods named on_<Event>; BoardState.apply sends each
     event to every area that has one. snapshot() is what the page is sent. Beside
     them, JournalRecords and JournalHistory keep what all your journals say (the
@@ -1070,7 +1124,7 @@ from urllib.parse import parse_qs, quote
 # --------------------------------------------------------------------------- #
 # Settings
 # --------------------------------------------------------------------------- #
-VERSION = "3.02.02"   # the FT3000's version: + 0.00.01 each build (after .99, the middle number goes up)
+VERSION = "3.02.03"   # the FT3000's version: + 0.00.01 each build (after .99, the middle number goes up)
 PROJECT_URL = "https://github.com/bigronny/ED-UCEC-FT3000"   # the project's home page: shown on 4 Setup, and sent to Spansh/EDSM
 
 
@@ -4675,6 +4729,130 @@ class DockHeading:
         return None
 
 
+# 2 Nav > HSI's exobiology rings. A species takes three samples with the genetic sampler, each clear of the others by its
+# genus's colony range (metres). Found by a word in the genus's name - the game's own ($Codex_Ent_Bacterial_Genus_Name;)
+# first, then as shown (Bacterium) - in this order (Tubus before the legacy Sinuous Tubers' "tube").
+EXOBIO_RANGES = (("aleoid", 150), ("bacteri", 500), ("cactoid", 300), ("clypeus", 150), ("concha", 150),
+                 ("electricae", 1000), ("fonticul", 500), ("shrub", 150), ("frutexa", 150), ("fumerol", 100),
+                 ("fungoid", 300), ("osseus", 800), ("recepta", 150), ("stratum", 500), ("tubus", 800),
+                 ("tussock", 200),
+                 ("vents", 100), ("amphora", 100), ("sphere", 100), ("anemone", 100), ("cone", 100), ("bark", 100),
+                 ("seed", 100), ("brancae", 100), ("brain", 100), ("ground_struct_ice", 100), ("shard", 100),
+                 ("tube", 100), ("tuber", 100))
+EXOBIO_SAMPLES = 3        # samples to a species: Log (the first), Sample (the second and third), then Analyse when it's done
+EXOBIO_FILE = DATA_DIR / "exobio.json"   # the species you're sampling and where each sample was taken (a restart keeps them)
+
+
+def exobio_range(genus, shown=""):
+    """A genus's colony range in metres (None: not known) - from its name in the journal or as shown."""
+    for name in (genus, shown):
+        low = str(name or "").lower()
+        for word, metres in EXOBIO_RANGES:
+            if word in low:
+                return metres
+    return None
+
+
+class Exobio:
+    """The species you're sampling with the genetic sampler (ScanOrganic: Log is the first sample, Sample the second and
+    third, Analyse once it's done), where you took each one - Status.json's position at the time - and its genus's colony
+    range: 2 Nav > HSI rings each sample with it, and says how far you are from the nearest. Live events only (one read
+    back at start-up has no position); kept in exobio.json, so a restart in the middle keeps the rings. Logging a
+    different species starts again, as the game does (it drops the one you were on); dying loses it."""
+
+    def __init__(self, board, path=None):
+        self.board, self.path = board, path
+        self.cur = None    # {"system", "body", "genus", "species", "range", "n": samples taken, "samples": [{"n", "lat", "lon", "t"}]}
+        self.last = None   # the species analysed last: {"system", "body", "species", "t"}
+        try:
+            saved = json.loads(path.read_text(encoding="utf-8")) if path else {}
+            saved = saved if isinstance(saved, dict) else {}
+            self.cur = saved.get("cur") if isinstance(saved.get("cur"), dict) else None
+            self.last = saved.get("last") if isinstance(saved.get("last"), dict) else None
+            if self.cur and not isinstance(self.cur.get("samples"), list):
+                self.cur = None
+        except FileNotFoundError:
+            pass
+        except (OSError, ValueError) as exc:
+            log(f"Exobiology file unreadable ({exc}); starting afresh.")
+
+    def _save(self):   # (under the board's lock: a few hundred bytes)
+        if not self.path:
+            return
+        try:
+            tmp = self.path.with_suffix(".tmp")
+            tmp.write_text(json.dumps({"cur": self.cur, "last": self.last}), encoding="utf-8")
+            os.replace(tmp, self.path)
+        except OSError as exc:
+            log(f"Couldn't save the exobiology samples ({exc}).")
+
+    def on_ScanOrganic(self, ev, ts):
+        if not self.board.fresh(ts):
+            return
+        kind = str(ev.get("ScanType") or "")
+        species = clean(ev.get("Species_Localised") or ev.get("Species"))[:120]
+        genus = clean(ev.get("Genus_Localised") or ev.get("Genus"))[:80]
+        st = self.board.status or {}
+        body = clean(st.get("BodyName") or self.board.place.body)[:200]
+        system = clean(self.board.place.system)[:200]
+        if kind == "Analyse":
+            if self.cur and self.cur.get("species") == species:
+                self.cur = None
+            self.last = {"system": system, "body": body, "species": species, "t": ts}
+            self.board.log(ts, "EXO", f"{species} analysed")
+            self._save()
+            return
+        if kind not in ("Log", "Sample") or not species:
+            return
+        c = self.cur
+        if kind == "Log" or not c or c.get("species") != species or str(c.get("body") or "").lower() != body.lower():
+            c = self.cur = {"system": system, "body": body, "genus": genus, "species": species,
+                            "range": exobio_range(ev.get("Genus"), ev.get("Genus_Localised")),
+                            "n": 1 if kind == "Log" else 2, "samples": []}   # (a Sample first: the Log was before we were watching)
+        else:
+            c["n"] = min(EXOBIO_SAMPLES, int(c.get("n") or 0) + 1)
+        lat, lon = st.get("Latitude"), st.get("Longitude")
+        if isinstance(lat, (int, float)) and isinstance(lon, (int, float)) and not isinstance(lat, bool) \
+                and str(st.get("BodyName") or "").lower() == body.lower():
+            c["samples"].append({"n": c["n"], "lat": round(float(lat), 6), "lon": round(float(lon), 6), "t": ts})
+        self.board.log(ts, "EXO", f"{species}: sample {c['n']} of {EXOBIO_SAMPLES}"
+                       + (f" (colony range {c['range']} m)" if c.get("range") else ""))
+        self._save()
+
+    def on_Died(self, ev, ts):   # the samples go with you
+        if self.cur and self.board.fresh(ts):
+            self.cur = None
+            self._save()
+
+    def view(self):
+        return {"cur": dict(self.cur, need=EXOBIO_SAMPLES, samples=list(self.cur.get("samples") or [])) if self.cur else None,
+                "last": dict(self.last) if self.last else None}
+
+
+class ChatCodes:
+    """Codes heard in the game's chat (ReceiveText: from your wing, a friend, the system...): waypoint and flight plan codes
+    and Atk's plan codes, for 2 Nav > Wpt's CODE to LOAD with a press. Live only, the newest SHARE_HEARD, this run only."""
+
+    def __init__(self, board):
+        self.board, self.heard, self.n = board, [], 0
+
+    def on_ReceiveText(self, ev, ts):
+        if not self.board.fresh(ts) or str(ev.get("Channel") or "").lower() == "npc":
+            return
+        who = clean(ev.get("From_Localised") or ev.get("From"))[:60]
+        for code, got in find_share_codes(ev.get("Message")):
+            self.n += 1
+            self.heard = [h for h in self.heard if h["code"].upper() != code.upper()]   # (said again: the newest)
+            self.heard.append({"id": self.n, "code": code, "kind": got["kind"], "body": got.get("body", ""), "pts": len(got.get("pts") or []),
+                               "from": who, "channel": clean(ev.get("Channel"))[:20], "t": ts})
+            self.heard = self.heard[-SHARE_HEARD:]
+            what = {"wpt": "a waypoint", "plan": "a flight plan", "atk": "an attack plan"}[got["kind"]]
+            self.board.log(ts, "CODE", f"{who or 'Someone'} sent {what} code (Nav > Wpt > Code)")
+
+    def view(self):
+        return [dict(h) for h in reversed(self.heard)]   # (the newest first)
+
+
 class Contracts:
     """Every mission you hold (Contracts > Active), the ship scans of your targets, and their backstories."""
 
@@ -5532,6 +5710,91 @@ def parse_plan_code(text):
             "cs": m.group(1), "role": int(m.group(2))}, ""
 
 
+# 2 Nav > Wpt's shared codes: a waypoint (or mark) or a flight plan as a line of text, as Atk's plan code (FT1) - to read
+# out, paste into the game's chat, or COPY / LOAD. FTW1/body/lat,lon,name/check (the name's left out where it's the usual
+# "WPT n - body": the one loading it numbers it), FTP1/body/lat,lon,name/lat,lon,name/.../check - the check as FT1's.
+SHARE_WPT_TAG, SHARE_PLAN_TAG = "FTW1", "FTP1"
+SHARE_PLAN_MAX = 20       # points a flight plan code can carry
+SHARE_HEARD = 8           # codes heard in the game's chat that are kept (the newest; this run only)
+
+
+def _share_check(head):
+    import zlib
+    return f"{zlib.crc32(head.upper().encode('utf-8')) & 0xFFFF:04X}"
+
+
+def _share_name(name):
+    """A name as a code carries it: no slashes or commas (they divide the code), 40 characters at most."""
+    return " ".join(str(name or "").replace("/", " ").replace(",", " ").split())[:40]
+
+
+def _share_point(lat, lon, name=""):
+    nm = _share_name(name)
+    return f"{lat:.5f},{lon:.5f}" + (f",{nm}" if nm else "")
+
+
+def waypoint_code(body, lat, lon, name=""):
+    """A waypoint (or a mark) as a code: FTW1/body/lat,lon[,name]/check."""
+    head = "/".join([SHARE_WPT_TAG, body, _share_point(lat, lon, name)])
+    return f"{head}/{_share_check(head)}"
+
+
+def flight_plan_code(body, pts):
+    """A flight plan as a code: FTP1/body/lat,lon[,name]/.../check - pts [(lat, lon, name)], in order (SHARE_PLAN_MAX at
+    most). None if there are none, or too many."""
+    if not pts or len(pts) > SHARE_PLAN_MAX:
+        return None
+    head = "/".join([SHARE_PLAN_TAG, body] + [_share_point(*p) for p in pts])
+    return f"{head}/{_share_check(head)}"
+
+
+def parse_share_code(text):
+    """A waypoint or flight plan code: ({"kind": "wpt" | "plan", "body", "pts": [{"lat", "lon", "name"}]}, "") - Atk's
+    plan code (FT1): ({"kind": "atk"}, ""); else (None, why)."""
+    text = str(text or "").strip()
+    parts = [" ".join(p.split()) for p in text.split("/")]
+    tag = parts[0].upper() if parts else ""
+    if tag == PLAN_CODE_TAG:
+        got, why = parse_plan_code(text)
+        return ({"kind": "atk"}, "") if got else (None, why)
+    if tag not in (SHARE_WPT_TAG, SHARE_PLAN_TAG) or len(parts) < 4:
+        return None, "not a waypoint or flight plan code"
+    head, chk = "/".join(parts[:-1]), parts[-1].upper()
+    if _share_check(head) != chk:
+        return None, "check failed - mistyped?"
+    body, raw = parts[1], parts[2:-1]
+    if not body or (tag == SHARE_WPT_TAG and len(raw) != 1) or len(raw) > SHARE_PLAN_MAX:
+        return None, "not a code this board knows"
+    pts = []
+    for r in raw:
+        f = r.split(",")
+        try:
+            lat, lon = float(f[0]), float(f[1])
+        except (ValueError, IndexError):
+            return None, "not a code this board knows"
+        if not (math.isfinite(lat) and math.isfinite(lon) and -90 <= lat <= 90 and -180 <= lon <= 180):
+            return None, "not a code this board knows"
+        pts.append({"lat": round(lat, 6), "lon": round(lon, 6), "name": _share_name(",".join(f[2:]))})
+    return {"kind": "wpt" if tag == SHARE_WPT_TAG else "plan", "body": body, "pts": pts}, ""
+
+
+_SHARE_START = re.compile(r"\bFT[WP]?1/", re.I)
+_SHARE_END = re.compile(r"/[0-9A-Fa-f]{4}(?=$|[\s.,;:!?)\]'\"])")
+
+
+def find_share_codes(message):
+    """The codes in a chat message (FT1, FTW1, FTP1 - each checked), in order: [(code, parsed)]."""
+    out, msg = [], str(message or "")[:2000]
+    for m in _SHARE_START.finditer(msg):
+        for e in _SHARE_END.finditer(msg, m.start()):   # (a body's name has spaces: the code runs to the first check that's right)
+            code = msg[m.start():e.end()]
+            got, _ = parse_share_code(code)
+            if got:
+                out.append((code, got))
+                break
+    return out
+
+
 def get_clipboard() -> str:
     """The text on this PC's clipboard (Windows); elsewhere what set_clipboard remembered. "" if there's none."""
     if sys.platform != "win32":
@@ -5714,6 +5977,24 @@ class NavBoard:
             b = dict(built)
             b["code"] = plan_code(b["tgt"]["body"], b["tgt"], b["hdg"], b["kts"], b["base"], b["step"], b["profile"], b["cs"], plan["role"])
             out["built"] = b
+        out["codes"] = self._codes(system, tgts, marks, seqs)   # (Wpt's COPY: each waypoint, mark and flight plan as a code)
+        out["heard"] = self.board.chat_codes.view() if getattr(self.board, "chat_codes", None) else []   # codes heard in the game's chat
+        return out
+
+    @staticmethod
+    def _codes(system, tgts, marks, seqs):
+        """Each waypoint (t12), mark (mk3) and flight plan ("seq": {"1": code or None...}) as a code to share. A waypoint's
+        usual name ("WPT n - body") is left out: the one loading it numbers it."""
+        def name(t):
+            return "" if t["name"] == f"WPT {t['num']} - {_short_name(t['body'], system)}" else t["name"]
+        by = {t["key"]: t for t in tgts}
+        out = {t["key"]: waypoint_code(t["body"], t["lat"], t["lon"], name(t)) for t in tgts}
+        out.update({m["key"]: waypoint_code(m["body"], m["lat"], m["lon"]) for m in marks})
+        plans = {}
+        for i in range(1, SEQ_COUNT + 1):
+            pts = [by[k] for k in seqs.get(str(i), []) if k in by]
+            plans[str(i)] = flight_plan_code(pts[0]["body"], [(t["lat"], t["lon"], name(t)) for t in pts]) if pts else None
+        out["seq"] = plans
         return out
 
     # ---- ops: from the page (POST /api/nav) and the UFC ----
@@ -6011,6 +6292,48 @@ class NavBoard:
             return 200, {"ok": True}, True
         if kind == "build":   # Atk's BUILD: the plan's points round the target, for both roles; the HSI flies yours (ATK)
             return self._build(rec, tgts, pts, planets, None)
+        if kind == "share":   # {"code"} or {"clip": true}: a waypoint code (a waypoint here - or the one you have there already),
+            # a flight plan code (its waypoints, into the first empty SEQ - or "seq": 1-3, in place of what's in it) or Atk's plan code (as "load")
+            text = get_clipboard() if body.get("clip") else body.get("code")
+            got, why = parse_share_code(text if isinstance(text, str) else "")
+            if not got:
+                return 400, {"ok": False, "why": why}, False
+            if got["kind"] == "atk":
+                code, answer, save = self._op("load", {"code": text}, rec, tgts, system, planets, entries, num, integer)
+                return code, dict(answer, kind="atk"), save
+            b = planets.get(got["body"].lower())
+            if not b:
+                return bad(f"{got['body']} isn't in this system")
+            s = None
+            if got["kind"] == "plan":
+                have = {t["id"] for t in tgts}
+                if body.get("seq") is not None:
+                    s = integer(body.get("seq"))
+                    if s is None or not 1 <= s <= SEQ_COUNT:
+                        return bad("seq")
+                else:
+                    s = next((i for i in range(1, SEQ_COUNT + 1) if not [x for x in (rec.get("seqs") or {}).get(str(i), []) if x in have]), None)
+                    if s is None:
+                        return 409, {"ok": False, "why": "no empty flight plan - clear a SEQ first"}, False
+            ids, added, made = [], 0, []
+            for p in got["pts"]:
+                t = next((t for t in tgts if t["body"].lower() == b["name"].lower()
+                          and abs(t["lat"] - p["lat"]) < 6e-6 and abs(t["lon"] - p["lon"]) < 6e-6), None)   # (yours already)
+                if not t:
+                    t = self._store().add_target(system, b["name"], _short_name(b["name"], system), p["lat"], p["lon"], "code", p["name"])
+                    if not t:
+                        return 500, {"ok": False, "why": "couldn't save"}, False
+                    tgts.append(t)
+                    added += 1
+                if t["id"] not in ids:
+                    ids.append(t["id"])
+                    made.append(t)
+            if got["kind"] == "wpt":
+                t = made[0]
+                return 200, {"ok": True, "kind": "wpt", "key": t["key"], "num": t["num"], "name": t["name"], "added": added}, False
+            rec.setdefault("seqs", {})[str(s)] = ids
+            (rec.get("tots") or {}).pop(str(s), None)   # (what was in it before: its TOT went with it)
+            return 200, {"ok": True, "kind": "plan", "seq": str(s), "keys": [f"t{i}" for i in ids], "added": added}, True
         if kind == "load":   # {"code"} or {"clip": true} (this PC's clipboard): a plan from your wingman, built here
             text = get_clipboard() if body.get("clip") else body.get("code")
             got, why = parse_plan_code(text if isinstance(text, str) else "")
@@ -6088,7 +6411,7 @@ class BoardState:
     """Everything the board knows, by area (see above), under one lock. apply() takes each
     journal event to the areas that handle it; snapshot() is what the page is sent."""
 
-    def __init__(self, cache_file: Path):
+    def __init__(self, cache_file: Path, exobio_file: Path = None):
         self.lock = threading.RLock()
         self.live = False           # set once the journal history has been read; later events are live
         self.note = "Reading journal..."
@@ -6116,8 +6439,10 @@ class BoardState:
         self.dock_heading = DockHeading(self)
         self.systab = SystemTab(self)
         self.nav = NavBoard(self)   # 2 Nav's marks, flight plans, steer-to point, designated target and attack plan
+        self.exobio = Exobio(self, exobio_file)   # the species you're sampling (2 Nav > HSI's rings), kept in exobio_file
+        self.chat_codes = ChatCodes(self)         # waypoint, flight plan and attack plan codes heard in the game's chat (2 Nav > Wpt)
         # the order the areas see an event in (Commander before Place, so the log's UNDOCK line can still name the station you left)
-        self.areas = (self.cmdr, self.place, self.contracts, self.vehicles, self.jumps, self.dock_heading)
+        self.areas = (self.cmdr, self.place, self.contracts, self.vehicles, self.jumps, self.dock_heading, self.exobio, self.chat_codes)
         self._handlers = {}
 
     def viewed_system(self):
@@ -6218,6 +6543,7 @@ class BoardState:
                 "remote": self.remote_view(),   # (1 Syst on a remote system: the strip says so)
                 "star_pos": self.place.star_pos, "jump_range": self.cmdr.jump_range,
                 "jump": self.jumps.view(),
+                "exo": self.exobio.view(),   # the species you're sampling: 2 Nav > HSI's rings
                 "schematics": self.schematics.summary() if self.schematics else {},   # layouts for each settlement economy
                 "hist": self.history.summary() if self.history else {},   # the history pages' lists: changed? (and the old journals' reading)
                 "version": VERSION,
@@ -9121,7 +9447,7 @@ KEYPAD_KEYS = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Clr", "Ent")
 KEYPAD_KEEP = 24   # keys the bus keeps for a page that missed a push
 TIMER_IDLE = {"mode": "et", "run": False, "t0": None, "cd": None, "ack": False}   # the HSI's timer at start-up: the stopwatch, at zero
 TIMER_MAX = 99 * 3600 + 59 * 60 + 59   # the longest countdown (s): 99:59:59
-TARGET_METHODS = {"manual": "Manual", "overfly": "Overfly", "desig": "HUD VV", "xb": "HUD X-B"}   # how a target of yours was made (2 Nav > Wpt)
+TARGET_METHODS = {"manual": "Manual", "overfly": "Overfly", "desig": "HUD VV", "xb": "HUD X-B", "code": "Code"}   # how a target of yours was made (2 Nav > Wpt; "code": loaded from a shared code)
 
 WEB_DIR = SCRIPT_DIR / "web"   # the page: index.html, style.css, js/ and the font, next to this script
 WEB_TYPES = {".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8",
@@ -9529,6 +9855,7 @@ class Handler(BaseHTTPRequestHandler):
             #   "steer" {"key"} or {"step": +-n: the HSI's COMM2}, "auto" {"from"}: AUTO sequencing's next point, "automode" {"on"}
             #   "tot" {"seq": 1-3, "tgt"?: a waypoint in it, "tot"?: Zulu seconds into the day, "gspd"?: knots} (null: none)
             #   "plan" {"hdg", "kts", "base", "step", "role", "cs", "profile"}, "build", "load" {"code"} or {"clip": true}
+            #   "share" {"code"} or {"clip": true}, "seq"?: 1-3: a waypoint or flight plan code (or Atk's plan code) loaded
             #   any of them "u"?: the UFC press it answers ("c2:<COMM2 pull>", "k:<key>"...), acted on once whichever pages answer
             body = self._body() or {}
             code, answer = self.server.app[0].nav.op(body)
@@ -10295,7 +10622,7 @@ def main():
             log(f"Timing log on: {TIMING_FILE} (started afresh; open Nav > Atk with a target and fly a straight run)")
         except OSError as exc:
             log(f"Couldn't start the timing log ({TIMING_FILE}): {exc}")
-    state = BoardState(CACHE_FILE)
+    state = BoardState(CACHE_FILE, EXOBIO_FILE)
     journal_dir = Path(args.journal_dir).expanduser()
     state.records = JournalRecords(RECORDS_FILE)   # your journals' own records of systems, filled from the old ones once
     state.history = JournalHistory(state.records)  # and your history (Nav › Hist, Contracts › History), in the same file
